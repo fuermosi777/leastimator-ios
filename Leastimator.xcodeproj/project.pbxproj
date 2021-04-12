@@ -17,7 +17,7 @@
 		3F0E9FF526111F5500989D90 /* EditReadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0E9FF426111F5500989D90 /* EditReadingView.swift */; };
 		3F254BF625FF1E5C0014E8E5 /* EditVehicleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F254BF525FF1E5C0014E8E5 /* EditVehicleView.swift */; };
 		3F2F904E2623F37800835C5A /* UnitUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2F904D2623F37800835C5A /* UnitUtils.swift */; };
-		3F2F905A2623F83500835C5A /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2F90592623F83500835C5A /* Color+Extensions.swift */; };
+		3F2F906026241A8000835C5A /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2F905F26241A8000835C5A /* Color+Extensions.swift */; };
 		3F7E91A02611272D005141D6 /* ReadingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7E919F2611272D005141D6 /* ReadingList.swift */; };
 		3F94203025FDD6F60099BD08 /* LeastimatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F94202F25FDD6F60099BD08 /* LeastimatorApp.swift */; };
 		3F94203225FDD6F60099BD08 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F94203125FDD6F60099BD08 /* ContentView.swift */; };
@@ -75,7 +75,7 @@
 		3F0E9FF426111F5500989D90 /* EditReadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReadingView.swift; sourceTree = "<group>"; };
 		3F254BF525FF1E5C0014E8E5 /* EditVehicleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditVehicleView.swift; sourceTree = "<group>"; };
 		3F2F904D2623F37800835C5A /* UnitUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitUtils.swift; sourceTree = "<group>"; };
-		3F2F90592623F83500835C5A /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
+		3F2F905F26241A8000835C5A /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		3F7E919F2611272D005141D6 /* ReadingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingList.swift; sourceTree = "<group>"; };
 		3F94202C25FDD6F60099BD08 /* Leastimator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Leastimator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F94202F25FDD6F60099BD08 /* LeastimatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeastimatorApp.swift; sourceTree = "<group>"; };
@@ -155,8 +155,8 @@
 				3FB18B702623ECBF00EAFF39 /* SettingsView.swift */,
 				3F0E9FF426111F5500989D90 /* EditReadingView.swift */,
 				3F7E919F2611272D005141D6 /* ReadingList.swift */,
+				3F2F905F26241A8000835C5A /* Color+Extensions.swift */,
 				3F0E9FEA2611172900989D90 /* VehiclePresentation.swift */,
-				3F2F90592623F83500835C5A /* Color+Extensions.swift */,
 				3FCF586C2619815D00EE6C63 /* TimeInterval+Extensions.swift */,
 				3F0E9FEF26111ABC00989D90 /* ProgressCircle.swift */,
 				3F0E9FE52611092300989D90 /* VehicleAvatar.swift */,
@@ -350,7 +350,7 @@
 				3F0E9FDC2611028300989D90 /* ImagePicker.swift in Sources */,
 				3F0E9FF526111F5500989D90 /* EditReadingView.swift in Sources */,
 				3F0E9FE1261107E900989D90 /* UIImage+Extensions.swift in Sources */,
-				3F2F905A2623F83500835C5A /* Color+Extensions.swift in Sources */,
+				3F2F906026241A8000835C5A /* Color+Extensions.swift in Sources */,
 				3F0E9FD22610F84300989D90 /* AppError.swift in Sources */,
 				3F0E9FF026111ABC00989D90 /* ProgressCircle.swift in Sources */,
 				3F7E91A02611272D005141D6 /* ReadingList.swift in Sources */,
