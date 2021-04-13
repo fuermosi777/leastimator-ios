@@ -72,19 +72,20 @@ struct EditVehicleView: View {
   
   var body: some View {
     NavigationView {
-      ScrollView {
+      ScrollView(showsIndicators: false) {
         Button(action: { self.showAvatarPicker = true }) {
           if let avatarData = avatar {
             VehicleAvatar(data: avatarData)
           } else {
             Label("Select vehicle photo", systemImage: "plus")
+              .padding(20.0)
           }
         }
         
         
         Group {
           LSTextField(label: "Nickname",
-                      placeholder: "My ride",
+                      placeholder: "My car",
                       keyboardType: .default,
                       value: $name)
           Divider()

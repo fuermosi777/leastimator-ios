@@ -31,7 +31,22 @@ struct ContentView: View {
       ScrollView(showsIndicators: false) {
         if vehicles.count == 0 {
           Button(action: { self.activeSheet = .vehicleCreation }) {
-            Label("Add vehicle", systemImage: "plus")
+            ZStack {
+              Image("CarOutline")
+                .renderingMode(.template)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 300)
+                .accentColor(.subText)
+                .opacity(0.3)
+              Image(systemName: "plus")
+                .frame(width: 100, height: 100, alignment: .center)
+                .overlay(
+                  Circle()
+                    .stroke(Color.accentColor, lineWidth: 1)
+                )
+                .padding()
+            }
           }
         } else {
           VStack(spacing: 10) {
