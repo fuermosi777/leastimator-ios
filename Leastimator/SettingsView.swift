@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-  var onDismiss: (_ deleted: Bool) -> Void
+  var onDismiss: () -> Void
   var body: some View {
     NavigationView {
       VStack(alignment: .leading, spacing: 10.0) {
@@ -34,7 +34,7 @@ struct SettingsView: View {
       .navigationBarTitle("Settings", displayMode: .inline)
       .navigationBarItems(
         leading:
-          Button(action: { self.onDismiss(false) }) {
+          Button(action: { self.onDismiss() }) {
             Image(systemName: "xmark")
           }
       )

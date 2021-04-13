@@ -85,6 +85,27 @@ struct VehiclePresentation: View {
     compute(vehicle, readings)
   }
   
+  var lengthUnit: LengthUnit {
+    get {
+      if let unit = LengthUnit(rawValue: vehicle.lengthUnit) {
+        return unit
+      } else {
+        return LengthUnit.mi
+      }
+    }
+  }
+  
+  var currency: Currency {
+    get {
+      if let curr = Currency(rawValue: vehicle.currency ?? "usd") {
+        return curr
+      } else {
+        return Currency.usd
+      }
+    }
+  }
+
+  
   private func compute(_ veh: Vehicle, _ readings: FetchedResults<Reading>) -> ExtendedVehicleInfo {
     var currentMileage: Int64 = veh.starting
     
@@ -102,16 +123,12 @@ struct VehiclePresentation: View {
     var mileagePerMonth: Int? = nil
     let usedMileage = Int(currentMileage - veh.starting)
     let usedDays =
-      (Date().timeIntervalSince1970 - veh.startDate!.timeIntervalSince1970).days
-    if usedDays != 0 {
-      mileagePerDay = Int(usedMileage / usedDays)
-      normalPredicatedMileage = Int(veh.lengthOfLease) / 12 * 365 * mileagePerDay!
-    }
+      max(1, (Date().timeIntervalSince1970 - veh.startDate!.timeIntervalSince1970).days)
+    mileagePerDay = Int(usedMileage / usedDays)
+    normalPredicatedMileage = Int(veh.lengthOfLease) / 12 * 365 * mileagePerDay!
     
-    let usedMonths = (Date().timeIntervalSince1970 - veh.startDate!.timeIntervalSince1970).months
-    if usedMonths != 0 {
-      mileagePerMonth = Int(usedMileage / usedMonths)
-    }
+    let usedMonths = max(1, (Date().timeIntervalSince1970 - veh.startDate!.timeIntervalSince1970).months)
+    mileagePerMonth = Int(usedMileage / usedMonths)
     
     var excessMileage: Int? = nil
     var excessCharge: Int? = nil
@@ -147,18 +164,26 @@ struct VehiclePresentation: View {
             VStack {
               Text("Estimate")
                 .font(.callout)
-                .foregroundColor(.gray)
+                .foregroundColor(.subText)
               Text("\(normalPredicatedMileage)")
                 .font(.title)
-              //              Text(LengthUnit(rawValue: vehicle.lengthUnit)!.longNames)
-              //                .font(.callout)
-              //                .foregroundColor(.gray)
+              Text(lengthUnit.longNames)
+                .font(.callout)
+                .foregroundColor(.subText)
             }
           }
           .frame(width: 150.0, height: 150.0)
           .padding(40.0)
         } else {
-          Text("Not enough data").padding(10.0)
+          ProgressCircle(progress: 0.0) {
+            VStack {
+              Text("Not enough data")
+                .font(.callout)
+                .foregroundColor(.subText)
+            }
+          }
+          .frame(width: 150.0, height: 150.0)
+          .padding(40.0)
         }
         
         
@@ -169,36 +194,32 @@ struct VehiclePresentation: View {
           }
           Divider()
           
-          if let readings = vehicle.readings {
-            if readings.count > 0 {
-              Button(action: { self.activeSheet = .readingList }) {
-                Label("Reading history", systemImage: "clock")
-              }
-              Divider()
-            }
+          Button(action: { self.activeSheet = .readingList }) {
+            Label("Reading history", systemImage: "clock")
           }
+          Divider()
         }
         
         // Basic info
         VStack(alignment: .leading) {
           HStack {
-            InfoPanel(title: "Current mileage", unit: "mi", value: String(extendedInfo.currentMileage))
-            InfoPanel(title: "Unused mileage", unit: "mi", value: String(extendedInfo.leftMileage))
+            InfoPanel(title: "Current mileage", unit: lengthUnit.shortFor, value: String(extendedInfo.currentMileage))
+            InfoPanel(title: "Unused mileage", unit: lengthUnit.shortFor, value: String(extendedInfo.leftMileage))
           }
           Divider()
           
           if let mileagePerDay = extendedInfo.mileagePerDay, let mileagePerMonth = extendedInfo.mileagePerMonth {
             HStack {
-              InfoPanel(title: "Daily behavior", unit: "mi", value: String(mileagePerDay))
-              InfoPanel(title: "Monthly behavior", unit: "mi", value: String(mileagePerMonth))
+              InfoPanel(title: "Daily behavior", unit: lengthUnit.shortFor, value: String(mileagePerDay))
+              InfoPanel(title: "Monthly behavior", unit: lengthUnit.shortFor, value: String(mileagePerMonth))
             }
             Divider()
           }
           
           if let excessMileage = extendedInfo.excessMileage, let excessCharge = extendedInfo.excessCharge {
             HStack {
-              InfoPanel(title: "Excess mileage", unit: "mi", value: String(excessMileage))
-              InfoPanel(title: "Excess charge", unit: "$", value: String(excessCharge))
+              InfoPanel(title: "Excess mileage", unit: lengthUnit.shortFor, value: String(excessMileage))
+              InfoPanel(title: "Excess charge", unit: currency.rawValue, value: String(excessCharge))
             }
             Divider()
           }
@@ -209,6 +230,10 @@ struct VehiclePresentation: View {
           Spacer()
           iLineChart(data: readings.map({ return Double($0.value) }),
                      title: "Mileage history",
+                     chartBackgroundGradient: GradientColor(start: .neonBlue, end: .clear),
+                     canvasBackgroundColor: .mainBg,
+                     titleColor: .mainText,
+                     numberColor: .subText,
                      displayChartStats: true,
                      minHeight: 100.0,
                      maxHeight: 100.0,
@@ -217,17 +242,24 @@ struct VehiclePresentation: View {
                      floatingPointNumberFormat: "%.0f")
             .frame(height: 100)
             .padding(.vertical, 50)
+          
+//          LineChartView(data: readings.map({ return Double($0.value) }),
+//                        title: "Mileage history",
+//                        style: lineStyle,
+//                        form: CGSize(width:360, height:240),
+//                        dropShadow: false,
+//                        valueSpecifier: "%.0f")
           Divider()
         }
         
         // More/other info
         VStack(alignment: .leading) {
           MoreInfoView(question: "What should my odometer read?",
-                       answer: "Your odometer should currently read less than \(extendedInfo.mileageShouldLessThan) miles.")
+                       answer: "Your odometer should currently read less than \(extendedInfo.mileageShouldLessThan) \(lengthUnit.longNames).")
           Divider()
           
           MoreInfoView(question: "How long can I drive today?",
-                       answer: "You can drive up to \(extendedInfo.maxDriveToday) miles today and still be on track.")
+                       answer: "You can drive up to \(extendedInfo.maxDriveToday) \(lengthUnit.longNames) today and still be on track.")
           Divider()
           
           MoreInfoView(question: "How long is my lease left?",
@@ -262,16 +294,8 @@ struct VehiclePresentation: View {
     }
   }
   
-  private func handleSheetDismiss(_ deleted: Bool) {
+  private func handleSheetDismiss() {
     activeSheet = nil
-    if deleted {
-      do {
-        try viewContext.save()
-      } catch {
-        // TODO: correctly handle this.
-        print(error)
-      }
-    }
   }
 }
 

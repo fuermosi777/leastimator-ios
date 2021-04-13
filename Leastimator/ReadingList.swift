@@ -12,7 +12,7 @@ struct ReadingList: View {
   
   let vehicle: Vehicle
   
-  var onDismiss: (_ deleted: Bool) -> Void
+  var onDismiss: () -> Void
   
   @FetchRequest
   private var readings: FetchedResults<Reading>
@@ -21,7 +21,7 @@ struct ReadingList: View {
   
   @State private var selectedReading: Reading?
   
-  init(vehicle: Vehicle, onDismiss: @escaping (_ deleted: Bool) -> Void) {
+  init(vehicle: Vehicle, onDismiss: @escaping () -> Void) {
     self.vehicle = vehicle
     self.onDismiss = onDismiss
     
@@ -35,16 +35,20 @@ struct ReadingList: View {
   var body: some View {
     NavigationView {
       VStack(spacing: 10.0) {
-        ForEach(self.readings) { rd in
-          if let date = rd.date, let value = rd.value {
-            Button(action: { self.selectedReading = rd }) {
-              HStack {
-                Text("\(value) MI").foregroundColor(.mainText)
-                Spacer()
-                Text("\(date.format())").foregroundColor(.subText)
+        if readings.count == 0 {
+          Text("You haven't added any readings yet.").foregroundColor(.subText)
+        } else {
+          ForEach(self.readings) { rd in
+            if let date = rd.date, let value = rd.value {
+              Button(action: { self.selectedReading = rd }) {
+                HStack {
+                  Text("\(value) MI").foregroundColor(.mainText)
+                  Spacer()
+                  Text("\(date.format())").foregroundColor(.subText)
+                }
               }
+              Divider()
             }
-            Divider()
           }
         }
         Spacer()
@@ -53,7 +57,7 @@ struct ReadingList: View {
       .navigationBarTitle("Reading history", displayMode: .inline)
       .navigationBarItems(
         leading:
-          Button(action: { self.onDismiss(false) }) {
+          Button(action: { self.onDismiss() }) {
             Image(systemName: "xmark")
           })
       .sheet(item: $selectedReading) { item in
@@ -64,14 +68,7 @@ struct ReadingList: View {
     }
   }
   
-  private func handleDismiss(_ deleted: Bool) {
+  private func handleDismiss() {
     selectedReading = nil
-    if deleted {
-      do {
-        try viewContext.save()
-      } catch {
-        print(error)
-      }
-    }
   }
 }

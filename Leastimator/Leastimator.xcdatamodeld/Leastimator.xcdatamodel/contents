@@ -13,12 +13,13 @@
         <attribute name="lengthOfLease" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="lengthUnit" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="removed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="starting" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="readings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Reading" inverseName="vehicle" inverseEntity="Reading"/>
     </entity>
     <elements>
         <element name="Reading" positionX="171.30224609375" positionY="162.8368530273438" width="128" height="74"/>
-        <element name="Vehicle" positionX="-63" positionY="-9" width="128" height="179"/>
+        <element name="Vehicle" positionX="-63" positionY="-9" width="128" height="194"/>
     </elements>
 </model>

@@ -29,7 +29,7 @@ struct EditVehicleView: View {
   
   // Optional. If not exist, then create a new vehicle.
   var vehicle: Vehicle?
-  var onDismiss: (_ deleted: Bool) -> Void
+  var onDismiss: () -> Void
   
   @State private var name: String
   @State private var starting: String
@@ -45,7 +45,7 @@ struct EditVehicleView: View {
   @State private var alertMessage: String?
   @State private var showAvatarPicker = false
   
-  init(vehicle: Vehicle? = nil, onDismiss: @escaping (_ deleted: Bool) -> Void) {
+  init(vehicle: Vehicle? = nil, onDismiss: @escaping () -> Void) {
     self.vehicle = vehicle
     _name = State(initialValue: vehicle?.name ?? "")
     _starting = State(initialValue: vehicle != nil ? String(vehicle!.starting) : "")
@@ -165,7 +165,7 @@ struct EditVehicleView: View {
                           displayMode: .inline)
       .navigationBarItems(
         leading:
-          Button(action: { self.onDismiss(false) }) {
+          Button(action: { self.onDismiss() }) {
             Image(systemName: "xmark")
           },
         trailing:
@@ -190,7 +190,7 @@ struct EditVehicleView: View {
       }
       .sheet(isPresented: $showAvatarPicker){
         ImagePicker(sourceType: .photoLibrary) {image in
-          let resized = image.resizeImage(CGFloat(40), opaque: true)
+          let resized = image.resizeImage(CGFloat(200), opaque: true)
           avatar = resized.pngData()
           showAvatarPicker = false
         }
@@ -200,8 +200,13 @@ struct EditVehicleView: View {
   
   private func handleDelete() {
     if let vehicle = self.vehicle {
-      viewContext.delete(vehicle)
-      self.onDismiss(true)
+      vehicle.removed = true
+      do {
+        try viewContext.save()
+      } catch {
+        print(error)
+      }
+      self.onDismiss()
     }
   }
   
@@ -235,6 +240,7 @@ struct EditVehicleView: View {
     vehicle.avatar = avatar
     vehicle.lengthUnit = lengthUnit.rawValue
     vehicle.currency = currency
+    vehicle.removed = false
     
     do {
       try viewContext.save()
@@ -242,6 +248,6 @@ struct EditVehicleView: View {
       throw AppError.failedContextSave
     }
     
-    self.onDismiss(false)
+    self.onDismiss()
   }
 }

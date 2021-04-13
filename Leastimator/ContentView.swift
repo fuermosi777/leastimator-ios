@@ -18,8 +18,9 @@ struct ContentView: View {
   @Environment(\.managedObjectContext) private var viewContext
   
   @FetchRequest(
+    entity: Vehicle.entity(),
     sortDescriptors: [NSSortDescriptor(keyPath: \Vehicle.name, ascending: true)],
-    animation: .default)
+    predicate: NSPredicate(format: "removed == nil OR removed == false"))
   private var vehicles: FetchedResults<Vehicle>
   
   @State private var activeSheet: ContentViewSheet?
@@ -68,16 +69,8 @@ struct ContentView: View {
     }  // NavigationView
   }
   
-  private func handleSheetDismiss(_ deleted: Bool) {
+  private func handleSheetDismiss() {
     activeSheet = nil
-    if deleted {
-      do {
-        try viewContext.save()
-      } catch {
-        // TODO: correctly handle this.
-        print(error)
-      }
-    }
   }
 }
 

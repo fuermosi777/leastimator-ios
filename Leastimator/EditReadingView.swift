@@ -12,7 +12,7 @@ struct EditReadingView: View {
   
   let vehicle: Vehicle
   let reading: Reading?
-  var onDismiss: (_ deleted: Bool) -> Void
+  var onDismiss: () -> Void
   
   @State private var date: Date
   @State private var readingValue: String
@@ -21,7 +21,7 @@ struct EditReadingView: View {
   @State private var alertMessage: String?
   
   
-  init(vehicle: Vehicle, reading: Reading? = nil, onDismiss: @escaping (_ deleted: Bool) -> Void) {
+  init(vehicle: Vehicle, reading: Reading? = nil, onDismiss: @escaping () -> Void) {
     self.onDismiss = onDismiss
     self.vehicle = vehicle
     self.reading = reading
@@ -62,7 +62,7 @@ struct EditReadingView: View {
                           displayMode: .inline)
       .navigationBarItems(
         leading:
-          Button( action: { self.onDismiss(false) }) {
+          Button( action: { self.onDismiss() }) {
             Image(systemName: "xmark")
           },
         trailing:
@@ -91,7 +91,12 @@ struct EditReadingView: View {
   private func handleDelete() {
     if let reading = self.reading {
       viewContext.delete(reading)
-      self.onDismiss(true)
+      do {
+        try viewContext.save()
+      } catch {
+        print(error)
+      }
+      self.onDismiss()
     }
   }
   
@@ -117,6 +122,6 @@ struct EditReadingView: View {
       throw AppError.failedContextSave
     }
     
-    self.onDismiss(false)
+    self.onDismiss()
   }
 }

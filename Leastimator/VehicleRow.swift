@@ -17,7 +17,7 @@ struct VehicleRow: View {
       VStack {
         Text(vehicle.name ?? "Unknown vehicle")
           .font(.system(size: 18, weight: .regular))
-          .foregroundColor(.black)
+          .foregroundColor(.mainText)
         // TODO: add current mileage
       }
     }

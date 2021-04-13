@@ -15,12 +15,12 @@ struct VehicleAvatar: View {
       Image(uiImage: UIImage(data: data) ?? UIImage())
         .resizable()
         .aspectRatio(contentMode: .fill)
-        .frame(width: 60, height: 60, alignment: .center)
-        .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
+        .frame(width: 64, height: 64, alignment: .center)
+        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
     } else {
       Image(systemName: "car")
-        .frame(width: 60, height: 60, alignment: .center)
-        .clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous))
+        .frame(width: 64, height: 64, alignment: .center)
+        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
     }
   }
 }
