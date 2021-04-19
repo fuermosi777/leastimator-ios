@@ -11,7 +11,7 @@ struct EditReadingView: View {
   @Environment(\.managedObjectContext) private var viewContext
   
   let vehicle: Vehicle
-  let reading: Reading?
+  let reading: OdoReading?
   var onDismiss: () -> Void
   
   @State private var date: Date
@@ -21,7 +21,7 @@ struct EditReadingView: View {
   @State private var alertMessage: String?
   
   
-  init(vehicle: Vehicle, reading: Reading? = nil, onDismiss: @escaping () -> Void) {
+  init(vehicle: Vehicle, reading: OdoReading? = nil, onDismiss: @escaping () -> Void) {
     self.onDismiss = onDismiss
     self.vehicle = vehicle
     self.reading = reading
@@ -108,7 +108,7 @@ struct EditReadingView: View {
       throw AppError.invalidInput(reason: "Odometer reading less than the starting mileage of this vehicle")
     }
     
-    let reading = self.reading ?? Reading(context: viewContext)
+    let reading = self.reading ?? OdoReading(context: viewContext)
     reading.date = date
     reading.value = Int64(value)
     

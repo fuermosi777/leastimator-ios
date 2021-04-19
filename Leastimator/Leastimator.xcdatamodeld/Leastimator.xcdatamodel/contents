@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
-    <entity name="Reading" representedClassName="Reading" syncable="YES" codeGenerationType="class">
+    <entity name="OdoReading" representedClassName="OdoReading" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="value" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="vehicle" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Vehicle" inverseName="readings" inverseEntity="Vehicle"/>
@@ -16,10 +16,10 @@
         <attribute name="removed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="starting" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="readings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Reading" inverseName="vehicle" inverseEntity="Reading"/>
+        <relationship name="readings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OdoReading" inverseName="vehicle" inverseEntity="OdoReading"/>
     </entity>
     <elements>
-        <element name="Reading" positionX="171.30224609375" positionY="162.8368530273438" width="128" height="74"/>
+        <element name="OdoReading" positionX="171.30224609375" positionY="162.8368530273438" width="128" height="74"/>
         <element name="Vehicle" positionX="-63" positionY="-9" width="128" height="194"/>
     </elements>
 </model>

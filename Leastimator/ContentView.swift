@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import RealmSwift
 
 enum ContentViewSheet: Identifiable {
   case vehicleCreation,
@@ -80,8 +81,59 @@ struct ContentView: View {
         case .settings:
           SettingsView(onDismiss: handleSheetDismiss)
         }
-      }
+      }.onAppear(perform: migrateRealm)
     }  // NavigationView
+  }
+  
+  private func migrateRealm() -> Void {
+    let isMigrated = UserDefaults.standard.bool(forKey: "legacy-realm-migration-completed")
+    if isMigrated { return }
+    
+    RealmMigrator.setDefaultConfiguration()
+    do {
+      let realm = try Realm()
+      let carResults: Results<Car> = realm.objects(Car.self)
+      
+      if carResults.count == 0 {
+        print("No legacy cars found. Stop.")
+        UserDefaults.standard.setValue(true, forKey: "legacy-realm-migration-completed")
+        return
+      }
+      
+      print("Found \(carResults.count) legacy cars. Start migrating.")
+      
+      for car in carResults {
+        let vehicle = Vehicle(context: viewContext)
+        vehicle.allowed = Int64(car.milesAllowed)
+        vehicle.fee = car.fee
+        vehicle.name = car.nickname
+        vehicle.starting = Int64(car.startingMiles)
+        vehicle.startDate = car.leaseStartDate
+        vehicle.lengthOfLease = Int64(car.lengthOfLease)
+        vehicle.lengthUnit = LengthUnit.mi.rawValue
+        vehicle.currency = Currency.usd.rawValue
+        vehicle.removed = false
+        
+        for legacyReading in car.readings {
+          let reading = OdoReading(context: viewContext)
+          reading.date = legacyReading.date
+          reading.value = Int64(legacyReading.value)
+          reading.vehicle = vehicle
+        }
+        
+        do {
+          try viewContext.save()
+          UserDefaults.standard.setValue(true, forKey: "legacy-realm-migration-completed")
+          
+          print("Migration completed")
+        } catch {
+          print("Failed to save context in the legacy Realm migration.")
+        }
+      }
+    } catch {
+      print(error)
+    }
+    
   }
   
   private func handleSheetDismiss() {

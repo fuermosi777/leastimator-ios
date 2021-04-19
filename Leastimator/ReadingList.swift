@@ -15,11 +15,11 @@ struct ReadingList: View {
   var onDismiss: () -> Void
   
   @FetchRequest
-  private var readings: FetchedResults<Reading>
+  private var readings: FetchedResults<OdoReading>
   
   @State private var showReadingEdition = false
   
-  @State private var selectedReading: Reading?
+  @State private var selectedReading: OdoReading?
   
   init(vehicle: Vehicle, onDismiss: @escaping () -> Void) {
     self.vehicle = vehicle
@@ -27,45 +27,47 @@ struct ReadingList: View {
     
     var predicate: NSPredicate?
     predicate = NSPredicate(format: "vehicle = %@", vehicle)
-    self._readings = FetchRequest(entity: Reading.entity(),
+    self._readings = FetchRequest(entity: OdoReading.entity(),
                                   sortDescriptors: [NSSortDescriptor(keyPath: \Reading.date, ascending: true)],
                                   predicate: predicate)
   }
   
   var body: some View {
     NavigationView {
-      VStack(spacing: 10.0) {
-        if readings.count == 0 {
-          Text("You haven't added any readings yet.").foregroundColor(.subText)
-        } else {
-          ForEach(self.readings) { rd in
-            if let date = rd.date, let value = rd.value {
-              Button(action: { self.selectedReading = rd }) {
-                HStack {
-                  Text("\(value) MI").foregroundColor(.mainText)
-                  Spacer()
-                  Text("\(date.format())").foregroundColor(.subText)
+      ScrollView {
+        VStack(spacing: 10.0) {
+          if readings.count == 0 {
+            Text("You haven't added any readings yet.").foregroundColor(.subText)
+          } else {
+            ForEach(self.readings) { rd in
+              if let date = rd.date, let value = rd.value {
+                Button(action: { self.selectedReading = rd }) {
+                  HStack {
+                    Text("\(value) MI").foregroundColor(.mainText)
+                    Spacer()
+                    Text("\(date.format())").foregroundColor(.subText)
+                  }
                 }
+                Divider()
               }
-              Divider()
             }
           }
+          Spacer()
         }
-        Spacer()
-      }
-      .padding(10.0)
-      .navigationBarTitle("Reading history", displayMode: .inline)
-      .navigationBarItems(
-        leading:
-          Button(action: { self.onDismiss() }) {
-            Image(systemName: "xmark")
-          })
-      .sheet(item: $selectedReading) { item in
-        EditReadingView(vehicle: vehicle,
-                        reading: item,
-                        onDismiss: handleDismiss)
-      }
-    }
+        .padding(10.0)
+        .navigationBarTitle("Reading history", displayMode: .inline)
+        .navigationBarItems(
+          leading:
+            Button(action: { self.onDismiss() }) {
+              Image(systemName: "xmark")
+            })
+        .sheet(item: $selectedReading) { item in
+          EditReadingView(vehicle: vehicle,
+                          reading: item,
+                          onDismiss: handleDismiss)
+        }  // VStack
+      }  // ScrollView
+    }  // NavigationView
   }
   
   private func handleDismiss() {

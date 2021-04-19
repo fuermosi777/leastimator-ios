@@ -69,16 +69,16 @@ struct VehiclePresentation: View {
   // Add ObservedObject make sure it gets updated data.
   @ObservedObject var vehicle: Vehicle
   
-  private var readingsRequest: FetchRequest<Reading>
-  private var readings: FetchedResults<Reading>{readingsRequest.wrappedValue}
+  private var readingsRequest: FetchRequest<OdoReading>
+  private var readings: FetchedResults<OdoReading>{readingsRequest.wrappedValue}
   
   @State var activeSheet: Sheet?
   
   init(vehicle: Vehicle) {
     self.vehicle = vehicle
-    self.readingsRequest = FetchRequest(entity: Reading.entity(),
-                                        sortDescriptors: [NSSortDescriptor(keyPath: \Reading.date, ascending: true)],
-                                        predicate: NSPredicate(format: "%K == %@", #keyPath(Reading.vehicle), vehicle))
+    self.readingsRequest = FetchRequest(entity: OdoReading.entity(),
+                                        sortDescriptors: [NSSortDescriptor(keyPath: \OdoReading.date, ascending: true)],
+                                        predicate: NSPredicate(format: "%K == %@", #keyPath(OdoReading.vehicle), vehicle))
   }
   
   var extendedInfo: ExtendedVehicleInfo {
@@ -104,9 +104,16 @@ struct VehiclePresentation: View {
       }
     }
   }
-
   
-  private func compute(_ veh: Vehicle, _ readings: FetchedResults<Reading>) -> ExtendedVehicleInfo {
+  var chartData: [Double] {
+    get {
+      var data = readings.map({ return Double($0.value) })
+      data.insert(Double(vehicle.starting), at: 0)
+      return data
+    }
+  }
+  
+  private func compute(_ veh: Vehicle, _ readings: FetchedResults<OdoReading>) -> ExtendedVehicleInfo {
     var currentMileage: Int64 = veh.starting
     
     if readings.count > 0 {
@@ -228,27 +235,21 @@ struct VehiclePresentation: View {
         // Mileage accumlation
         if readings.count > 0 {
           Spacer()
-          iLineChart(data: readings.map({ return Double($0.value) }),
-                     title: "Mileage history",
-                     chartBackgroundGradient: GradientColor(start: .neonBlue, end: .clear),
-                     canvasBackgroundColor: .mainBg,
-                     titleColor: .mainText,
-                     numberColor: .subText,
-                     displayChartStats: true,
-                     minHeight: 100.0,
-                     maxHeight: 100.0,
-                     titleFont: .system(size: 20, weight: .regular),
-                     dataFont: .system(size: 16, weight: .regular),
-                     floatingPointNumberFormat: "%.0f")
-            .frame(height: 100)
-            .padding(.vertical, 50)
+                    iLineChart(data: chartData,
+                               title: "Mileage history",
+                               chartBackgroundGradient: GradientColor(start: .neonBlue, end: .mainBg),
+                               canvasBackgroundColor: .mainBg,
+                               titleColor: .mainText,
+                               numberColor: .subText,
+                               displayChartStats: true,
+                               minHeight: 100.0,
+                               maxHeight: 100.0,
+                               titleFont: .system(size: 20, weight: .regular),
+                               dataFont: .system(size: 16, weight: .regular),
+                               floatingPointNumberFormat: "%.0f")
+                      .frame(height: 100)
+                      .padding(.vertical, 50)
           
-//          LineChartView(data: readings.map({ return Double($0.value) }),
-//                        title: "Mileage history",
-//                        style: lineStyle,
-//                        form: CGSize(width:360, height:240),
-//                        dropShadow: false,
-//                        valueSpecifier: "%.0f")
           Divider()
         }
         

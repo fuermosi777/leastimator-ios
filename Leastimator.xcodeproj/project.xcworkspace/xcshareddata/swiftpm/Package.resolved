@@ -3,20 +3,38 @@
     "pins": [
       {
         "package": "iColor",
-        "repositoryURL": "https://github.com/iSwiftUIHome/iColor.git",
+        "repositoryURL": "https://github.com/fuermosi777/iColor.git",
         "state": {
           "branch": null,
-          "revision": "3c2ae81be776ba4b26a0ca223f819c4d7676b5d4",
-          "version": "0.1.1"
+          "revision": "5acb0c9efe3b6ac1b6a5a878f418bbb39589f7d2",
+          "version": "0.1.3"
         }
       },
       {
         "package": "iLineChart",
-        "repositoryURL": "https://github.com/AlexFine/iLineChart",
+        "repositoryURL": "https://github.com/fuermosi777/iLineChart",
         "state": {
           "branch": null,
-          "revision": "683279134c561cfa59a4cee9ecdfab177858f4ed",
-          "version": "1.6.4"
+          "revision": "8262bf5b6337a2ec923b9156eb241e37e7e7cc20",
+          "version": "1.6.6"
+        }
+      },
+      {
+        "package": "Realm",
+        "repositoryURL": "https://github.com/realm/realm-cocoa.git",
+        "state": {
+          "branch": null,
+          "revision": "ae8e646590396dfc13c1abbf8aa2e48c43766dce",
+          "version": "10.7.2"
+        }
+      },
+      {
+        "package": "RealmDatabase",
+        "repositoryURL": "https://github.com/realm/realm-core",
+        "state": {
+          "branch": null,
+          "revision": "bab46acdca91c417a0d4849b8f4992a3c17e29a5",
+          "version": "10.5.5"
         }
       }
     ]
