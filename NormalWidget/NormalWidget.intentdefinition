@@ -3,7 +3,51 @@
 <plist version="1.0">
 <dict>
 	<key>INEnums</key>
-	<array/>
+	<array>
+		<dict>
+			<key>INEnumDisplayName</key>
+			<string>Primary Type</string>
+			<key>INEnumDisplayNameID</key>
+			<string>2HDUmx</string>
+			<key>INEnumGeneratesHeader</key>
+			<true/>
+			<key>INEnumName</key>
+			<string>PrimaryType</string>
+			<key>INEnumType</key>
+			<string>Regular</string>
+			<key>INEnumValues</key>
+			<array>
+				<dict>
+					<key>INEnumValueDisplayName</key>
+					<string>Unknown</string>
+					<key>INEnumValueDisplayNameID</key>
+					<string>riIaDg</string>
+					<key>INEnumValueName</key>
+					<string>unknown</string>
+				</dict>
+				<dict>
+					<key>INEnumValueDisplayName</key>
+					<string>Current mileage</string>
+					<key>INEnumValueDisplayNameID</key>
+					<string>ANYpJC</string>
+					<key>INEnumValueIndex</key>
+					<integer>1</integer>
+					<key>INEnumValueName</key>
+					<string>currentMileage</string>
+				</dict>
+				<dict>
+					<key>INEnumValueDisplayName</key>
+					<string>Estimated mileage</string>
+					<key>INEnumValueDisplayNameID</key>
+					<string>Upjj2a</string>
+					<key>INEnumValueIndex</key>
+					<integer>2</integer>
+					<key>INEnumValueName</key>
+					<string>estimatedMileage</string>
+				</dict>
+			</array>
+		</dict>
+	</array>
 	<key>INIntentDefinitionModelVersion</key>
 	<string>1.2</string>
 	<key>INIntentDefinitionNamespace</key>
@@ -20,7 +64,7 @@
 			<key>INIntentCategory</key>
 			<string>information</string>
 			<key>INIntentDescription</key>
-			<string>Select your vehicle to show its quick information in widget</string>
+			<string>Edit what to display in the widget</string>
 			<key>INIntentDescriptionID</key>
 			<string>tVvJ9c</string>
 			<key>INIntentEligibleForWidgets</key>
@@ -28,7 +72,7 @@
 			<key>INIntentIneligibleForSuggestions</key>
 			<true/>
 			<key>INIntentLastParameterTag</key>
-			<integer>10</integer>
+			<integer>12</integer>
 			<key>INIntentName</key>
 			<string>Configuration</string>
 			<key>INIntentParameters</key>
@@ -39,17 +83,22 @@
 					<key>INIntentParameterCustomDisambiguation</key>
 					<true/>
 					<key>INIntentParameterDisplayName</key>
-					<string>Item</string>
+					<string>Primary</string>
 					<key>INIntentParameterDisplayNameID</key>
-					<string>6wMn0l</string>
+					<string>IzzdGh</string>
 					<key>INIntentParameterDisplayPriority</key>
 					<integer>1</integer>
-					<key>INIntentParameterName</key>
-					<string>item</string>
-					<key>INIntentParameterObjectType</key>
-					<string>VehiclePreview</string>
-					<key>INIntentParameterObjectTypeNamespace</key>
+					<key>INIntentParameterEnumType</key>
+					<string>PrimaryType</string>
+					<key>INIntentParameterEnumTypeNamespace</key>
 					<string>88xZPY</string>
+					<key>INIntentParameterMetadata</key>
+					<dict>
+						<key>INIntentParameterMetadataDefaultValue</key>
+						<string>estimatedMileage</string>
+					</dict>
+					<key>INIntentParameterName</key>
+					<string>primary</string>
 					<key>INIntentParameterPromptDialogs</key>
 					<array>
 						<dict>
@@ -68,9 +117,9 @@
 							<key>INIntentParameterPromptDialogCustom</key>
 							<true/>
 							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>There are ${count} options matching ‘${item}’.</string>
+							<string>There are ${count} options matching ‘${primary}’.</string>
 							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>xX3K91</string>
+							<string>O5hLH4</string>
 							<key>INIntentParameterPromptDialogType</key>
 							<string>DisambiguationIntroduction</string>
 						</dict>
@@ -78,21 +127,19 @@
 							<key>INIntentParameterPromptDialogCustom</key>
 							<true/>
 							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>Just to confirm, you wanted ‘${item}’?</string>
+							<string>Just to confirm, you wanted ‘${primary}’?</string>
 							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>v5Uj1n</string>
+							<string>EtZpQ1</string>
 							<key>INIntentParameterPromptDialogType</key>
 							<string>Confirmation</string>
 						</dict>
 					</array>
-					<key>INIntentParameterSupportsDynamicEnumeration</key>
-					<true/>
 					<key>INIntentParameterSupportsResolution</key>
 					<true/>
 					<key>INIntentParameterTag</key>
-					<integer>10</integer>
+					<integer>12</integer>
 					<key>INIntentParameterType</key>
-					<string>Object</string>
+					<string>Integer</string>
 				</dict>
 			</array>
 			<key>INIntentResponse</key>
@@ -112,7 +159,7 @@
 				</array>
 			</dict>
 			<key>INIntentTitle</key>
-			<string>Select Vehicle</string>
+			<string>Edit widget</string>
 			<key>INIntentTitleID</key>
 			<string>gpCwrM</string>
 			<key>INIntentType</key>
@@ -122,70 +169,6 @@
 		</dict>
 	</array>
 	<key>INTypes</key>
-	<array>
-		<dict>
-			<key>INTypeDisplayName</key>
-			<string>Vehicle Preview</string>
-			<key>INTypeDisplayNameID</key>
-			<string>6jXmVj</string>
-			<key>INTypeLastPropertyTag</key>
-			<integer>103</integer>
-			<key>INTypeName</key>
-			<string>VehiclePreview</string>
-			<key>INTypeProperties</key>
-			<array>
-				<dict>
-					<key>INTypePropertyDefault</key>
-					<true/>
-					<key>INTypePropertyDisplayPriority</key>
-					<integer>1</integer>
-					<key>INTypePropertyName</key>
-					<string>identifier</string>
-					<key>INTypePropertyTag</key>
-					<integer>1</integer>
-					<key>INTypePropertyType</key>
-					<string>String</string>
-				</dict>
-				<dict>
-					<key>INTypePropertyDefault</key>
-					<true/>
-					<key>INTypePropertyDisplayPriority</key>
-					<integer>2</integer>
-					<key>INTypePropertyName</key>
-					<string>displayString</string>
-					<key>INTypePropertyTag</key>
-					<integer>2</integer>
-					<key>INTypePropertyType</key>
-					<string>String</string>
-				</dict>
-				<dict>
-					<key>INTypePropertyDefault</key>
-					<true/>
-					<key>INTypePropertyDisplayPriority</key>
-					<integer>3</integer>
-					<key>INTypePropertyName</key>
-					<string>pronunciationHint</string>
-					<key>INTypePropertyTag</key>
-					<integer>3</integer>
-					<key>INTypePropertyType</key>
-					<string>String</string>
-				</dict>
-				<dict>
-					<key>INTypePropertyDefault</key>
-					<true/>
-					<key>INTypePropertyDisplayPriority</key>
-					<integer>4</integer>
-					<key>INTypePropertyName</key>
-					<string>alternativeSpeakableMatches</string>
-					<key>INTypePropertySupportsMultipleValues</key>
-					<true/>
-					<key>INTypePropertyTag</key>
-					<integer>4</integer>
-					<key>INTypePropertyType</key>
-					<string>SpeakableString</string>
-				</dict>
-			</array>
-		</dict>
-	</array>
+	<array/>
 </dict>
 </plist>

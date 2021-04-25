@@ -34,24 +34,6 @@ struct InfoPanel: View {
   }
 }
 
-struct ExtendedVehicleInfo {
-  let currentMileage: Int
-  let leftMileage: Int
-  
-  // Predicated mileage based on all time driving.
-  let normalPredicatedMileage: Int?
-  
-  let mileagePerDay: Int?
-  let mileagePerMonth: Int?
-  
-  let excessMileage: Int?
-  let excessCharge: Int?
-  
-  let mileageShouldLessThan: Int
-  let maxDriveToday: Int
-  let leaseLeft: Int
-}
-
 struct MoreInfoView: View {
   var question: String
   var answer: String
@@ -82,7 +64,7 @@ struct VehiclePresentation: View {
   }
   
   var extendedInfo: ExtendedVehicleInfo {
-    compute(vehicle, readings)
+    Compute(vehicle, readings.map{ $0 })
   }
   
   var lengthUnit: LengthUnit {
@@ -111,56 +93,6 @@ struct VehiclePresentation: View {
       data.insert(Double(vehicle.starting), at: 0)
       return data
     }
-  }
-  
-  private func compute(_ veh: Vehicle, _ readings: FetchedResults<OdoReading>) -> ExtendedVehicleInfo {
-    var currentMileage: Int64 = veh.starting
-    
-    if readings.count > 0 {
-      if let lastReading = readings.last {
-        currentMileage = lastReading.value
-      }
-    }
-    
-    let leftMileage = Int(max(veh.allowed + veh.starting - currentMileage, 0))
-    
-    // Compute predicted mileage.
-    var normalPredicatedMileage: Int? = nil
-    var mileagePerDay: Int? = nil
-    var mileagePerMonth: Int? = nil
-    let usedMileage = Int(currentMileage - veh.starting)
-    let usedDays =
-      max(1, (Date().timeIntervalSince1970 - veh.startDate!.timeIntervalSince1970).days)
-    mileagePerDay = Int(usedMileage / usedDays)
-    normalPredicatedMileage = Int(veh.lengthOfLease) / 12 * 365 * mileagePerDay!
-    
-    let usedMonths = max(1, (Date().timeIntervalSince1970 - veh.startDate!.timeIntervalSince1970).months)
-    mileagePerMonth = Int(usedMileage / usedMonths)
-    
-    var excessMileage: Int? = nil
-    var excessCharge: Int? = nil
-    if let predicatedMileage = normalPredicatedMileage {
-      excessMileage = Int(max(predicatedMileage - Int(veh.allowed) - Int(veh.starting), 0))
-      excessCharge = Int(veh.fee * Float(excessMileage!))
-    }
-    
-    let totalDays = max(1, (veh.lengthOfLease / 12 * 365))
-    let allowedMileagePerDay = Int(veh.allowed / totalDays)
-    let mileageShouldLessThan = allowedMileagePerDay * usedDays
-    let maxDriveToday = max(0, mileageShouldLessThan - Int(currentMileage))
-    let leaseLeft = max(0, Int(vehicle.lengthOfLease) - usedMonths)
-    
-    
-    return ExtendedVehicleInfo(currentMileage: Int(currentMileage),
-                               leftMileage: leftMileage,
-                               normalPredicatedMileage: normalPredicatedMileage,
-                               mileagePerDay: mileagePerDay,
-                               mileagePerMonth: mileagePerMonth,
-                               excessMileage: excessMileage,
-                               excessCharge: excessCharge,
-                               mileageShouldLessThan: mileageShouldLessThan,
-                               maxDriveToday: maxDriveToday,
-                               leaseLeft: leaseLeft)
   }
   
   var body: some View {
@@ -264,7 +196,9 @@ struct VehiclePresentation: View {
           Divider()
           
           MoreInfoView(question: "How long is my lease left?",
-                       answer: "You have \(extendedInfo.leaseLeft) months left. Keep up the work!")
+                       answer: extendedInfo.isExpired ?
+                        "Congratulations, your lease is expired." :
+                        "You have \(extendedInfo.leaseLeft) months left. Keep up the work!")
           Divider()
         }
         

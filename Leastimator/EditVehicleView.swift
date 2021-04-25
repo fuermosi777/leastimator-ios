@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 struct LSTextField: View {
   let label: String
@@ -207,6 +208,9 @@ struct EditVehicleView: View {
       } catch {
         print(error)
       }
+      
+      WidgetCenter.shared.reloadAllTimelines()
+      
       self.onDismiss()
     }
   }
@@ -248,6 +252,8 @@ struct EditVehicleView: View {
     } catch {
       throw AppError.failedContextSave
     }
+    
+    WidgetCenter.shared.reloadAllTimelines()
     
     self.onDismiss()
   }

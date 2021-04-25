@@ -23,6 +23,11 @@
 		3F37DEC0262A0522006DA51F /* Car.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F37DEBF262A0522006DA51F /* Car.swift */; };
 		3F37DECF262A09D4006DA51F /* RealmMigrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F37DECE262A09D4006DA51F /* RealmMigrator.swift */; };
 		3F37DED5262A0EF2006DA51F /* Reading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F37DED4262A0EF2006DA51F /* Reading.swift */; };
+		3F4E69B92634085A007E9DA9 /* ComputeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4E69B82634085A007E9DA9 /* ComputeUtils.swift */; };
+		3F4E69BA2634085A007E9DA9 /* ComputeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4E69B82634085A007E9DA9 /* ComputeUtils.swift */; };
+		3F4E69C22634D739007E9DA9 /* ProgressCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0E9FEF26111ABC00989D90 /* ProgressCircle.swift */; };
+		3F4E69C62634E039007E9DA9 /* UnitUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2F904D2623F37800835C5A /* UnitUtils.swift */; };
+		3F4E69CA2634E05B007E9DA9 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2F905F26241A8000835C5A /* Color+Extensions.swift */; };
 		3F7E91A02611272D005141D6 /* ReadingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7E919F2611272D005141D6 /* ReadingList.swift */; };
 		3F94203025FDD6F60099BD08 /* LeastimatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F94202F25FDD6F60099BD08 /* LeastimatorApp.swift */; };
 		3F94203225FDD6F60099BD08 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F94203125FDD6F60099BD08 /* ContentView.swift */; };
@@ -34,7 +39,6 @@
 		3F94205225FDD6F70099BD08 /* LeastimatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F94205125FDD6F70099BD08 /* LeastimatorUITests.swift */; };
 		3FB18B5F26236DAE00EAFF39 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB18B5E26236DAE00EAFF39 /* Date+Extensions.swift */; };
 		3FB18B712623ECBF00EAFF39 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB18B702623ECBF00EAFF39 /* SettingsView.swift */; };
-		3FCF586D2619815D00EE6C63 /* TimeInterval+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCF586C2619815D00EE6C63 /* TimeInterval+Extensions.swift */; };
 		3FCF5871261D8FDC00EE6C63 /* GradientBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCF5870261D8FDC00EE6C63 /* GradientBG.swift */; };
 		3FE30CCC262EA77B001AF98E /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FE30CCB262EA77B001AF98E /* WidgetKit.framework */; };
 		3FE30CCE262EA77B001AF98E /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FE30CCD262EA77B001AF98E /* SwiftUI.framework */; };
@@ -111,6 +115,7 @@
 		3F37DEBF262A0522006DA51F /* Car.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Car.swift; sourceTree = "<group>"; };
 		3F37DECE262A09D4006DA51F /* RealmMigrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmMigrator.swift; sourceTree = "<group>"; };
 		3F37DED4262A0EF2006DA51F /* Reading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reading.swift; sourceTree = "<group>"; };
+		3F4E69B82634085A007E9DA9 /* ComputeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputeUtils.swift; sourceTree = "<group>"; };
 		3F7E919F2611272D005141D6 /* ReadingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingList.swift; sourceTree = "<group>"; };
 		3F94202C25FDD6F60099BD08 /* Leastimator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Leastimator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F94202F25FDD6F60099BD08 /* LeastimatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeastimatorApp.swift; sourceTree = "<group>"; };
@@ -128,7 +133,6 @@
 		3F94205325FDD6F70099BD08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FB18B5E26236DAE00EAFF39 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		3FB18B702623ECBF00EAFF39 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		3FCF586C2619815D00EE6C63 /* TimeInterval+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extensions.swift"; sourceTree = "<group>"; };
 		3FCF5870261D8FDC00EE6C63 /* GradientBG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBG.swift; sourceTree = "<group>"; };
 		3FE30CC9262EA77B001AF98E /* NormalWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NormalWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FE30CCB262EA77B001AF98E /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -217,31 +221,31 @@
 		3F94202E25FDD6F60099BD08 /* Leastimator */ = {
 			isa = PBXGroup;
 			children = (
-				3FE30CEA262EAB98001AF98E /* Leastimator.entitlements */,
-				3F94202F25FDD6F60099BD08 /* LeastimatorApp.swift */,
-				3F94203125FDD6F60099BD08 /* ContentView.swift */,
-				3F0E9FD6261101A600989D90 /* VehicleRow.swift */,
-				3FCF5870261D8FDC00EE6C63 /* GradientBG.swift */,
-				3F254BF525FF1E5C0014E8E5 /* EditVehicleView.swift */,
-				3F2F904D2623F37800835C5A /* UnitUtils.swift */,
-				3FB18B702623ECBF00EAFF39 /* SettingsView.swift */,
-				3F0E9FF426111F5500989D90 /* EditReadingView.swift */,
-				3F7E919F2611272D005141D6 /* ReadingList.swift */,
-				3F2F905F26241A8000835C5A /* Color+Extensions.swift */,
-				3F0E9FEA2611172900989D90 /* VehiclePresentation.swift */,
-				3FCF586C2619815D00EE6C63 /* TimeInterval+Extensions.swift */,
-				3F0E9FEF26111ABC00989D90 /* ProgressCircle.swift */,
-				3F0E9FE52611092300989D90 /* VehicleAvatar.swift */,
-				3F0E9FE0261107E900989D90 /* UIImage+Extensions.swift */,
-				3F0E9FDB2611028300989D90 /* ImagePicker.swift */,
 				3F0E9FD12610F84300989D90 /* AppError.swift */,
 				3F94203325FDD6F70099BD08 /* Assets.xcassets */,
-				3F94203825FDD6F70099BD08 /* Persistence.swift */,
-				3F94203D25FDD6F70099BD08 /* Info.plist */,
-				3F94203525FDD6F70099BD08 /* Preview Content */,
+				3F2F905F26241A8000835C5A /* Color+Extensions.swift */,
+				3F4E69B82634085A007E9DA9 /* ComputeUtils.swift */,
+				3F94203125FDD6F60099BD08 /* ContentView.swift */,
 				3FB18B5E26236DAE00EAFF39 /* Date+Extensions.swift */,
+				3F0E9FF426111F5500989D90 /* EditReadingView.swift */,
+				3F254BF525FF1E5C0014E8E5 /* EditVehicleView.swift */,
+				3FCF5870261D8FDC00EE6C63 /* GradientBG.swift */,
+				3F0E9FDB2611028300989D90 /* ImagePicker.swift */,
+				3F94203D25FDD6F70099BD08 /* Info.plist */,
+				3FE30CEA262EAB98001AF98E /* Leastimator.entitlements */,
 				3F94203A25FDD6F70099BD08 /* Leastimator.xcdatamodeld */,
+				3F94202F25FDD6F60099BD08 /* LeastimatorApp.swift */,
+				3F94203825FDD6F70099BD08 /* Persistence.swift */,
+				3F94203525FDD6F70099BD08 /* Preview Content */,
+				3F0E9FEF26111ABC00989D90 /* ProgressCircle.swift */,
+				3F7E919F2611272D005141D6 /* ReadingList.swift */,
 				3F37DEC5262A08CE006DA51F /* Realm */,
+				3FB18B702623ECBF00EAFF39 /* SettingsView.swift */,
+				3F0E9FE0261107E900989D90 /* UIImage+Extensions.swift */,
+				3F2F904D2623F37800835C5A /* UnitUtils.swift */,
+				3F0E9FE52611092300989D90 /* VehicleAvatar.swift */,
+				3F0E9FEA2611172900989D90 /* VehiclePresentation.swift */,
+				3F0E9FD6261101A600989D90 /* VehicleRow.swift */,
 			);
 			path = Leastimator;
 			sourceTree = "<group>";
@@ -478,7 +482,7 @@
 				3F94203225FDD6F60099BD08 /* ContentView.swift in Sources */,
 				3F0E9FE62611092300989D90 /* VehicleAvatar.swift in Sources */,
 				3FB18B5F26236DAE00EAFF39 /* Date+Extensions.swift in Sources */,
-				3FCF586D2619815D00EE6C63 /* TimeInterval+Extensions.swift in Sources */,
+				3F4E69B92634085A007E9DA9 /* ComputeUtils.swift in Sources */,
 				3F0E9FDC2611028300989D90 /* ImagePicker.swift in Sources */,
 				3F0E9FF526111F5500989D90 /* EditReadingView.swift in Sources */,
 				3F0E9FE1261107E900989D90 /* UIImage+Extensions.swift in Sources */,
@@ -512,9 +516,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FE30CD1262EA77B001AF98E /* NormalWidget.swift in Sources */,
+				3F4E69CA2634E05B007E9DA9 /* Color+Extensions.swift in Sources */,
 				3FE30CFC262FD5AB001AF98E /* Persistence.swift in Sources */,
+				3F4E69C62634E039007E9DA9 /* UnitUtils.swift in Sources */,
 				3FE30CD6262EA77C001AF98E /* NormalWidget.intentdefinition in Sources */,
+				3F4E69C22634D739007E9DA9 /* ProgressCircle.swift in Sources */,
 				3FE30CF8262FD595001AF98E /* Leastimator.xcdatamodeld in Sources */,
+				3F4E69BA2634085A007E9DA9 /* ComputeUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -663,7 +671,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Leastimator/Leastimator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_ASSET_PATHS = "\"Leastimator/Preview Content\"";
 				DEVELOPMENT_TEAM = 8ZSXHVA72B;
 				ENABLE_PREVIEWS = YES;
@@ -673,7 +681,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2;
+				MARKETING_VERSION = 3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.leastimator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -689,7 +697,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Leastimator/Leastimator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_ASSET_PATHS = "\"Leastimator/Preview Content\"";
 				DEVELOPMENT_TEAM = 8ZSXHVA72B;
 				ENABLE_PREVIEWS = YES;
@@ -699,7 +707,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.2;
+				MARKETING_VERSION = 3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.leastimator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -798,6 +806,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = NormalWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_TEAM = 8ZSXHVA72B;
 				INFOPLIST_FILE = NormalWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -805,11 +814,12 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.leastimator.NormalWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -820,6 +830,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = NormalWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_TEAM = 8ZSXHVA72B;
 				INFOPLIST_FILE = NormalWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -827,11 +838,12 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.leastimator.NormalWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

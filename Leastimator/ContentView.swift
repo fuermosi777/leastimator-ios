@@ -8,6 +8,7 @@
 import SwiftUI
 import CoreData
 import RealmSwift
+import WidgetKit
 
 enum ContentViewSheet: Identifiable {
   case vehicleCreation,
@@ -79,7 +80,7 @@ struct ContentView: View {
         case .vehicleCreation:
           EditVehicleView(onDismiss: handleSheetDismiss)
         case .settings:
-          SettingsView(onDismiss: handleSheetDismiss)
+          SettingsView(vehicles: vehicles, onDismiss: handleSheetDismiss)
         }
       }.onAppear(perform: migrateRealm)
     }  // NavigationView
@@ -129,6 +130,7 @@ struct ContentView: View {
         } catch {
           print("Failed to save context in the legacy Realm migration.")
         }
+        WidgetCenter.shared.reloadAllTimelines()
       }
     } catch {
       print(error)

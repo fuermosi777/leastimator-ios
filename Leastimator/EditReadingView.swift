@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 struct EditReadingView: View {
   @Environment(\.managedObjectContext) private var viewContext
@@ -43,7 +44,7 @@ struct EditReadingView: View {
         
         Group {
           LSTextField(label: "Odometer reading",
-                      placeholder: "",
+                      placeholder: "1000",
                       keyboardType: .numberPad,
                       value: $readingValue)
         }
@@ -96,6 +97,7 @@ struct EditReadingView: View {
       } catch {
         print(error)
       }
+      WidgetCenter.shared.reloadAllTimelines()
       self.onDismiss()
     }
   }
@@ -121,6 +123,7 @@ struct EditReadingView: View {
     } catch {
       throw AppError.failedContextSave
     }
+    WidgetCenter.shared.reloadAllTimelines()
     
     self.onDismiss()
   }
