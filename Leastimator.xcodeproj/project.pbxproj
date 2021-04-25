@@ -40,6 +40,9 @@
 		3FB18B5F26236DAE00EAFF39 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB18B5E26236DAE00EAFF39 /* Date+Extensions.swift */; };
 		3FB18B712623ECBF00EAFF39 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB18B702623ECBF00EAFF39 /* SettingsView.swift */; };
 		3FCF5871261D8FDC00EE6C63 /* GradientBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCF5870261D8FDC00EE6C63 /* GradientBG.swift */; };
+		3FE0E2E22635385700700D0F /* SwiftUIPager in Frameworks */ = {isa = PBXBuildFile; productRef = 3FE0E2E12635385700700D0F /* SwiftUIPager */; };
+		3FE0E2E726353A8B00700D0F /* PagerIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE0E2E626353A8B00700D0F /* PagerIndicator.swift */; };
+		3FE0E2F3263542B400700D0F /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE0E2F2263542B400700D0F /* Int+Extensions.swift */; };
 		3FE30CCC262EA77B001AF98E /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FE30CCB262EA77B001AF98E /* WidgetKit.framework */; };
 		3FE30CCE262EA77B001AF98E /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FE30CCD262EA77B001AF98E /* SwiftUI.framework */; };
 		3FE30CD1262EA77B001AF98E /* NormalWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE30CD0262EA77B001AF98E /* NormalWidget.swift */; };
@@ -134,6 +137,8 @@
 		3FB18B5E26236DAE00EAFF39 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		3FB18B702623ECBF00EAFF39 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		3FCF5870261D8FDC00EE6C63 /* GradientBG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBG.swift; sourceTree = "<group>"; };
+		3FE0E2E626353A8B00700D0F /* PagerIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerIndicator.swift; sourceTree = "<group>"; };
+		3FE0E2F2263542B400700D0F /* Int+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
 		3FE30CC9262EA77B001AF98E /* NormalWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NormalWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FE30CCB262EA77B001AF98E /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		3FE30CCD262EA77B001AF98E /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -154,6 +159,7 @@
 			files = (
 				3F37DEBC262A0516006DA51F /* RealmSwift in Frameworks */,
 				3F37DEBA262A0516006DA51F /* Realm in Frameworks */,
+				3FE0E2E22635385700700D0F /* SwiftUIPager in Frameworks */,
 				3FF002132625678D00DCF68A /* iLineChart in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -226,9 +232,11 @@
 				3F2F905F26241A8000835C5A /* Color+Extensions.swift */,
 				3F4E69B82634085A007E9DA9 /* ComputeUtils.swift */,
 				3F94203125FDD6F60099BD08 /* ContentView.swift */,
+				3FE0E2F2263542B400700D0F /* Int+Extensions.swift */,
 				3FB18B5E26236DAE00EAFF39 /* Date+Extensions.swift */,
 				3F0E9FF426111F5500989D90 /* EditReadingView.swift */,
 				3F254BF525FF1E5C0014E8E5 /* EditVehicleView.swift */,
+				3FE0E2E626353A8B00700D0F /* PagerIndicator.swift */,
 				3FCF5870261D8FDC00EE6C63 /* GradientBG.swift */,
 				3F0E9FDB2611028300989D90 /* ImagePicker.swift */,
 				3F94203D25FDD6F70099BD08 /* Info.plist */,
@@ -321,6 +329,7 @@
 				3FF002122625678D00DCF68A /* iLineChart */,
 				3F37DEB9262A0516006DA51F /* Realm */,
 				3F37DEBB262A0516006DA51F /* RealmSwift */,
+				3FE0E2E12635385700700D0F /* SwiftUIPager */,
 			);
 			productName = Leastimator;
 			productReference = 3F94202C25FDD6F60099BD08 /* Leastimator.app */;
@@ -416,6 +425,7 @@
 			packageReferences = (
 				3FF002112625678D00DCF68A /* XCRemoteSwiftPackageReference "iLineChart" */,
 				3F37DEB8262A0516006DA51F /* XCRemoteSwiftPackageReference "realm-cocoa" */,
+				3FE0E2E02635385700700D0F /* XCRemoteSwiftPackageReference "SwiftUIPager" */,
 			);
 			productRefGroup = 3F94202D25FDD6F60099BD08 /* Products */;
 			projectDirPath = "";
@@ -473,6 +483,7 @@
 				3FCF5871261D8FDC00EE6C63 /* GradientBG.swift in Sources */,
 				3FE30CD7262EA77C001AF98E /* NormalWidget.intentdefinition in Sources */,
 				3FB18B712623ECBF00EAFF39 /* SettingsView.swift in Sources */,
+				3FE0E2F3263542B400700D0F /* Int+Extensions.swift in Sources */,
 				3F37DECF262A09D4006DA51F /* RealmMigrator.swift in Sources */,
 				3F2F904E2623F37800835C5A /* UnitUtils.swift in Sources */,
 				3F37DED5262A0EF2006DA51F /* Reading.swift in Sources */,
@@ -481,6 +492,7 @@
 				3F0E9FD7261101A600989D90 /* VehicleRow.swift in Sources */,
 				3F94203225FDD6F60099BD08 /* ContentView.swift in Sources */,
 				3F0E9FE62611092300989D90 /* VehicleAvatar.swift in Sources */,
+				3FE0E2E726353A8B00700D0F /* PagerIndicator.swift in Sources */,
 				3FB18B5F26236DAE00EAFF39 /* Date+Extensions.swift in Sources */,
 				3F4E69B92634085A007E9DA9 /* ComputeUtils.swift in Sources */,
 				3F0E9FDC2611028300989D90 /* ImagePicker.swift in Sources */,
@@ -671,7 +683,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Leastimator/Leastimator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_ASSET_PATHS = "\"Leastimator/Preview Content\"";
 				DEVELOPMENT_TEAM = 8ZSXHVA72B;
 				ENABLE_PREVIEWS = YES;
@@ -697,7 +709,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Leastimator/Leastimator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_ASSET_PATHS = "\"Leastimator/Preview Content\"";
 				DEVELOPMENT_TEAM = 8ZSXHVA72B;
 				ENABLE_PREVIEWS = YES;
@@ -806,7 +818,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = NormalWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = 8ZSXHVA72B;
 				INFOPLIST_FILE = NormalWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -830,7 +842,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = NormalWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = 8ZSXHVA72B;
 				INFOPLIST_FILE = NormalWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -906,6 +918,14 @@
 				minimumVersion = 10.7.2;
 			};
 		};
+		3FE0E2E02635385700700D0F /* XCRemoteSwiftPackageReference "SwiftUIPager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/fermoya/SwiftUIPager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.0;
+			};
+		};
 		3FF002112625678D00DCF68A /* XCRemoteSwiftPackageReference "iLineChart" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/fuermosi777/iLineChart";
@@ -926,6 +946,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3F37DEB8262A0516006DA51F /* XCRemoteSwiftPackageReference "realm-cocoa" */;
 			productName = RealmSwift;
+		};
+		3FE0E2E12635385700700D0F /* SwiftUIPager */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3FE0E2E02635385700700D0F /* XCRemoteSwiftPackageReference "SwiftUIPager" */;
+			productName = SwiftUIPager;
 		};
 		3FF002122625678D00DCF68A /* iLineChart */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -25,4 +25,19 @@ extension Color {
             UIColor(red: 0, green: 0, blue: 0, alpha: 1.0) :
             UIColor(red: 1, green: 1, blue: 1, alpha: 1.0) })
   }
+  
+  static var subBg: Color {
+    Color(UIColor { $0.userInterfaceStyle == .dark ?
+            UIColor.darkGray : UIColor.darkGray })
+  }
+  
+  static var focusedIndicator: Color {
+    Color(UIColor { $0.userInterfaceStyle == .dark ?
+            UIColor.lightGray : UIColor.gray})
+  }
+  
+  static var dismissedIndicator: Color {
+    Color(UIColor { $0.userInterfaceStyle == .dark ?
+            UIColor.gray : UIColor.lightGray })
+  }
 }

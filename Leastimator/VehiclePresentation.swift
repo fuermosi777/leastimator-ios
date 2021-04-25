@@ -7,6 +7,13 @@
 
 import SwiftUI
 import iLineChart
+import SwiftUIPager
+
+// The type of content shown in the hero dashboard section of the presentation page.
+enum DashboardType {
+  case estimation,
+       shouldRead
+}
 
 enum Sheet: Identifiable {
   case readingCreation,
@@ -56,6 +63,10 @@ struct VehiclePresentation: View {
   
   @State var activeSheet: Sheet?
   
+  let dashboardTypes: [DashboardType] = [.estimation, .shouldRead]
+  @StateObject var dashboardPage: Page = .first()
+  @State private var dashboardIndex = 0
+  
   init(vehicle: Vehicle) {
     self.vehicle = vehicle
     self.readingsRequest = FetchRequest(entity: OdoReading.entity(),
@@ -98,33 +109,59 @@ struct VehiclePresentation: View {
   var body: some View {
     ScrollView(showsIndicators: false) {
       VStack {
-        if let normalPredicatedMileage = extendedInfo.normalPredicatedMileage {
-          ProgressCircle(progress: Float(Float(normalPredicatedMileage) / Float(vehicle.allowed))) {
-            VStack {
-              Text("Estimate")
-                .font(.callout)
-                .foregroundColor(.subText)
-              Text("\(normalPredicatedMileage)")
-                .font(.title)
-              Text(lengthUnit.longNames)
-                .font(.callout)
-                .foregroundColor(.subText)
-            }
+        Pager(page: dashboardPage,
+              data: dashboardTypes,
+              id: \.self,
+              content: { index in
+                switch index {
+                case .estimation:
+                  if let normalPredicatedMileage = extendedInfo.normalPredicatedMileage {
+                    ProgressCircle(progress: Float(Float(normalPredicatedMileage) / Float(vehicle.allowed))) {
+                      VStack {
+                        Text("Estimate")
+                          .font(.callout)
+                          .foregroundColor(.subText)
+                        Text("\(normalPredicatedMileage)")
+                          .font(.title)
+                        Text(lengthUnit.longNames)
+                          .font(.callout)
+                          .foregroundColor(.subText)
+                      }
+                    }
+                    .frame(width: 150.0, height: 150.0)
+                    .padding(40.0)
+                  } else {
+                    ProgressCircle(progress: 0.0) {
+                      VStack {
+                        Text("Not enough data")
+                          .font(.callout)
+                          .foregroundColor(.subText)
+                      }
+                    }
+                    .frame(width: 150.0, height: 150.0)
+                    .padding(40.0)
+                  }
+                case .shouldRead:
+                  VStack {
+                    Text("Odometer should read less than")
+                      .font(.callout)
+                      .foregroundColor(.subText)
+                    Text(extendedInfo.mileageShouldLessThan.toOdometerReading())
+                      .font(.custom("Menlo", size: 22.0))
+                      .padding(.vertical, 10.0)
+                      .padding(.horizontal, 20.0)
+                      .foregroundColor(.lightGray)
+                      .background(Color.subBg)
+                      .clipShape(RoundedRectangle(cornerRadius: 6))
+                  }
+                }
+              })  // Pager
+          .frame(height: 240)
+          .onChange(of: dashboardPage.index) {
+            dashboardIndex = $0
           }
-          .frame(width: 150.0, height: 150.0)
-          .padding(40.0)
-        } else {
-          ProgressCircle(progress: 0.0) {
-            VStack {
-              Text("Not enough data")
-                .font(.callout)
-                .foregroundColor(.subText)
-            }
-          }
-          .frame(width: 150.0, height: 150.0)
-          .padding(40.0)
-        }
-        
+        PagerIndicator(size: dashboardTypes.count, focusIndex: $dashboardIndex)
+          .padding(.bottom, 20.0)
         
         // Actions
         VStack(alignment: .leading) {
@@ -167,20 +204,20 @@ struct VehiclePresentation: View {
         // Mileage accumlation
         if readings.count > 0 {
           Spacer()
-                    iLineChart(data: chartData,
-                               title: "Mileage history",
-                               chartBackgroundGradient: GradientColor(start: .neonBlue, end: .mainBg),
-                               canvasBackgroundColor: .mainBg,
-                               titleColor: .mainText,
-                               numberColor: .subText,
-                               displayChartStats: true,
-                               minHeight: 100.0,
-                               maxHeight: 100.0,
-                               titleFont: .system(size: 20, weight: .regular),
-                               dataFont: .system(size: 16, weight: .regular),
-                               floatingPointNumberFormat: "%.0f")
-                      .frame(height: 100)
-                      .padding(.vertical, 50)
+          iLineChart(data: chartData,
+                     title: "Mileage history",
+                     chartBackgroundGradient: GradientColor(start: .neonBlue, end: .mainBg),
+                     canvasBackgroundColor: .mainBg,
+                     titleColor: .mainText,
+                     numberColor: .subText,
+                     displayChartStats: true,
+                     minHeight: 100.0,
+                     maxHeight: 100.0,
+                     titleFont: .system(size: 20, weight: .regular),
+                     dataFont: .system(size: 16, weight: .regular),
+                     floatingPointNumberFormat: "%.0f")
+            .frame(height: 100)
+            .padding(.vertical, 50)
           
           Divider()
         }
