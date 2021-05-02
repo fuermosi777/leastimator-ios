@@ -26,6 +26,9 @@ struct ExtendedVehicleInfo {
   let leaseLeft: Int
   
   let isExpired: Bool
+  
+  // Mileage snapshot for each month.
+  let mileageSnapshots: [Double]
 }
 
 func Compute(_ veh: Vehicle, _ readings: [OdoReading]) -> ExtendedVehicleInfo {
@@ -89,7 +92,36 @@ func Compute(_ veh: Vehicle, _ readings: [OdoReading]) -> ExtendedVehicleInfo {
   let maxDriveToday = max(0, mileageShouldLessThan - currentMileage)
   let leaseLeft = max(0, Int(veh.lengthOfLease) - usedMonths)
   
+  // Generate a key to OdoReading map.
+  let keyFormatter = DateFormatter()
+  keyFormatter.dateFormat = "MMM y"
+  var readingMap: [String: OdoReading] = [:]
+  for reading in readings {
+    if let date = reading.date {
+      let key = keyFormatter.string(from: date)
+      readingMap[key] = reading
+    }
+  }
   
+  var mileageSnapshots = [Double]()
+  mileageSnapshots.append(Double(veh.starting))
+  if let startDate = veh.startDate {
+    var lastMileage = Double(veh.starting)
+    
+    for monthIndex in 0..<usedMonths {
+      var monthDiff = DateComponents()
+      monthDiff.month = monthIndex
+      let iterDate = Calendar.current.date(byAdding: monthDiff, to: startDate)
+      if let iterDate = iterDate {
+        let iterDateKey = keyFormatter.string(from: iterDate)
+        if let reading = readingMap[iterDateKey] {
+          lastMileage = Double(reading.value)
+        }
+      }
+      mileageSnapshots.append(lastMileage)
+    }
+  }
+
   return ExtendedVehicleInfo(currentMileage: currentMileage,
                              leftMileage: leftMileage,
                              normalPredicatedMileage: normalPredicatedMileage,
@@ -100,5 +132,6 @@ func Compute(_ veh: Vehicle, _ readings: [OdoReading]) -> ExtendedVehicleInfo {
                              mileageShouldLessThan: mileageShouldLessThan,
                              maxDriveToday: maxDriveToday,
                              leaseLeft: leaseLeft,
-                             isExpired: isExpired)
+                             isExpired: isExpired,
+                             mileageSnapshots: mileageSnapshots)
 }

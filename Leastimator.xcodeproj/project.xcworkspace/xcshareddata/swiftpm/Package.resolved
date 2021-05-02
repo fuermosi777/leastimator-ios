@@ -38,6 +38,15 @@
         }
       },
       {
+        "package": "SwiftRater",
+        "repositoryURL": "https://github.com/takecian/SwiftRater",
+        "state": {
+          "branch": null,
+          "revision": "3002392aab212ab5e68c80ba9f8d5c0ef035c260",
+          "version": "1.9.1"
+        }
+      },
+      {
         "package": "SwiftUIPager",
         "repositoryURL": "https://github.com/fermoya/SwiftUIPager.git",
         "state": {

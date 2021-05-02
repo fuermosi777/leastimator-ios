@@ -53,6 +53,7 @@
 		3FE30CF8262FD595001AF98E /* Leastimator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3F94203A25FDD6F70099BD08 /* Leastimator.xcdatamodeld */; };
 		3FE30CFC262FD5AB001AF98E /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F94203825FDD6F70099BD08 /* Persistence.swift */; };
 		3FF002132625678D00DCF68A /* iLineChart in Frameworks */ = {isa = PBXBuildFile; productRef = 3FF002122625678D00DCF68A /* iLineChart */; };
+		3FFC3E96263F2B9500270D7F /* SwiftRater in Frameworks */ = {isa = PBXBuildFile; productRef = 3FFC3E95263F2B9500270D7F /* SwiftRater */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -160,6 +161,7 @@
 				3F37DEBC262A0516006DA51F /* RealmSwift in Frameworks */,
 				3F37DEBA262A0516006DA51F /* Realm in Frameworks */,
 				3FE0E2E22635385700700D0F /* SwiftUIPager in Frameworks */,
+				3FFC3E96263F2B9500270D7F /* SwiftRater in Frameworks */,
 				3FF002132625678D00DCF68A /* iLineChart in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -330,6 +332,7 @@
 				3F37DEB9262A0516006DA51F /* Realm */,
 				3F37DEBB262A0516006DA51F /* RealmSwift */,
 				3FE0E2E12635385700700D0F /* SwiftUIPager */,
+				3FFC3E95263F2B9500270D7F /* SwiftRater */,
 			);
 			productName = Leastimator;
 			productReference = 3F94202C25FDD6F60099BD08 /* Leastimator.app */;
@@ -426,6 +429,7 @@
 				3FF002112625678D00DCF68A /* XCRemoteSwiftPackageReference "iLineChart" */,
 				3F37DEB8262A0516006DA51F /* XCRemoteSwiftPackageReference "realm-cocoa" */,
 				3FE0E2E02635385700700D0F /* XCRemoteSwiftPackageReference "SwiftUIPager" */,
+				3FFC3E94263F2B9500270D7F /* XCRemoteSwiftPackageReference "SwiftRater" */,
 			);
 			productRefGroup = 3F94202D25FDD6F60099BD08 /* Products */;
 			projectDirPath = "";
@@ -683,7 +687,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Leastimator/Leastimator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 38;
+				CURRENT_PROJECT_VERSION = 39;
 				DEVELOPMENT_ASSET_PATHS = "\"Leastimator/Preview Content\"";
 				DEVELOPMENT_TEAM = 8ZSXHVA72B;
 				ENABLE_PREVIEWS = YES;
@@ -693,7 +697,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.3;
+				MARKETING_VERSION = 3.4;
 				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.leastimator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -709,7 +713,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Leastimator/Leastimator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 38;
+				CURRENT_PROJECT_VERSION = 39;
 				DEVELOPMENT_ASSET_PATHS = "\"Leastimator/Preview Content\"";
 				DEVELOPMENT_TEAM = 8ZSXHVA72B;
 				ENABLE_PREVIEWS = YES;
@@ -719,7 +723,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.3;
+				MARKETING_VERSION = 3.4;
 				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.leastimator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -934,6 +938,14 @@
 				minimumVersion = 1.6.6;
 			};
 		};
+		3FFC3E94263F2B9500270D7F /* XCRemoteSwiftPackageReference "SwiftRater" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/takecian/SwiftRater";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.9.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -956,6 +968,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3FF002112625678D00DCF68A /* XCRemoteSwiftPackageReference "iLineChart" */;
 			productName = iLineChart;
+		};
+		3FFC3E95263F2B9500270D7F /* SwiftRater */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3FFC3E94263F2B9500270D7F /* XCRemoteSwiftPackageReference "SwiftRater" */;
+			productName = SwiftRater;
 		};
 /* End XCSwiftPackageProductDependency section */
 

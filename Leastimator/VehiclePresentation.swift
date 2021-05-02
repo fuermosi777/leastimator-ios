@@ -8,6 +8,7 @@
 import SwiftUI
 import iLineChart
 import SwiftUIPager
+import SwiftRater
 
 // The type of content shown in the hero dashboard section of the presentation page.
 enum DashboardType {
@@ -95,14 +96,6 @@ struct VehiclePresentation: View {
       } else {
         return Currency.usd
       }
-    }
-  }
-  
-  var chartData: [Double] {
-    get {
-      var data = readings.map({ return Double($0.value) })
-      data.insert(Double(vehicle.starting), at: 0)
-      return data
     }
   }
   
@@ -202,9 +195,9 @@ struct VehiclePresentation: View {
         }
         
         // Mileage accumlation
-        if readings.count > 0 {
+        if extendedInfo.mileageSnapshots.count > 0 {
           Spacer()
-          iLineChart(data: chartData,
+          iLineChart(data: extendedInfo.mileageSnapshots,
                      title: "Mileage history",
                      chartBackgroundGradient: GradientColor(start: .neonBlue, end: .mainBg),
                      canvasBackgroundColor: .mainBg,
@@ -263,6 +256,9 @@ struct VehiclePresentation: View {
       case .vehicleEdit:
         EditVehicleView(vehicle: vehicle, onDismiss: handleSheetDismiss)
       }
+    }
+    .onAppear {
+      SwiftRater.check()
     }
   }
   
