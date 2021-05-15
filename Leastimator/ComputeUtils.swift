@@ -29,6 +29,9 @@ struct ExtendedVehicleInfo {
   
   // Mileage snapshot for each month.
   let mileageSnapshots: [Double]
+  
+  // Same as above but don't insert flat data into empty months.
+  let mileageSnapshotsOriginal: [Double]
 }
 
 func Compute(_ veh: Vehicle, _ readings: [OdoReading]) -> ExtendedVehicleInfo {
@@ -88,9 +91,14 @@ func Compute(_ veh: Vehicle, _ readings: [OdoReading]) -> ExtendedVehicleInfo {
   
   let totalDays = max(1, (veh.lengthOfLease / 12 * 365))
   let allowedMileagePerDay = Int(veh.allowed / totalDays)
-  let mileageShouldLessThan = allowedMileagePerDay * usedDays
+  let mileageShouldLessThan = Int(veh.starting) + allowedMileagePerDay * usedDays
   let maxDriveToday = max(0, mileageShouldLessThan - currentMileage)
   let leaseLeft = max(0, Int(veh.lengthOfLease) - usedMonths)
+  
+  var mileageSnapshotsOriginal = [Double(veh.starting)]
+  for reading in readings {
+    mileageSnapshotsOriginal.append(Double(reading.value))
+  }
   
   // Generate a key to OdoReading map.
   let keyFormatter = DateFormatter()
@@ -102,7 +110,7 @@ func Compute(_ veh: Vehicle, _ readings: [OdoReading]) -> ExtendedVehicleInfo {
       readingMap[key] = reading
     }
   }
-  
+
   var mileageSnapshots = [Double]()
   mileageSnapshots.append(Double(veh.starting))
   if let startDate = veh.startDate {
@@ -133,5 +141,6 @@ func Compute(_ veh: Vehicle, _ readings: [OdoReading]) -> ExtendedVehicleInfo {
                              maxDriveToday: maxDriveToday,
                              leaseLeft: leaseLeft,
                              isExpired: isExpired,
-                             mileageSnapshots: mileageSnapshots)
+                             mileageSnapshots: mileageSnapshots,
+                             mileageSnapshotsOriginal: mileageSnapshotsOriginal)
 }

@@ -17,6 +17,8 @@ struct SettingsView: View {
   @State private var selectedVehicleIndex: Int
   @State private var showVehiclePicker = false
   
+  @AppStorage("lineChartShowOriginalData") private var lineChartShowOriginalData = false
+  
   init(vehicles: FetchedResults<Vehicle>, onDismiss: @escaping () -> Void) {
     self.vehicles = vehicles
     self.onDismiss = onDismiss
@@ -55,6 +57,10 @@ struct SettingsView: View {
           }
           Divider()
         }
+        
+        Toggle("Use original readings to draw the line chart",
+               isOn: $lineChartShowOriginalData)
+        Divider()
         
         Button(action: handleRate) {
           Text("Rate Leastimator").foregroundColor(.mainText)

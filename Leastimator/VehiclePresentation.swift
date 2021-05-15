@@ -56,6 +56,8 @@ struct MoreInfoView: View {
 struct VehiclePresentation: View {
   @Environment(\.managedObjectContext) private var viewContext
   
+  @AppStorage("lineChartShowOriginalData") private var lineChartShowOriginalData = false
+  
   // Add ObservedObject make sure it gets updated data.
   @ObservedObject var vehicle: Vehicle
   
@@ -197,7 +199,9 @@ struct VehiclePresentation: View {
         // Mileage accumlation
         if extendedInfo.mileageSnapshots.count > 0 {
           Spacer()
-          iLineChart(data: extendedInfo.mileageSnapshots,
+          iLineChart(data: lineChartShowOriginalData ?
+                      extendedInfo.mileageSnapshotsOriginal :
+                      extendedInfo.mileageSnapshots,
                      title: "Mileage history",
                      chartBackgroundGradient: GradientColor(start: .neonBlue, end: .mainBg),
                      canvasBackgroundColor: .mainBg,

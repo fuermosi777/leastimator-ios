@@ -96,7 +96,14 @@ struct ContentView: View {
             EditReadingView(vehicle: vehicle, onDismiss: handleSheetDismiss)
               .environment(\.managedObjectContext, viewContext)
           } else {
-            EmptyView()
+            // Fallback message.
+            VStack {
+              Text("No vehicle is added yet")
+                .padding(10.0)
+              Button(action: handleSheetDismiss) {
+                Label("Add a Vehicle", systemImage: "plus")
+              }
+            }
           }
         }
       }.onAppear(perform: migrateRealm)
