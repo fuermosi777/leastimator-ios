@@ -10,14 +10,9 @@ import CoreData
 import RealmSwift
 import WidgetKit
 
-enum ContentViewSheet: Identifiable {
-  case vehicleCreation,
-       settings
-  var id: Int { hashValue }
-}
-
 struct ContentView: View {
   @Environment(\.managedObjectContext) private var viewContext
+  @EnvironmentObject private var sheetStore: SheetStore
   
   @FetchRequest(
     entity: Vehicle.entity(),
@@ -25,14 +20,29 @@ struct ContentView: View {
     predicate: NSPredicate(format: "removed == nil OR removed == false"))
   private var vehicles: FetchedResults<Vehicle>
   
-  @State private var activeSheet: ContentViewSheet?
+  /// Get the vehicle which has showOnWidget turned on, or return the first vehicle in the list.
+  private var vehicleOnWidget: Vehicle? {
+    get {
+      var vehicle: Vehicle?
+      for veh in vehicles {
+        if veh.showOnWidget {
+          vehicle = veh
+          break
+        }
+      }
+      if vehicle == nil && vehicles.count > 0 {
+        vehicle = vehicles[0]
+      }
+      return vehicle
+    }
+  }
   
   var body: some View {
     
     NavigationView {
       ScrollView(showsIndicators: false) {
         if vehicles.count == 0 {
-          Button(action: { self.activeSheet = .vehicleCreation }) {
+          Button(action: { sheetStore.activeSheet = .vehicleCreation }) {
             ZStack {
               Image("CarOutline")
                 .renderingMode(.template)
@@ -67,20 +77,27 @@ struct ContentView: View {
       .navigationBarTitle("Leastimator")
       .navigationBarItems(
         leading:
-          Button(action: { self.activeSheet = .settings }) {
+          Button(action: { sheetStore.activeSheet = .settings }) {
             Image(systemName: "slider.vertical.3")
           },
         trailing:
-          Button(action: { self.activeSheet = .vehicleCreation }) {
+          Button(action: { sheetStore.activeSheet = .vehicleCreation }) {
             Image(systemName: "plus")
           }
       )
-      .sheet(item: $activeSheet) { item in
+      .sheet(item: $sheetStore.activeSheet) { item in
         switch item {
         case .vehicleCreation:
           EditVehicleView(onDismiss: handleSheetDismiss)
         case .settings:
           SettingsView(vehicles: vehicles, onDismiss: handleSheetDismiss)
+        case .addReading:
+          if let vehicle = vehicleOnWidget {
+            EditReadingView(vehicle: vehicle, onDismiss: handleSheetDismiss)
+              .environment(\.managedObjectContext, viewContext)
+          } else {
+            EmptyView()
+          }
         }
       }.onAppear(perform: migrateRealm)
     }  // NavigationView
@@ -139,12 +156,6 @@ struct ContentView: View {
   }
   
   private func handleSheetDismiss() {
-    activeSheet = nil
-  }
-}
-
-struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    sheetStore.activeSheet = nil
   }
 }

@@ -16,6 +16,19 @@
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>im.liuhao.leastimator.deeplink</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>leastimator</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -29,6 +42,17 @@
 		<key>UIApplicationSupportsMultipleScenes</key>
 		<true/>
 	</dict>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconSymbolName</key>
+			<string>plus</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Add Odometer Reading</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>AddReadingAction</string>
+		</dict>
+	</array>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchScreen</key>

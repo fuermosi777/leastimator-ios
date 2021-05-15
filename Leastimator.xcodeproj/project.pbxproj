@@ -39,6 +39,9 @@
 		3F94205225FDD6F70099BD08 /* LeastimatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F94205125FDD6F70099BD08 /* LeastimatorUITests.swift */; };
 		3FB18B5F26236DAE00EAFF39 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB18B5E26236DAE00EAFF39 /* Date+Extensions.swift */; };
 		3FB18B712623ECBF00EAFF39 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB18B702623ECBF00EAFF39 /* SettingsView.swift */; };
+		3FCAA760264F7C1900A92BE6 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCAA75F264F7C1900A92BE6 /* URL+Extensions.swift */; };
+		3FCAA762264F7D4500A92BE6 /* SheetStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCAA761264F7D4500A92BE6 /* SheetStore.swift */; };
+		3FCAA765264F814700A92BE6 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FCAA764264F814700A92BE6 /* NetworkExtension.framework */; };
 		3FCF5871261D8FDC00EE6C63 /* GradientBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCF5870261D8FDC00EE6C63 /* GradientBG.swift */; };
 		3FE0E2E22635385700700D0F /* SwiftUIPager in Frameworks */ = {isa = PBXBuildFile; productRef = 3FE0E2E12635385700700D0F /* SwiftUIPager */; };
 		3FE0E2E726353A8B00700D0F /* PagerIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE0E2E626353A8B00700D0F /* PagerIndicator.swift */; };
@@ -137,6 +140,9 @@
 		3F94205325FDD6F70099BD08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FB18B5E26236DAE00EAFF39 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		3FB18B702623ECBF00EAFF39 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		3FCAA75F264F7C1900A92BE6 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
+		3FCAA761264F7D4500A92BE6 /* SheetStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetStore.swift; sourceTree = "<group>"; };
+		3FCAA764264F814700A92BE6 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		3FCF5870261D8FDC00EE6C63 /* GradientBG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBG.swift; sourceTree = "<group>"; };
 		3FE0E2E626353A8B00700D0F /* PagerIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerIndicator.swift; sourceTree = "<group>"; };
 		3FE0E2F2263542B400700D0F /* Int+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
@@ -159,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F37DEBC262A0516006DA51F /* RealmSwift in Frameworks */,
+				3FCAA765264F814700A92BE6 /* NetworkExtension.framework in Frameworks */,
 				3F37DEBA262A0516006DA51F /* Realm in Frameworks */,
 				3FE0E2E22635385700700D0F /* SwiftUIPager in Frameworks */,
 				3FFC3E96263F2B9500270D7F /* SwiftRater in Frameworks */,
@@ -229,13 +236,11 @@
 		3F94202E25FDD6F60099BD08 /* Leastimator */ = {
 			isa = PBXGroup;
 			children = (
+				3FCAA763264F7D4B00A92BE6 /* Extensions */,
 				3F0E9FD12610F84300989D90 /* AppError.swift */,
 				3F94203325FDD6F70099BD08 /* Assets.xcassets */,
-				3F2F905F26241A8000835C5A /* Color+Extensions.swift */,
 				3F4E69B82634085A007E9DA9 /* ComputeUtils.swift */,
 				3F94203125FDD6F60099BD08 /* ContentView.swift */,
-				3FE0E2F2263542B400700D0F /* Int+Extensions.swift */,
-				3FB18B5E26236DAE00EAFF39 /* Date+Extensions.swift */,
 				3F0E9FF426111F5500989D90 /* EditReadingView.swift */,
 				3F254BF525FF1E5C0014E8E5 /* EditVehicleView.swift */,
 				3FE0E2E626353A8B00700D0F /* PagerIndicator.swift */,
@@ -251,11 +256,11 @@
 				3F7E919F2611272D005141D6 /* ReadingList.swift */,
 				3F37DEC5262A08CE006DA51F /* Realm */,
 				3FB18B702623ECBF00EAFF39 /* SettingsView.swift */,
-				3F0E9FE0261107E900989D90 /* UIImage+Extensions.swift */,
 				3F2F904D2623F37800835C5A /* UnitUtils.swift */,
 				3F0E9FE52611092300989D90 /* VehicleAvatar.swift */,
 				3F0E9FEA2611172900989D90 /* VehiclePresentation.swift */,
 				3F0E9FD6261101A600989D90 /* VehicleRow.swift */,
+				3FCAA761264F7D4500A92BE6 /* SheetStore.swift */,
 			);
 			path = Leastimator;
 			sourceTree = "<group>";
@@ -286,9 +291,22 @@
 			path = LeastimatorUITests;
 			sourceTree = "<group>";
 		};
+		3FCAA763264F7D4B00A92BE6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3F2F905F26241A8000835C5A /* Color+Extensions.swift */,
+				3FE0E2F2263542B400700D0F /* Int+Extensions.swift */,
+				3FB18B5E26236DAE00EAFF39 /* Date+Extensions.swift */,
+				3F0E9FE0261107E900989D90 /* UIImage+Extensions.swift */,
+				3FCAA75F264F7C1900A92BE6 /* URL+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		3FE30CCA262EA77B001AF98E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3FCAA764264F814700A92BE6 /* NetworkExtension.framework */,
 				3FE30CCB262EA77B001AF98E /* WidgetKit.framework */,
 				3FE30CCD262EA77B001AF98E /* SwiftUI.framework */,
 				3FE30D3F26300F9D001AF98E /* Intents.framework */,
@@ -495,6 +513,7 @@
 				3F254BF625FF1E5C0014E8E5 /* EditVehicleView.swift in Sources */,
 				3F0E9FD7261101A600989D90 /* VehicleRow.swift in Sources */,
 				3F94203225FDD6F60099BD08 /* ContentView.swift in Sources */,
+				3FCAA762264F7D4500A92BE6 /* SheetStore.swift in Sources */,
 				3F0E9FE62611092300989D90 /* VehicleAvatar.swift in Sources */,
 				3FE0E2E726353A8B00700D0F /* PagerIndicator.swift in Sources */,
 				3FB18B5F26236DAE00EAFF39 /* Date+Extensions.swift in Sources */,
@@ -504,6 +523,7 @@
 				3F0E9FE1261107E900989D90 /* UIImage+Extensions.swift in Sources */,
 				3F2F906026241A8000835C5A /* Color+Extensions.swift in Sources */,
 				3F0E9FD22610F84300989D90 /* AppError.swift in Sources */,
+				3FCAA760264F7C1900A92BE6 /* URL+Extensions.swift in Sources */,
 				3F37DEC0262A0522006DA51F /* Car.swift in Sources */,
 				3F0E9FF026111ABC00989D90 /* ProgressCircle.swift in Sources */,
 				3F7E91A02611272D005141D6 /* ReadingList.swift in Sources */,
@@ -687,7 +707,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Leastimator/Leastimator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 39;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_ASSET_PATHS = "\"Leastimator/Preview Content\"";
 				DEVELOPMENT_TEAM = 8ZSXHVA72B;
 				ENABLE_PREVIEWS = YES;
@@ -697,7 +717,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.4;
+				MARKETING_VERSION = 3.5;
 				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.leastimator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -713,7 +733,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Leastimator/Leastimator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 39;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_ASSET_PATHS = "\"Leastimator/Preview Content\"";
 				DEVELOPMENT_TEAM = 8ZSXHVA72B;
 				ENABLE_PREVIEWS = YES;
@@ -723,7 +743,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.4;
+				MARKETING_VERSION = 3.5;
 				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.leastimator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
