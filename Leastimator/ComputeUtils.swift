@@ -27,7 +27,7 @@ struct ExtendedVehicleInfo {
   
   let isExpired: Bool
   
-  // Mileage snapshot for each month.
+  // Mileage snapshot for each month, flat curve by inserting latest date for empty months.
   let mileageSnapshots: [Double]
   
   // Same as above but don't insert flat data into empty months.

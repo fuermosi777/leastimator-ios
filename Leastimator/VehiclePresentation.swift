@@ -7,6 +7,7 @@
 
 import SwiftUI
 import iLineChart
+import SwiftUICharts
 import SwiftUIPager
 import SwiftRater
 
@@ -111,7 +112,7 @@ struct VehiclePresentation: View {
                 switch index {
                 case .estimation:
                   if let normalPredicatedMileage = extendedInfo.normalPredicatedMileage {
-                    ProgressCircle(progress: Float(Float(normalPredicatedMileage) / Float(vehicle.allowed))) {
+                    ProgressCircle(progress: Float(Float(normalPredicatedMileage) / Float(vehicle.allowed + vehicle.starting))) {
                       VStack {
                         Text("Estimate")
                           .font(.callout)

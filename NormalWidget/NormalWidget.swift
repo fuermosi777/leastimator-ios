@@ -94,7 +94,7 @@ struct NormalWidgetEntryView : View {
         if let normalPredicatedMileage = extendedInfo.normalPredicatedMileage {
           switch entry.configuration.primary {
           case .estimatedMileage, .unknown:
-            ProgressCircle(progress: Float(Float(normalPredicatedMileage) / Float(entry.vehicle.allowed))) {}
+            ProgressCircle(progress: Float(Float(normalPredicatedMileage) / Float(entry.vehicle.allowed + entry.vehicle.starting))) {}
               .frame(width: 40.0, height: 40.0)
               .padding(.bottom, 20.0)
           case .currentMileage:

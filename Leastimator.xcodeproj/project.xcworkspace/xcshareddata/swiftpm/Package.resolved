@@ -1,61 +1,59 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "iColor",
-        "repositoryURL": "https://github.com/fuermosi777/iColor.git",
-        "state": {
-          "branch": null,
-          "revision": "5acb0c9efe3b6ac1b6a5a878f418bbb39589f7d2",
-          "version": "0.1.3"
-        }
-      },
-      {
-        "package": "iLineChart",
-        "repositoryURL": "https://github.com/fuermosi777/iLineChart",
-        "state": {
-          "branch": null,
-          "revision": "8262bf5b6337a2ec923b9156eb241e37e7e7cc20",
-          "version": "1.6.6"
-        }
-      },
-      {
-        "package": "Realm",
-        "repositoryURL": "https://github.com/realm/realm-cocoa.git",
-        "state": {
-          "branch": null,
-          "revision": "ae8e646590396dfc13c1abbf8aa2e48c43766dce",
-          "version": "10.7.2"
-        }
-      },
-      {
-        "package": "RealmDatabase",
-        "repositoryURL": "https://github.com/realm/realm-core",
-        "state": {
-          "branch": null,
-          "revision": "bab46acdca91c417a0d4849b8f4992a3c17e29a5",
-          "version": "10.5.5"
-        }
-      },
-      {
-        "package": "SwiftRater",
-        "repositoryURL": "https://github.com/takecian/SwiftRater",
-        "state": {
-          "branch": null,
-          "revision": "3002392aab212ab5e68c80ba9f8d5c0ef035c260",
-          "version": "1.9.1"
-        }
-      },
-      {
-        "package": "SwiftUIPager",
-        "repositoryURL": "https://github.com/fermoya/SwiftUIPager.git",
-        "state": {
-          "branch": null,
-          "revision": "80a31d0e6d95f7216eb7bfe16f66d8b533fe857b",
-          "version": "2.2.0"
-        }
+  "pins" : [
+    {
+      "identity" : "icolor",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/fuermosi777/iColor.git",
+      "state" : {
+        "revision" : "5acb0c9efe3b6ac1b6a5a878f418bbb39589f7d2",
+        "version" : "0.1.3"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "ilinechart",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/fuermosi777/iLineChart",
+      "state" : {
+        "revision" : "8444fff7eeda78c788d8ebdbad4ca06fe3815f6f",
+        "version" : "1.6.7"
+      }
+    },
+    {
+      "identity" : "realm-cocoa",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/realm/realm-cocoa.git",
+      "state" : {
+        "revision" : "ae8e646590396dfc13c1abbf8aa2e48c43766dce",
+        "version" : "10.7.2"
+      }
+    },
+    {
+      "identity" : "realm-core",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/realm/realm-core",
+      "state" : {
+        "revision" : "bab46acdca91c417a0d4849b8f4992a3c17e29a5",
+        "version" : "10.5.5"
+      }
+    },
+    {
+      "identity" : "swiftrater",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/takecian/SwiftRater",
+      "state" : {
+        "revision" : "3002392aab212ab5e68c80ba9f8d5c0ef035c260",
+        "version" : "1.9.1"
+      }
+    },
+    {
+      "identity" : "swiftuipager",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/fermoya/SwiftUIPager.git",
+      "state" : {
+        "revision" : "80a31d0e6d95f7216eb7bfe16f66d8b533fe857b",
+        "version" : "2.2.0"
+      }
+    }
+  ],
+  "version" : 2
 }
