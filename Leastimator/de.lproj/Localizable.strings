@@ -1,0 +1,81 @@
+/*
+ Localizable.strings
+ Leastimator
+ 
+ Created by Hao Liu on 3/30/23.
+ 
+ */
+"My Garage" = "Meine Garage";
+"Estimate" = "Geschätzter";
+"Add odometer reading" = "Kilometerstand hinzufügen";
+"Current mileage" = "Derzeitiger Kilometerstand";
+"Unused mileage" = "Nicht genutzte Kilometer";
+"Daily average" = "Tagesdurchschnitt";
+"Monthly average" = "Monatsdurchschnitt";
+"Excess mileage" = "Überschüssige Kilometer";
+"Excess charge" = "Mehrkosten";
+"Vehicle Setting" = "Fahrzeug Einstellungen";
+"Odometer History" = "Kilometerzähler Historie";
+"Save" = "Speichern";
+"Select vehicle photo" = "Fahrzeugfoto auswählen";
+"Nickname" = "Name";
+"My car" = "Mein Auto";
+"Starting mileage" = "Anfangskilometerstand";
+"Total mileage allowed" = "Gesamtkilometerbegrenzung";
+"Length of lease" = "Laufzeit des Leasingvertrags";
+"Lease start date" = "Beginn des Leasingvertrags";
+"Overage fee" = "Mehrkilometer Preis";
+"Length unit" = "Längeneinheit";
+"Currency" = "Währung";
+"Add vehicle" = "Fahrzeug hinzufügen";
+"Error" = "Fehler";
+"Something is wrong with the information entered: %@" = "Es ist ein Fehler bei der eingegebenen Information aufgetreten: %@";
+"Failed to save changes. Please close the app and try again" = "Änderungen konnten nicht gespeichert werden. Bitte schließen Sie die App und versuchen Sie es erneut.";
+"You haven't added any readings yet." = "Du hast noch keine Messwerte hinzugefügt.";
+"Add Reading" = "Kilometerstand Hinzufügen";
+"Edit Reading" = "Kilometerstand Bearbeiten";
+"Reading date" = "Datum der Kilometerstandmessung";
+"Current odometer reading on dashboard." = "Kilometerstand auf der Armatur.";
+"Settings" = "Einstellungen";
+"Vehicle in widget" = "Fahrzeug auf Widget";
+"Choose which vehicle to present in the main screen widget." = "Wählen Sie das Fahrzeug aus, das im Hauptbildschirm-Widget angezeigt werden soll.";
+"Enter vehicle on start" = "Fahrzeug beim öffnen automatisch anzeigen";
+"Start up vehicle" = "Fahrzeug";
+"When app starts, skip the list and present the vehicle information." = "Beim Start der App die Liste überspringen und die Fahrzeuginformationen anzeigen.";
+"Please rate Leastimator" = "Leastimator Bewerten";
+"Support" = "Support";
+"Current version: %@" = "Derzeitige Version: %@";
+"Privacy Policy" = "Datenschutzerklärung";
+"Terms of Use" = "Allgemeine Geschäftsbedingungen (AGB)";
+
+// Pro
+"Leastimator Pro is an optional subscription to control ads, add more than one vehicle, handling customization, and support future development" = "Leastimator Pro ist ein optionales Abonnement zur Kontrolle von Anzeigen, zum Hinzufügen von mehr als einem Fahrzeug, zur Anpassung und zur Unterstützung zukünftiger Entwicklungen.";
+"Thank you for purchasing Leastimator app. You can enjoy Leastimator Pro for free." = "Vielen Dank für den Kauf der Leastimator-App. Sie können Leastimator Pro kostenlos nutzen.";
+"Thank you for supporting Leastimator by subscribing pro!" = "Vielen Dank, dass Sie Leastimator durch ein Pro-Abonnement unterstützen!";
+"Restore Previous Purchases" = "Kauf wiederherstellen";
+
+// Unit
+"Mile" = "Meile";
+"Kilometer" = "Kilometer";
+
+// QA
+"What should my odometer read?" = "Welchen Kilometerstand sollte mein Tacho anzeigen?";
+"Your odometer should read less than %@." = "Der Kilometerstand auf Ihrem Tacho sollte weniger als %@ betragen.";
+"To calculate the result, we take the number of miles you're allowed to drive each day according to your lease agreement and multiply it by the number of days that have passed since the lease started. Then we add the starting mileage to that total." = "Um das Ergebnis zu berechnen, nehmen wir die Anzahl der Kilometer, die Sie gemäß Ihrem Leasingvertrag jeden Tag fahren dürfen, und multiplizieren sie mit der Anzahl der seit Beginn des Leasingzeitraums vergangenen Tage. Dann addieren wir zu diesem Gesamtwert die Anfangskilometer.";
+
+"How far can I drive today?" = "Wie weit kann ich heute Fahren?";
+"You can drive as far as you want because you did not set the mileage allowed." = "Sie können so weit fahren, wie Sie möchten, da Sie das erlaubte Kilometerlimit nicht festgelegt haben.";
+"You can drive up to %@ %@ today and still be on track." = "Du kannst heute %@ %@ fahren und immer noch unter deiner Jahreslaufleistung sein";
+"To determine if the car has exceeded the maximum mileage allowed, we subtract the current mileage from the maximum allowable mileage." = "Um festzustellen, ob das Auto die zulässige Höchstkilometerleistung überschritten hat, ziehen wir die aktuelle Kilometerzahl von der maximal zulässigen Kilometerleistung ab.";
+
+"When does my lease expire?" = "Wann läuft mein Leasingvertrag aus?";
+"Congratulations, your lease is expired." = "Herzlichen Glückwunsch, Ihr Leasingvertrag ist abgelaufen.";
+"You have %@ months left. Keep up the work!" = "Sie haben noch %@ Monate übrig. Weiter so!";
+"To calculate the remaining lease duration, we subtract the number of months that have passed since the lease started from the total length of the lease." = "Um die verbleibende Leasingdauer zu berechnen, subtrahieren wir die Anzahl der seit Beginn des Leasingvertrags vergangenen Monate von der Gesamtlänge des Vertrags.";
+
+"The information provided is for predication purposes only and should not be construed as actual numbers. While we make every effort to ensure the accuracy of the information presented, we cannot guarantee that it is free from errors or omissions. We are not liable for any damages or losses that may arise from the use of this information." = "Die bereitgestellten Informationen dienen ausschließlich Vorhersagezwecken und sollten nicht als tatsächliche Zahlen interpretiert werden. Obwohl wir jede Anstrengung unternehmen, um die Richtigkeit der präsentierten Informationen zu gewährleisten, können wir nicht garantieren, dass sie fehlerfrei sind. Wir haften nicht für Schäden oder Verluste, die aus der Verwendung dieser Informationen entstehen können.";
+
+
+// Widget
+"Edit widget" = "Widget bearbeiten";
+"Edit what to display in the widget" = "Bearbeite, was im Widget angezeigt werden soll";
