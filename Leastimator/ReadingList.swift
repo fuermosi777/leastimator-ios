@@ -24,7 +24,7 @@ struct ReadingList: View {
     var predicate: NSPredicate?
     predicate = NSPredicate(format: "vehicle = %@", vehicle)
     self._readings = FetchRequest(entity: OdoReading.entity(),
-                                  sortDescriptors: [NSSortDescriptor(keyPath: \OdoReading.date, ascending: true)],
+                                  sortDescriptors: [NSSortDescriptor(keyPath: \OdoReading.date, ascending: false)],
                                   predicate: predicate)
     
   }

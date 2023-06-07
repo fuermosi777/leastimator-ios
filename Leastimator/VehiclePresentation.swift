@@ -195,19 +195,10 @@ struct VehiclePresentation: View {
       
       // Graph
       Section {
-        Picker("Graph type", selection: $graphType) {
-          Text("Monthly").tag(GraphType.monthly)
-          Text("Last 30 days").tag(GraphType.daily)
-        }
-        .pickerStyle(SegmentedPickerStyle())
-        .listRowSeparator(.hidden)
-        if graphType == .monthly {
-          LineGraph(data: extendedInfo.monthlyMileageDataForLineChart)
-            .listRowInsets(EdgeInsets(top: 0, leading: -20, bottom: 0, trailing: -20))
-            .listRowSeparator(.hidden)
-        } else if graphType == .daily {
-          BarGraph(data: extendedInfo.dailyMileageDataForLineChart.suffix(30))
-        }
+        LineGraph(data: extendedInfo.monthlyMileageDataForLineChart,
+                  yLimit: vehicle.allowed == 0 ? 0.0 : Double(extendedInfo.mileageShouldLessThan))
+          .listRowInsets(EdgeInsets(top: 0, leading: -20, bottom: 0, trailing: -20))
+          .listRowSeparator(.hidden)
       }.padding(.vertical)
       
       // Banner ad
@@ -237,7 +228,7 @@ struct VehiclePresentation: View {
                       Text("You have \(String(extendedInfo.leaseLeft)) months left. Keep up the work!"),
                      more: Text("To calculate the remaining lease duration, we subtract the number of months that have passed since the lease started from the total length of the lease."))
       } footer: {
-        Text("The information provided is for predication purposes only and should not be construed as actual numbers. While we make every effort to ensure the accuracy of the information presented, we cannot guarantee that it is free from errors or omissions. We are not liable for any damages or losses that may arise from the use of this information.")
+        Text("The information provided is for predication purposes only and should not be construed as actual numbers. While Leastimator makes every effort to ensure the accuracy of the information presented, we cannot guarantee that it is free from errors or omissions. Leastimator is not liable for any damages or losses that may arise from the use of this information.")
           .font(.system(size: 12.0))
           .foregroundColor(.subText)
           .listRowSeparator(.hidden)
