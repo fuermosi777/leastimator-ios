@@ -7,6 +7,7 @@
 
 import Foundation
 import Mixpanel
+import os
 
 enum PlanForLogging: String {
   case Pro = "pro"

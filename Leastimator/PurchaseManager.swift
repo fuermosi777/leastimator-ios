@@ -8,9 +8,14 @@
 import Foundation
 import StoreKit
 import TPInAppReceipt
+import os
 
 @MainActor
 class PurchaseManager: ObservableObject {
+  private let oslogger = os.Logger(
+    subsystem: Bundle.main.bundleIdentifier!,
+    category: String(describing: PurchaseManager.self)
+  )
   
   private let productIds = ["leastimator_pro_monthly", "leastimator_pro_yearly"]
   
@@ -32,12 +37,45 @@ class PurchaseManager: ObservableObject {
     updates?.cancel()
   }
   
+  // Used to determine if user is a pro.
   var unlockPro: Bool {
+    // Check old receipt store locally and if found no need to check further.
+    let isNonIAPPurchased = UserDefaults.standard.bool(forKey: "isNonIAPPurchased")
+    if isNonIAPPurchased {
+      self.isNonIAPPurchased = true
+      Logger.shared.userPlan(.NonIAPPro)
+      return true
+    }
+    
+    let proStatus = UserDefaults.standard.bool(forKey: "proStatus")
+    if proStatus {
+      Logger.shared.userPlan(.Pro)
+      return true
+    }
+    
     return !self.purchasedProductIDs.isEmpty || self.isNonIAPPurchased
   }
   
   // Called on app start, check if there are already purchases made.
   func updatePurchasedProducts() async {
+    oslogger.trace("Update purchased products.")
+    checkForNonIAPPurchases()
+    if isNonIAPPurchased {
+      return
+    }
+    
+    let proStatus = UserDefaults.standard.bool(forKey: "proStatus")
+    var proStatusUpdatedAt = UserDefaults.standard.object(forKey: "proStatusUpdatedAt") as! Date?
+    if proStatusUpdatedAt == nil {
+      proStatusUpdatedAt = Date()
+    }
+    let daysSince = Calendar.current.dateComponents([.day], from: proStatusUpdatedAt!, to: Date()).day!
+    // No need to check if previous check is Pro and it was fewer than N days ago.
+    if daysSince < 20 && proStatus {
+      oslogger.trace("Pro status is fresh within 20 days, no need to check.")
+      return
+    }
+    oslogger.trace("Check purchased products.")
     for await result in Transaction.currentEntitlements {
       guard case .verified(let transaction) = result else {
         continue
@@ -49,25 +87,24 @@ class PurchaseManager: ObservableObject {
         self.purchasedProductIDs.remove(transaction.productID)
       }
     }
+    // Update pro status in storage.
     if purchasedProductIDs.isEmpty {
+      oslogger.notice("No purchased products, free user.")
       Logger.shared.userPlan(.Free)
+      UserDefaults.standard.set(false, forKey: "proStatus")
+      UserDefaults.standard.set(Date(), forKey: "proStatusUpdatedAt")
     } else {
+      oslogger.notice("No purchased products, pro user.")
       Logger.shared.userPlan(.Pro)
+      UserDefaults.standard.set(true, forKey: "proStatus")
+      UserDefaults.standard.set(Date(), forKey: "proStatusUpdatedAt")
     }
-    checkForNonIAPPurchases()
   }
   
   // Check for non IAP purchases which were done when Leastimator was a paid app (build <= 51).
   private func checkForNonIAPPurchases() {
+    oslogger.trace("Check for NonIAPP purchases.")
     do {
-      // Check old receipt store locally and if found no need to check further.
-      let isNonIAPPurchased = UserDefaults.standard.bool(forKey: "isNonIAPPurchased")
-      if isNonIAPPurchased {
-        self.isNonIAPPurchased = true
-        Logger.shared.userPlan(.NonIAPPro)
-        return
-      }
-      
       /// Initialize receipt
       let receipt = try InAppReceipt.localReceipt()
       
@@ -84,12 +121,16 @@ class PurchaseManager: ObservableObject {
       if originalAppVersionInt <= buildSoldWithoutIAP {
         // Identified a legacy paid user. Unlock all features.
         UserDefaults.standard.set(true, forKey: "isNonIAPPurchased")
+        oslogger.notice("Found NonIAPP purchase history build.")
         self.isNonIAPPurchased = true
         Logger.shared.userPlan(.NonIAPPro)
+      } else {
+        oslogger.notice("Not a legacy paid user.")
       }
       
     } catch {
       Logger.shared.appStoreReceiptNotFound()
+      oslogger.notice("Not found an app store receipt. Unable to detect legacy user or not.")
       print(error)
     }
   }
@@ -124,7 +165,7 @@ class PurchaseManager: ObservableObject {
         // Successful purchase but transaction/receipt can't be verified
         // Could be a jailbroken phone
         Logger.shared.proInvalid()
-        print(error)
+        oslogger.error("Successful purchase but transaction/receipt can't be verified -- jailbroken?")
         break
       case .pending:
         Logger.shared.proPending()
@@ -133,7 +174,7 @@ class PurchaseManager: ObservableObject {
         break
       case .userCancelled:
         Logger.shared.proCanceled()
-        print("User canceled a purchase")
+        oslogger.warning("User canceled a purchase")
         break
       @unknown default:
         break

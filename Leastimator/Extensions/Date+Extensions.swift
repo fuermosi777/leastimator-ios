@@ -23,3 +23,14 @@ extension Date {
     return Calendar.current.date(byAdding: DateComponents(month: 1, day: -1), to: self.startOfMonth())!
   }
 }
+
+extension Date: RawRepresentable {
+  public var rawValue: String {
+    self.timeIntervalSinceReferenceDate.description
+  }
+  
+  public init?(rawValue: String) {
+    self = Date(timeIntervalSinceReferenceDate: Double(rawValue) ?? 0.0)
+  }
+}
+
