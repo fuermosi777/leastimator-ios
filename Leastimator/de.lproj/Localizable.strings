@@ -47,6 +47,7 @@
 "Current version: %@" = "Derzeitige Version: %@";
 "Privacy Policy" = "Datenschutzerklärung";
 "Terms of Use" = "Allgemeine Geschäftsbedingungen (AGB)";
+"Cancel" = "Abbrechen";
 
 // Pro
 "Leastimator Pro is an optional subscription to control ads, track multiple vehicles, handle customization, and support future development" = "Leastimator Pro ist ein optionales Abonnement zur Kontrolle von Anzeigen, zum Hinzufügen von mehr als einem Fahrzeug, zur Anpassung und zur Unterstützung zukünftiger Entwicklungen.";
@@ -79,3 +80,5 @@
 // Widget
 "Edit widget" = "Widget bearbeiten";
 "Edit what to display in the widget" = "Bearbeite, was im Widget angezeigt werden soll";
+
+"vehicle delete warning message" = "Bitte bestätigen Sie, dass Sie dieses Fahrzeug löschen möchten. Beachten Sie, dass dieser Vorgang nicht rückgängig gemacht werden kann.";

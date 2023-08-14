@@ -45,9 +45,8 @@ struct EditVehicleView: View {
   @State private var lengthUnit: LengthUnit
   @State private var currency: String
   
-  //  @State private var showAlert = false
-  //  @State private var alertMessage: String?
   @State private var showAvatarPicker = false
+  @State private var showDeletionWarning = false
   
   init(vehicle: Vehicle? = nil) {
     self.vehicle = vehicle
@@ -163,14 +162,11 @@ struct EditVehicleView: View {
         
         if vehicle != nil {
           Section {
-            Button(action: {
-              do {
-                try handleDelete()
-              } catch {
-                self.errorHandler.handle(error)
-              }
-            }) {
-              Image(systemName: "trash").foregroundColor(Color.red)
+            Button {
+              showDeletionWarning.toggle()
+            } label: {
+              Label("Delete", systemImage: "trash")
+                .foregroundColor(.red)
             }
           }
         }
@@ -197,6 +193,17 @@ struct EditVehicleView: View {
           avatar = resized.pngData()
           showAvatarPicker = false
         }
+      }
+      .alert("vehicle delete warning message",
+             isPresented: $showDeletionWarning) {
+        Button("Delete", role: .destructive) {
+          do {
+            try handleDelete()
+          } catch {
+            self.errorHandler.handle(error)
+          }
+        }
+        Button("Cancel", role: .cancel) {}
       }
     }
   }

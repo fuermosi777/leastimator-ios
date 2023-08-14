@@ -8,3 +8,4 @@
 
 
 "disclaimer" = "The information provided is for predication purposes only and should not be construed as actual numbers. While Leastimator makes every effort to ensure the accuracy of the information presented, we cannot guarantee that it is free from errors or omissions. Leastimator is not liable for any damages or losses that may arise from the use of this information.";
+"vehicle delete warning message" = "Please confirm that you want to delete this vehicle. Note that this cannot be undone.";
