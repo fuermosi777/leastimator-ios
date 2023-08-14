@@ -106,7 +106,7 @@ struct VehiclePresentation: View {
     let up = Float(extendedInfo.normalPredicatedMileage)
     let down = Float(vehicle.allowed + vehicle.starting)
     if down > 0 {
-      return Float(up / down)
+      return min(Float(up / down), 1.0)
     }
     return 1.0
   }
