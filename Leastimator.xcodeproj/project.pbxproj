@@ -11,6 +11,8 @@
 		3F2AFE6A2A89E363001B8837 /* SK.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 3F2AFE692A89E363001B8837 /* SK.storekit */; };
 		3F2AFE6B2A89E363001B8837 /* SK.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 3F2AFE692A89E363001B8837 /* SK.storekit */; };
 		3F2AFE6C2A89E363001B8837 /* SK.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 3F2AFE692A89E363001B8837 /* SK.storekit */; };
+		3F2AFE742A89F29F001B8837 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2AFE732A89F29E001B8837 /* ProgressBar.swift */; };
+		3F2AFE752A89F29F001B8837 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2AFE732A89F29E001B8837 /* ProgressBar.swift */; };
 		3F3423A429DD2C7800C35E69 /* LeastimatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423A329DD2C7800C35E69 /* LeastimatorApp.swift */; };
 		3F3423A629DD2C7800C35E69 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423A529DD2C7800C35E69 /* ContentView.swift */; };
 		3F3423A829DD2C7900C35E69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F3423A729DD2C7900C35E69 /* Assets.xcassets */; };
@@ -109,6 +111,7 @@
 /* Begin PBXFileReference section */
 		3F2AFE672A89DFDA001B8837 /* StoreKit+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoreKit+Extensions.swift"; sourceTree = "<group>"; };
 		3F2AFE692A89E363001B8837 /* SK.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = SK.storekit; sourceTree = "<group>"; };
+		3F2AFE732A89F29E001B8837 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		3F3423A029DD2C7800C35E69 /* Leastimator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Leastimator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F3423A329DD2C7800C35E69 /* LeastimatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeastimatorApp.swift; sourceTree = "<group>"; };
 		3F3423A529DD2C7800C35E69 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -230,6 +233,7 @@
 				3F34241D29DD345600C35E69 /* Leastimator.entitlements */,
 				3F34241B29DD337A00C35E69 /* Info.plist */,
 				3F3423A729DD2C7900C35E69 /* Assets.xcassets */,
+				3F3423AE29DD2C7900C35E69 /* Leastimator.xcdatamodeld */,
 				3F34241729DD31AE00C35E69 /* Card.swift */,
 				3F3423DF29DD2DB700C35E69 /* ComputeUtils.swift */,
 				3F3423A529DD2C7800C35E69 /* ContentView.swift */,
@@ -239,7 +243,6 @@
 				3F3423D229DD2D0500C35E69 /* Extensions */,
 				3F34240629DD30A400C35E69 /* GADBannerView.swift */,
 				3F34241329DD313000C35E69 /* ImagePicker.swift */,
-				3F3423AE29DD2C7900C35E69 /* Leastimator.xcdatamodeld */,
 				3F3423A329DD2C7800C35E69 /* LeastimatorApp.swift */,
 				3F3423E129DD2DDC00C35E69 /* LineGraph.swift */,
 				3FB0211F29E90B31005E615E /* BarGraph.swift */,
@@ -249,6 +252,7 @@
 				3F3423A929DD2C7900C35E69 /* Preview Content */,
 				3F3423FE29DD303900C35E69 /* ProBadge.swift */,
 				3F34240229DD307F00C35E69 /* ProgressCircle.swift */,
+				3F2AFE732A89F29E001B8837 /* ProgressBar.swift */,
 				3F34240029DD305000C35E69 /* ProProductsView.swift */,
 				3F3423E529DD2ED200C35E69 /* PurchaseManager.swift */,
 				3F34240B29DD30DA00C35E69 /* ReadingList.swift */,
@@ -501,6 +505,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F34240E29DD30ED00C35E69 /* EditReadingView.swift in Sources */,
+				3F2AFE742A89F29F001B8837 /* ProgressBar.swift in Sources */,
 				3F34241029DD30FF00C35E69 /* EditVehicleView.swift in Sources */,
 				3F3423DE29DD2D4200C35E69 /* String+Extensions.swift in Sources */,
 				3F3423AD29DD2C7900C35E69 /* Persistence.swift in Sources */,
@@ -557,6 +562,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FE221A02A54D8F90063ED9C /* Color+Extensions.swift in Sources */,
+				3F2AFE752A89F29F001B8837 /* ProgressBar.swift in Sources */,
 				3FE221A52A54DA6D0063ED9C /* UnitUtils.swift in Sources */,
 				3FE221A32A54D94A0063ED9C /* Date+Extensions.swift in Sources */,
 				3FC0EF492A54CFCC0047F756 /* Persistence.swift in Sources */,

@@ -115,31 +115,30 @@ struct VehiclePresentation: View {
   var body: some View {
     List {
       Section {
+        VStack(alignment: .leading) {
+          HStack(alignment: .bottom) {
+            Text("Estimate")
+              .font(.system(size: 14, weight: .bold))
+              .foregroundColor(.subText)
+            Text("\(extendedInfo.normalPredicatedMileage)")
+              .lineLimit(1)
+              .font(.system(size: 24, weight: .bold, design: .rounded))
+            Text(lengthUnit.longName)
+              .font(.system(size: 14, weight: .bold))
+              .foregroundColor(.subText)
+          }
+          ProgressBar(progress: progressPercentage,
+                      colorOverride: vehicle.allowed > 0 ? nil : Color.accentColor)
+        }
+        .listRowSeparator(.hidden)
+        
         HStack {
           Spacer()
-          ProgressCircle(progress: progressPercentage,
-                         colorOverride: vehicle.allowed > 0 ? nil : Color.accentColor) {
-            VStack {
-              Text("Estimate")
-                .font(.system(size: 16, weight: .bold))
-                .foregroundColor(.subText)
-              Text("\(extendedInfo.normalPredicatedMileage)")
-                .lineLimit(1)
-                .font(.system(size: 30, weight: .bold, design: .rounded))
-              Text(lengthUnit.longName)
-                .font(.system(size: 16, weight: .bold))
-                .foregroundColor(.subText)
-            }
-          }.frame(width: 150.0, height: 150.0)
-            .padding(40.0)
-          
-          
+          VehicleAvatar(data: vehicle.avatar)
           Spacer()
         }
         .listRowSeparator(.hidden)
-        .frame(height: 240)
       }
-      
       
       // Actions
       Section {

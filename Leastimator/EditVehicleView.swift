@@ -84,22 +84,24 @@ struct EditVehicleView: View {
     NavigationStack {
       List {
         Section {
-          Button(action: { self.showAvatarPicker = true }) {
-            HStack(alignment: .center) {
-              Spacer()
-              if let avatarData = avatar {
-                VehicleAvatar(data: avatarData, size: 100.0)
-              } else {
-                Image("CarCover")
-                  .resizable()
-                  .scaledToFit()
-                  .frame(width: 300.0)
-              }
-              Spacer()
+          Menu {
+            Button { showAvatarPicker.toggle() } label: {
+              Text("Upload from Photos")
             }
-            
-            Text("Select Vehicle Photo")
-              .foregroundColor(.subText)
+            Button { avatar = nil } label: {
+              Text("Remove")
+            }
+          } label: {
+            VStack {
+              HStack(alignment: .center) {
+                Spacer()
+                VehicleAvatar(data: avatar)
+                Spacer()
+              }
+              
+              Text("Select Vehicle Photo")
+                .foregroundColor(.subText)
+            }
           }
         }.listRowBackground(Color.clear)
         
@@ -224,10 +226,8 @@ struct EditVehicleView: View {
   
   var isSaveDisabled: Bool {
     return name.isEmpty ||
-    avatar == nil ||
     starting.isEmpty ||
     lengthOfLease.isEmpty
-    
   }
   
   // TODO: localize error reasons.
@@ -273,10 +273,7 @@ struct EditVehicleView: View {
       throw AppError.invalidInput(reason: "Sorry, a lease with a term longer than 10 years is not supported for now")
     }
     lengthOfLeaseNumber = Int64(lengthOfLease)
-    
-    guard let avatar = avatar else {
-      throw AppError.invalidInput(reason: "Please add a vehicle avatar")
-    }
+
     
     let vehicle = self.vehicle ?? Vehicle(context: viewContext)
     vehicle.allowed = allowedNumber

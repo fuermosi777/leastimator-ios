@@ -9,24 +9,23 @@ import SwiftUI
 
 struct VehicleAvatar: View {
   let data: Data?
-  let size: CGFloat
   
-  init(data: Data?, size: CGFloat = 64.0) {
+  init(data: Data?) {
     self.data = data
-    self.size = size
   }
   
   var body: some View {
     if let data = data {
       Image(uiImage: UIImage(data: data) ?? UIImage())
         .resizable()
-        .aspectRatio(contentMode: .fill)
-        .frame(width: size, height: size, alignment: .center)
-        .clipShape(RoundedRectangle(cornerRadius: size / 2, style: .continuous))
+        .scaledToFit()
+        .frame(width: UIScreen.main.bounds.width - 20.0, alignment: .center)
+        .cornerRadius(10.0)
     } else {
-      Image(systemName: "car.side")
-        .frame(width: size, height: size, alignment: .center)
-        .clipShape(RoundedRectangle(cornerRadius: size / 2, style: .continuous))
+      Image("CarCover")
+        .resizable()
+        .scaledToFit()
+        .frame(width: UIScreen.main.bounds.width - 20.0, alignment: .center)
     }
   }
 }
