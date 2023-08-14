@@ -8,13 +8,6 @@
 import SwiftUI
 import SwiftRater
 
-
-enum Sheet: Identifiable {
-  case readingCreation,
-       vehicleEdit
-  var id: Int { hashValue }
-}
-
 struct InfoPanel: View {
   var title: Text
   var unit: Text
@@ -69,16 +62,13 @@ struct VehiclePresentation: View {
   // Add ObservedObject make sure it gets updated data.
   @ObservedObject var vehicle: Vehicle
   
-  private var readingsRequest: FetchRequest<OdoReading>
-  private var readings: FetchedResults<OdoReading>{readingsRequest.wrappedValue}
-  
-  @State var activeSheet: Sheet?
-  
   @State private var dashboardIndex = 0
   
   @State var chartTapValue: Int? = 0
   
   @State var graphType: GraphType = .monthly
+  
+  @State private var showAddReadingSheet = false
   
   enum GraphType {
     case monthly, daily
@@ -86,14 +76,10 @@ struct VehiclePresentation: View {
   
   init(vehicle: Vehicle) {
     self.vehicle = vehicle
-    self.readingsRequest = FetchRequest(entity: OdoReading.entity(),
-                                        sortDescriptors: [NSSortDescriptor(keyPath: \OdoReading.date, ascending: true)],
-                                        predicate: NSPredicate(format: "%K == %@", #keyPath(OdoReading.vehicle), vehicle))
   }
   
-  // TODO: currently this gets called every time. Change to only call once.
   var extendedInfo: ExtendedVehicleInfo {
-    Compute(vehicle, readings.map{ $0 })
+    return Compute(vehicle)
   }
   
   var lengthUnit: LengthUnit {
@@ -157,8 +143,8 @@ struct VehiclePresentation: View {
       
       // Actions
       Section {
-        Button(action: { self.activeSheet = .readingCreation }) {
-          Label("Add odometer reading", systemImage: "plus")
+        Button { showAddReadingSheet.toggle() } label: {
+          Label("Add odometer reading", systemImage: "plus.circle.fill")
         }.listRowSeparator(.hidden)
       }
       
@@ -228,55 +214,21 @@ struct VehiclePresentation: View {
                       Text("You have \(String(extendedInfo.leaseLeft)) months left. Keep up the work!"),
                      more: Text("To calculate the remaining lease duration, we subtract the number of months that have passed since the lease started from the total length of the lease."))
       } footer: {
-        Text("The information provided is for predication purposes only and should not be construed as actual numbers. While Leastimator makes every effort to ensure the accuracy of the information presented, we cannot guarantee that it is free from errors or omissions. Leastimator is not liable for any damages or losses that may arise from the use of this information.")
+        Text("disclaimer")
           .font(.system(size: 12.0))
           .foregroundColor(.subText)
           .listRowSeparator(.hidden)
       }
     }
     .listStyle(.plain)
-    .navigationBarTitle(vehicle.name ?? "",
-                        displayMode: .inline)
-    .toolbar {
-      ToolbarItem(placement: .secondaryAction) {
-        Button(action: { activeSheet = .vehicleEdit }) {
-          Label("Vehicle Setting", systemImage: "gearshape")
-        }
-        
-      }
-      ToolbarItem(placement: .secondaryAction) {
-        NavigationLink(destination: ReadingList(vehicle: vehicle).navigationBarTitle("Odometer History")) {
-          Label("Odometer History", systemImage: "calendar.badge.clock")
-        }
-      }
-    }
-    .sheet(item: $activeSheet) { item in
-      switch item {
-        case .readingCreation:
-          EditReadingView(vehicle: vehicle,
-                          onDismiss: handleSheetDismiss)
-            .environment(\.managedObjectContext, viewContext)
-            .withErrorHandler()
-        case .vehicleEdit:
-          EditVehicleView(vehicle: vehicle,
-                          onDismiss: handleSheetDismiss,
-                          onDeletion: handleVehicleDeletion)
-            .environment(\.managedObjectContext, viewContext)
-            .withErrorHandler()
-      }
+    .sheet(isPresented: $showAddReadingSheet) {
+      EditReadingView(vehicle: vehicle)
+        .withErrorHandler()
     }
     .onAppear {
       Logger.shared.vehiclePageView()
       SwiftRater.check()
     }
-  }
-  
-  private func handleSheetDismiss() {
-    activeSheet = nil
-  }
-  
-  private func handleVehicleDeletion() {
-    self.presentationMode.wrappedValue.dismiss()
   }
 }
 

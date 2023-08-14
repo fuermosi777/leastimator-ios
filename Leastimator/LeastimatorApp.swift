@@ -13,7 +13,6 @@ import GoogleMobileAds
 struct LeastimatorApp: App {
   let persistenceController = PersistenceController.shared
   
-  @StateObject private var sheetStore = SheetStore()
   @Environment(\.scenePhase) var phase
   
   @StateObject
@@ -47,10 +46,11 @@ struct LeastimatorApp: App {
   var body: some Scene {
     WindowGroup {
       ContentView()
+        .preferredColorScheme(.dark)
         .withErrorHandler()
         .environment(\.managedObjectContext, persistenceController.container.viewContext)
-      //        .environment(\.locale, .init(identifier: "de"))
-        .environmentObject(sheetStore)
+      // For localization debug.
+//              .environment(\.locale, .init(identifier: "de"))
         .environmentObject(purchaseManager)
         .environmentObject(notificationManger)
       //        .onOpenURL { url in
@@ -74,7 +74,7 @@ struct LeastimatorApp: App {
           }
           // Defined in Info.plist
           if name == "AddReadingAction" {
-            sheetStore.activeSheet = .addReading
+//            sheetStore.activeSheet = .addReading
           }
         case .inactive, .background:
           return

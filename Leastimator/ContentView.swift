@@ -10,7 +10,7 @@ import CoreData
 import WidgetKit
 
 struct PlusGrayCircle: View {
-  var width: CGFloat = 100
+  var width: CGFloat = 80.0
   var body: some View {
     ZStack {
       Circle()
@@ -27,14 +27,12 @@ struct PlusGrayCircle: View {
 struct ContentView: View {
   @EnvironmentObject private var purchaseManager: PurchaseManager
   @Environment(\.managedObjectContext) private var viewContext
-  @AppStorage("enterVehicleViewOnStart") var enterVehicleViewOnStart: Bool = false
-  @State private var selectedVehicle: Vehicle? = nil
-  @State private var redirectToProProduct = false
-  @State private var redirectToVehicle = false
   @State private var redirectToSettings = false
-  
-  // TODO: deprecate this. Don't use environment object for this.
-  @EnvironmentObject private var sheetStore: SheetStore
+  @State private var showAddVehicleSheet = false
+  @State private var showEditVehicleSheet: Vehicle?
+  @State private var showReadingListSheet: Vehicle?
+  @State private var showVehicleReadingHistorySheet = false
+  @State private var showProProductSheet = false
   
   @FetchRequest(
     entity: Vehicle.entity(),
@@ -59,127 +57,119 @@ struct ContentView: View {
     }
   }
   
-  private func addVehicle() {
-    if purchaseManager.unlockPro || vehicles.count < 1 {
-      sheetStore.activeSheet = .vehicleCreation
-    } else {
-      redirectToProProduct = true
+  private var vehicleToDisplay: Vehicle? {
+    if !vehicles.isEmpty {
+      let vehicleShouldShow = vehicles.filter { $0.showOnStart }.first
+      return vehicleShouldShow ?? vehicles.first
     }
+    return nil
   }
   
   var body: some View {
     NavigationStack {
       VStack {
-        if vehicles.count == 0 {
-          Button(action: addVehicle) {
+        if vehicles.isEmpty {
+          Spacer()
+          Button {
+            showAddVehicleSheet.toggle()
+          } label: {
             ZStack {
-              Image("CarOutline")
-                .renderingMode(.template)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 300)
-                .accentColor(.subText)
-                .opacity(0.4)
+              HStack(alignment: .center) {
+                Image("CarCover")
+                  .resizable()
+                  .scaledToFit()
+                  .frame(width: 320.0)
+              }
               PlusGrayCircle()
+                .opacity(0.8)
             }
           }
+          Text("Add Vehicle")
+            .font(.system(.title3, design: .rounded))
+          Spacer()
         } else {
-          List {
-            ForEach(Array(vehicles.enumerated()), id: \.offset) { index, vehicle in
-              Button(action: {
-                if !purchaseManager.unlockPro && index > 0 {
-                  self.redirectToProProduct = true
-                } else {
-                  self.selectedVehicle = vehicle
-                  self.redirectToVehicle = true
-                }
-              }) {
-                VehicleRow(vehicle: vehicle)
-              }
-              .listRowSeparator(.hidden)
-            }.navigationDestination(isPresented: $redirectToVehicle) {
-              if let vehicle = self.selectedVehicle {
-                VehiclePresentation(vehicle: vehicle)
-              }
-            }
-            
-            HStack {
-              Button(action: addVehicle) {
-                PlusGrayCircle(width: 64)
-              }
-              Spacer()
-              if !purchaseManager.unlockPro {
-                ProBadge()
-              }
-            }.listRowSeparator(.hidden)
-            
-          }
-          .listStyle(.plain)
-          .task {
-            selectStartVehicle()
+          if let vehicle = vehicleToDisplay {
+            VehiclePresentation(vehicle: vehicle)
           }
         }
       }  // VStack
-      .navigationDestination(isPresented: $redirectToProProduct) {
+      .navigationTitle(vehicleToDisplay?.name ?? "")
+      .toolbar {
+        ToolbarItem(placement: .navigationBarLeading) {
+          Menu {
+            ForEach(vehicles) { vehicle in
+              Button {
+                if purchaseManager.unlockPro {
+                  for vehicle in vehicles {
+                    vehicle.showOnStart = false
+                  }
+                  vehicle.showOnStart = true
+                  try? viewContext.save()
+                } else if vehicle != vehicleToDisplay {
+                  showProProductSheet.toggle()
+                }
+              } label: {
+                Text(vehicle.name ?? kUnknownVehicleName)
+                Spacer()
+                if vehicle == vehicleToDisplay {
+                  Image(systemName: "checkmark")
+                } else if !purchaseManager.unlockPro {
+                  Image(systemName: "lock.fill")
+                }
+              }
+            }
+            Divider()
+            Button { redirectToSettings.toggle() } label: {
+              Label("Settings", systemImage: "gearshape.2")
+            }
+            Button { showAddVehicleSheet.toggle() } label: {
+              Label("Add Vehicle", systemImage: "plus")
+            }
+          } label: {
+            Label("Vehicles", systemImage: "car.side")
+          }
+        }
+        if let vehicle = vehicleToDisplay {
+          ToolbarItem(placement: .secondaryAction) {
+            Button {
+              showEditVehicleSheet = vehicle
+            } label: {
+              Label("Edit Vehicle", systemImage: "slider.horizontal.3")
+            }
+            
+          }
+          ToolbarItem(placement: .secondaryAction) {
+            Button {
+              showReadingListSheet = vehicle
+            } label: {
+              Label("Odometer History", systemImage: "calendar.badge.clock")
+            }
+          }
+        }
+      }
+      .navigationDestination(isPresented: $redirectToSettings) {
+        SettingsView(vehicles: vehicles)
+          .navigationBarTitle("Settings", displayMode: .inline)
+      }
+      .sheet(isPresented: $showProProductSheet) {
         ProProductsView()
           .withErrorHandler()
           .navigationBarTitle("Leastimator Pro", displayMode: .inline)
       }
-      .task {
-        Logger.shared.userVehicleCount(vehicles.count)
+      .sheet(isPresented: $showAddVehicleSheet) {
+        EditVehicleView()
+          .withErrorHandler()
       }
-      .navigationBarTitle(Text("My Garage"))
-      .navigationBarItems(
-        trailing:
-          Button(action: { redirectToSettings = true }) {
-            Image(systemName: "gearshape")
-          }
-      )
-      .navigationDestination(isPresented: $redirectToSettings) {
-        SettingsView(vehicles: vehicles).navigationBarTitle("Settings", displayMode: .inline)
+      .sheet(item: $showEditVehicleSheet) {
+        EditVehicleView(vehicle: $0)
+          .withErrorHandler()
       }
-      .sheet(item: $sheetStore.activeSheet) { item in
-        switch item {
-          case .vehicleCreation:
-            EditVehicleView(onDismiss: handleSheetDismiss,
-                            onDeletion: {})
-              .withErrorHandler()
-          case .addReading:
-            if let vehicle = vehicleOnWidget {
-              EditReadingView(vehicle: vehicle, onDismiss: handleSheetDismiss)
-                .environment(\.managedObjectContext, viewContext)
-                .withErrorHandler()
-            } else {
-              // Fallback message.
-              VStack {
-                Text("No vehicle is added yet")
-                  .padding(10.0)
-                Button(action: handleSheetDismiss) {
-                  Label("Add a Vehicle", systemImage: "plus")
-                }
-              }
-            }
-        }
+      .sheet(item: $showReadingListSheet) {
+        ReadingList(vehicle: $0)
       }
     }
     // This line is critical to prevent purchase page from popping back.
     // https://developer.apple.com/forums/thread/693137
     .navigationViewStyle(.stack)
-  }
-  
-  private func handleSheetDismiss() {
-    sheetStore.activeSheet = nil
-  }
-  
-  private func selectStartVehicle() {
-    if enterVehicleViewOnStart {
-      for vehicle in vehicles {
-        if vehicle.showOnStart {
-          selectedVehicle = vehicle
-          redirectToVehicle = true
-          break
-        }
-      }
-    }
   }
 }

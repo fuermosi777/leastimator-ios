@@ -49,9 +49,9 @@
 "Terms of Use" = "Allgemeine Geschäftsbedingungen (AGB)";
 
 // Pro
-"Leastimator Pro is an optional subscription to control ads, add more than one vehicle, handling customization, and support future development" = "Leastimator Pro ist ein optionales Abonnement zur Kontrolle von Anzeigen, zum Hinzufügen von mehr als einem Fahrzeug, zur Anpassung und zur Unterstützung zukünftiger Entwicklungen.";
-"Thank you for purchasing Leastimator app. You can enjoy Leastimator Pro for free." = "Vielen Dank für den Kauf der Leastimator-App. Sie können Leastimator Pro kostenlos nutzen.";
-"Thank you for supporting Leastimator by subscribing pro!" = "Vielen Dank, dass Sie Leastimator durch ein Pro-Abonnement unterstützen!";
+"Leastimator Pro is an optional subscription to control ads, track multiple vehicles, handle customization, and support future development" = "Leastimator Pro ist ein optionales Abonnement zur Kontrolle von Anzeigen, zum Hinzufügen von mehr als einem Fahrzeug, zur Anpassung und zur Unterstützung zukünftiger Entwicklungen.";
+"🥳 Leastimator is a free app now. Thank you for purchasing and supporting Leastimator app before. You can enjoy Leastimator Pro for free." = "🥳 Vielen Dank für den Kauf der Leastimator-App. Sie können Leastimator Pro kostenlos nutzen.";
+"🥳 Thank you for supporting Leastimator by subscribing pro!" = "🥳 Vielen Dank, dass Sie Leastimator durch ein Pro-Abonnement unterstützen!";
 "Restore Previous Purchases" = "Kauf wiederherstellen";
 
 // Unit
@@ -73,7 +73,7 @@
 "You have %@ months left. Keep up the work!" = "Sie haben noch %@ Monate übrig. Weiter so!";
 "To calculate the remaining lease duration, we subtract the number of months that have passed since the lease started from the total length of the lease." = "Um die verbleibende Leasingdauer zu berechnen, subtrahieren wir die Anzahl der seit Beginn des Leasingvertrags vergangenen Monate von der Gesamtlänge des Vertrags.";
 
-"The information provided is for predication purposes only and should not be construed as actual numbers. While we make every effort to ensure the accuracy of the information presented, we cannot guarantee that it is free from errors or omissions. We are not liable for any damages or losses that may arise from the use of this information." = "Die bereitgestellten Informationen dienen ausschließlich Vorhersagezwecken und sollten nicht als tatsächliche Zahlen interpretiert werden. Obwohl wir jede Anstrengung unternehmen, um die Richtigkeit der präsentierten Informationen zu gewährleisten, können wir nicht garantieren, dass sie fehlerfrei sind. Wir haften nicht für Schäden oder Verluste, die aus der Verwendung dieser Informationen entstehen können.";
+"disclaimer" = "Die bereitgestellten Informationen dienen nur zu Vorhersagezwecken und sollten nicht als tatsächliche Zahlen interpretiert werden. Obwohl Leastimator jede Anstrengung unternimmt, um die Genauigkeit der präsentierten Informationen sicherzustellen, können wir nicht garantieren, dass sie frei von Fehlern oder Auslassungen sind. Leastimator haftet nicht für Schäden oder Verluste, die aus der Verwendung dieser Informationen entstehen können.";
 
 
 // Widget

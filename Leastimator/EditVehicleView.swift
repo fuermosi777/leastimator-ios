@@ -24,15 +24,16 @@ struct LSTextField: View {
   }
 }
 
+let kUnknownVehicleName = "Unknown Vehicle"
+
 // A view used to create or edit a Vehicle data model.
 struct EditVehicleView: View {
+  @Environment(\.dismiss) private var dismiss
   @Environment(\.managedObjectContext) private var viewContext
   @EnvironmentObject var errorHandler: ErrorHandler
   
   // Optional. If not exist, then create a new vehicle.
   var vehicle: Vehicle?
-  var onDismiss: () -> Void
-  var onDeletion: () -> Void
   
   @State private var name: String
   @State private var starting: String
@@ -48,11 +49,11 @@ struct EditVehicleView: View {
   //  @State private var alertMessage: String?
   @State private var showAvatarPicker = false
   
-  init(vehicle: Vehicle? = nil, onDismiss: @escaping () -> Void, onDeletion: @escaping () -> Void) {
+  init(vehicle: Vehicle? = nil) {
     self.vehicle = vehicle
     
     if let vehicle = vehicle {
-      _name = State(initialValue: vehicle.name ?? "")
+      _name = State(initialValue: vehicle.name ?? kUnknownVehicleName)
       _starting = State(initialValue: vehicle.starting != 0 ? String(vehicle.starting) : "")
       _allowed = State(initialValue: vehicle.allowed != 0 ? String(vehicle.allowed) : "")
       _lengthOfLease = State(initialValue: vehicle.lengthOfLease != 0 ? String(vehicle.lengthOfLease) : "")
@@ -78,8 +79,6 @@ struct EditVehicleView: View {
     _currency = State(initialValue: vehicle != nil ?
                       vehicle!.currency ?? Currency.usd.rawValue
                       : Currency.usd.rawValue)
-    self.onDismiss = onDismiss
-    self.onDeletion = onDeletion
   }
   
   var body: some View {
@@ -87,15 +86,21 @@ struct EditVehicleView: View {
       List {
         Section {
           Button(action: { self.showAvatarPicker = true }) {
-            if let avatarData = avatar {
-              HStack(alignment: .center) {
-                Spacer()
-                VehicleAvatar(data: avatarData, size: 80.0)
-                Spacer()
+            HStack(alignment: .center) {
+              Spacer()
+              if let avatarData = avatar {
+                VehicleAvatar(data: avatarData, size: 100.0)
+              } else {
+                Image("CarCover")
+                  .resizable()
+                  .scaledToFit()
+                  .frame(width: 300.0)
               }
-            } else {
-              Label("Select vehicle photo", systemImage: "plus")
+              Spacer()
             }
+            
+            Text("Select Vehicle Photo")
+              .foregroundColor(.subText)
           }
         }.listRowBackground(Color.clear)
         
@@ -170,11 +175,11 @@ struct EditVehicleView: View {
           }
         }
       }
-      .navigationBarTitle(Text(vehicle?.name ?? "Add vehicle"),
+      .navigationBarTitle(Text(vehicle?.name ?? "Add Vehicle"),
                           displayMode: .inline)
       .navigationBarItems(
         leading:
-          Button(action: { self.onDismiss() }) {
+          Button(action: { dismiss() }) {
             Image(systemName: "xmark")
           },
         trailing:
@@ -199,9 +204,14 @@ struct EditVehicleView: View {
   private func handleDelete() throws {
     if let vehicle = self.vehicle {
       vehicle.removed = true
-      try viewContext.save()
       
-      self.onDeletion()
+      do {
+        try viewContext.save()
+      } catch {
+        throw AppError.failedContextSave
+      }
+      
+      dismiss()
     }
   }
   
@@ -272,7 +282,6 @@ struct EditVehicleView: View {
     vehicle.avatar = avatar
     vehicle.lengthUnit = lengthUnit.rawValue
     vehicle.currency = currency
-    vehicle.removed = false
     
     do {
       try viewContext.save()
@@ -280,6 +289,6 @@ struct EditVehicleView: View {
       throw AppError.failedContextSave
     }
     
-    self.onDismiss()
+    dismiss()
   }
 }

@@ -44,42 +44,44 @@ struct ReadingList: View {
     // https://stackoverflow.com/questions/66262213/swiftui-sheet-unexpectedly-found-nil-while-unwrapping-an-optional-value
     _ = self.selectedReading
     
-    return List {
-      if readings.count == 0 {
-        Text("You haven't added any readings yet.").foregroundColor(.subText)
-      } else {
-        ForEach(self.readings) { rd in
-          if let date = rd.date {
-            Button(action: {
-              selectedReading = rd
-              showEditReadingSheet = true
-            }) {
-              HStack {
-                Text("\(rd.value) \(lengthUnit.shortFor)").foregroundColor(.mainText)
-                Spacer()
-                Text("\(date.format())").foregroundColor(.subText)
+    return NavigationStack {
+      List {
+        if readings.count == 0 {
+          Text("You haven't added any readings yet.").foregroundColor(.subText)
+        } else {
+          ForEach(self.readings) { rd in
+            if let date = rd.date {
+              Button(action: {
+                selectedReading = rd
+                showEditReadingSheet = true
+              }) {
+                HStack {
+                  Text("\(rd.value) \(lengthUnit.shortFor)").foregroundColor(.mainText)
+                  Spacer()
+                  Text("\(date.format())").foregroundColor(.subText)
+                }
               }
             }
           }
         }
       }
+      .sheet(isPresented: $showEditReadingSheet) {
+        EditReadingView(vehicle: vehicle,
+                        reading: selectedReading)
+        .environment(\.managedObjectContext, viewContext)
+        .withErrorHandler()
+      }
+      .navigationTitle("Odometer History")
+      .navigationBarTitleDisplayMode(.inline)
+      .navigationBarItems(
+        trailing:
+          Button(action: {
+            selectedReading = nil
+            showEditReadingSheet = true
+          }) {
+            Image(systemName: "plus.circle")
+          }
+      )
     }
-    .sheet(isPresented: $showEditReadingSheet) {
-      EditReadingView(vehicle: vehicle,
-                      reading: selectedReading,
-                      onDismiss: { showEditReadingSheet = false })
-      .environment(\.managedObjectContext, viewContext)
-      .withErrorHandler()
-    }
-    .navigationBarItems(
-      trailing:
-        Button(action: {
-          selectedReading = nil
-          showEditReadingSheet = true
-        }) {
-          Image(systemName: "plus.circle")
-        }
-    )
-    
   }
 }

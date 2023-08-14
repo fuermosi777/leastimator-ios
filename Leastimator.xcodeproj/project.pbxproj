@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F2AFE682A89DFDA001B8837 /* StoreKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2AFE672A89DFDA001B8837 /* StoreKit+Extensions.swift */; };
+		3F2AFE6A2A89E363001B8837 /* SK.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 3F2AFE692A89E363001B8837 /* SK.storekit */; };
+		3F2AFE6B2A89E363001B8837 /* SK.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 3F2AFE692A89E363001B8837 /* SK.storekit */; };
+		3F2AFE6C2A89E363001B8837 /* SK.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 3F2AFE692A89E363001B8837 /* SK.storekit */; };
 		3F3423A429DD2C7800C35E69 /* LeastimatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423A329DD2C7800C35E69 /* LeastimatorApp.swift */; };
 		3F3423A629DD2C7800C35E69 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423A529DD2C7800C35E69 /* ContentView.swift */; };
 		3F3423A829DD2C7900C35E69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F3423A729DD2C7900C35E69 /* Assets.xcassets */; };
@@ -27,10 +31,8 @@
 		3F3423E429DD2EB400C35E69 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423E329DD2EB400C35E69 /* ErrorHandler.swift */; };
 		3F3423E629DD2ED200C35E69 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423E529DD2ED200C35E69 /* PurchaseManager.swift */; };
 		3F3423E929DD2F0D00C35E69 /* TPInAppReceipt in Frameworks */ = {isa = PBXBuildFile; productRef = 3F3423E829DD2F0D00C35E69 /* TPInAppReceipt */; };
-		3F3423EB29DD2F2700C35E69 /* SheetStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423EA29DD2F2700C35E69 /* SheetStore.swift */; };
 		3F3423ED29DD2F4400C35E69 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423EC29DD2F4400C35E69 /* Logger.swift */; };
 		3F3423F029DD2F5E00C35E69 /* Mixpanel in Frameworks */ = {isa = PBXBuildFile; productRef = 3F3423EF29DD2F5E00C35E69 /* Mixpanel */; };
-		3F3423F229DD2F7900C35E69 /* VehicleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423F129DD2F7900C35E69 /* VehicleRow.swift */; };
 		3F3423F429DD2F9700C35E69 /* VehicleAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423F329DD2F9700C35E69 /* VehicleAvatar.swift */; };
 		3F3423F629DD2FB600C35E69 /* VehiclePresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423F529DD2FB600C35E69 /* VehiclePresentation.swift */; };
 		3F3423F929DD2FDF00C35E69 /* SwiftRater in Frameworks */ = {isa = PBXBuildFile; productRef = 3F3423F829DD2FDF00C35E69 /* SwiftRater */; };
@@ -49,7 +51,21 @@
 		3F34241829DD31AE00C35E69 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F34241729DD31AE00C35E69 /* Card.swift */; };
 		3F34241A29DD324A00C35E69 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F34241929DD324A00C35E69 /* NotificationManager.swift */; };
 		3FB0212029E90B31005E615E /* BarGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB0211F29E90B31005E615E /* BarGraph.swift */; };
+		3FC0EF372A54CE600047F756 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC0EF362A54CE600047F756 /* WidgetKit.framework */; };
+		3FC0EF392A54CE600047F756 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC0EF382A54CE600047F756 /* SwiftUI.framework */; };
+		3FC0EF3C2A54CE600047F756 /* EstimateWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC0EF3B2A54CE600047F756 /* EstimateWidgetBundle.swift */; };
+		3FC0EF3E2A54CE600047F756 /* EstimateWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC0EF3D2A54CE600047F756 /* EstimateWidget.swift */; };
+		3FC0EF402A54CE610047F756 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FC0EF3F2A54CE610047F756 /* Assets.xcassets */; };
+		3FC0EF442A54CE610047F756 /* EstimateWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3FC0EF342A54CE600047F756 /* EstimateWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3FC0EF492A54CFCC0047F756 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423AC29DD2C7900C35E69 /* Persistence.swift */; };
+		3FC0EF4A2A54CFF50047F756 /* Leastimator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423AE29DD2C7900C35E69 /* Leastimator.xcdatamodeld */; };
 		3FCC7E5E29DE762800AC7620 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3FCC7E6029DE762800AC7620 /* Localizable.strings */; };
+		3FE221A02A54D8F90063ED9C /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423D529DD2D1F00C35E69 /* Color+Extensions.swift */; };
+		3FE221A12A54D90C0063ED9C /* LineGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423E129DD2DDC00C35E69 /* LineGraph.swift */; };
+		3FE221A22A54D9200063ED9C /* ComputeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423DF29DD2DB700C35E69 /* ComputeUtils.swift */; };
+		3FE221A32A54D94A0063ED9C /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423D729DD2D2700C35E69 /* Date+Extensions.swift */; };
+		3FE221A42A54DA3B0063ED9C /* ProgressCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F34240229DD307F00C35E69 /* ProgressCircle.swift */; };
+		3FE221A52A54DA6D0063ED9C /* UnitUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423FC29DD301F00C35E69 /* UnitUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,9 +83,32 @@
 			remoteGlobalIDString = 3F34239F29DD2C7800C35E69;
 			remoteInfo = Leastimator;
 		};
+		3FC0EF422A54CE610047F756 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3F34239829DD2C7800C35E69 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3FC0EF332A54CE600047F756;
+			remoteInfo = EstimateWidgetExtension;
+		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		3FC0EF452A54CE610047F756 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				3FC0EF442A54CE610047F756 /* EstimateWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		3F2AFE672A89DFDA001B8837 /* StoreKit+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoreKit+Extensions.swift"; sourceTree = "<group>"; };
+		3F2AFE692A89E363001B8837 /* SK.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = SK.storekit; sourceTree = "<group>"; };
 		3F3423A029DD2C7800C35E69 /* Leastimator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Leastimator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F3423A329DD2C7800C35E69 /* LeastimatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeastimatorApp.swift; sourceTree = "<group>"; };
 		3F3423A529DD2C7800C35E69 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -92,9 +131,7 @@
 		3F3423E129DD2DDC00C35E69 /* LineGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineGraph.swift; sourceTree = "<group>"; };
 		3F3423E329DD2EB400C35E69 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		3F3423E529DD2ED200C35E69 /* PurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
-		3F3423EA29DD2F2700C35E69 /* SheetStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetStore.swift; sourceTree = "<group>"; };
 		3F3423EC29DD2F4400C35E69 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
-		3F3423F129DD2F7900C35E69 /* VehicleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleRow.swift; sourceTree = "<group>"; };
 		3F3423F329DD2F9700C35E69 /* VehicleAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleAvatar.swift; sourceTree = "<group>"; };
 		3F3423F529DD2FB600C35E69 /* VehiclePresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehiclePresentation.swift; sourceTree = "<group>"; };
 		3F3423FC29DD301F00C35E69 /* UnitUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitUtils.swift; sourceTree = "<group>"; };
@@ -113,8 +150,16 @@
 		3F34241B29DD337A00C35E69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3F34241D29DD345600C35E69 /* Leastimator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Leastimator.entitlements; sourceTree = "<group>"; };
 		3FB0211F29E90B31005E615E /* BarGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarGraph.swift; sourceTree = "<group>"; };
+		3FC0EF342A54CE600047F756 /* EstimateWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = EstimateWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		3FC0EF362A54CE600047F756 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		3FC0EF382A54CE600047F756 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		3FC0EF3B2A54CE600047F756 /* EstimateWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateWidgetBundle.swift; sourceTree = "<group>"; };
+		3FC0EF3D2A54CE600047F756 /* EstimateWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateWidget.swift; sourceTree = "<group>"; };
+		3FC0EF3F2A54CE610047F756 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3FC0EF412A54CE610047F756 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FCC7E5F29DE762800AC7620 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3FCC7E6129DE764600AC7620 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3FE2219F2A54D1010063ED9C /* EstimateWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EstimateWidgetExtension.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,15 +188,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3FC0EF312A54CE600047F756 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3FC0EF392A54CE600047F756 /* SwiftUI.framework in Frameworks */,
+				3FC0EF372A54CE600047F756 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		3F34239729DD2C7800C35E69 = {
 			isa = PBXGroup;
 			children = (
+				3FE2219F2A54D1010063ED9C /* EstimateWidgetExtension.entitlements */,
 				3F3423A229DD2C7800C35E69 /* Leastimator */,
 				3F3423B829DD2C7900C35E69 /* LeastimatorTests */,
 				3F3423C229DD2C7900C35E69 /* LeastimatorUITests */,
+				3FC0EF3A2A54CE600047F756 /* EstimateWidget */,
+				3FC0EF352A54CE600047F756 /* Frameworks */,
 				3F3423A129DD2C7800C35E69 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -162,6 +219,7 @@
 				3F3423A029DD2C7800C35E69 /* Leastimator.app */,
 				3F3423B529DD2C7900C35E69 /* LeastimatorTests.xctest */,
 				3F3423BF29DD2C7900C35E69 /* LeastimatorUITests.xctest */,
+				3FC0EF342A54CE600047F756 /* EstimateWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -195,13 +253,12 @@
 				3F3423E529DD2ED200C35E69 /* PurchaseManager.swift */,
 				3F34240B29DD30DA00C35E69 /* ReadingList.swift */,
 				3F34240429DD309200C35E69 /* SettingsView.swift */,
-				3F3423EA29DD2F2700C35E69 /* SheetStore.swift */,
 				3F3423FC29DD301F00C35E69 /* UnitUtils.swift */,
 				3F3423F329DD2F9700C35E69 /* VehicleAvatar.swift */,
 				3F3423F529DD2FB600C35E69 /* VehiclePresentation.swift */,
-				3F3423F129DD2F7900C35E69 /* VehicleRow.swift */,
 				3F34241929DD324A00C35E69 /* NotificationManager.swift */,
 				3FCC7E6029DE762800AC7620 /* Localizable.strings */,
+				3F2AFE692A89E363001B8837 /* SK.storekit */,
 			);
 			path = Leastimator;
 			sourceTree = "<group>";
@@ -240,8 +297,29 @@
 				3F3423D929DD2D3100C35E69 /* UIImage+Extensions.swift */,
 				3F3423DB29DD2D3900C35E69 /* URL+Extensions.swift */,
 				3F3423DD29DD2D4200C35E69 /* String+Extensions.swift */,
+				3F2AFE672A89DFDA001B8837 /* StoreKit+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		3FC0EF352A54CE600047F756 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3FC0EF362A54CE600047F756 /* WidgetKit.framework */,
+				3FC0EF382A54CE600047F756 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3FC0EF3A2A54CE600047F756 /* EstimateWidget */ = {
+			isa = PBXGroup;
+			children = (
+				3FC0EF3B2A54CE600047F756 /* EstimateWidgetBundle.swift */,
+				3FC0EF3D2A54CE600047F756 /* EstimateWidget.swift */,
+				3FC0EF3F2A54CE610047F756 /* Assets.xcassets */,
+				3FC0EF412A54CE610047F756 /* Info.plist */,
+			);
+			path = EstimateWidget;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,10 +332,12 @@
 				3F34239C29DD2C7800C35E69 /* Sources */,
 				3F34239D29DD2C7800C35E69 /* Frameworks */,
 				3F34239E29DD2C7800C35E69 /* Resources */,
+				3FC0EF452A54CE610047F756 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3FC0EF432A54CE610047F756 /* PBXTargetDependency */,
 			);
 			name = Leastimator;
 			packageProductDependencies = (
@@ -306,6 +386,23 @@
 			productReference = 3F3423BF29DD2C7900C35E69 /* LeastimatorUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		3FC0EF332A54CE600047F756 /* EstimateWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3FC0EF482A54CE610047F756 /* Build configuration list for PBXNativeTarget "EstimateWidgetExtension" */;
+			buildPhases = (
+				3FC0EF302A54CE600047F756 /* Sources */,
+				3FC0EF312A54CE600047F756 /* Frameworks */,
+				3FC0EF322A54CE600047F756 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EstimateWidgetExtension;
+			productName = EstimateWidgetExtension;
+			productReference = 3FC0EF342A54CE600047F756 /* EstimateWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -326,6 +423,9 @@
 					3F3423BE29DD2C7900C35E69 = {
 						CreatedOnToolsVersion = 14.3;
 						TestTargetID = 3F34239F29DD2C7800C35E69;
+					};
+					3FC0EF332A54CE600047F756 = {
+						CreatedOnToolsVersion = 14.3.1;
 					};
 				};
 			};
@@ -352,6 +452,7 @@
 				3F34239F29DD2C7800C35E69 /* Leastimator */,
 				3F3423B429DD2C7900C35E69 /* LeastimatorTests */,
 				3F3423BE29DD2C7900C35E69 /* LeastimatorUITests */,
+				3FC0EF332A54CE600047F756 /* EstimateWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -361,6 +462,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F2AFE6A2A89E363001B8837 /* SK.storekit in Resources */,
 				3F3423AB29DD2C7900C35E69 /* Preview Assets.xcassets in Resources */,
 				3FCC7E5E29DE762800AC7620 /* Localizable.strings in Resources */,
 				3F3423A829DD2C7900C35E69 /* Assets.xcassets in Resources */,
@@ -371,6 +473,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F2AFE6B2A89E363001B8837 /* SK.storekit in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,6 +481,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3FC0EF322A54CE600047F756 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F2AFE6C2A89E363001B8837 /* SK.storekit in Resources */,
+				3FC0EF402A54CE610047F756 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,10 +504,10 @@
 				3F34241029DD30FF00C35E69 /* EditVehicleView.swift in Sources */,
 				3F3423DE29DD2D4200C35E69 /* String+Extensions.swift in Sources */,
 				3F3423AD29DD2C7900C35E69 /* Persistence.swift in Sources */,
+				3F2AFE682A89DFDA001B8837 /* StoreKit+Extensions.swift in Sources */,
 				3F34241229DD311B00C35E69 /* MileagePicker.swift in Sources */,
 				3F3423B029DD2C7900C35E69 /* Leastimator.xcdatamodeld in Sources */,
 				3F34240329DD307F00C35E69 /* ProgressCircle.swift in Sources */,
-				3F3423F229DD2F7900C35E69 /* VehicleRow.swift in Sources */,
 				3F3423D829DD2D2700C35E69 /* Date+Extensions.swift in Sources */,
 				3F3423E229DD2DDC00C35E69 /* LineGraph.swift in Sources */,
 				3F3423E429DD2EB400C35E69 /* ErrorHandler.swift in Sources */,
@@ -415,7 +527,6 @@
 				3F3423DA29DD2D3100C35E69 /* UIImage+Extensions.swift in Sources */,
 				3F34240129DD305000C35E69 /* ProProductsView.swift in Sources */,
 				3F3423E029DD2DB700C35E69 /* ComputeUtils.swift in Sources */,
-				3F3423EB29DD2F2700C35E69 /* SheetStore.swift in Sources */,
 				3F3423FF29DD303900C35E69 /* ProBadge.swift in Sources */,
 				3F34241429DD313000C35E69 /* ImagePicker.swift in Sources */,
 				3F3423F429DD2F9700C35E69 /* VehicleAvatar.swift in Sources */,
@@ -441,6 +552,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3FC0EF302A54CE600047F756 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3FE221A02A54D8F90063ED9C /* Color+Extensions.swift in Sources */,
+				3FE221A52A54DA6D0063ED9C /* UnitUtils.swift in Sources */,
+				3FE221A32A54D94A0063ED9C /* Date+Extensions.swift in Sources */,
+				3FC0EF492A54CFCC0047F756 /* Persistence.swift in Sources */,
+				3FC0EF4A2A54CFF50047F756 /* Leastimator.xcdatamodeld in Sources */,
+				3FE221A42A54DA3B0063ED9C /* ProgressCircle.swift in Sources */,
+				3FC0EF3C2A54CE600047F756 /* EstimateWidgetBundle.swift in Sources */,
+				3FE221A12A54D90C0063ED9C /* LineGraph.swift in Sources */,
+				3FE221A22A54D9200063ED9C /* ComputeUtils.swift in Sources */,
+				3FC0EF3E2A54CE600047F756 /* EstimateWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -453,6 +581,11 @@
 			isa = PBXTargetDependency;
 			target = 3F34239F29DD2C7800C35E69 /* Leastimator */;
 			targetProxy = 3F3423C029DD2C7900C35E69 /* PBXContainerItemProxy */;
+		};
+		3FC0EF432A54CE610047F756 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3FC0EF332A54CE600047F756 /* EstimateWidgetExtension */;
+			targetProxy = 3FC0EF422A54CE610047F756 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -588,11 +721,12 @@
 		3F3423CA29DD2C7900C35E69 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Leastimator/Leastimator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 71;
+				CURRENT_PROJECT_VERSION = 74;
 				DEVELOPMENT_ASSET_PATHS = "\"Leastimator/Preview Content\"";
 				DEVELOPMENT_TEAM = CFR9F99TN9;
 				ENABLE_PREVIEWS = YES;
@@ -608,7 +742,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.8;
+				MARKETING_VERSION = 4.10;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.leastimator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -624,11 +758,12 @@
 		3F3423CB29DD2C7900C35E69 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Leastimator/Leastimator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 71;
+				CURRENT_PROJECT_VERSION = 74;
 				DEVELOPMENT_ASSET_PATHS = "\"Leastimator/Preview Content\"";
 				DEVELOPMENT_TEAM = CFR9F99TN9;
 				ENABLE_PREVIEWS = YES;
@@ -644,7 +779,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.8;
+				MARKETING_VERSION = 4.10;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.leastimator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -733,6 +868,64 @@
 			};
 			name = Release;
 		};
+		3FC0EF462A54CE610047F756 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = EstimateWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 74;
+				DEVELOPMENT_TEAM = CFR9F99TN9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = EstimateWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = EstimateWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 4.10;
+				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.leastimator.EstimateWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3FC0EF472A54CE610047F756 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = EstimateWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 74;
+				DEVELOPMENT_TEAM = CFR9F99TN9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = EstimateWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = EstimateWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 4.10;
+				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.leastimator.EstimateWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -768,6 +961,15 @@
 			buildConfigurations = (
 				3F3423D029DD2C7900C35E69 /* Debug */,
 				3F3423D129DD2C7900C35E69 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3FC0EF482A54CE610047F756 /* Build configuration list for PBXNativeTarget "EstimateWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3FC0EF462A54CE610047F756 /* Debug */,
+				3FC0EF472A54CE610047F756 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

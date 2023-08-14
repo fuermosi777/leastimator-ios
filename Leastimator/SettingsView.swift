@@ -12,12 +12,9 @@ struct SettingsView: View {
   @Environment(\.managedObjectContext) private var viewContext
   @EnvironmentObject private var purchaseManager: PurchaseManager
   
-  @AppStorage("enterVehicleViewOnStart") var enterVehicleViewOnStart: Bool = false
-  
   var vehicles: FetchedResults<Vehicle>
   
   @State private var selectedVehicleOnWidgetIndex: Int
-  @State private var selectedVehicleOnStartIndex: Int
   
   init(vehicles: FetchedResults<Vehicle>) {
     self.vehicles = vehicles
@@ -32,45 +29,26 @@ struct SettingsView: View {
       if vehicle.showOnWidget {
         initialVehicleOnWidgetIndex = index
       }
-      if vehicle.showOnStart {
-        initialVehicleOnStartIndex = index
-      }
     }
     
     _selectedVehicleOnWidgetIndex = State(initialValue: initialVehicleOnWidgetIndex)
-    _selectedVehicleOnStartIndex = State(initialValue: initialVehicleOnStartIndex)
   }
   
   var body: some View {
     List {
-      Section {
-        if vehicles.count > 0 {
+      if vehicles.count > 0 {
+        Section {
           Picker("Vehicle in widget", selection: $selectedVehicleOnWidgetIndex) {
             ForEach(0 ..< self.vehicles.count, id: \.self) { index in
               Text(String(self.vehicles[index].name ?? "--")).tag(index)
             }
           }.onChange(of: selectedVehicleOnWidgetIndex, perform: handleSelectVehicleOnWidgetChange)
+          //        NavigationLink(destination: NotificationView().navigationTitle("Notifications")) {
+          //          Text("Notifications").foregroundColor(.mainText)
+          //        }
+        } footer: {
+          Text("Choose which vehicle to present in the main screen widget.")
         }
-        //        NavigationLink(destination: NotificationView().navigationTitle("Notifications")) {
-        //          Text("Notifications").foregroundColor(.mainText)
-        //        }
-      } footer: {
-        Text("Choose which vehicle to present in the main screen widget.")
-      }
-      
-      Section {
-        Toggle(isOn: $enterVehicleViewOnStart) {
-          Text("Enter vehicle on start")
-        }
-        Picker("Start up vehicle", selection: $selectedVehicleOnStartIndex) {
-          ForEach(0 ..< self.vehicles.count, id: \.self) { index in
-            Text(String(self.vehicles[index].name ?? "--")).tag(index)
-          }
-        }
-        .disabled(!enterVehicleViewOnStart)
-        .onChange(of: selectedVehicleOnStartIndex, perform: handleSelectVehicleOnStartChange)
-      } footer: {
-        Text("When app starts, skip the list and present the vehicle information.")
       }
       
       Section {
@@ -118,19 +96,7 @@ struct SettingsView: View {
     
     do {
       try viewContext.save()
-    } catch {
-      print(error)
-    }
-  }
-  
-  private func handleSelectVehicleOnStartChange(index: Int) {
-    for vehicle in vehicles {
-      vehicle.showOnStart = false
-    }
-    vehicles[index].showOnStart = true
-    
-    do {
-      try viewContext.save()
+      WidgetCenter.shared.reloadAllTimelines()
     } catch {
       print(error)
     }

@@ -9,13 +9,13 @@ import SwiftUI
 import WidgetKit
 
 struct EditReadingView: View {
+  @Environment(\.dismiss) private var dismiss
   @Environment(\.managedObjectContext) private var viewContext
   @EnvironmentObject var errorHandler: ErrorHandler
   
   let vehicle: Vehicle
   // The reading to be edited, if nil, create a new reading.
   let reading: OdoReading?
-  var onDismiss: () -> Void
   
   @State private var date: Date
   @State private var readingValue: String
@@ -24,8 +24,7 @@ struct EditReadingView: View {
   private var readings: FetchedResults<OdoReading>
   
   
-  init(vehicle: Vehicle, reading: OdoReading? = nil, onDismiss: @escaping () -> Void) {
-    self.onDismiss = onDismiss
+  init(vehicle: Vehicle, reading: OdoReading? = nil) {
     self.vehicle = vehicle
     self.reading = reading
     
@@ -67,7 +66,7 @@ struct EditReadingView: View {
                           displayMode: .inline)
       .navigationBarItems(
         leading:
-          Button( action: { self.onDismiss() }) {
+          Button { dismiss() } label: {
             Image(systemName: "xmark")
           },
         trailing:
@@ -90,11 +89,12 @@ struct EditReadingView: View {
       viewContext.delete(reading)
       do {
         try viewContext.save()
+        WidgetCenter.shared.reloadAllTimelines()
       } catch {
         self.errorHandler.handle(error)
       }
 
-      self.onDismiss()
+      dismiss()
     }
   }
   
@@ -116,10 +116,11 @@ struct EditReadingView: View {
     
     do {
       try viewContext.save()
+      WidgetCenter.shared.reloadAllTimelines()
     } catch {
       throw AppError.failedContextSave
     }
     
-    self.onDismiss()
+    dismiss()
   }
 }

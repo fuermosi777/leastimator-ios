@@ -37,7 +37,7 @@ struct BannerAd:View{
   var body: some View{
     HStack{
       Spacer()
-      BannerView().frame(width: UIScreen.main.bounds.size.width - 20 * 2, height: 50, alignment: .center)
+      BannerView()
       Spacer()
     }
   }

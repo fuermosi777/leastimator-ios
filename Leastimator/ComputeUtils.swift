@@ -131,7 +131,10 @@ func prepareMonthlyDataForLineGraph(veh: Vehicle, readings: [OdoReading], usedMo
   return data
 }
 
-func Compute(_ veh: Vehicle, _ readings: [OdoReading]) -> ExtendedVehicleInfo {
+func Compute(_ veh: Vehicle) -> ExtendedVehicleInfo {
+  var readings: [OdoReading] = veh.readings?.map{ $0 } as! [OdoReading]
+  readings.sort(by: { ($0.date ?? Date()).compare($1.date ?? Date()) == .orderedAscending })
+  
   var currentMileage = Int(veh.starting)
   let currentDate = Date()
   
@@ -177,8 +180,8 @@ func Compute(_ veh: Vehicle, _ readings: [OdoReading]) -> ExtendedVehicleInfo {
     usedDays = 1
     usedMonths = 1
   }
-  mileagePerDay = Double(usedMileage / usedDays)
-  mileagePerMonth = Int(usedMileage / usedMonths)
+  mileagePerDay = max(Double(usedMileage / usedDays), 0)
+  mileagePerMonth = max(Int(usedMileage / usedMonths), 0)
   
   // Starting date + predicated mileage.
   normalPredicatedMileage = max(currentMileage, Int(Double(veh.starting) + Double(veh.lengthOfLease) / 12.0 * 365.0 * mileagePerDay))

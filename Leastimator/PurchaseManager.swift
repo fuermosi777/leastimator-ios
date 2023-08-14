@@ -101,6 +101,13 @@ class PurchaseManager: ObservableObject {
     }
   }
   
+  // When user clicks "Restore purchases".
+  func reset() {
+    UserDefaults.standard.set(nil, forKey: "proStatusUpdatedAt")
+    UserDefaults.standard.set(nil, forKey: "proStatus")
+    UserDefaults.standard.set(nil, forKey: "isNonIAPPurchased")
+  }
+  
   // Check for non IAP purchases which were done when Leastimator was a paid app (build <= 51).
   private func checkForNonIAPPurchases() {
     oslogger.trace("Check for NonIAPP purchases.")
