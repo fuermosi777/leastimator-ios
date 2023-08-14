@@ -1,0 +1,89 @@
+{
+  "identifier" : "8393453C",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+
+  ],
+  "settings" : {
+    "_applicationInternalID" : "1228501014",
+    "_developerTeamID" : "CFR9F99TN9",
+    "_lastSynchronizedDate" : 713680010.62902904
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "21265632",
+      "localizations" : [
+
+      ],
+      "name" : "Pro",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "0.99",
+          "familyShareable" : true,
+          "groupNumber" : 1,
+          "internalID" : "6446104826",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Abonnieren Sie monatlich",
+              "displayName" : "monatlich.",
+              "locale" : "de"
+            },
+            {
+              "description" : "Subscribe to Leastimator Pro monthly",
+              "displayName" : "Monthly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "leastimator_pro_monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Leastimator Pro Monthly",
+          "subscriptionGroupID" : "21265632",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "9.99",
+          "familyShareable" : true,
+          "groupNumber" : 2,
+          "internalID" : "6446104936",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Abonnieren Sie Leastimator Pro jährlich.",
+              "displayName" : "jährlich.",
+              "locale" : "de"
+            },
+            {
+              "description" : "Subscribe to Leastimator Pro Yearly",
+              "displayName" : "Yearly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "leastimator_pro_yearly",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Leastimator Pro Yearly",
+          "subscriptionGroupID" : "21265632",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 2,
+    "minor" : 0
+  }
+}
