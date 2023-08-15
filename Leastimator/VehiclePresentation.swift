@@ -17,7 +17,7 @@ struct InfoPanel: View {
     VStack(alignment: .leading, spacing: 12) {
       title
         .foregroundColor(.subText)
-      HStack(alignment: .bottom) {
+      HStack(alignment: .lastTextBaseline) {
         value
           .font(.system(size: 24, weight: .bold, design: .rounded))
         unit
@@ -135,7 +135,7 @@ struct VehiclePresentation: View {
           }
           HStack {
             Spacer()
-            VehicleAvatar(data: vehicle.avatar)
+            VehicleAvatar(data: vehicle.avatar, size: 100.0)
           }
         }
         .listRowSeparator(.hidden)
@@ -147,6 +147,7 @@ struct VehiclePresentation: View {
         Button { showAddReadingSheet.toggle() } label: {
           Label("Add odometer reading", systemImage: "plus.circle.fill")
         }
+        .padding(.vertical)
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
       }

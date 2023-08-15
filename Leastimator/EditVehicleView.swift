@@ -95,7 +95,7 @@ struct EditVehicleView: View {
             VStack {
               HStack(alignment: .center) {
                 Spacer()
-                VehicleAvatar(data: avatar)
+                VehicleAvatar(data: avatar, size: 140.0)
                 Spacer()
               }
               
