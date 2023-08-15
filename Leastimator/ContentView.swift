@@ -67,105 +67,111 @@ struct ContentView: View {
   
   var body: some View {
     NavigationStack {
-      VStack {
-        if vehicles.isEmpty {
-          Spacer()
-          Button {
-            showAddVehicleSheet.toggle()
-          } label: {
-            ZStack {
-              HStack(alignment: .center) {
-                Image("CarCover")
-                  .resizable()
-                  .scaledToFit()
-                  .frame(width: 320.0)
+      ZStack {
+        LinearGradient(colors: [Color("LessBlack"), Color.black],
+                       startPoint: .top, endPoint: .bottom)
+        .ignoresSafeArea()
+        
+        VStack {
+          if vehicles.isEmpty {
+            Spacer()
+            Button {
+              showAddVehicleSheet.toggle()
+            } label: {
+              ZStack {
+                HStack(alignment: .center) {
+                  Image("CarCover")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 320.0)
+                }
+                PlusGrayCircle()
+                  .opacity(0.8)
               }
-              PlusGrayCircle()
-                .opacity(0.8)
+            }
+            Text("Add Vehicle")
+              .font(.system(.title3, design: .rounded))
+            Spacer()
+          } else {
+            if let vehicle = vehicleToDisplay {
+              VehiclePresentation(vehicle: vehicle)
             }
           }
-          Text("Add Vehicle")
-            .font(.system(.title3, design: .rounded))
-          Spacer()
-        } else {
-          if let vehicle = vehicleToDisplay {
-            VehiclePresentation(vehicle: vehicle)
-          }
-        }
-      }  // VStack
-      .navigationTitle(vehicleToDisplay?.name ?? "")
-      .toolbar {
-        ToolbarItem(placement: .navigationBarLeading) {
-          Menu {
-            ForEach(vehicles) { vehicle in
-              Button {
-                if purchaseManager.unlockPro {
-                  for vehicle in vehicles {
-                    vehicle.showOnStart = false
+        }  // VStack
+        .navigationTitle(vehicleToDisplay?.name ?? "")
+        .toolbar {
+          ToolbarItem(placement: .navigationBarLeading) {
+            Menu {
+              ForEach(vehicles) { vehicle in
+                Button {
+                  if purchaseManager.unlockPro {
+                    for vehicle in vehicles {
+                      vehicle.showOnStart = false
+                    }
+                    vehicle.showOnStart = true
+                    try? viewContext.save()
+                  } else if vehicle != vehicleToDisplay {
+                    showProProductSheet.toggle()
                   }
-                  vehicle.showOnStart = true
-                  try? viewContext.save()
-                } else if vehicle != vehicleToDisplay {
-                  showProProductSheet.toggle()
-                }
-              } label: {
-                Text(vehicle.name ?? kUnknownVehicleName)
-                Spacer()
-                if vehicle == vehicleToDisplay {
-                  Image(systemName: "checkmark")
-                } else if !purchaseManager.unlockPro {
-                  Image(systemName: "lock.fill")
+                } label: {
+                  Text(vehicle.name ?? kUnknownVehicleName)
+                  Spacer()
+                  if vehicle == vehicleToDisplay {
+                    Image(systemName: "checkmark")
+                  } else if !purchaseManager.unlockPro {
+                    Image(systemName: "lock.fill")
+                  }
                 }
               }
+              Divider()
+              Button { redirectToSettings.toggle() } label: {
+                Label("Settings", systemImage: "gearshape.2")
+              }
+              Button { showAddVehicleSheet.toggle() } label: {
+                Label("Add Vehicle", systemImage: "plus")
+              }
+            } label: {
+              Label("Vehicles", systemImage: "car.side")
             }
-            Divider()
-            Button { redirectToSettings.toggle() } label: {
-              Label("Settings", systemImage: "gearshape.2")
+          }
+          if let vehicle = vehicleToDisplay {
+            ToolbarItem(placement: .secondaryAction) {
+              Button {
+                showEditVehicleSheet = vehicle
+              } label: {
+                Label("Edit Vehicle", systemImage: "slider.horizontal.3")
+              }
+              
             }
-            Button { showAddVehicleSheet.toggle() } label: {
-              Label("Add Vehicle", systemImage: "plus")
+            ToolbarItem(placement: .secondaryAction) {
+              Button {
+                showReadingListSheet = vehicle
+              } label: {
+                Label("Odometer History", systemImage: "calendar.badge.clock")
+              }
             }
-          } label: {
-            Label("Vehicles", systemImage: "car.side")
           }
         }
-        if let vehicle = vehicleToDisplay {
-          ToolbarItem(placement: .secondaryAction) {
-            Button {
-              showEditVehicleSheet = vehicle
-            } label: {
-              Label("Edit Vehicle", systemImage: "slider.horizontal.3")
-            }
-            
-          }
-          ToolbarItem(placement: .secondaryAction) {
-            Button {
-              showReadingListSheet = vehicle
-            } label: {
-              Label("Odometer History", systemImage: "calendar.badge.clock")
-            }
-          }
+        .navigationDestination(isPresented: $redirectToSettings) {
+          SettingsView(vehicles: vehicles)
+            .navigationBarTitle("Settings", displayMode: .inline)
         }
-      }
-      .navigationDestination(isPresented: $redirectToSettings) {
-        SettingsView(vehicles: vehicles)
-          .navigationBarTitle("Settings", displayMode: .inline)
-      }
-      .sheet(isPresented: $showProProductSheet) {
-        ProProductsView()
-          .withErrorHandler()
-          .navigationBarTitle("Leastimator Pro", displayMode: .inline)
-      }
-      .sheet(isPresented: $showAddVehicleSheet) {
-        EditVehicleView()
-          .withErrorHandler()
-      }
-      .sheet(item: $showEditVehicleSheet) {
-        EditVehicleView(vehicle: $0)
-          .withErrorHandler()
-      }
-      .sheet(item: $showReadingListSheet) {
-        ReadingList(vehicle: $0)
+        .sheet(isPresented: $showProProductSheet) {
+          ProProductsView()
+            .withErrorHandler()
+            .navigationBarTitle("Leastimator Pro", displayMode: .inline)
+        }
+        .sheet(isPresented: $showAddVehicleSheet) {
+          EditVehicleView()
+            .withErrorHandler()
+        }
+        .sheet(item: $showEditVehicleSheet) {
+          EditVehicleView(vehicle: $0)
+            .withErrorHandler()
+        }
+        .sheet(item: $showReadingListSheet) {
+          ReadingList(vehicle: $0)
+        }
       }
     }
     // This line is critical to prevent purchase page from popping back.

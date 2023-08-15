@@ -51,6 +51,7 @@ struct MoreInfoView: View {
       Spacer().frame(height: 10.0)
       answer
     }
+    .listRowBackground(Color.clear)
   }
 }
 
@@ -115,36 +116,39 @@ struct VehiclePresentation: View {
   var body: some View {
     List {
       Section {
-        VStack(alignment: .leading) {
-          HStack(alignment: .bottom) {
-            Text("Estimate")
-              .font(.system(size: 14, weight: .bold))
+        ZStack {
+          VStack(alignment: .leading) {
+            HStack(alignment: .lastTextBaseline) {
+              Text("\(extendedInfo.normalPredicatedMileage)")
+                .lineLimit(1)
+                .font(.system(size: 20, weight: .bold, design: .rounded))
+                .foregroundColor(.mainText)
+              Text(lengthUnit.longName)
+                .font(.system(size: 14, weight: .bold, design: .rounded))
+                .foregroundColor(.mainText)
+            }
+            Text("Estimated mileage")
+              .font(.system(size: 14, design: .rounded))
               .foregroundColor(.subText)
-            Text("\(extendedInfo.normalPredicatedMileage)")
-              .lineLimit(1)
-              .font(.system(size: 24, weight: .bold, design: .rounded))
-            Text(lengthUnit.longName)
-              .font(.system(size: 14, weight: .bold))
-              .foregroundColor(.subText)
+            ProgressBar(progress: progressPercentage,
+                        colorOverride: vehicle.allowed > 0 ? nil : Color.accentColor)
           }
-          ProgressBar(progress: progressPercentage,
-                      colorOverride: vehicle.allowed > 0 ? nil : Color.accentColor)
+          HStack {
+            Spacer()
+            VehicleAvatar(data: vehicle.avatar)
+          }
         }
         .listRowSeparator(.hidden)
-        
-        HStack {
-          Spacer()
-          VehicleAvatar(data: vehicle.avatar)
-          Spacer()
-        }
-        .listRowSeparator(.hidden)
+        .listRowBackground(Color.clear)
       }
       
       // Actions
       Section {
         Button { showAddReadingSheet.toggle() } label: {
           Label("Add odometer reading", systemImage: "plus.circle.fill")
-        }.listRowSeparator(.hidden)
+        }
+        .listRowSeparator(.hidden)
+        .listRowBackground(Color.clear)
       }
       
       // Basic info
@@ -175,7 +179,9 @@ struct VehiclePresentation: View {
               }
             }
           }
-        }.listRowSeparator(.hidden)
+        }
+        .listRowSeparator(.hidden)
+        .listRowBackground(Color.clear)
       }
       
       // Graph
@@ -184,12 +190,15 @@ struct VehiclePresentation: View {
                   yLimit: vehicle.allowed == 0 ? 0.0 : Double(extendedInfo.mileageShouldLessThan))
           .listRowInsets(EdgeInsets(top: 0, leading: -20, bottom: 0, trailing: -20))
           .listRowSeparator(.hidden)
+          .listRowBackground(Color.clear)
       }.padding(.vertical)
       
       // Banner ad
       if !purchaseManager.unlockPro {
         Section {
-          BannerAd().listRowSeparator(.hidden)
+          BannerAd()
+            .listRowSeparator(.hidden)
+            .listRowBackground(Color.clear)
         }
       }
       
@@ -217,8 +226,10 @@ struct VehiclePresentation: View {
           .font(.system(size: 12.0))
           .foregroundColor(.subText)
           .listRowSeparator(.hidden)
+          .listRowBackground(Color.clear)
       }
     }
+    .scrollContentBackground(.hidden)
     .listStyle(.plain)
     .sheet(isPresented: $showAddReadingSheet) {
       EditReadingView(vehicle: vehicle)

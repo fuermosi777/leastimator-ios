@@ -19,13 +19,13 @@ struct VehicleAvatar: View {
       Image(uiImage: UIImage(data: data) ?? UIImage())
         .resizable()
         .scaledToFit()
-        .frame(width: 280.0, alignment: .center)
-        .cornerRadius(10.0)
+        .frame(width: 180.0, alignment: .center)
+        .clipShape(Circle())
     } else {
       Image("CarCover")
         .resizable()
         .scaledToFit()
-        .frame(width: 280.0, alignment: .center)
+        .frame(width: 260.0, alignment: .center)
     }
   }
 }

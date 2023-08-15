@@ -37,7 +37,6 @@ struct ImagePicker: UIViewControllerRepresentable {
       let uiImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
       onImagePicked(uiImage)
       presentationMode.dismiss()
-      
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

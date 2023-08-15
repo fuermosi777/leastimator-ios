@@ -189,11 +189,10 @@ struct EditVehicleView: View {
             }
           }.disabled(isSaveDisabled)
       )
-      .sheet(isPresented: $showAvatarPicker){
-        ImagePicker(sourceType: .photoLibrary) {image in
-          let resized = image.resizeImage(CGFloat(200), opaque: true)
-          avatar = resized.pngData()
-          showAvatarPicker = false
+      .sheet(isPresented: $showAvatarPicker, onDismiss: { showAvatarPicker = false }){
+        ImagePicker(sourceType: .photoLibrary) { image in
+//          let resized = image.resizeImage(CGFloat(200), opaque: false)
+          avatar = image.pngData()
         }
       }
       .alert("vehicle delete warning message",

@@ -27,7 +27,6 @@ struct LeastimatorApp: App {
     // Use this if NavigationBarTitle is with displayMode = .inline
     UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.title]
     
-    
     // Set up rater.
     SwiftRater.daysUntilPrompt = 20
     SwiftRater.usesUntilPrompt = 20

@@ -6,7 +6,7 @@
  
  */
 "My Garage" = "Meine Garage";
-"Estimate" = "Geschätzter";
+"Estimated mileage" = "Geschätzter Kilometerstand";
 "Add odometer reading" = "Kilometerstand hinzufügen";
 "Current mileage" = "Derzeitiger Kilometerstand";
 "Unused mileage" = "Nicht genutzte Kilometer";
