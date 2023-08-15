@@ -9,6 +9,8 @@ import WidgetKit
 import SwiftUI
 import CoreData
 
+let kUnknownVehicleName = "Unknown"
+
 struct Provider: TimelineProvider {
   var moc: NSManagedObjectContext
   
@@ -110,23 +112,30 @@ struct EstimateProgressView : View {
   }
   
   var body: some View {
-    VStack {
-      ProgressCircle(progress: progressPercentage,
-                     colorOverride: vehicle.allowed > 0 ? nil : Color.accentColor) {
-        VStack {
-          Text("Estimate")
-            .font(.system(size: 12, weight: .bold))
-            .foregroundColor(.subText)
-          Text("\(extendedInfo.normalPredicatedMileage)")
-            .lineLimit(1)
-            .font(.system(size: 20, weight: .bold, design: .rounded))
-          Text(lengthUnit.longName)
-            .font(.system(size: 12, weight: .bold))
-            .foregroundColor(.subText)
-        }
-      }.frame(width: 100, height: 100)
-      Text(vehicle.name ?? "My car")
-        .font(.subheadline).foregroundColor(.subText)
+    VStack(alignment: .leading) {
+      Text(vehicle.name ?? kUnknownVehicleName)
+        .font(.system(size: 20, weight: .bold, design: .rounded))
+        .foregroundColor(.mainText)
+      Text("Estimated mileage")
+        .font(.system(size: 14, design: .rounded))
+        .foregroundColor(.subText)
+      
+      Spacer()
+      
+      HStack(alignment: .lastTextBaseline) {
+        Text("\(extendedInfo.normalPredicatedMileage)")
+          .lineLimit(1)
+          .font(.system(size: 20, weight: .bold, design: .rounded))
+          .foregroundColor(.subText)
+        Text(lengthUnit.longName)
+          .font(.system(size: 14, weight: .bold, design: .rounded))
+          .foregroundColor(.mainText)
+      }
+      
+      ProgressBar(progress: progressPercentage,
+                  colorOverride: vehicle.allowed > 0 ? nil : Color.accentColor,
+                  length: 130.0)
+      
     }
   }
 }
@@ -140,8 +149,10 @@ struct EstimateWidgetEntryView : View {
         EstimateProgressView(vehicle: vehicle)
       } else {
         Text("Please add an vehicle and set it showing up in widget.")
+          .font(.subheadline)
+          .foregroundColor(.subText)
       }
-    }.background(Color.mainBg)
+    }.padding(20.0)
   }
 }
 

@@ -131,7 +131,8 @@ struct VehiclePresentation: View {
               .font(.system(size: 14, design: .rounded))
               .foregroundColor(.subText)
             ProgressBar(progress: progressPercentage,
-                        colorOverride: vehicle.allowed > 0 ? nil : Color.accentColor)
+                        colorOverride: vehicle.allowed > 0 ? nil : Color.accentColor,
+                        length: 200.0)
           }
           HStack {
             Spacer()
