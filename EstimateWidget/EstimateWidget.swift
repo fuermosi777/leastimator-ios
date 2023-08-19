@@ -113,12 +113,18 @@ struct EstimateProgressView : View {
   
   var body: some View {
     VStack(alignment: .leading) {
-      Text(vehicle.name ?? kUnknownVehicleName)
-        .font(.system(size: 20, weight: .bold, design: .rounded))
-        .foregroundColor(.mainText)
-      Text("Estimated mileage")
-        .font(.system(size: 14, design: .rounded))
-        .foregroundColor(.subText)
+      HStack(alignment: .top) {
+        Text(vehicle.name ?? kUnknownVehicleName)
+          .font(.system(size: 14, weight: .bold, design: .rounded))
+          .foregroundColor(.mainText)
+          .lineLimit(1)
+        
+        Spacer()
+        
+        if let avatar = vehicle.avatar {
+          VehicleAvatar(data: avatar, size: 44.0)
+        }
+      }
       
       Spacer()
       
@@ -126,16 +132,15 @@ struct EstimateProgressView : View {
         Text("\(extendedInfo.normalPredicatedMileage)")
           .lineLimit(1)
           .font(.system(size: 20, weight: .bold, design: .rounded))
-          .foregroundColor(.subText)
+          .foregroundColor(.mainText)
         Text(lengthUnit.longName)
           .font(.system(size: 14, weight: .bold, design: .rounded))
-          .foregroundColor(.mainText)
+          .foregroundColor(.subText)
       }
       
       ProgressBar(progress: progressPercentage,
                   colorOverride: vehicle.allowed > 0 ? nil : Color.accentColor,
-                  length: 130.0)
-      
+                  length: 120.0)
     }
   }
 }

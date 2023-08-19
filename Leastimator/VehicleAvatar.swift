@@ -20,7 +20,7 @@ struct VehicleAvatar: View {
   
   var body: some View {
     if let data = data {
-      Image(uiImage: UIImage(data: data) ?? UIImage())
+      Image(uiImage: UIImage(data: data)?.resizeImage(size, opaque: true) ?? UIImage())
         .resizable()
         .aspectRatio(contentMode: .fill)
         .frame(width: size, height: size, alignment: .center)
