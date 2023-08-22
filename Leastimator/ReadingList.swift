@@ -17,6 +17,8 @@ struct ReadingList: View {
   
   @State private var selectedReading: OdoReading?
   @State private var showEditReadingSheet = false
+  @State private var showExportSheet = false
+  @State private var historyDocument: OdometerReadingDocument?
   
   init(vehicle: Vehicle) {
     self.vehicle = vehicle
@@ -71,17 +73,48 @@ struct ReadingList: View {
         .environment(\.managedObjectContext, viewContext)
         .withErrorHandler()
       }
-      .navigationTitle("Odometer History")
-      .navigationBarTitleDisplayMode(.inline)
-      .navigationBarItems(
-        trailing:
+      .toolbar {
+        ToolbarItem(placement: .primaryAction) {
           Button(action: {
             selectedReading = nil
             showEditReadingSheet = true
           }) {
-            Image(systemName: "plus.circle")
+            Label("Add Reading", systemImage: "plus.circle.fill")
           }
-      )
+        }
+        ToolbarItem(placement: .confirmationAction) {
+          Button {
+            handleExport()
+          } label: {
+            Label("Export", systemImage: "square.and.arrow.up")
+          }
+        }
+      }
+      .navigationTitle("Odometer History")
+      .navigationBarTitleDisplayMode(.inline)
+      .fileExporter(isPresented: $showExportSheet,
+                    document: historyDocument,
+                    contentType: .plainText,
+                    defaultFilename: "history.csv") { result in
+        switch result {
+          case .success(let url):
+            print("Saved to \(url)")
+          case .failure(let error):
+            print(error.localizedDescription)
+        }
+      }
     }
+  }
+}
+
+extension ReadingList {
+  private func handleExport() {
+    var csvText = "name,date,mileage\n"
+    for reading in readings {
+      csvText += "\(reading.vehicle?.name ?? kUnknownVehicleName),\(reading.date?.ISO8601Format() ?? "Unknown date"),\(reading.value)\n"
+    }
+    
+    historyDocument = OdometerReadingDocument(initialText: csvText)
+    showExportSheet.toggle()
   }
 }
