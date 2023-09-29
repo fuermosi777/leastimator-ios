@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftRater
+import Charts
 
 struct InfoPanel: View {
   var title: Text
@@ -188,6 +189,14 @@ struct VehiclePresentation: View {
       
       // Graph
       Section {
+        /// WIP
+//        Chart {
+//          ForEach(extendedInfo.monthlyMileageDataForLineChart) {
+//            LineMark(
+//              x: .value("Month", $0.label),
+//              y: .value("Value", $0.value))
+//          }
+//        }
         LineGraph(data: extendedInfo.monthlyMileageDataForLineChart,
                   yLimit: vehicle.allowed == 0 ? 0.0 : Double(extendedInfo.mileageShouldLessThan))
           .listRowInsets(EdgeInsets(top: 0, leading: -20, bottom: 0, trailing: -20))

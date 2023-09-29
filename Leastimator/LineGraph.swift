@@ -14,7 +14,9 @@ extension CGPoint : Hashable {
   }
 }
 
-struct GraphPoint: Hashable {
+struct GraphPoint: Hashable, Identifiable {
+  var id = UUID()
+  
   var value: Double
   var label: String
   
