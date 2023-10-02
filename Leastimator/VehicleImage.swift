@@ -1,5 +1,5 @@
 //
-//  VehicleAvatar.swift
+//  VehicleImage.swift
 //  Leastimator
 //
 //  Created by Hao Liu on 3/28/21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct VehicleAvatar: View {
+struct VehicleImage: View {
   let data: Data?
   let size: CGFloat
   

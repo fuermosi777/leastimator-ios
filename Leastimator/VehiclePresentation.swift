@@ -137,7 +137,7 @@ struct VehiclePresentation: View {
           }
           HStack {
             Spacer()
-            VehicleAvatar(data: vehicle.avatar, size: 100.0)
+            VehicleImage(data: vehicle.image, size: 100.0)
           }
         }
         .listRowSeparator(.hidden)

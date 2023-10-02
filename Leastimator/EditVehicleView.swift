@@ -41,11 +41,11 @@ struct EditVehicleView: View {
   @State private var lengthOfLease: String
   @State private var startDate: Date
   @State private var fee: String
-  @State private var avatar: Data?
+  @State private var image: Data?
   @State private var lengthUnit: LengthUnit
   @State private var currency: String
   
-  @State private var showAvatarPicker = false
+  @State private var showImagePicker = false
   @State private var showDeletionWarning = false
   
   init(vehicle: Vehicle? = nil) {
@@ -58,7 +58,7 @@ struct EditVehicleView: View {
       _lengthOfLease = State(initialValue: vehicle.lengthOfLease != 0 ? String(vehicle.lengthOfLease) : "")
       _startDate = State(initialValue: vehicle.startDate ?? Date())
       _fee = State(initialValue: vehicle.fee != 0 ? String(vehicle.fee) : "")
-      _avatar = State(initialValue: vehicle.avatar)
+      _image = State(initialValue: vehicle.image)
       if let initialValue = LengthUnit(rawValue: vehicle.lengthUnit) {
         _lengthUnit = State(initialValue: initialValue)
       } else {
@@ -71,7 +71,7 @@ struct EditVehicleView: View {
       _lengthOfLease = State(initialValue: vehicle != nil ? String(vehicle!.lengthOfLease) : "")
       _startDate = State(initialValue: Date())
       _fee = State(initialValue: "")
-      _avatar = State(initialValue: nil)
+      _image = State(initialValue: nil)
       _lengthUnit = State(initialValue: .Imperial)
     }
     
@@ -85,17 +85,17 @@ struct EditVehicleView: View {
       List {
         Section {
           Menu {
-            Button { showAvatarPicker.toggle() } label: {
+            Button { showImagePicker.toggle() } label: {
               Text("Upload from Photos")
             }
-            Button { avatar = nil } label: {
+            Button { image = nil } label: {
               Text("Remove")
             }
           } label: {
             VStack {
               HStack(alignment: .center) {
                 Spacer()
-                VehicleAvatar(data: avatar, size: 140.0)
+                VehicleImage(data: image, size: 140.0)
                 Spacer()
               }
               
@@ -189,10 +189,10 @@ struct EditVehicleView: View {
             }
           }.disabled(isSaveDisabled)
       )
-      .sheet(isPresented: $showAvatarPicker, onDismiss: { showAvatarPicker = false }){
-        ImagePicker(sourceType: .photoLibrary) { image in
-//          let resized = image.resizeImage(CGFloat(200), opaque: false)
-          avatar = image.pngData()
+      .sheet(isPresented: $showImagePicker, onDismiss: { showImagePicker = false }){
+        ImagePicker(sourceType: .photoLibrary) { picked in
+          let resized = picked.resizeImage(CGFloat(200), opaque: false)
+          image = resized.pngData()
         }
       }
       .alert("vehicle delete warning message",
@@ -282,7 +282,7 @@ struct EditVehicleView: View {
     vehicle.name = name
     vehicle.starting = Int64(starting)
     vehicle.startDate = startDate
-    vehicle.avatar = avatar
+    vehicle.image = image
     vehicle.lengthUnit = lengthUnit.rawValue
     vehicle.currency = currency
     

@@ -121,8 +121,8 @@ struct EstimateProgressView : View {
         
         Spacer()
         
-        if let avatar = vehicle.avatar {
-          VehicleAvatar(data: avatar, size: 44.0)
+        if let image = vehicle.image {
+          VehicleImage(data: image, size: 44.0)
         }
       }
       
