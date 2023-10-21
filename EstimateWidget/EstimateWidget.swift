@@ -157,7 +157,7 @@ struct EstimateWidgetEntryView : View {
           .font(.subheadline)
           .foregroundColor(.subText)
       }
-    }.padding(20.0)
+    }.padding(10.0)
   }
 }
 
