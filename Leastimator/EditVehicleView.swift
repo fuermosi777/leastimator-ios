@@ -245,6 +245,7 @@ struct EditVehicleView: View {
       }
       allowedNumber = Int64(allowed)
     } else {
+      // If there is not allowed mileage, set it to zero.
       allowedNumber = 0
     }
     if fee != "" {

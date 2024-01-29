@@ -11,6 +11,7 @@ import WidgetKit
 struct SettingsView: View {
   @Environment(\.managedObjectContext) private var viewContext
   @EnvironmentObject private var purchaseManager: PurchaseManager
+  @AppStorage("showMileageVariance") private var showMileageVariance = true
   
   var vehicles: FetchedResults<Vehicle>
   
@@ -49,6 +50,14 @@ struct SettingsView: View {
         } footer: {
           Text("Choose which vehicle to present in the main screen widget.")
         }
+      }
+      
+      Section {
+        Toggle(isOn: $showMileageVariance) {
+          Text("Display Mileage Variance")
+        }
+      } footer: {
+        Text("Emphasize the variance between actual and estimated mileage on vehicle display.")
       }
       
       Section {

@@ -29,6 +29,8 @@
 "Currency" = "Währung";
 "Add vehicle" = "Fahrzeug hinzufügen";
 "Error" = "Fehler";
+"Display Mileage Variance" = "Kilometerabweichung anzeigen";
+"Emphasize the variance between actual and estimated mileage on vehicle display." = "Die Abweichung zwischen tatsächlicher und geschätzter Kilometerleistung in der Fahrzeuganzeige hervorheben.";
 "Something is wrong with the information entered: %@" = "Es ist ein Fehler bei der eingegebenen Information aufgetreten: %@";
 "Failed to save changes. Please close the app and try again" = "Änderungen konnten nicht gespeichert werden. Bitte schließen Sie die App und versuchen Sie es erneut.";
 "You haven't added any readings yet." = "Du hast noch keine Messwerte hinzugefügt.";

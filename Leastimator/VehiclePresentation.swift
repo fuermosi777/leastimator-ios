@@ -60,6 +60,7 @@ struct VehiclePresentation: View {
   @Environment(\.managedObjectContext) private var viewContext
   @EnvironmentObject private var purchaseManager: PurchaseManager
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+  @AppStorage("showMileageVariance") private var showMileageVariance = true
   
   // Add ObservedObject make sure it gets updated data.
   @ObservedObject var vehicle: Vehicle
@@ -134,6 +135,12 @@ struct VehiclePresentation: View {
                 .lineLimit(1)
                 .font(.system(size: 20, weight: .bold, design: .rounded))
                 .foregroundColor(.mainText)
+              if let mileageVariance = extendedInfo.mileageVariance, showMileageVariance {
+                Text("\(mileageVariance < 0 ? "-" : "+")\(abs(mileageVariance))")
+                  .lineLimit(1)
+                  .font(.system(size: 14, weight: .bold, design: .rounded))
+                  .foregroundColor(mileageVariance < 0 ? Color.green : Color.red)
+              }
               Text(lengthUnit.longName)
                 .font(.system(size: 14, weight: .bold, design: .rounded))
                 .foregroundColor(.mainText)

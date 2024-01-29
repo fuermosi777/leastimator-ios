@@ -21,6 +21,7 @@ struct ExtendedVehicleInfo {
   let allowedMileagePerDay: Int
   let usedDays: Int
   
+  let mileageVariance: Int?
   let excessMileage: Int?
   let excessCharge: Int?
   
@@ -184,7 +185,8 @@ func Compute(_ veh: Vehicle) -> ExtendedVehicleInfo {
   // Starting date + predicated mileage.
   normalPredicatedMileage = max(currentMileage, Int(Double(veh.starting) + Double(veh.lengthOfLease) / 12.0 * 365.0 * mileagePerDay))
   
-  let excessMileage = Int(max(normalPredicatedMileage - Int(veh.allowed) - Int(veh.starting), 0))
+  let mileageVariance = normalPredicatedMileage - Int(veh.allowed) - Int(veh.starting)
+  let excessMileage = max(mileageVariance, 0)
   let excessCharge = Int(veh.fee * Float(excessMileage))
   
   let totalDays = max(1, (veh.lengthOfLease / 12 * 365))
@@ -204,6 +206,7 @@ func Compute(_ veh: Vehicle) -> ExtendedVehicleInfo {
                              mileagePerMonth: mileagePerMonth,
                              allowedMileagePerDay: allowedMileagePerDay,
                              usedDays: usedDays,
+                             mileageVariance: mileageVariance,
                              excessMileage: excessMileage,
                              excessCharge: excessCharge,
                              mileageShouldLessThan: mileageShouldLessThan,
