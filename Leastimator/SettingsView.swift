@@ -69,9 +69,7 @@ struct SettingsView: View {
           Text("Please rate Leastimator").foregroundColor(.mainText)
         }
         
-        Button(action: handleSupport) {
-          Text("Support").foregroundColor(.mainText)
-        }
+        Link("Feedback", destination: URL(string: "https://github.com/fuermosi777/leastimator-feedback/issues")!)
         
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
           Text("Current version: \(version)")
@@ -87,12 +85,6 @@ struct SettingsView: View {
   
   private func handleRate() {
     if let url = URL(string: "itms-apps://apple.com/app/id1228501014") {
-      UIApplication.shared.open(url)
-    }
-  }
-  
-  private func handleSupport() {
-    if let url = URL(string: "mailto:liuhao1990@gmail.com?subject=%5BNeed%20Help%20for%20Leastimator%5D&body=Hi%20Leastimator%20developer%2C%0D%0A%0D%0A") {
       UIApplication.shared.open(url)
     }
   }
