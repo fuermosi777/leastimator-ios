@@ -91,9 +91,7 @@ func prepareMonthlyDataForLineGraph(veh: Vehicle, readings: [OdoReading], usedMo
   
   // Generate a date key to OdoReading map, in a certain month, the reading should be the largest one.
   let keyFormatter = DateFormatter()
-  keyFormatter.dateFormat = "MMM y"
-  let labelFormatter = DateFormatter()
-  labelFormatter.dateFormat = "MMM"
+  keyFormatter.dateFormat = "MMM yyyy"
   var readingMap: [String: Int64] = [:]
   
   // Add starting mileage.
@@ -115,7 +113,7 @@ func prepareMonthlyDataForLineGraph(veh: Vehicle, readings: [OdoReading], usedMo
     let iterDate = Calendar.current.date(byAdding: monthDiff, to: startDate)
     if let iterDate = iterDate {
       let iterDateKey = keyFormatter.string(from: iterDate)
-      var point = GraphPoint(value: -1.0, label: labelFormatter.string(from: iterDate), significant: false)
+      var point = GraphPoint(value: -1.0, label: keyFormatter.string(from: iterDate), significant: false)
       if let reading = readingMap[iterDateKey] {
         point.value = Double(reading)
         maxReading = max(maxReading, reading)

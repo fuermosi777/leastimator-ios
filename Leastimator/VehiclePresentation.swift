@@ -113,6 +113,16 @@ struct VehiclePresentation: View {
     return 1.0
   }
   
+  let linearGradient = LinearGradient(
+    gradient: Gradient (
+      colors: [
+        .accentColor.opacity(0.6),
+        .accentColor.opacity(0.4),
+        .accentColor.opacity(0.0),
+      ]
+    ),
+    startPoint: .top, endPoint: .bottom)
+  
   
   var body: some View {
     List {
@@ -189,19 +199,57 @@ struct VehiclePresentation: View {
       
       // Graph
       Section {
-        /// WIP
-//        Chart {
-//          ForEach(extendedInfo.monthlyMileageDataForLineChart) {
-//            LineMark(
-//              x: .value("Month", $0.label),
-//              y: .value("Value", $0.value))
-//          }
-//        }
-        LineGraph(data: extendedInfo.monthlyMileageDataForLineChart,
-                  yLimit: vehicle.allowed == 0 ? 0.0 : Double(extendedInfo.mileageShouldLessThan))
-          .listRowInsets(EdgeInsets(top: 0, leading: -20, bottom: 0, trailing: -20))
-          .listRowSeparator(.hidden)
-          .listRowBackground(Color.clear)
+        Chart {
+          ForEach(extendedInfo.monthlyMileageDataForLineChart) { point in
+            LineMark(
+              x: .value("Month", point.label),
+              y: .value("Value", point.value)
+            )
+            
+            if point.label == extendedInfo.monthlyMileageDataForLineChart.last?.label {
+              PointMark(
+                x: .value("Month", point.label),
+                y: .value("Value", point.value)
+              )
+              .annotation {
+                Text(point.value.decimalString())
+                  .font(.caption)
+                  .foregroundStyle(Color.mainText)
+              }
+            } else if point.value > 0 {
+              PointMark(
+                x: .value("Month", point.label),
+                y: .value("Value", point.value)
+              )
+            }
+            
+            AreaMark(
+              x: .value("Date", point.label),
+              y: .value("Value", point.value))
+            .foregroundStyle(linearGradient)
+          }
+          
+          if vehicle.allowed > 0 {
+            RuleMark(y: .value("Should be less than", Double(extendedInfo.mileageShouldLessThan)))
+              .foregroundStyle(.red)
+          }
+        }
+        .chartYAxis {
+          AxisMarks { _ in
+            AxisGridLine()
+            AxisTick()
+            AxisValueLabel()
+          }
+        }
+        .chartYScale(domain: 0...max(extendedInfo.currentMileage, extendedInfo.mileageShouldLessThan) + 2000)
+        .background(.clear)
+        .chartScrollableAxes(.horizontal)
+        .chartScrollPosition(initialX: extendedInfo.monthlyMileageDataForLineChart.scrollStarter())
+        .chartXVisibleDomain(length: 5)
+        .frame(height: 200.0)
+        .listRowSeparator(.hidden)
+        .listRowBackground(Color.clear)
+        
       }.padding(.vertical)
       
       // Banner ad

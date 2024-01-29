@@ -12,8 +12,8 @@
 "Unused mileage" = "Nicht genutzte Kilometer";
 "Daily average" = "Tagesdurchschnitt";
 "Monthly average" = "Monatsdurchschnitt";
-"Excess mileage" = "Überschüssige Kilometer";
-"Excess charge" = "Mehrkosten";
+"Est. Mileage overrun" = "Geschätzter Kilometerüberschuss";
+"Est. Overcharge" = "Geschätzte Übergebühr";
 "Vehicle Setting" = "Fahrzeug Einstellungen";
 "Odometer History" = "Kilometerzähler Historie";
 "Save" = "Speichern";
