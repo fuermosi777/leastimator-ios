@@ -135,7 +135,9 @@ struct VehiclePresentation: View {
                 .lineLimit(1)
                 .font(.system(size: 20, weight: .bold, design: .rounded))
                 .foregroundColor(.mainText)
-              if let mileageVariance = extendedInfo.mileageVariance, showMileageVariance {
+              if let mileageVariance = extendedInfo.mileageVariance, 
+                  showMileageVariance,
+                 vehicle.allowed > 0 {
                 Text("\(mileageVariance < 0 ? "-" : "+")\(abs(mileageVariance))")
                   .lineLimit(1)
                   .font(.system(size: 14, weight: .bold, design: .rounded))

@@ -32,11 +32,11 @@ struct ExtendedVehicleInfo {
   let isExpired: Bool
   
   let monthlyMileageDataForLineChart: [GraphPoint]
-  let dailyMileageDataForLineChart: [GraphPoint]
 }
 
 
 // Difference vs. monthly: it fills empty day with data from last day that has value.
+// Not in use.
 func prepareDailyDataForLineGraph(veh: Vehicle, readings: [OdoReading], usedDays: Int) -> [GraphPoint] {
   var data = [GraphPoint]()
   
@@ -116,10 +116,9 @@ func prepareMonthlyDataForLineGraph(veh: Vehicle, readings: [OdoReading], usedMo
       let iterDateKey = keyFormatter.string(from: iterDate)
       var point = GraphPoint(value: -1.0, label: keyFormatter.string(from: iterDate), significant: false)
       if let reading = readingMap[iterDateKey] {
-        point.value = Double(reading)
         maxReading = max(maxReading, reading)
-        point.significant = true
       }
+      point.value = Double(maxReading)
       data.append(point)
     }
   }
@@ -197,7 +196,6 @@ func Compute(_ veh: Vehicle) -> ExtendedVehicleInfo {
   let leaseLeft = max(0, Int(veh.lengthOfLease) - usedMonths)
   
   let monthlyData = prepareMonthlyDataForLineGraph(veh: veh, readings: readings, usedMonths: usedMonths)
-  let dailyData = prepareDailyDataForLineGraph(veh: veh, readings: readings, usedDays: usedDays)
   
   return ExtendedVehicleInfo(currentMileage: currentMileage,
                              leftMileage: leftMileage,
@@ -213,7 +211,6 @@ func Compute(_ veh: Vehicle) -> ExtendedVehicleInfo {
                              maxDriveToday: maxDriveToday,
                              leaseLeft: leaseLeft,
                              isExpired: isExpired,
-                             monthlyMileageDataForLineChart: monthlyData,
-                             dailyMileageDataForLineChart: dailyData
+                             monthlyMileageDataForLineChart: monthlyData
   )
 }
