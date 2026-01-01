@@ -18,3 +18,18 @@ extension View {
     }
   }
 }
+
+// Helper to conditionally apply navigationSubtitle when available
+extension View {
+  @ViewBuilder func applyNavigationSubtitle(_ subtitle: String?) -> some View {
+    if #available(iOS 26.0, *) {
+      if let s = subtitle {
+        self.navigationSubtitle(s)
+      } else {
+        self
+      }
+    } else {
+      self
+    }
+  }
+}

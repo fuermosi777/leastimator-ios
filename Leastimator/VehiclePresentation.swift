@@ -7,7 +7,6 @@
 
 import SwiftUI
 import SwiftRater
-import Charts
 
 struct InfoPanel: View {
   var title: Text
@@ -72,6 +71,7 @@ struct VehiclePresentation: View {
   @State var graphType: GraphType = .monthly
   
   @State private var showAddReadingSheet = false
+  @State private var showChartSheet = false
   
   enum GraphType {
     case monthly, daily
@@ -127,6 +127,20 @@ struct VehiclePresentation: View {
   
   var body: some View {
     List {
+      if vehicle.archived {
+        Section {
+          VStack(alignment: .leading) {
+            Text("Archived")
+              .font(.caption2).bold()
+              .padding(.horizontal, 12).padding(.vertical, 6)
+              .background(Color.orange)
+              .foregroundColor(.white)
+              .cornerRadius(12)
+          }
+          .listRowSeparator(.hidden)
+          .listRowBackground(Color.clear)
+        }
+      }
       Section {
         ZStack {
           VStack(alignment: .leading) {
@@ -135,8 +149,8 @@ struct VehiclePresentation: View {
                 .lineLimit(1)
                 .font(.system(size: 20, weight: .bold, design: .rounded))
                 .foregroundColor(.mainText)
-              if let mileageVariance = extendedInfo.mileageVariance, 
-                  showMileageVariance,
+              if let mileageVariance = extendedInfo.mileageVariance,
+                 showMileageVariance,
                  vehicle.allowed > 0 {
                 Text("\(mileageVariance < 0 ? "-" : "+")\(abs(mileageVariance))")
                   .lineLimit(1)
@@ -164,14 +178,46 @@ struct VehiclePresentation: View {
       }
       
       // Actions
-      Section {
-        Button { showAddReadingSheet.toggle() } label: {
-          Label("Add odometer reading", systemImage: "plus.circle.fill")
+      HStack(spacing: 12) {
+        if !vehicle.archived {
+          Button(action: {
+            showAddReadingSheet.toggle()
+          }) {
+            HStack {
+              Image(systemName: "plus.circle.fill")
+              Text("Add Reading")
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .foregroundColor(.white)
+            .background(
+              LinearGradient(
+                gradient: Gradient(colors: [Color.accentColor, .blue]),
+                startPoint: .leading,
+                endPoint: .trailing
+              )
+            )
+            .cornerRadius(25)
+          }
+          .buttonStyle(.borderless) // This is required to prevent multiple button tap issue inside List.
         }
-        .padding(.vertical)
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
+        
+        Button(action: {
+          showChartSheet.toggle()
+        }) {
+          HStack {
+            Image(systemName: "chart.bar.fill")
+            Text("See Chart")
+          }
+          .frame(maxWidth: .infinity, maxHeight: .infinity)
+          .foregroundColor(.white)
+          .background(Color.gray)
+          .cornerRadius(25)
+        }
+        .buttonStyle(.borderless) // This is required to prevent multiple button tap issue inside List.
       }
+      .frame(height: 50)
+      .listRowSeparator(.hidden)
+      .listRowBackground(Color.clear)
       
       // Basic info
       Section {
@@ -205,61 +251,6 @@ struct VehiclePresentation: View {
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
       }
-      
-      // Graph
-      Section {
-        Chart {
-          ForEach(extendedInfo.monthlyMileageDataForLineChart) { point in
-            LineMark(
-              x: .value("Month", point.label),
-              y: .value("Value", point.value)
-            )
-            
-            if point.label == extendedInfo.monthlyMileageDataForLineChart.last?.label {
-              PointMark(
-                x: .value("Month", point.label),
-                y: .value("Value", point.value)
-              )
-              .annotation {
-                Text(point.value.decimalString())
-                  .font(.caption)
-                  .foregroundStyle(Color.mainText)
-              }
-            } else if point.value > 0 {
-              PointMark(
-                x: .value("Month", point.label),
-                y: .value("Value", point.value)
-              )
-            }
-            
-            AreaMark(
-              x: .value("Date", point.label),
-              y: .value("Value", point.value))
-            .foregroundStyle(linearGradient)
-          }
-          
-          if vehicle.allowed > 0 {
-            RuleMark(y: .value("Should be less than", Double(extendedInfo.mileageShouldLessThan)))
-              .foregroundStyle(.red)
-          }
-        }
-        .chartYAxis {
-          AxisMarks { _ in
-            AxisGridLine()
-            AxisTick()
-            AxisValueLabel()
-          }
-        }
-        .chartYScale(domain: 0...max(extendedInfo.currentMileage, extendedInfo.mileageShouldLessThan) + 2000)
-        .background(.clear)
-        .chartScrollableAxes(.horizontal)
-        .chartScrollPosition(initialX: extendedInfo.monthlyMileageDataForLineChart.scrollStarter())
-        .chartXVisibleDomain(length: 5)
-        .frame(height: 200.0)
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
-        
-      }.padding(.vertical)
       
       // Banner ad
       if !purchaseManager.unlockPro {
@@ -303,10 +294,12 @@ struct VehiclePresentation: View {
       EditReadingView(vehicle: vehicle)
         .withErrorHandler()
     }
+    .sheet(isPresented: $showChartSheet) {
+      ChartSheetView(extendedInfo: extendedInfo, vehicle: vehicle)
+    }
     .onAppear {
       Logger.shared.vehiclePageView()
       SwiftRater.check()
     }
   }
 }
-

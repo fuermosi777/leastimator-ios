@@ -7,7 +7,7 @@
  */
 "My Garage" = "Meine Garage";
 "Estimated mileage" = "Geschätzter Kilometerstand";
-"Add odometer reading" = "Kilometerstand hinzufügen";
+"Add Reading" = "Kilometerstand hinzufügen";
 "Current mileage" = "Derzeitiger Kilometerstand";
 "Unused mileage" = "Nicht genutzte Kilometer";
 "Daily average" = "Tagesdurchschnitt";
@@ -78,6 +78,7 @@
 
 "disclaimer" = "Die bereitgestellten Informationen dienen nur zu Vorhersagezwecken und sollten nicht als tatsächliche Zahlen interpretiert werden. Obwohl Leastimator jede Anstrengung unternimmt, um die Genauigkeit der präsentierten Informationen sicherzustellen, können wir nicht garantieren, dass sie frei von Fehlern oder Auslassungen sind. Leastimator haftet nicht für Schäden oder Verluste, die aus der Verwendung dieser Informationen entstehen können.";
 
+"Mileage Chart" = "Kilometerdiagramm";
 
 // Widget
 "Edit widget" = "Widget bearbeiten";

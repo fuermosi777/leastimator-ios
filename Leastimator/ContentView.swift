@@ -65,6 +65,11 @@ struct ContentView: View {
     return nil
   }
   
+  // Subtitle shown under the navigation title when available (iOS 26+)
+  private var navigationSubtitle: String? {
+    vehicleToDisplay?.leaseSubtitle
+  }
+
   var body: some View {
     NavigationStack {
       ZStack {
@@ -99,6 +104,7 @@ struct ContentView: View {
           }
         }  // VStack
         .navigationTitle(vehicleToDisplay?.name ?? "")
+        .applyNavigationSubtitle(navigationSubtitle)
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {
             Menu {
@@ -142,6 +148,15 @@ struct ContentView: View {
                 Label("Edit Vehicle", systemImage: "slider.horizontal.3")
               }
               
+            }
+            ToolbarItem(placement: .secondaryAction) {
+              Button {
+                vehicle.archived.toggle()
+                try? viewContext.save()
+              } label: {
+                Label(vehicle.archived ? "Unarchive" : "Archive",
+                      systemImage: vehicle.archived ? "archivebox.fill" : "archivebox")
+              }
             }
             ToolbarItem(placement: .secondaryAction) {
               Button {

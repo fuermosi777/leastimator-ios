@@ -75,6 +75,9 @@
 		3FE221A52A54DA6D0063ED9C /* UnitUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423FC29DD301F00C35E69 /* UnitUtils.swift */; };
 		3FE38DEB2F071170008D351F /* Views+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE38DEA2F07116C008D351F /* Views+Extensions.swift */; };
 		3FE38DEC2F0711A9008D351F /* Views+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE38DEA2F07116C008D351F /* Views+Extensions.swift */; };
+		3FE38DEE2F072221008D351F /* ChartSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE38DED2F07221C008D351F /* ChartSheetView.swift */; };
+		3FE38DF02F0728D8008D351F /* Vehicle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE38DEF2F0728D4008D351F /* Vehicle+Extensions.swift */; };
+		3FE38DF12F0728D8008D351F /* Vehicle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE38DEF2F0728D4008D351F /* Vehicle+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -174,6 +177,8 @@
 		3FE2219F2A54D1010063ED9C /* EstimateWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EstimateWidgetExtension.entitlements; sourceTree = "<group>"; };
 		3FE38DE92F070D69008D351F /* AGENT.md */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AGENT.md; sourceTree = "<group>"; };
 		3FE38DEA2F07116C008D351F /* Views+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Views+Extensions.swift"; sourceTree = "<group>"; };
+		3FE38DED2F07221C008D351F /* ChartSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartSheetView.swift; sourceTree = "<group>"; };
+		3FE38DEF2F0728D4008D351F /* Vehicle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Vehicle+Extensions.swift"; sourceTree = "<group>"; };
 		3FF001B72ACA7DB50007C481 /* EstimateWidgetExtensionRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EstimateWidgetExtensionRelease.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -251,6 +256,7 @@
 				3F34241729DD31AE00C35E69 /* Card.swift */,
 				3F3423DF29DD2DB700C35E69 /* ComputeUtils.swift */,
 				3F3423A529DD2C7800C35E69 /* ContentView.swift */,
+				3FE38DED2F07221C008D351F /* ChartSheetView.swift */,
 				3F34240D29DD30ED00C35E69 /* EditReadingView.swift */,
 				3F34240F29DD30FF00C35E69 /* EditVehicleView.swift */,
 				3F3423E329DD2EB400C35E69 /* ErrorHandler.swift */,
@@ -309,6 +315,7 @@
 		3F3423D229DD2D0500C35E69 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				3FE38DEF2F0728D4008D351F /* Vehicle+Extensions.swift */,
 				3FE38DEA2F07116C008D351F /* Views+Extensions.swift */,
 				3F3423D329DD2D1300C35E69 /* Font+Extensions.swift */,
 				3F3423D529DD2D1F00C35E69 /* Color+Extensions.swift */,
@@ -530,7 +537,9 @@
 				3F34241029DD30FF00C35E69 /* EditVehicleView.swift in Sources */,
 				3F3423DE29DD2D4200C35E69 /* String+Extensions.swift in Sources */,
 				3F3423AD29DD2C7900C35E69 /* Persistence.swift in Sources */,
+				3FE38DF02F0728D8008D351F /* Vehicle+Extensions.swift in Sources */,
 				3F2AFE682A89DFDA001B8837 /* StoreKit+Extensions.swift in Sources */,
+				3FE38DEE2F072221008D351F /* ChartSheetView.swift in Sources */,
 				3F34241229DD311B00C35E69 /* MileagePicker.swift in Sources */,
 				3F3423B029DD2C7900C35E69 /* Leastimator.xcdatamodeld in Sources */,
 				3F34240329DD307F00C35E69 /* ProgressCircle.swift in Sources */,
@@ -590,6 +599,7 @@
 				3FC0EF492A54CFCC0047F756 /* Persistence.swift in Sources */,
 				3FAF41992A8B4820006C462D /* VehicleImage.swift in Sources */,
 				3FC0EF4A2A54CFF50047F756 /* Leastimator.xcdatamodeld in Sources */,
+				3FE38DF12F0728D8008D351F /* Vehicle+Extensions.swift in Sources */,
 				3FE221A42A54DA3B0063ED9C /* ProgressCircle.swift in Sources */,
 				3FC0EF3C2A54CE600047F756 /* EstimateWidgetBundle.swift in Sources */,
 				3FE38DEC2F0711A9008D351F /* Views+Extensions.swift in Sources */,
