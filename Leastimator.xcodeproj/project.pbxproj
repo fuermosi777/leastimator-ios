@@ -43,7 +43,6 @@
 		3F34240329DD307F00C35E69 /* ProgressCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F34240229DD307F00C35E69 /* ProgressCircle.swift */; };
 		3F34240529DD309200C35E69 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F34240429DD309200C35E69 /* SettingsView.swift */; };
 		3F34240729DD30A400C35E69 /* GADBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F34240629DD30A400C35E69 /* GADBannerView.swift */; };
-		3F34240A29DD30BF00C35E69 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 3F34240929DD30BF00C35E69 /* GoogleMobileAds */; };
 		3F34240C29DD30DA00C35E69 /* ReadingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F34240B29DD30DA00C35E69 /* ReadingList.swift */; };
 		3F34240E29DD30ED00C35E69 /* EditReadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F34240D29DD30ED00C35E69 /* EditReadingView.swift */; };
 		3F34241029DD30FF00C35E69 /* EditVehicleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F34240F29DD30FF00C35E69 /* EditVehicleView.swift */; };
@@ -51,6 +50,7 @@
 		3F34241429DD313000C35E69 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F34241329DD313000C35E69 /* ImagePicker.swift */; };
 		3F34241829DD31AE00C35E69 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F34241729DD31AE00C35E69 /* Card.swift */; };
 		3F34241A29DD324A00C35E69 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F34241929DD324A00C35E69 /* NotificationManager.swift */; };
+		3F4ED1082F07090D00A79DE9 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 3F4ED1072F07090D00A79DE9 /* GoogleMobileAds */; };
 		3F532FF02A916EBF0056EADE /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423D929DD2D3100C35E69 /* UIImage+Extensions.swift */; };
 		3F6F9D782AE495FB0094360F /* GraphPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6F9D772AE495FB0094360F /* GraphPoint.swift */; };
 		3F6F9D792AE4966B0094360F /* GraphPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6F9D772AE495FB0094360F /* GraphPoint.swift */; };
@@ -73,6 +73,8 @@
 		3FE221A32A54D94A0063ED9C /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423D729DD2D2700C35E69 /* Date+Extensions.swift */; };
 		3FE221A42A54DA3B0063ED9C /* ProgressCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F34240229DD307F00C35E69 /* ProgressCircle.swift */; };
 		3FE221A52A54DA6D0063ED9C /* UnitUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423FC29DD301F00C35E69 /* UnitUtils.swift */; };
+		3FE38DEB2F071170008D351F /* Views+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE38DEA2F07116C008D351F /* Views+Extensions.swift */; };
+		3FE38DEC2F0711A9008D351F /* Views+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE38DEA2F07116C008D351F /* Views+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -170,6 +172,8 @@
 		3FCC7E5F29DE762800AC7620 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3FCC7E6129DE764600AC7620 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3FE2219F2A54D1010063ED9C /* EstimateWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EstimateWidgetExtension.entitlements; sourceTree = "<group>"; };
+		3FE38DE92F070D69008D351F /* AGENT.md */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AGENT.md; sourceTree = "<group>"; };
+		3FE38DEA2F07116C008D351F /* Views+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Views+Extensions.swift"; sourceTree = "<group>"; };
 		3FF001B72ACA7DB50007C481 /* EstimateWidgetExtensionRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EstimateWidgetExtensionRelease.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -178,7 +182,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F34240A29DD30BF00C35E69 /* GoogleMobileAds in Frameworks */,
+				3F4ED1082F07090D00A79DE9 /* GoogleMobileAds in Frameworks */,
 				3F3423F929DD2FDF00C35E69 /* SwiftRater in Frameworks */,
 				3F3423F029DD2F5E00C35E69 /* Mixpanel in Frameworks */,
 				3F3423E929DD2F0D00C35E69 /* TPInAppReceipt in Frameworks */,
@@ -214,6 +218,7 @@
 		3F34239729DD2C7800C35E69 = {
 			isa = PBXGroup;
 			children = (
+				3FE38DE92F070D69008D351F /* AGENT.md */,
 				3FF001B72ACA7DB50007C481 /* EstimateWidgetExtensionRelease.entitlements */,
 				3FE2219F2A54D1010063ED9C /* EstimateWidgetExtension.entitlements */,
 				3F3423A229DD2C7800C35E69 /* Leastimator */,
@@ -304,6 +309,7 @@
 		3F3423D229DD2D0500C35E69 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				3FE38DEA2F07116C008D351F /* Views+Extensions.swift */,
 				3F3423D329DD2D1300C35E69 /* Font+Extensions.swift */,
 				3F3423D529DD2D1F00C35E69 /* Color+Extensions.swift */,
 				3F3423D729DD2D2700C35E69 /* Date+Extensions.swift */,
@@ -359,7 +365,7 @@
 				3F3423E829DD2F0D00C35E69 /* TPInAppReceipt */,
 				3F3423EF29DD2F5E00C35E69 /* Mixpanel */,
 				3F3423F829DD2FDF00C35E69 /* SwiftRater */,
-				3F34240929DD30BF00C35E69 /* GoogleMobileAds */,
+				3F4ED1072F07090D00A79DE9 /* GoogleMobileAds */,
 			);
 			productName = Leastimator;
 			productReference = 3F3423A029DD2C7800C35E69 /* Leastimator.app */;
@@ -458,7 +464,7 @@
 				3F3423E729DD2F0D00C35E69 /* XCRemoteSwiftPackageReference "TPInAppReceipt" */,
 				3F3423EE29DD2F5E00C35E69 /* XCRemoteSwiftPackageReference "mixpanel-swift" */,
 				3F3423F729DD2FDF00C35E69 /* XCRemoteSwiftPackageReference "SwiftRater" */,
-				3F34240829DD30BF00C35E69 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+				3F4ED1062F07090D00A79DE9 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 			);
 			productRefGroup = 3F3423A129DD2C7800C35E69 /* Products */;
 			projectDirPath = "";
@@ -518,6 +524,7 @@
 			files = (
 				3F34240E29DD30ED00C35E69 /* EditReadingView.swift in Sources */,
 				3F6F9D782AE495FB0094360F /* GraphPoint.swift in Sources */,
+				3FE38DEB2F071170008D351F /* Views+Extensions.swift in Sources */,
 				3F2AFE742A89F29F001B8837 /* ProgressBar.swift in Sources */,
 				3FB06BCA2A94739000EB0E7C /* OdometerHistoryDocument.swift in Sources */,
 				3F34241029DD30FF00C35E69 /* EditVehicleView.swift in Sources */,
@@ -585,6 +592,7 @@
 				3FC0EF4A2A54CFF50047F756 /* Leastimator.xcdatamodeld in Sources */,
 				3FE221A42A54DA3B0063ED9C /* ProgressCircle.swift in Sources */,
 				3FC0EF3C2A54CE600047F756 /* EstimateWidgetBundle.swift in Sources */,
+				3FE38DEC2F0711A9008D351F /* Views+Extensions.swift in Sources */,
 				3F532FF02A916EBF0056EADE /* UIImage+Extensions.swift in Sources */,
 				3FE221A22A54D9200063ED9C /* ComputeUtils.swift in Sources */,
 				3FC0EF3E2A54CE600047F756 /* EstimateWidget.swift in Sources */,
@@ -1021,12 +1029,12 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		3F34240829DD30BF00C35E69 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+		3F4ED1062F07090D00A79DE9 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.0.0;
+				minimumVersion = 12.14.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1047,9 +1055,9 @@
 			package = 3F3423F729DD2FDF00C35E69 /* XCRemoteSwiftPackageReference "SwiftRater" */;
 			productName = SwiftRater;
 		};
-		3F34240929DD30BF00C35E69 /* GoogleMobileAds */ = {
+		3F4ED1072F07090D00A79DE9 /* GoogleMobileAds */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3F34240829DD30BF00C35E69 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			package = 3F4ED1062F07090D00A79DE9 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
 			productName = GoogleMobileAds;
 		};
 /* End XCSwiftPackageProductDependency section */

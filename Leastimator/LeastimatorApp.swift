@@ -97,7 +97,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     sceneConfiguration.delegateClass = CustomSceneDelegate.self
     
     // Initialize Google AdMobs.
-    GADMobileAds.sharedInstance().start(completionHandler: nil)
+    MobileAds.shared.start(completionHandler: nil)
     
     return sceneConfiguration
   }

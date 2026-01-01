@@ -193,7 +193,7 @@ func Compute(_ veh: Vehicle) -> ExtendedVehicleInfo {
   
   let mileageShouldLessThan = Int(veh.starting) + Int(allowedMileagePerDay * usedDays)
   let maxDriveToday = max(0, mileageShouldLessThan - currentMileage)
-  let leaseLeft = max(0, Int(veh.lengthOfLease) - usedMonths)
+  let leaseLeft = max(0, Int(veh.lengthOfLease) - (usedMonths - 1))
   
   let monthlyData = prepareMonthlyDataForLineGraph(veh: veh, readings: readings, usedMonths: usedMonths)
   

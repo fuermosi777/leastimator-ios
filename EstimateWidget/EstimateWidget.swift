@@ -158,6 +158,7 @@ struct EstimateWidgetEntryView : View {
           .foregroundColor(.subText)
       }
     }.padding(10.0)
+      .widgetBackground(Color(.systemBackground))
   }
 }
 
