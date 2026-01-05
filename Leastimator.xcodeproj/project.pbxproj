@@ -766,7 +766,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Leastimator/Leastimator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 89;
+				CURRENT_PROJECT_VERSION = 90;
 				DEVELOPMENT_ASSET_PATHS = "\"Leastimator/Preview Content\"";
 				DEVELOPMENT_TEAM = CFR9F99TN9;
 				ENABLE_PREVIEWS = YES;
@@ -781,7 +781,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.15;
+				MARKETING_VERSION = 4.16;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.leastimator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -802,7 +802,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Leastimator/Leastimator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 89;
+				CURRENT_PROJECT_VERSION = 90;
 				DEVELOPMENT_ASSET_PATHS = "\"Leastimator/Preview Content\"";
 				DEVELOPMENT_TEAM = CFR9F99TN9;
 				ENABLE_PREVIEWS = YES;
@@ -817,7 +817,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.15;
+				MARKETING_VERSION = 4.16;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.leastimator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
