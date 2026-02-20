@@ -13,6 +13,18 @@ struct ChartSheetView: View {
   var vehicle: Vehicle
   @Environment(\.dismiss) var dismiss
 
+  var allowanceColor: Color {
+    let current = extendedInfo.currentMileage
+    let max = extendedInfo.mileageShouldLessThan
+    if current > max {
+      return .red
+    } else if Double(current) >= Double(max) * 0.9 {
+      return .orange
+    } else {
+      return .green
+    }
+  }
+
   let linearGradient = LinearGradient(
     gradient: Gradient (
       colors: [
@@ -56,6 +68,15 @@ struct ChartSheetView: View {
           AreaMark(x: .value("Date", point.label), y: .value("Value", point.value))
             .foregroundStyle(linearGradient)
         }
+
+        RuleMark(y: .value("Max Allowance", extendedInfo.mileageShouldLessThan))
+          .lineStyle(StrokeStyle(lineWidth: 1.5, dash: [6, 3]))
+          .foregroundStyle(allowanceColor.opacity(0.8))
+          .annotation(position: .top, alignment: .trailing) {
+            Text(Double(extendedInfo.mileageShouldLessThan).decimalString())
+              .font(.caption2)
+              .foregroundStyle(allowanceColor.opacity(0.8))
+          }
       }
       .chartYAxis { AxisMarks { _ in AxisGridLine(); AxisTick(); AxisValueLabel() } }
       .chartYScale(domain: 0...max(extendedInfo.currentMileage, extendedInfo.mileageShouldLessThan) + 2000)
