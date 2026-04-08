@@ -18,19 +18,19 @@ struct ExtendedVehicleInfo {
   let mileagePerDay: Double
   let mileagePerMonth: Int
   
-  let allowedMileagePerDay: Int
   let usedDays: Int
-  
+
   let mileageVariance: Int?
   let excessMileage: Int?
   let excessCharge: Int?
-  
+
+  let allowedMileagePerDay: Double
   let mileageShouldLessThan: Int
   let maxDriveToday: Int
   let leaseLeft: Int
-  
+
   let isExpired: Bool
-  
+
   let monthlyMileageDataForLineChart: [GraphPoint]
 }
 
@@ -117,6 +117,7 @@ func prepareMonthlyDataForLineGraph(veh: Vehicle, readings: [OdoReading], usedMo
       var point = GraphPoint(value: -1.0, label: keyFormatter.string(from: iterDate), significant: false)
       if let reading = readingMap[iterDateKey] {
         maxReading = max(maxReading, reading)
+        point.significant = true
       }
       point.value = Double(maxReading)
       data.append(point)
@@ -178,7 +179,7 @@ func Compute(_ veh: Vehicle) -> ExtendedVehicleInfo {
     usedDays = 1
     usedMonths = 1
   }
-  mileagePerDay = max(Double(usedMileage / usedDays), 0)
+  mileagePerDay = max((Double(usedMileage) / Double(usedDays)).rounded(), 0)
   mileagePerMonth = max(Int(usedMileage / usedMonths), 0)
   
   // Starting date + predicated mileage.
@@ -188,10 +189,9 @@ func Compute(_ veh: Vehicle) -> ExtendedVehicleInfo {
   let excessMileage = max(mileageVariance, 0)
   let excessCharge = Int(veh.fee * Float(excessMileage))
   
-  let totalDays = max(1, (veh.lengthOfLease / 12 * 365))
-  let allowedMileagePerDay: Int = Int(veh.allowed / totalDays)
-  
-  let mileageShouldLessThan = Int(veh.starting) + Int(allowedMileagePerDay * usedDays)
+  let totalDays = max(1, Int(Double(veh.lengthOfLease) / 12.0 * 365.25))
+  let allowedMileagePerDay: Double = Double(veh.allowed) / Double(totalDays)
+  let mileageShouldLessThan = Int(veh.starting) + Int(allowedMileagePerDay * Double(usedDays))
   let maxDriveToday = max(0, mileageShouldLessThan - currentMileage)
   let leaseLeft = max(0, Int(veh.lengthOfLease) - (usedMonths - 1))
   
@@ -202,11 +202,11 @@ func Compute(_ veh: Vehicle) -> ExtendedVehicleInfo {
                              normalPredicatedMileage: normalPredicatedMileage,
                              mileagePerDay: mileagePerDay,
                              mileagePerMonth: mileagePerMonth,
-                             allowedMileagePerDay: allowedMileagePerDay,
                              usedDays: usedDays,
                              mileageVariance: mileageVariance,
                              excessMileage: excessMileage,
                              excessCharge: excessCharge,
+                             allowedMileagePerDay: allowedMileagePerDay,
                              mileageShouldLessThan: mileageShouldLessThan,
                              maxDriveToday: maxDriveToday,
                              leaseLeft: leaseLeft,
