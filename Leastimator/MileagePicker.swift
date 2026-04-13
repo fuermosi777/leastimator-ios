@@ -8,130 +8,67 @@
 import SwiftUI
 
 struct MileagePicker: View {
-  @Binding var value: String;
+  @Binding var value: String
   
-  private var digitsForSet: [Int] = [0, 0, 0, 0, 0, 0]
-  
-  init(value: Binding<String>) {
-    _value = value
-    
-    // Add extra 0s to the begin of the digits so that the total count is 6.
-    let valueLength = self.value.digits.count
-    for (index, d) in self.value.digits.enumerated() {
-      digitsForSet[index + 6 - valueLength] = d
+  var body: some View {
+    HStack(spacing: 0) {
+      ForEach(0..<6, id: \.self) { index in
+        DigitPicker(index: index, value: $value)
+      }
     }
+    .padding(.vertical, 8)
+  }
+}
+
+private struct DigitPicker: View {
+  let index: Int
+  @Binding var value: String
+  
+  // Large multiplier to simulate infinite scrolling (e.g., 1000 items)
+  @State private var selection: Int = 0
+  private let rangeMultiplier = 10
+  
+  private var currentDigits: [Int] {
+    let d = value.digits
+    var result = [0, 0, 0, 0, 0, 0]
+    for i in 0..<6 {
+      let sourceIndex = d.count - 1 - i
+      if sourceIndex >= 0 {
+        result[5 - i] = d[sourceIndex]
+      }
+    }
+    return result
   }
   
   var body: some View {
-    let digit: Binding<Int> = Binding(
-      get: {
-        guard self.value.count - 1 >= 0 else {
-          return 0
-        }
-        return self.value.digits[self.value.count - 1]
-      },
-      set: { d in
-        var digits = self.digitsForSet
-        digits[5] = d
-        self.value = "".join(digits)
+    Picker("", selection: $selection) {
+      ForEach(0..<(rangeMultiplier * 10), id: \.self) { i in
+        Text("\(i % 10)")
+          .font(.system(size: 26, weight: .bold, design: .monospaced))
+          .tag(i)
       }
-    )
-    let ten: Binding<Int> = Binding(
-      get: {
-        guard self.value.count - 2 >= 0 else {
-          return 0
-        }
-        return self.value.digits[self.value.count - 2]
-      },
-      set: { d in
-        var digits = self.digitsForSet
-        digits[4] = d
-        self.value = "".join(digits)
+    }
+    .pickerStyle(.wheel)
+    .clipped()
+    .onAppear {
+      // Initialize to the middle range
+      selection = (rangeMultiplier / 2) * 10 + currentDigits[index]
+    }
+    .onChange(of: selection) { newValue in
+      let newDigit = newValue % 10
+      var d = currentDigits
+      if d[index] != newDigit {
+        d[index] = newDigit
+        value = "".join(d)
       }
-    )
-    let hundred: Binding<Int> = Binding(
-      get: {
-        guard self.value.count - 3 >= 0 else {
-          return 0
-        }
-        return self.value.digits[self.value.count - 3]
-      },
-      set: { d in
-        var digits = self.digitsForSet
-        digits[3] = d
-        self.value = "".join(digits)
+    }
+    .onChange(of: value) { newValue in
+      // When value changes from outside, sync selection without jumping to the middle
+      let newDigit = currentDigits[index]
+      if selection % 10 != newDigit {
+        // Keep the current "cycle" but update the digit
+        selection = (selection / 10) * 10 + newDigit
       }
-    )
-    let thousand: Binding<Int> = Binding(
-      get: {
-        guard self.value.count - 4 >= 0 else {
-          return 0
-        }
-        return self.value.digits[self.value.count - 4]
-      },
-      set: { d in
-        var digits = self.digitsForSet
-        digits[2] = d
-        self.value = "".join(digits)
-      }
-    )
-    let tenThousand: Binding<Int> = Binding(
-      get: {
-        guard self.value.count - 5 >= 0 else {
-          return 0
-        }
-        return self.value.digits[self.value.count - 5]
-      },
-      set: { d in
-        var digits = self.digitsForSet
-        digits[1] = d
-        self.value = "".join(digits)
-      }
-    )
-    let hundredThousand: Binding<Int> = Binding(
-      get: {
-        guard self.value.count - 6 >= 0 else {
-          return 0
-        }
-        return self.value.digits[self.value.count - 6]
-      },
-      set: { d in
-        var digits = self.digitsForSet
-        digits[0] = d
-        self.value = "".join(digits)
-      }
-    )
-    HStack {
-      Picker("", selection: hundredThousand) {
-        ForEach(0...9, id: \.self) { number in
-          Text("\(number)").font(.system(size: 24, weight: .bold, design: .rounded))
-        }
-      }.pickerStyle(.wheel)
-      Picker("", selection: tenThousand) {
-        ForEach(0...9, id: \.self) { number in
-          Text("\(number)").font(.system(size: 24, weight: .bold, design: .rounded))
-        }
-      }.pickerStyle(.wheel)
-      Picker("", selection: thousand) {
-        ForEach(0...9, id: \.self) { number in
-          Text("\(number)").font(.system(size: 24, weight: .bold, design: .rounded))
-        }
-      }.pickerStyle(.wheel)
-      Picker("", selection: hundred) {
-        ForEach(0...9, id: \.self) { number in
-          Text("\(number)").font(.system(size: 24, weight: .bold, design: .rounded))
-        }
-      }.pickerStyle(.wheel)
-      Picker("", selection: ten) {
-        ForEach(0...9, id: \.self) { number in
-          Text("\(number)").font(.system(size: 24, weight: .bold, design: .rounded))
-        }
-      }.pickerStyle(.wheel)
-      Picker("", selection: digit) {
-        ForEach(0...9, id: \.self) { number in
-          Text("\(number)").font(.system(size: 24, weight: .bold, design: .rounded))
-        }
-      }.pickerStyle(.wheel)
     }
   }
 }

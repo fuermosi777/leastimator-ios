@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ReadingList: View {
+  @Environment(\.dismiss) private var dismiss
   @Environment(\.managedObjectContext) private var viewContext
   
   let vehicle: Vehicle
@@ -74,6 +75,11 @@ struct ReadingList: View {
         .withErrorHandler()
       }
       .toolbar {
+        ToolbarItem(placement: .navigationBarLeading) {
+          Button { dismiss() } label: {
+            Image(systemName: "xmark")
+          }
+        }
         ToolbarItem(placement: .primaryAction) {
           Button(action: {
             selectedReading = nil

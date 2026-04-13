@@ -25,21 +25,3 @@ The "Leastimator" project is an iOS application built with SwiftUI, designed to 
 *   `mixpanel-swift`: For analytics integration.
 *   `SwiftRater`: For prompting users to rate the app.
 *   `swift-package-manager-google-mobile-ads`: For integrating Google Mobile Ads.
-
-## Building and Running the Project:
-
-To build and run the Leastimator project, you will need Xcode installed on your macOS system.
-
-1.  **Open in Xcode:** Navigate to the project directory and open `Leastimator.xcodeproj` in Xcode.
-2.  **Select Target:**
-    *   For the main application, select the `Leastimator` target.
-    *   For the widget extension, select the `EstimateWidgetExtension` target.
-3.  **Choose Destination:** Select your desired simulator or a connected iOS device.
-4.  **Run:** Click the "Run" button (or press `Cmd + R`) in Xcode to build and deploy the application/widget.
-
-## Development Conventions:
-
-*   **Code Style:** Adheres to standard Swift coding conventions (e.g., camelCase for variables and functions, PascalCase for types).
-*   **Extensions:** Functionality is often organized using Swift extensions (e.g., `Color+Extensions.swift`, `Date+Extensions.swift`) to keep code modular and readable.
-*   **Localization:** All user-facing strings should be localized using `Localizable.strings` files, with support for English (`en.lproj`) and German (`de.lproj`).
-*   **Deployment Target:** The main application targets iOS 17.0, and the Widget Extension targets iOS 16.4.
