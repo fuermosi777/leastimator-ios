@@ -1,0 +1,101 @@
+/* 
+  Localizable.strings
+  Leastimator
+
+  Created by Hao Liu on 4/12/26.
+  
+*/
+
+"My Garage" = "我的车库";
+"Estimated mileage" = "预计里程";
+"Add Reading" = "添加读数";
+"Current mileage" = "当前里程";
+"Unused mileage" = "剩余里程";
+"Daily average" = "日均里程";
+"Monthly average" = "月均里程";
+"Est. Mileage overrun" = "预计超额里程";
+"Est. Overcharge" = "预计超支费用";
+"Vehicle Setting" = "车辆设置";
+"Odometer History" = "里程记录";
+"Save" = "保存";
+"Select Vehicle Photo" = "选择车辆照片";
+"Nickname" = "昵称";
+"My car" = "我的车";
+"Starting mileage" = "初始里程";
+"Total mileage allowed" = "允许的总里程";
+"Length of lease" = "租赁时长";
+"Lease start date" = "租赁开始日期";
+"Overage fee" = "超支单价";
+"Length unit" = "距离单位";
+"Currency" = "货币";
+"Add Vehicle" = "添加车辆";
+"Add vehicle" = "添加车辆";
+"Error" = "错误";
+"Display Mileage Variance" = "显示里程偏差";
+"Emphasize the variance between actual and estimated mileage on vehicle display." = "在车辆详情中突出显示实际里程与预计里程之间的偏差。";
+"Something is wrong with the information entered: %@" = "输入的信息有误：%@";
+"Failed to save changes. Please close the app and try again" = "保存更改失败。请关闭应用并重试。";
+"You haven't added any readings yet." = "你还没有添加任何读数。";
+"Add Reading" = "添加读数";
+"Edit Reading" = "编辑读数";
+"Reading date" = "读数日期";
+"Current odometer reading on dashboard." = "仪表盘上的当前里程读数。";
+"Settings" = "设置";
+"Vehicle in widget" = "小组件显示的车辆";
+"Choose which vehicle to present in the main screen widget." = "选择在主屏幕小组件中显示的车辆。";
+"Enter vehicle on start" = "启动时进入车辆";
+"Start up vehicle" = "启动车辆";
+"When app starts, skip the list and present the vehicle information." = "当应用启动时，跳过列表直接显示车辆信息。";
+"Please rate Leastimator" = "请为 Leastimator 评分";
+"Support" = "支持";
+"Current version: %@" = "当前版本：%@";
+"Privacy Policy" = "隐私政策";
+"Terms of Use" = "使用条款";
+"Cancel" = "取消";
+"Delete" = "删除";
+"Ok" = "确认";
+"Archived" = "已归档";
+"Archive" = "归档";
+"Unarchive" = "取消归档";
+"Vehicles" = "车辆";
+"Edit Vehicle" = "编辑车辆";
+"See Chart" = "查看图表";
+"Export" = "导出";
+
+// Pro
+"Leastimator Pro is an optional subscription to control ads, track multiple vehicles, handle customization, and support future development" = "Leastimator Pro 是一个可选订阅，用于移除广告、追踪多辆车、进行自定义设置并支持后续开发。";
+"🥳 Leastimator is a free app now. Thank you for purchasing and supporting Leastimator app before. You can enjoy Leastimator Pro for free." = "🥳 Leastimator 现在是一款免费应用了。感谢你之前的购买和支持。你可以免费使用 Leastimator Pro。";
+"🥳 Thank you for supporting Leastimator by subscribing pro!" = "🥳 感谢你订阅 Pro 并以此支持 Leastimator！";
+"Restore Previous Purchases" = "恢复购买";
+"Leastimator Pro subscription can be shared by everyone in a family group." = "Leastimator Pro 订阅可以与家庭组中的每位成员共享。";
+"Upload from Photos" = "从相册上传";
+"Remove" = "移除";
+
+// Unit
+"Mile" = "英里";
+"Kilometer" = "公里";
+
+// QA
+"What should my odometer read?" = "我的里程表应该显示多少？";
+"Your odometer should read less than %@." = "你的里程表读数应该小于 %@。";
+"To calculate the result, we take the number of miles you're allowed to drive each day according to your lease agreement and multiply it by the number of days that have passed since the lease started. Then we add the starting mileage to that total." = "为了计算结果，我们会根据你的租赁协议计算出每天允许驾驶的里程，并将其乘以租赁开始以来经过的天数。最后将初始里程加到该总额中。";
+
+"How far can I drive today?" = "我今天还能开多远？";
+"You can drive as far as you want because you did not set the mileage allowed." = "因为你没有设置允许的里程上限，所以你今天想开多远都可以。";
+"You can drive up to %@ %@ today and still be on track." = "你今天最多还可以驾驶 %@ %@ 以保持在目标范围内。";
+"To determine if the car has exceeded the maximum mileage allowed, we subtract the current mileage from the maximum allowable mileage." = "为了确定车辆是否超过了允许的最大里程，我们从最大允许里程中减去当前里程。";
+
+"When does my lease expire?" = "我的租赁什么时候到期？";
+"Congratulations, your lease is expired." = "恭喜，你的租赁已到期。";
+"You have %@ months left. Keep up the work!" = "你还剩下 %@ 个月。继续保持！";
+"To calculate the remaining lease duration, we subtract the number of months that have passed since the lease started from the total length of the lease." = "为了计算剩余的租赁时长，我们从租赁总长度中减去自租赁开始以来已经经过的月数。";
+
+"disclaimer" = "提供的信息仅供预测参考，不应视为准确数值。尽管 Leastimator 尽力确保所呈现信息的准确性，但我们无法保证其完全没有错误或遗漏。Leastimator 对因使用此信息而可能产生的任何损害或损失不承担责任。";
+
+"Mileage Chart" = "里程图表";
+
+// Widget
+"Edit widget" = "编辑小组件";
+"Edit what to display in the widget" = "编辑在小组件中显示的内容";
+
+"vehicle delete warning message" = "请确认你要删除这辆车。注意：此操作无法撤销。";

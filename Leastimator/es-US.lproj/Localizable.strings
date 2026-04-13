@@ -1,0 +1,101 @@
+/* 
+  Localizable.strings
+  Leastimator
+
+  Created by Hao Liu on 4/12/26.
+  
+*/
+
+"My Garage" = "Mi Garaje";
+"Estimated mileage" = "Kilometraje estimado";
+"Add Reading" = "Agregar lectura";
+"Current mileage" = "Kilometraje actual";
+"Unused mileage" = "Kilometraje restante";
+"Daily average" = "Promedio diario";
+"Monthly average" = "Promedio mensual";
+"Est. Mileage overrun" = "Exceso de kilometraje est.";
+"Est. Overcharge" = "Cargo adicional est.";
+"Vehicle Setting" = "Ajustes del vehículo";
+"Odometer History" = "Historial del odómetro";
+"Save" = "Guardar";
+"Select Vehicle Photo" = "Seleccionar foto del vehículo";
+"Nickname" = "Apodo";
+"My car" = "Mi auto";
+"Starting mileage" = "Kilometraje inicial";
+"Total mileage allowed" = "Kilometraje total permitido";
+"Length of lease" = "Duración del contrato";
+"Lease start date" = "Fecha de inicio del contrato";
+"Overage fee" = "Cargo por exceso";
+"Length unit" = "Unidad de medida";
+"Currency" = "Moneda";
+"Add Vehicle" = "Agregar vehículo";
+"Add vehicle" = "Agregar vehículo";
+"Error" = "Error";
+"Display Mileage Variance" = "Mostrar variación de kilometraje";
+"Emphasize the variance between actual and estimated mileage on vehicle display." = "Resaltar la diferencia entre el kilometraje real y el estimado en la pantalla del vehículo.";
+"Something is wrong with the information entered: %@" = "Algo salió mal con la información ingresada: %@";
+"Failed to save changes. Please close the app and try again" = "Error al guardar los cambios. Por favor, cierre la aplicación e intente de nuevo.";
+"You haven't added any readings yet." = "Aún no ha agregado ninguna lectura.";
+"Add Reading" = "Agregar lectura";
+"Edit Reading" = "Editar lectura";
+"Reading date" = "Fecha de lectura";
+"Current odometer reading on dashboard." = "Lectura actual del odómetro en el tablero.";
+"Settings" = "Ajustes";
+"Vehicle in widget" = "Vehículo en el widget";
+"Choose which vehicle to present in the main screen widget." = "Elija qué vehículo mostrar en el widget de la pantalla de inicio.";
+"Enter vehicle on start" = "Abrir vehículo al iniciar";
+"Start up vehicle" = "Vehículo de inicio";
+"When app starts, skip the list and present the vehicle information." = "Al iniciar la aplicación, omitir la lista y mostrar la información del vehículo.";
+"Please rate Leastimator" = "Por favor, califique Leastimator";
+"Support" = "Soporte";
+"Current version: %@" = "Versión actual: %@";
+"Privacy Policy" = "Política de privacidad";
+"Terms of Use" = "Términos de uso";
+"Cancel" = "Cancelar";
+"Delete" = "Eliminar";
+"Ok" = "Aceptar";
+"Archived" = "Archivado";
+"Archive" = "Archivar";
+"Unarchive" = "Desarchivar";
+"Vehicles" = "Vehículos";
+"Edit Vehicle" = "Editar vehículo";
+"See Chart" = "Ver gráfico";
+"Export" = "Exportar";
+
+// Pro
+"Leastimator Pro is an optional subscription to control ads, track multiple vehicles, handle customization, and support future development" = "Leastimator Pro es una suscripción opcional para controlar anuncios, rastrear múltiples vehículos, personalizar la aplicación y apoyar el desarrollo futuro.";
+"🥳 Leastimator is a free app now. Thank you for purchasing and supporting Leastimator app before. You can enjoy Leastimator Pro for free." = "🥳 Leastimator ahora es una aplicación gratuita. Gracias por comprar y apoyar Leastimator anteriormente. Puede disfrutar de Leastimator Pro gratis.";
+"🥳 Thank you for supporting Leastimator by subscribing pro!" = "🥳 ¡Gracias por apoyar a Leastimator suscribiéndose a Pro!";
+"Restore Previous Purchases" = "Restaurar compras";
+"Leastimator Pro subscription can be shared by everyone in a family group." = "La suscripción a Leastimator Pro se puede compartir con todos los miembros de un grupo familiar.";
+"Upload from Photos" = "Subir de fotos";
+"Remove" = "Eliminar";
+
+// Unit
+"Mile" = "Milla";
+"Kilometer" = "Kilómetro";
+
+// QA
+"What should my odometer read?" = "¿Qué debería marcar mi odómetro?";
+"Your odometer should read less than %@." = "Su odómetro debería marcar menos de %@.";
+"To calculate the result, we take the number of miles you're allowed to drive each day according to your lease agreement and multiply it by the number of days that have passed since the lease started. Then we add the starting mileage to that total." = "Para calcular el resultado, tomamos el número de millas permitidas por día según su contrato de arrendamiento y lo multiplicamos por el número de días transcurridos desde el inicio del contrato. Luego, sumamos el kilometraje inicial a ese total.";
+
+"How far can I drive today?" = "¿Qué tanto puedo conducir hoy?";
+"You can drive as far as you want because you did not set the mileage allowed." = "Puede conducir tanto como quiera porque no estableció un límite de kilometraje.";
+"You can drive up to %@ %@ today and still be on track." = "Puede conducir hasta %@ %@ hoy y aún estar dentro del límite.";
+"To determine if the car has exceeded the maximum mileage allowed, we subtract the current mileage from the maximum allowable mileage." = "Para determinar si el auto ha excedido el kilometraje máximo permitido, restamos el kilometraje actual del kilometraje máximo permitido.";
+
+"When does my lease expire?" = "¿Cuándo termina mi contrato?";
+"Congratulations, your lease is expired." = "Felicidades, su contrato de arrendamiento ha terminado.";
+"You have %@ months left. Keep up the work!" = "Le quedan %@ meses. ¡Siga así!";
+"To calculate the remaining lease duration, we subtract the number of months transcurridos desde el inicio del contrato de la duración total del mismo." = "Para calcular la duración restante del contrato, restamos el número de meses transcurridos desde el inicio del contrato de la duración total del mismo.";
+
+"disclaimer" = "La información proporcionada es solo para fines de predicción y no debe interpretarse como cifras reales. Si bien Leastimator hace todo lo posible para garantizar la precisión de la información presentada, no podemos garantizar que esté libre de errores u omisiones. Leastimator no es responsable de ningún daño o pérdida que pueda surgir del uso de esta información.";
+
+"Mileage Chart" = "Gráfico de kilometraje";
+
+// Widget
+"Edit widget" = "Editar widget";
+"Edit what to display in the widget" = "Editar qué mostrar en el widget";
+
+"vehicle delete warning message" = "Por favor, confirme que desea eliminar este vehículo. Tenga en cuenta que esta acción no se puede deshacer.";

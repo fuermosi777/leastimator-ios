@@ -27,6 +27,7 @@
 "Overage fee" = "Mehrkilometer Preis";
 "Length unit" = "Längeneinheit";
 "Currency" = "Währung";
+"Add Vehicle" = "Fahrzeug hinzufügen";
 "Add vehicle" = "Fahrzeug hinzufügen";
 "Error" = "Fehler";
 "Display Mileage Variance" = "Kilometerabweichung anzeigen";
@@ -50,12 +51,24 @@
 "Privacy Policy" = "Datenschutzerklärung";
 "Terms of Use" = "Allgemeine Geschäftsbedingungen (AGB)";
 "Cancel" = "Abbrechen";
+"Delete" = "Löschen";
+"Ok" = "Ok";
+"Archived" = "Archiviert";
+"Archive" = "Archivieren";
+"Unarchive" = "Dearchivieren";
+"Vehicles" = "Fahrzeuge";
+"Edit Vehicle" = "Fahrzeug bearbeiten";
+"See Chart" = "Diagramm ansehen";
+"Export" = "Exportieren";
 
 // Pro
 "Leastimator Pro is an optional subscription to control ads, track multiple vehicles, handle customization, and support future development" = "Leastimator Pro ist ein optionales Abonnement zur Kontrolle von Anzeigen, zum Hinzufügen von mehr als einem Fahrzeug, zur Anpassung und zur Unterstützung zukünftiger Entwicklungen.";
 "🥳 Leastimator is a free app now. Thank you for purchasing and supporting Leastimator app before. You can enjoy Leastimator Pro for free." = "🥳 Vielen Dank für den Kauf der Leastimator-App. Sie können Leastimator Pro kostenlos nutzen.";
 "🥳 Thank you for supporting Leastimator by subscribing pro!" = "🥳 Vielen Dank, dass Sie Leastimator durch ein Pro-Abonnement unterstützen!";
 "Restore Previous Purchases" = "Kauf wiederherstellen";
+"Leastimator Pro subscription can be shared by everyone in a family group." = "Das Leastimator Pro-Abonnement kann von jedem in einer Familiengruppe geteilt werden.";
+"Upload from Photos" = "Aus Fotos hochladen";
+"Remove" = "Entfernen";
 
 // Unit
 "Mile" = "Meile";
