@@ -31,6 +31,11 @@ struct EditVehicleView: View {
   @Environment(\.dismiss) private var dismiss
   @Environment(\.managedObjectContext) private var viewContext
   @EnvironmentObject var errorHandler: ErrorHandler
+  @EnvironmentObject var purchaseManager: PurchaseManager
+  
+  @State private var showTeslaPicker = false
+  @State private var availableTeslaVehicles: [TeslaVehicle] = []
+  @State private var isLoadingTesla = false
   
   // Optional. If not exist, then create a new vehicle.
   var vehicle: Vehicle?
@@ -163,6 +168,56 @@ struct EditVehicleView: View {
         }
         
         if vehicle != nil {
+          Section(header: Text("Tesla Integration (Pro)")) {
+            if purchaseManager.unlockPro {
+              if let teslaId = vehicle?.teslaVehicleId, !teslaId.isEmpty {
+                  if let connId = vehicle?.teslaConnectionId, KeychainHelper.shared.load(for: connId) != nil {
+                      HStack {
+                          Text("Connected to Tesla")
+                              .foregroundColor(.green)
+                          Spacer()
+                          if isLoadingTesla {
+                              ProgressView()
+                          } else {
+                              Button("Disconnect") {
+                                  disconnectTesla()
+                              }
+                              .foregroundColor(.red)
+                          }
+                      }
+                  } else {
+                      VStack(alignment: .leading, spacing: 8) {
+                          Text("You must sign in again on this device to sync Tesla data.")
+                              .font(.caption)
+                              .foregroundColor(.orange)
+                          if isLoadingTesla {
+                              ProgressView()
+                          } else {
+                              Button("Log in to Tesla") {
+                                  connectTesla()
+                              }
+                          }
+                      }
+                  }
+              } else {
+                  if isLoadingTesla {
+                      ProgressView()
+                  } else {
+                      Button("Connect to Tesla") {
+                          connectTesla()
+                      }
+                  }
+              }
+            } else {
+               HStack {
+                   Text("Connect to Tesla")
+                      .foregroundColor(.secondary)
+                   Spacer()
+                   ProBadge()
+               }
+            }
+          }
+          
           Section {
             Button {
               showDeletionWarning.toggle()
@@ -195,6 +250,16 @@ struct EditVehicleView: View {
           image = resized.pngData()
         }
       }
+      .sheet(isPresented: $showTeslaPicker, onDismiss: { showTeslaPicker = false }){
+        TeslaVehiclePicker(vehicles: availableTeslaVehicles, existingVehicleId: vehicle?.teslaVehicleId) { selectedVehicle in
+            vehicle?.teslaVehicleId = selectedVehicle.id
+            try? viewContext.save()
+            showTeslaPicker = false
+            Task { await initialWakeAndSync() }
+        } onCancel: {
+            showTeslaPicker = false
+        }
+      }
       .alert("vehicle delete warning message",
              isPresented: $showDeletionWarning) {
         Button("Delete", role: .destructive) {
@@ -208,6 +273,78 @@ struct EditVehicleView: View {
       }
     }
   }
+  
+  private func connectTesla() {
+      guard let vehicle = self.vehicle else { return }
+      Task {
+          do {
+              await MainActor.run { isLoadingTesla = true }
+              let tokens = try await TeslaAuthManager.shared.authenticate()
+              let connId = vehicle.teslaConnectionId ?? UUID().uuidString
+              
+              KeychainHelper.shared.save(tokens, for: connId)
+              
+              let service = TeslaService(connectionId: connId)
+              let list = try await service.getVehicles()
+              
+              await MainActor.run {
+                  vehicle.teslaConnectionId = connId
+                  self.availableTeslaVehicles = list
+                  self.isLoadingTesla = false
+                  self.showTeslaPicker = true
+              }
+          } catch {
+              await MainActor.run {
+                  self.isLoadingTesla = false
+                  self.errorHandler.handle(error)
+              }
+          }
+      }
+  }
+  
+  private func disconnectTesla() {
+      guard let vehicle = self.vehicle else { return }
+      if let connId = vehicle.teslaConnectionId {
+          KeychainHelper.shared.delete(for: connId)
+      }
+      vehicle.teslaVehicleId = nil
+      vehicle.teslaConnectionId = nil
+      try? viewContext.save()
+  }
+  
+  private func initialWakeAndSync() async {
+      guard let vehicle = self.vehicle, let vid = vehicle.teslaVehicleId, let cid = vehicle.teslaConnectionId else { return }
+      let service = TeslaService(connectionId: cid)
+      do {
+          await MainActor.run { isLoadingTesla = true }
+          // Force wake up on first-time setup
+          try await service.wakeUp(vehicleId: vid)
+          try await Task.sleep(nanoseconds: 3_000_000_000)
+          let data = try await service.getVehicleData(vehicleId: vid)
+          
+          let odo = data.vehicle_state.odometer
+          var value = odo
+          if vehicle.lengthUnit == LengthUnit.Metric.rawValue {
+              value = odo * 1.60934
+          }
+          
+          await MainActor.run {
+              let reading = OdoReading(context: viewContext)
+              reading.value = Int64(value)
+              reading.date = Date()
+              reading.vehicle = vehicle
+              try? viewContext.save()
+              isLoadingTesla = false
+          }
+      } catch {
+          await MainActor.run {
+              isLoadingTesla = false
+              self.errorHandler.handle(error)
+          }
+      }
+  }
+  
+
   
   private func handleDelete() throws {
     if let vehicle = self.vehicle {

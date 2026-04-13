@@ -115,3 +115,19 @@
 "A quick update keeps your lease tracking accurate." = "及时更新读数，让你的租赁追踪更准确。";
 "Driving detected!" = "检测到正在驾驶！";
 "Add a mileage reading to stay on track?" = "要添加一个里程读数以保持在计划内吗？";
+
+// Tesla Integration
+"Tesla Integration (Pro)" = "Tesla API 同步 (高级版)";
+"Connect to Tesla" = "连接 Tesla";
+"Connected to Tesla" = "已连接到 Tesla";
+"Disconnect" = "断开连接";
+"Wake & Sync Now" = "唤醒并同步";
+"You must sign in again on this device to sync Tesla data." = "由于安全限制，您必须在此设备上重新登录 Tesla 以同步数据。";
+"Log in to Tesla" = "重新登录 Tesla";
+"Select Tesla" = "选择 Tesla 车辆";
+
+// Sync Actions
+"Select Action" = "选择操作";
+"Auto Sync from Tesla" = "自动从 Tesla 同步";
+"Add Manually" = "手工添加读数";
+"Vehicle is asleep. Leastimator avoids waking it to save battery and API costs. It will automatically sync next time the vehicle is active, or you can add a reading manually right now." = "车辆正在休眠。为了避免耗电和高昂接口账单，程序已取消唤醒。由于后台在您的爱车活跃时会自动获取读数，您可以等待下次同步，或选择现在就手工录入。";

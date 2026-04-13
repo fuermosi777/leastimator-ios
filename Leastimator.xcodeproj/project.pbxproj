@@ -78,6 +78,11 @@
 		3FE38DEE2F072221008D351F /* ChartSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE38DED2F07221C008D351F /* ChartSheetView.swift */; };
 		3FE38DF02F0728D8008D351F /* Vehicle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE38DEF2F0728D4008D351F /* Vehicle+Extensions.swift */; };
 		3FE38DF12F0728D8008D351F /* Vehicle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE38DEF2F0728D4008D351F /* Vehicle+Extensions.swift */; };
+		47876AB21E780CD2F2C623CE /* TeslaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C23DE6C66FF6E833E2A3856 /* TeslaService.swift */; };
+		7873D36A0EBBFD0A25BB79D8 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5800D8376217BCDD3EE9C18 /* KeychainHelper.swift */; };
+		A949D04C9C26A8B6788AC97C /* TeslaAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E20E3FFA3767341968BB022 /* TeslaAuthManager.swift */; };
+		DBD225831A064FB279D891C9 /* TeslaSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A8AE65B911839F2C6819F3 /* TeslaSyncService.swift */; };
+		EAED4CF135BAB1AFC6D1D9C3 /* TeslaVehiclePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DE9DF31B6881F25AE189D0 /* TeslaVehiclePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -180,6 +185,11 @@
 		3FE38DED2F07221C008D351F /* ChartSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartSheetView.swift; sourceTree = "<group>"; };
 		3FE38DEF2F0728D4008D351F /* Vehicle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Vehicle+Extensions.swift"; sourceTree = "<group>"; };
 		3FF001B72ACA7DB50007C481 /* EstimateWidgetExtensionRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EstimateWidgetExtensionRelease.entitlements; sourceTree = "<group>"; };
+		7C23DE6C66FF6E833E2A3856 /* TeslaService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaService.swift; sourceTree = "<group>"; };
+		7E20E3FFA3767341968BB022 /* TeslaAuthManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaAuthManager.swift; sourceTree = "<group>"; };
+		81DE9DF31B6881F25AE189D0 /* TeslaVehiclePicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaVehiclePicker.swift; sourceTree = "<group>"; };
+		C5800D8376217BCDD3EE9C18 /* KeychainHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
+		C9A8AE65B911839F2C6819F3 /* TeslaSyncService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaSyncService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,6 +293,11 @@
 				3FCC7E6029DE762800AC7620 /* Localizable.strings */,
 				3F2AFE692A89E363001B8837 /* SK.storekit */,
 				3FB06BC92A94739000EB0E7C /* OdometerHistoryDocument.swift */,
+				7E20E3FFA3767341968BB022 /* TeslaAuthManager.swift */,
+				7C23DE6C66FF6E833E2A3856 /* TeslaService.swift */,
+				C5800D8376217BCDD3EE9C18 /* KeychainHelper.swift */,
+				81DE9DF31B6881F25AE189D0 /* TeslaVehiclePicker.swift */,
+				C9A8AE65B911839F2C6819F3 /* TeslaSyncService.swift */,
 			);
 			path = Leastimator;
 			sourceTree = "<group>";
@@ -567,6 +582,11 @@
 				3F3423F429DD2F9700C35E69 /* VehicleImage.swift in Sources */,
 				3F3423F629DD2FB600C35E69 /* VehiclePresentation.swift in Sources */,
 				3F34241829DD31AE00C35E69 /* Card.swift in Sources */,
+				A949D04C9C26A8B6788AC97C /* TeslaAuthManager.swift in Sources */,
+				47876AB21E780CD2F2C623CE /* TeslaService.swift in Sources */,
+				7873D36A0EBBFD0A25BB79D8 /* KeychainHelper.swift in Sources */,
+				EAED4CF135BAB1AFC6D1D9C3 /* TeslaVehiclePicker.swift in Sources */,
+				DBD225831A064FB279D891C9 /* TeslaSyncService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -68,12 +68,14 @@ struct LeastimatorApp: App {
     }.onChange(of: phase) { (newPhase) in
       switch newPhase {
         case .active :
-          guard let name = shortcutItemToProcess?.type else {
-            return
+          Task {
+              await TeslaSyncService.shared.performSync(context: persistenceController.container.viewContext)
           }
-          // Defined in Info.plist
-          if name == "AddReadingAction" {
+          if let name = shortcutItemToProcess?.type {
+              // Defined in Info.plist
+              if name == "AddReadingAction" {
 //            sheetStore.activeSheet = .addReading
+              }
           }
         case .inactive, .background:
           return

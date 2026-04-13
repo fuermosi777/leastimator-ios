@@ -25,3 +25,19 @@
 "A quick update keeps your lease tracking accurate." = "A quick update keeps your lease tracking accurate.";
 "Driving detected!" = "Driving detected!";
 "Add a mileage reading to stay on track?" = "Add a mileage reading to stay on track?";
+
+// Tesla Integration
+"Tesla Integration (Pro)" = "Tesla Integration (Pro)";
+"Connect to Tesla" = "Connect to Tesla";
+"Connected to Tesla" = "Connected to Tesla";
+"Disconnect" = "Disconnect";
+"Wake & Sync Now" = "Wake & Sync Now";
+"You must sign in again on this device to sync Tesla data." = "You must sign in again on this device to sync Tesla data.";
+"Log in to Tesla" = "Log in to Tesla";
+"Select Tesla" = "Select Tesla";
+
+// Sync Actions
+"Select Action" = "Select Action";
+"Auto Sync from Tesla" = "Auto Sync from Tesla";
+"Add Manually" = "Add Manually";
+"Vehicle is asleep. Leastimator avoids waking it to save battery and API costs. It will automatically sync next time the vehicle is active, or you can add a reading manually right now." = "Vehicle is asleep. Leastimator avoids waking it to save battery and API costs. It will automatically sync next time the vehicle is active, or you can add a reading manually right now.";

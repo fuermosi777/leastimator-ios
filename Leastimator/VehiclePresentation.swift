@@ -58,6 +58,7 @@ struct MoreInfoView: View {
 struct VehiclePresentation: View {
   @Environment(\.managedObjectContext) private var viewContext
   @EnvironmentObject private var purchaseManager: PurchaseManager
+  @EnvironmentObject var errorHandler: ErrorHandler
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
   @AppStorage("showMileageVariance") private var showMileageVariance = true
   
@@ -72,6 +73,10 @@ struct VehiclePresentation: View {
   
   @State private var showAddReadingSheet = false
   @State private var showChartSheet = false
+  @State private var showSyncActionSheet = false
+  @State private var showSleepAlert = false
+  @State private var isLoadingTesla = false
+  @State private var vehicleState: String?
   
   enum GraphType {
     case monthly, daily
@@ -144,6 +149,15 @@ struct VehiclePresentation: View {
       Section {
         ZStack {
           VStack(alignment: .leading) {
+            if vehicle.teslaConnectionId != nil {
+              HStack(spacing: 6) {
+                Image(systemName: vehicleState?.lowercased() == "online" ? "bolt.car.fill" : "moon.zzz.fill")
+                Text("State: \(vehicleState?.capitalized ?? "Checking...")")
+              }
+              .font(.caption).bold()
+              .foregroundColor(vehicleState?.lowercased() == "online" ? .green : .gray)
+              .padding(.bottom, 2)
+            }
             HStack(alignment: .lastTextBaseline) {
               Text("\(extendedInfo.normalPredicatedMileage)")
                 .lineLimit(1)
@@ -181,11 +195,19 @@ struct VehiclePresentation: View {
       HStack(spacing: 12) {
         if !vehicle.archived {
           Button(action: {
-            showAddReadingSheet.toggle()
+            if vehicle.teslaConnectionId != nil {
+                showSyncActionSheet = true
+            } else {
+                showAddReadingSheet.toggle()
+            }
           }) {
             HStack {
-              Image(systemName: "plus.circle.fill")
-              Text("Add Reading")
+              if isLoadingTesla {
+                  ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .white))
+              } else {
+                  Image(systemName: "plus.circle.fill")
+                  Text("Add Reading")
+              }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .foregroundColor(.white)
@@ -198,7 +220,8 @@ struct VehiclePresentation: View {
             )
             .cornerRadius(25)
           }
-          .buttonStyle(.borderless) // This is required to prevent multiple button tap issue inside List.
+          .buttonStyle(.borderless)
+          .disabled(isLoadingTesla)
         }
         
         Button(action: {
@@ -297,9 +320,103 @@ struct VehiclePresentation: View {
     .sheet(isPresented: $showChartSheet) {
       ChartSheetView(extendedInfo: extendedInfo, vehicle: vehicle)
     }
+    .confirmationDialog(Text("Select Action"), isPresented: $showSyncActionSheet, titleVisibility: .visible) {
+      Button("Auto Sync from Tesla") {
+          Task { await syncIfOnline() }
+      }
+      Button("Add Manually") {
+          showAddReadingSheet.toggle()
+      }
+      Button("Cancel", role: .cancel) {}
+    }
+    .alert("Notice", isPresented: $showSleepAlert) {
+      Button("Add Manually") { showAddReadingSheet.toggle() }
+      Button("OK", role: .cancel) {}
+    } message: {
+      Text("Vehicle is asleep. Leastimator avoids waking it to save battery and API costs. It will automatically sync next time the vehicle is active, or you can add a reading manually right now.")
+    }
     .onAppear {
       Logger.shared.vehiclePageView()
       SwiftRater.check()
+      if vehicle.teslaConnectionId != nil {
+          Task { await pollTeslaState() }
+      }
     }
+    .onReceive(Timer.publish(every: 180, on: .main, in: .common).autoconnect()) { _ in
+        if vehicle.teslaConnectionId != nil {
+            Task { await pollTeslaState() }
+        }
+    }
+  }
+  
+  private func syncIfOnline() async {
+      guard let vid = vehicle.teslaVehicleId, let cid = vehicle.teslaConnectionId else { return }
+      let service = TeslaService(connectionId: cid)
+      do {
+          await MainActor.run { isLoadingTesla = true }
+          let list = try await service.getVehicles()
+          if let myVehicle = list.first(where: { $0.id == vid }) {
+              let state = myVehicle.state.lowercased()
+              await MainActor.run { self.vehicleState = state }
+              if state == "online" {
+                  let data = try await service.getVehicleData(vehicleId: vid)
+                  let odo = data.vehicle_state.odometer
+                  var value = odo
+                  if vehicle.lengthUnit == LengthUnit.Metric.rawValue {
+                      value = odo * 1.60934
+                  }
+                  await MainActor.run {
+                      let reading = OdoReading(context: viewContext)
+                      reading.value = Int64(value)
+                      reading.date = Date()
+                      reading.vehicle = vehicle
+                      try? viewContext.save()
+                      isLoadingTesla = false
+                  }
+              } else {
+                  await MainActor.run {
+                      isLoadingTesla = false
+                      showSleepAlert = true
+                  }
+              }
+          } else {
+              await MainActor.run { isLoadingTesla = false }
+          }
+      } catch {
+          await MainActor.run {
+              isLoadingTesla = false
+              self.errorHandler.handle(error)
+          }
+      }
+  }
+  
+  private func pollTeslaState() async {
+      guard let vid = vehicle.teslaVehicleId, let cid = vehicle.teslaConnectionId else { return }
+      let service = TeslaService(connectionId: cid)
+      do {
+          let list = try await service.getVehicles()
+          if let myVehicle = list.first(where: { $0.id == vid }) {
+              let state = myVehicle.state.lowercased()
+              await MainActor.run { self.vehicleState = state }
+              
+              if state == "online" {
+                  let data = try await service.getVehicleData(vehicleId: vid)
+                  let odo = data.vehicle_state.odometer
+                  var value = odo
+                  if vehicle.lengthUnit == LengthUnit.Metric.rawValue {
+                      value = odo * 1.60934
+                  }
+                  await MainActor.run {
+                      let reading = OdoReading(context: viewContext)
+                      reading.value = Int64(value)
+                      reading.date = Date()
+                      reading.vehicle = vehicle
+                      try? viewContext.save()
+                  }
+              }
+          }
+      } catch {
+          // Silent fail for background polling
+      }
   }
 }
