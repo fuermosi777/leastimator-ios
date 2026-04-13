@@ -14,7 +14,7 @@ The "Leastimator" project is an iOS application built with SwiftUI, designed to 
 *   **Localization:** Available in English and German.
 *   **WidgetKit Extension:** Provides a home screen widget for quick glances at vehicle information.
 
-## Technologies Used:
+## Technologies Used:©
 *   **Language:** Swift
 *   **UI Framework:** SwiftUI
 *   **Data Persistence:** CoreData with CloudKit

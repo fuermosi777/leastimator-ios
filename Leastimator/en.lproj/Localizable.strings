@@ -9,3 +9,19 @@
 
 "disclaimer" = "The information provided is for predication purposes only and should not be construed as actual numbers. While Leastimator makes every effort to ensure the accuracy of the information presented, we cannot guarantee that it is free from errors or omissions. Leastimator is not liable for any damages or losses that may arise from the use of this information.";
 "vehicle delete warning message" = "Please confirm that you want to delete this vehicle. Note that this cannot be undone.";
+
+// Notifications
+"Periodic Reminders" = "Periodic Reminders";
+"Frequency" = "Frequency";
+"Reminder Time" = "Reminder Time";
+"Daily" = "Daily";
+"Weekly" = "Weekly";
+"Monthly" = "Monthly";
+"Get reminded to update your mileage on a schedule." = "Get reminded to update your mileage on a schedule.";
+"Driving Reminders" = "Driving Reminders";
+"Every %lld connections" = "Every %lld connections";
+"Get reminded after connecting to your car (Bluetooth/CarPlay) several times." = "Get reminded after connecting to your car (Bluetooth/CarPlay) several times.";
+"Time to record mileage!" = "Time to record mileage!";
+"A quick update keeps your lease tracking accurate." = "A quick update keeps your lease tracking accurate.";
+"Driving detected!" = "Driving detected!";
+"Add a mileage reading to stay on track?" = "Add a mileage reading to stay on track?";

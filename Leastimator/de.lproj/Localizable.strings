@@ -98,3 +98,19 @@
 "Edit what to display in the widget" = "Bearbeite, was im Widget angezeigt werden soll";
 
 "vehicle delete warning message" = "Bitte bestätigen Sie, dass Sie dieses Fahrzeug löschen möchten. Beachten Sie, dass dieser Vorgang nicht rückgängig gemacht werden kann.";
+
+// Notifications
+"Periodic Reminders" = "Regelmäßige Erinnerungen";
+"Frequency" = "Häufigkeit";
+"Reminder Time" = "Erinnerungszeit";
+"Daily" = "Täglich";
+"Weekly" = "Wöchentlich";
+"Monthly" = "Monatlich";
+"Get reminded to update your mileage on a schedule." = "Lass dich nach einem Zeitplan an die Aktualisierung deines Kilometerstands erinnern.";
+"Driving Reminders" = "Fahr-Erinnerungen";
+"Every %lld connections" = "Alle %lld Verbindung(en)";
+"Get reminded after connecting to your car (Bluetooth/CarPlay) several times." = "Lass dich nach mehrmaligem Verbinden mit deinem Auto (Bluetooth/CarPlay) erinnern.";
+"Time to record mileage!" = "Zeit, den Kilometerstand zu erfassen!";
+"A quick update keeps your lease tracking accurate." = "Eine kurze Aktualisierung hält dein Leasing-Tracking genau.";
+"Driving detected!" = "Fahrt erkannt!";
+"Add a mileage reading to stay on track?" = "Einen Kilometerstand hinzufügen, um auf Kurs zu bleiben?";

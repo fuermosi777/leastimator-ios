@@ -12,6 +12,13 @@ struct SettingsView: View {
   @Environment(\.managedObjectContext) private var viewContext
   @EnvironmentObject private var purchaseManager: PurchaseManager
   @AppStorage("showMileageVariance") private var showMileageVariance = true
+  @AppStorage("periodicRemindersEnabled") private var periodicRemindersEnabled = false
+  @AppStorage("reminderFrequency") private var reminderFrequency = "weekly"
+  @AppStorage("reminderTime") private var reminderTime = Date().timeIntervalSince1970
+  @AppStorage("connectionRemindersEnabled") private var connectionRemindersEnabled = false
+  @AppStorage("connectionThreshold") private var connectionThreshold = 5
+  
+  @EnvironmentObject private var notificationManager: NotificationManager
   
   var vehicles: FetchedResults<Vehicle>
   
@@ -61,6 +68,36 @@ struct SettingsView: View {
       }
       
       Section {
+        Toggle("Periodic Reminders", isOn: $periodicRemindersEnabled)
+        if periodicRemindersEnabled {
+          Picker("Frequency", selection: $reminderFrequency) {
+            Text("Daily").tag("daily")
+            Text("Weekly").tag("weekly")
+            Text("Monthly").tag("monthly")
+          }
+          DatePicker("Reminder Time", selection: reminderTimeDate, displayedComponents: .hourAndMinute)
+        }
+      } header: {
+        Text("Periodic Reminders")
+      } footer: {
+        Text("Get reminded to update your mileage on a schedule.")
+      }
+      .onChange(of: periodicRemindersEnabled) { _ in updatePeriodicNotification() }
+      .onChange(of: reminderFrequency) { _ in updatePeriodicNotification() }
+      .onChange(of: reminderTime) { _ in updatePeriodicNotification() }
+      
+      Section {
+        Toggle("Driving Reminders", isOn: $connectionRemindersEnabled)
+        if connectionRemindersEnabled {
+          Stepper("Every \(connectionThreshold) connections", value: $connectionThreshold, in: 1...20)
+        }
+      } header: {
+        Text("Driving Reminders")
+      } footer: {
+        Text("Get reminded after connecting to your car (Bluetooth/CarPlay) several times.")
+      }
+      
+      Section {
         NavigationLink("Leastimator Pro", destination: ProProductsView().withErrorHandler().navigationBarTitle("Leastimator Pro", displayMode: .inline))
       }
       
@@ -101,5 +138,20 @@ struct SettingsView: View {
     } catch {
       print(error)
     }
+  }
+
+  private var reminderTimeDate: Binding<Date> {
+    Binding(
+      get: { Date(timeIntervalSince1970: reminderTime) },
+      set: { reminderTime = $0.timeIntervalSince1970 }
+    )
+  }
+
+  private func updatePeriodicNotification() {
+    notificationManager.schedulePeriodicNotification(
+      enabled: periodicRemindersEnabled,
+      frequency: reminderFrequency,
+      time: Date(timeIntervalSince1970: reminderTime)
+    )
   }
 }
