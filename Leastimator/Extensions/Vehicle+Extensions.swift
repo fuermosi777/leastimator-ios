@@ -19,4 +19,16 @@ extension Vehicle {
     let months = Int(lengthOfLease)
     return "\(startStr) - \(endStr) • \(months) months"
   }
+  
+  var lastTeslaSyncKey: String {
+    "last_tesla_sync_\(objectID.uriRepresentation().absoluteString)"
+  }
+  
+  var lastTeslaSyncDate: Date? {
+    UserDefaults.standard.object(forKey: lastTeslaSyncKey) as? Date
+  }
+  
+  func updateLastTeslaSyncDate() {
+    UserDefaults.standard.set(Date(), forKey: lastTeslaSyncKey)
+  }
 }

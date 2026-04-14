@@ -73,8 +73,8 @@ struct VehiclePresentation: View {
   
   @State private var showAddReadingSheet = false
   @State private var showChartSheet = false
-  @State private var showSyncActionSheet = false
   @State private var showSleepAlert = false
+  @State private var showCooldownAlert = false
   @State private var isLoadingTesla = false
   @State private var vehicleState: String?
   
@@ -194,34 +194,32 @@ struct VehiclePresentation: View {
       // Actions
       HStack(spacing: 12) {
         if !vehicle.archived {
-          Button(action: {
+          Group {
             if vehicle.teslaConnectionId != nil {
-                showSyncActionSheet = true
+              Menu {
+                Button {
+                  Task { await syncIfOnline() }
+                } label: {
+                  Label("Auto Sync from Tesla", systemImage: "arrow.triangle.2.circlepath")
+                }
+                Button {
+                  showAddReadingSheet.toggle()
+                } label: {
+                  Label("Add Manually", systemImage: "keyboard")
+                }
+              } label: {
+                addReadingButtonLabel
+              }
             } else {
+              Button(action: {
                 showAddReadingSheet.toggle()
-            }
-          }) {
-            HStack {
-              if isLoadingTesla {
-                  ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .white))
-              } else {
-                  Image(systemName: "plus.circle.fill")
-                  Text("Add Reading")
+              }) {
+                addReadingButtonLabel
               }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .foregroundColor(.white)
-            .background(
-              LinearGradient(
-                gradient: Gradient(colors: [Color.accentColor, .blue]),
-                startPoint: .leading,
-                endPoint: .trailing
-              )
-            )
-            .cornerRadius(25)
           }
-          .buttonStyle(.borderless)
           .disabled(isLoadingTesla)
+          .buttonStyle(.borderless)
         }
         
         Button(action: {
@@ -320,20 +318,16 @@ struct VehiclePresentation: View {
     .sheet(isPresented: $showChartSheet) {
       ChartSheetView(extendedInfo: extendedInfo, vehicle: vehicle)
     }
-    .confirmationDialog(Text("Select Action"), isPresented: $showSyncActionSheet, titleVisibility: .visible) {
-      Button("Auto Sync from Tesla") {
-          Task { await syncIfOnline() }
-      }
-      Button("Add Manually") {
-          showAddReadingSheet.toggle()
-      }
-      Button("Cancel", role: .cancel) {}
-    }
     .alert("Notice", isPresented: $showSleepAlert) {
       Button("Add Manually") { showAddReadingSheet.toggle() }
       Button("OK", role: .cancel) {}
     } message: {
       Text("Vehicle is asleep. Leastimator avoids waking it to save battery and API costs. It will automatically sync next time the vehicle is active, or you can add a reading manually right now.")
+    }
+    .alert("Sync Cooldown", isPresented: $showCooldownAlert) {
+      Button("OK", role: .cancel) {}
+    } message: {
+      Text("To minimize API costs, Tesla sync is limited to once every 5 hours. Please try again later.")
     }
     .onAppear {
       Logger.shared.vehiclePageView()
@@ -350,6 +344,11 @@ struct VehiclePresentation: View {
   }
   
   private func syncIfOnline() async {
+      if let lastSync = vehicle.lastTeslaSyncDate,
+         Date().timeIntervalSince(lastSync) < 5 * 3600 {
+          await MainActor.run { showCooldownAlert = true }
+          return
+      }
       guard let vid = vehicle.teslaVehicleId, let cid = vehicle.teslaConnectionId else { return }
       let service = TeslaService(connectionId: cid)
       do {
@@ -371,6 +370,7 @@ struct VehiclePresentation: View {
                       reading.date = Date()
                       reading.vehicle = vehicle
                       try? viewContext.save()
+                      vehicle.updateLastTeslaSyncDate()
                       isLoadingTesla = false
                   }
               } else {
@@ -391,6 +391,10 @@ struct VehiclePresentation: View {
   }
   
   private func pollTeslaState() async {
+      if let lastSync = vehicle.lastTeslaSyncDate,
+         Date().timeIntervalSince(lastSync) < 5 * 3600 {
+          return
+      }
       guard let vid = vehicle.teslaVehicleId, let cid = vehicle.teslaConnectionId else { return }
       let service = TeslaService(connectionId: cid)
       do {
@@ -412,11 +416,33 @@ struct VehiclePresentation: View {
                       reading.date = Date()
                       reading.vehicle = vehicle
                       try? viewContext.save()
+                      vehicle.updateLastTeslaSyncDate()
                   }
               }
           }
       } catch {
           // Silent fail for background polling
       }
+  }
+
+  private var addReadingButtonLabel: some View {
+    HStack {
+      if isLoadingTesla {
+        ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .white))
+      } else {
+        Image(systemName: "plus.circle.fill")
+        Text("Add Reading")
+      }
+    }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .foregroundColor(.white)
+    .background(
+      LinearGradient(
+        gradient: Gradient(colors: [Color.accentColor, .blue]),
+        startPoint: .leading,
+        endPoint: .trailing
+      )
+    )
+    .cornerRadius(25)
   }
 }
