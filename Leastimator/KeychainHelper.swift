@@ -44,9 +44,23 @@ class KeychainHelper {
                 kSecClass: kSecClassGenericPassword as String,
                 kSecAttrAccount: connectionId,
                 kSecAttrService: service,
+                kSecAttrAccessible: kSecAttrAccessibleAfterFirstUnlock,
                 kSecValueData: data
             ] as [String: Any]
             
+            SecItemAdd(newItem as CFDictionary, nil)
+        } else if status == errSecSuccess {
+            // Successfully updated
+        } else {
+            // Some other error, e.g. locked keychain. Try to delete and re-add.
+            SecItemDelete(query as CFDictionary)
+            let newItem = [
+                kSecClass: kSecClassGenericPassword as String,
+                kSecAttrAccount: connectionId,
+                kSecAttrService: service,
+                kSecAttrAccessible: kSecAttrAccessibleAfterFirstUnlock,
+                kSecValueData: data
+            ] as [String: Any]
             SecItemAdd(newItem as CFDictionary, nil)
         }
     }

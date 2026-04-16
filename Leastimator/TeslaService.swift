@@ -57,7 +57,7 @@ class TeslaService {
         
         if tokens.isExpired {
             // refresh token
-            let newTokens = try await TeslaAuthManager.shared.refreshTokens(refreshToken: tokens.refreshToken)
+            let newTokens = try await TeslaAuthManager.shared.refreshTokens(refreshToken: tokens.refreshToken, connectionId: connectionId)
             KeychainHelper.shared.save(newTokens, for: connectionId)
             return newTokens.accessToken
         }

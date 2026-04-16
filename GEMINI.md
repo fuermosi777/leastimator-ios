@@ -25,3 +25,6 @@ The "Leastimator" project is an iOS application built with SwiftUI, designed to 
 *   `mixpanel-swift`: For analytics integration.
 *   `SwiftRater`: For prompting users to rate the app.
 *   `swift-package-manager-google-mobile-ads`: For integrating Google Mobile Ads.
+
+## Development Conventions:
+*   **New Files:** When adding files to the filesystem, manually register them in `Leastimator.xcodeproj` (e.g., using a Ruby script with the `xcodeproj` gem) to ensure Xcode recognizes them.

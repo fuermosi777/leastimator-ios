@@ -368,7 +368,7 @@ struct VehiclePresentation: View {
     .alert("Sync Cooldown", isPresented: $showCooldownAlert) {
       Button("OK", role: .cancel) {}
     } message: {
-      Text("To minimize API costs, Tesla sync is limited to once every 5 hours. Please try again later.")
+      Text("To minimize API costs, Tesla sync is limited to once every \(AppConstants.teslaSyncCooldownHours) hours. Please try again later.")
     }
     .onAppear {
       Logger.shared.vehiclePageView()
@@ -386,7 +386,7 @@ struct VehiclePresentation: View {
   
   private func syncIfOnline() async {
       if let lastSync = vehicle.lastTeslaSyncDate,
-         Date().timeIntervalSince(lastSync) < 5 * 3600 {
+         Date().timeIntervalSince(lastSync) < AppConstants.teslaSyncCooldownSeconds {
           await MainActor.run { showCooldownAlert = true }
           return
       }
@@ -433,7 +433,7 @@ struct VehiclePresentation: View {
   
   private func pollTeslaState() async {
       if let lastSync = vehicle.lastTeslaSyncDate,
-         Date().timeIntervalSince(lastSync) < 5 * 3600 {
+         Date().timeIntervalSince(lastSync) < AppConstants.teslaSyncCooldownSeconds {
           return
       }
       guard let vid = vehicle.teslaVehicleId, let cid = vehicle.teslaConnectionId else { return }
