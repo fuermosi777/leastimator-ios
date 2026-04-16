@@ -61,6 +61,7 @@ struct VehiclePresentation: View {
   @EnvironmentObject var errorHandler: ErrorHandler
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
   @AppStorage("showMileageVariance") private var showMileageVariance = true
+  @AppStorage("useCircularProgress") private var useCircularProgress = false
   
   // Add ObservedObject make sure it gets updated data.
   @ObservedObject var vehicle: Vehicle
@@ -158,33 +159,69 @@ struct VehiclePresentation: View {
               .foregroundColor(vehicleState?.lowercased() == "online" ? .green : .gray)
               .padding(.bottom, 2)
             }
-            HStack(alignment: .lastTextBaseline) {
-              Text("\(extendedInfo.normalPredicatedMileage)")
-                .lineLimit(1)
-                .font(.system(size: 20, weight: .bold, design: .rounded))
-                .foregroundColor(.mainText)
-              if let mileageVariance = extendedInfo.mileageVariance,
-                 showMileageVariance,
-                 vehicle.allowed > 0 {
-                Text("\(mileageVariance < 0 ? "-" : "+")\(abs(mileageVariance))")
-                  .lineLimit(1)
-                  .font(.system(size: 14, weight: .bold, design: .rounded))
-                  .foregroundColor(mileageVariance < 0 ? Color.green : Color.red)
+            if useCircularProgress {
+              HStack {
+                Spacer()
+                ProgressCircle(progress: progressPercentage,
+                               colorOverride: vehicle.allowed > 0 ? nil : Color.accentColor) {
+                  VStack {
+                    Text("Estimated mileage")
+                      .font(.system(size: 14, design: .rounded))
+                      .foregroundColor(.subText)
+                    HStack(alignment: .lastTextBaseline) {
+                      Text("\(extendedInfo.normalPredicatedMileage)")
+                        .lineLimit(1)
+                        .font(.system(size: 26, weight: .bold, design: .rounded))
+                        .foregroundColor(.mainText)
+                      Text(lengthUnit.shortFor)
+                        .font(.system(size: 12, weight: .bold, design: .rounded))
+                        .foregroundColor(.mainText)
+                    }
+                    if let mileageVariance = extendedInfo.mileageVariance,
+                       showMileageVariance,
+                       vehicle.allowed > 0 {
+                      Text("\(mileageVariance < 0 ? "-" : "+")\(abs(mileageVariance))")
+                        .lineLimit(1)
+                        .font(.system(size: 16, weight: .bold, design: .rounded))
+                        .foregroundColor(mileageVariance < 0 ? Color.green : Color.red)
+                    }
+                  }
+                }
+                .frame(width: 180, height: 180)
+                .padding(.vertical, 10)
+                Spacer()
               }
-              Text(lengthUnit.longName)
-                .font(.system(size: 14, weight: .bold, design: .rounded))
-                .foregroundColor(.mainText)
+            } else {
+              HStack(alignment: .lastTextBaseline) {
+                Text("\(extendedInfo.normalPredicatedMileage)")
+                  .lineLimit(1)
+                  .font(.system(size: 20, weight: .bold, design: .rounded))
+                  .foregroundColor(.mainText)
+                if let mileageVariance = extendedInfo.mileageVariance,
+                   showMileageVariance,
+                   vehicle.allowed > 0 {
+                  Text("\(mileageVariance < 0 ? "-" : "+")\(abs(mileageVariance))")
+                    .lineLimit(1)
+                    .font(.system(size: 14, weight: .bold, design: .rounded))
+                    .foregroundColor(mileageVariance < 0 ? Color.green : Color.red)
+                }
+                Text(lengthUnit.longName)
+                  .font(.system(size: 14, weight: .bold, design: .rounded))
+                  .foregroundColor(.mainText)
+              }
+              Text("Estimated mileage")
+                .font(.system(size: 14, design: .rounded))
+                .foregroundColor(.subText)
+              ProgressBar(progress: progressPercentage,
+                          colorOverride: vehicle.allowed > 0 ? nil : Color.accentColor,
+                          length: 200.0)
             }
-            Text("Estimated mileage")
-              .font(.system(size: 14, design: .rounded))
-              .foregroundColor(.subText)
-            ProgressBar(progress: progressPercentage,
-                        colorOverride: vehicle.allowed > 0 ? nil : Color.accentColor,
-                        length: 200.0)
           }
-          HStack {
-            Spacer()
-            VehicleImage(data: vehicle.image, size: 100.0)
+          if !useCircularProgress {
+            HStack {
+              Spacer()
+              VehicleImage(data: vehicle.image, size: 100.0)
+            }
           }
         }
         .listRowSeparator(.hidden)

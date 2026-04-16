@@ -11,7 +11,7 @@ struct ProgressCircle<Content: View>: View {
   private var progress: Float
   private var colorOverride: Color?
   
-  private let strokeWidth: CGFloat = 8.0
+  private let strokeWidth: CGFloat = 10.0
   
   @State private var drawingStroke = false
   

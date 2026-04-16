@@ -34,6 +34,10 @@ struct ContentView: View {
   @State private var showVehicleReadingHistorySheet = false
   @State private var showProProductSheet = false
   
+  @AppStorage("useCircularProgress") private var useCircularProgress = false
+  
+  @State private var selectionVersion = 0
+
   @FetchRequest(
     entity: Vehicle.entity(),
     sortDescriptors: [NSSortDescriptor(keyPath: \Vehicle.name, ascending: true)],
@@ -58,6 +62,7 @@ struct ContentView: View {
   }
   
   private var vehicleToDisplay: Vehicle? {
+    let _ = selectionVersion
     if !vehicles.isEmpty {
       let vehicleShouldShow = vehicles.filter { $0.showOnStart }.first
       return vehicleShouldShow ?? vehicles.first
@@ -111,21 +116,23 @@ struct ContentView: View {
               ForEach(vehicles) { vehicle in
                 Button {
                   if purchaseManager.unlockPro {
-                    for vehicle in vehicles {
-                      vehicle.showOnStart = false
+                    for v in vehicles {
+                      v.showOnStart = (v == vehicle)
                     }
-                    vehicle.showOnStart = true
                     try? viewContext.save()
+                    selectionVersion += 1
+                    WidgetCenter.shared.reloadAllTimelines()
                   } else if vehicle != vehicleToDisplay {
                     showProProductSheet.toggle()
                   }
                 } label: {
-                  Text(vehicle.name ?? kUnknownVehicleName)
-                  Spacer()
-                  if vehicle == vehicleToDisplay {
-                    Image(systemName: "checkmark")
-                  } else if !purchaseManager.unlockPro {
-                    Image(systemName: "lock.fill")
+                  HStack {
+                    Text(vehicle.name ?? kUnknownVehicleName)
+                    if vehicle == vehicleToDisplay {
+                      Image(systemName: "checkmark")
+                    } else if !purchaseManager.unlockPro {
+                      Image(systemName: "lock.fill")
+                    }
                   }
                 }
               }
@@ -163,6 +170,14 @@ struct ContentView: View {
                 showReadingListSheet = vehicle
               } label: {
                 Label("Odometer History", systemImage: "calendar.badge.clock")
+              }
+            }
+            ToolbarItem(placement: .secondaryAction) {
+              Button {
+                useCircularProgress.toggle()
+              } label: {
+                Label(useCircularProgress ? "Use Bar Progress" : "Use Circular Progress",
+                      systemImage: useCircularProgress ? "chart.bar" : "chart.pie")
               }
             }
           }
