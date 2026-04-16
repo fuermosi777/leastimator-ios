@@ -52,8 +52,61 @@ class TeslaAuthManager: NSObject {
     
     private var authSession: ASWebAuthenticationSession?
     private var presentationProvider = PresentationContextProvider()
+    private var ongoingRefreshes: [String: Task<TeslaTokens, Error>] = [:]
     
     private override init() {}
+    
+    // MARK: - Coalesced Refresh
+    func refreshTokens(refreshToken: String, connectionId: String) async throws -> TeslaTokens {
+        // If there's an ongoing refresh for this connection, return it
+        if let ongoing = ongoingRefreshes[connectionId] {
+            return try await ongoing.value
+        }
+        
+        // Otherwise, start a new refresh task
+        let task = Task<TeslaTokens, Error> {
+            defer { ongoingRefreshes[connectionId] = nil }
+            return try await performRefresh(refreshToken: refreshToken)
+        }
+        
+        ongoingRefreshes[connectionId] = task
+        return try await task.value
+    }
+    
+    private func performRefresh(refreshToken: String) async throws -> TeslaTokens {
+        guard let url = URL(string: "https://auth.tesla.com/oauth2/v3/token") else {
+            throw TeslaAuthError.invalidURL
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        
+        var components = URLComponents()
+        components.queryItems = [
+            URLQueryItem(name: "grant_type", value: "refresh_token"),
+            URLQueryItem(name: "client_id", value: clientId),
+            URLQueryItem(name: "client_secret", value: clientSecret),
+            URLQueryItem(name: "refresh_token", value: refreshToken)
+        ]
+        
+        request.httpBody = components.query?.data(using: .utf8)
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode == 200 else {
+            let body = String(data: data, encoding: .utf8) ?? "No body"
+            throw TeslaAuthError.apiError("Token refresh failed: \(body)")
+        }
+        
+        let tokenResponse = try JSONDecoder().decode(TeslaTokenResponse.self, from: data)
+        return TeslaTokens(
+            accessToken: tokenResponse.access_token,
+            refreshToken: tokenResponse.refresh_token,
+            expiresIn: tokenResponse.expires_in,
+            createdAt: Date()
+        )
+    }
     
     func authenticate() async throws -> TeslaTokens {
         let code = try await getAuthorizationCode()
@@ -144,38 +197,4 @@ class TeslaAuthManager: NSObject {
         return try JSONDecoder().decode(TeslaTokenResponse.self, from: data)
     }
     
-    // MARK: - Step 3: Refresh Access Token
-    func refreshTokens(refreshToken: String) async throws -> TeslaTokens {
-        guard let url = URL(string: "https://auth.tesla.com/oauth2/v3/token") else {
-            throw TeslaAuthError.invalidURL
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        
-        var components = URLComponents()
-        components.queryItems = [
-            URLQueryItem(name: "grant_type", value: "refresh_token"),
-            URLQueryItem(name: "client_id", value: clientId),
-            URLQueryItem(name: "refresh_token", value: refreshToken)
-        ]
-        // Note: Some API versions require client_secret here as well. Add if required.
-        
-        request.httpBody = components.query?.data(using: .utf8)
-        
-        let (data, response) = try await URLSession.shared.data(for: request)
-        
-        guard let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode == 200 else {
-            throw TeslaAuthError.invalidResponse
-        }
-        
-        let tokenResponse = try JSONDecoder().decode(TeslaTokenResponse.self, from: data)
-        return TeslaTokens(
-            accessToken: tokenResponse.access_token,
-            refreshToken: tokenResponse.refresh_token,
-            expiresIn: tokenResponse.expires_in,
-            createdAt: Date()
-        )
-    }
 }
