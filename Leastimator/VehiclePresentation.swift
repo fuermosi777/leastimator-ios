@@ -78,6 +78,7 @@ struct VehiclePresentation: View {
   @State private var showSleepAlert = false
   @State private var showCooldownAlert = false
   @State private var isLoadingTesla = false
+  @State private var isSyncSuccess = false
   @State private var vehicleState: String?
   
   enum GraphType {
@@ -256,7 +257,7 @@ struct VehiclePresentation: View {
               }
             }
           }
-          .disabled(isLoadingTesla)
+          .disabled(isLoadingTesla || isSyncSuccess)
           .buttonStyle(.borderless)
         }
         
@@ -413,6 +414,13 @@ struct VehiclePresentation: View {
                       try? viewContext.save()
                       vehicle.updateLastTeslaSyncDate()
                       isLoadingTesla = false
+                      isSyncSuccess = true
+                      
+                      // Result indicator delay
+                      Task {
+                          try? await Task.sleep(nanoseconds: 3 * 1_000_000_000) // 3 seconds
+                          await MainActor.run { isSyncSuccess = false }
+                      }
                   }
               } else {
                   await MainActor.run {
@@ -470,6 +478,9 @@ struct VehiclePresentation: View {
     HStack {
       if isLoadingTesla {
         ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .white))
+      } else if isSyncSuccess {
+        Image(systemName: "checkmark.circle.fill")
+        Text("Done")
       } else {
         Image(systemName: "plus.circle.fill")
         Text("Add Reading")
