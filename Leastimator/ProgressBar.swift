@@ -54,6 +54,7 @@ struct ProgressBar: View {
         RoundedRectangle(cornerRadius: lineHeight / 2)
           .fill(getColor())
           .frame(width: (drawingStroke ? CGFloat(length * progress) : 0.0), height: lineHeight)
+          .shadow(color: Color.black.opacity(0.15), radius: 3, x: 0, y: 2)
         Spacer()
       }
     }

@@ -52,6 +52,7 @@ struct ProgressCircle<Content: View>: View {
         .stroke(style: StrokeStyle(lineWidth: strokeWidth, lineCap: .round, lineJoin: .round))
         .foregroundColor(getColor())
         .rotationEffect(Angle(degrees: 270.0))
+        .shadow(color: Color.black.opacity(0.15), radius: 3, x: 0, y: 2)
       
       content
     }

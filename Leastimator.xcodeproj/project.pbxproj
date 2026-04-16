@@ -81,6 +81,7 @@
 		47876AB21E780CD2F2C623CE /* TeslaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C23DE6C66FF6E833E2A3856 /* TeslaService.swift */; };
 		7873D36A0EBBFD0A25BB79D8 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5800D8376217BCDD3EE9C18 /* KeychainHelper.swift */; };
 		A949D04C9C26A8B6788AC97C /* TeslaAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E20E3FFA3767341968BB022 /* TeslaAuthManager.swift */; };
+		AEA151D27B5BC26F32FE0BEB /* DangerousZoneGlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A45EDE202F2D6CA49A21777 /* DangerousZoneGlow.swift */; };
 		DBD225831A064FB279D891C9 /* TeslaSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A8AE65B911839F2C6819F3 /* TeslaSyncService.swift */; };
 		EAED4CF135BAB1AFC6D1D9C3 /* TeslaVehiclePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DE9DF31B6881F25AE189D0 /* TeslaVehiclePicker.swift */; };
 /* End PBXBuildFile section */
@@ -124,6 +125,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0A45EDE202F2D6CA49A21777 /* DangerousZoneGlow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DangerousZoneGlow.swift; sourceTree = "<group>"; };
 		24C309049AA74B5A85D6D8BC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		3F2AFE672A89DFDA001B8837 /* StoreKit+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoreKit+Extensions.swift"; sourceTree = "<group>"; };
 		3F2AFE692A89E363001B8837 /* SK.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = SK.storekit; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				C5800D8376217BCDD3EE9C18 /* KeychainHelper.swift */,
 				81DE9DF31B6881F25AE189D0 /* TeslaVehiclePicker.swift */,
 				C9A8AE65B911839F2C6819F3 /* TeslaSyncService.swift */,
+				0A45EDE202F2D6CA49A21777 /* DangerousZoneGlow.swift */,
 			);
 			path = Leastimator;
 			sourceTree = "<group>";
@@ -591,6 +594,7 @@
 				7873D36A0EBBFD0A25BB79D8 /* KeychainHelper.swift in Sources */,
 				EAED4CF135BAB1AFC6D1D9C3 /* TeslaVehiclePicker.swift in Sources */,
 				DBD225831A064FB279D891C9 /* TeslaSyncService.swift in Sources */,
+				AEA151D27B5BC26F32FE0BEB /* DangerousZoneGlow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

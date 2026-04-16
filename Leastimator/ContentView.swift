@@ -35,6 +35,7 @@ struct ContentView: View {
   @State private var showProProductSheet = false
   
   @AppStorage("useCircularProgress") private var useCircularProgress = false
+  @AppStorage("showGlowEffect") private var showGlowEffect = false
   
   @State private var selectionVersion = 0
 
@@ -178,6 +179,14 @@ struct ContentView: View {
               } label: {
                 Label(useCircularProgress ? "Use Bar Progress" : "Use Circular Progress",
                       systemImage: useCircularProgress ? "chart.bar" : "chart.pie")
+              }
+            }
+            ToolbarItem(placement: .secondaryAction) {
+              Button {
+                showGlowEffect.toggle()
+              } label: {
+                Label(showGlowEffect ? "Disable Glow Effect" : "Enable Glow Effect",
+                      systemImage: showGlowEffect ? "sparkles.tv.fill" : "sparkles.tv")
               }
             }
           }
