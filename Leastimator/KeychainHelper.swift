@@ -39,7 +39,8 @@ class KeychainHelper {
         
         let status = SecItemUpdate(query as CFDictionary, attributesToUpdate as CFDictionary)
         
-        let newItem = [
+        if status == errSecItemNotFound {
+            let newItem = [
                 kSecClass: kSecClassGenericPassword as String,
                 kSecAttrAccount: connectionId,
                 kSecAttrService: service,

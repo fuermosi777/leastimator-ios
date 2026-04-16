@@ -35,3 +35,4 @@ Open `Leastimator.xcodeproj` in Xcode, select the `Leastimator` target (or `Esti
 - **Deployment targets:** Main app → iOS 17.0 · Widget extension → iOS 16.4
 - **Don't add** error handling, fallbacks, or abstractions for hypothetical future use — keep it direct
 - **Don't add** docstrings or comments to unchanged code
+- **New Files:** When adding files to the filesystem, manually register them in `Leastimator.xcodeproj` (e.g., using a Ruby script with the `xcodeproj` gem).
