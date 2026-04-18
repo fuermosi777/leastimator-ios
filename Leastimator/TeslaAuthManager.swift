@@ -80,17 +80,16 @@ class TeslaAuthManager: NSObject {
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        var components = URLComponents()
-        components.queryItems = [
-            URLQueryItem(name: "grant_type", value: "refresh_token"),
-            URLQueryItem(name: "client_id", value: clientId),
-            URLQueryItem(name: "client_secret", value: clientSecret),
-            URLQueryItem(name: "refresh_token", value: refreshToken)
+        let payload: [String: String] = [
+            "grant_type": "refresh_token",
+            "client_id": clientId,
+            "client_secret": clientSecret,
+            "refresh_token": refreshToken
         ]
         
-        request.httpBody = components.query?.data(using: .utf8)
+        request.httpBody = try? JSONSerialization.data(withJSONObject: payload)
         
         let (data, response) = try await URLSession.shared.data(for: request)
         
