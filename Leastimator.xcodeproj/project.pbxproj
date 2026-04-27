@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2500614B6AD39B55D5BC112A /* DeletedVehiclesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532819930EC5230001C1572 /* DeletedVehiclesView.swift */; };
 		3F2AFE682A89DFDA001B8837 /* StoreKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2AFE672A89DFDA001B8837 /* StoreKit+Extensions.swift */; };
 		3F2AFE6A2A89E363001B8837 /* SK.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 3F2AFE692A89E363001B8837 /* SK.storekit */; };
 		3F2AFE6B2A89E363001B8837 /* SK.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 3F2AFE692A89E363001B8837 /* SK.storekit */; };
@@ -193,6 +194,7 @@
 		7C23DE6C66FF6E833E2A3856 /* TeslaService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaService.swift; sourceTree = "<group>"; };
 		7E20E3FFA3767341968BB022 /* TeslaAuthManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaAuthManager.swift; sourceTree = "<group>"; };
 		81DE9DF31B6881F25AE189D0 /* TeslaVehiclePicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaVehiclePicker.swift; sourceTree = "<group>"; };
+		C532819930EC5230001C1572 /* DeletedVehiclesView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DeletedVehiclesView.swift; sourceTree = "<group>"; };
 		C5800D8376217BCDD3EE9C18 /* KeychainHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		C997155AB7CE4D28AD8EA84C /* es-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-US"; path = "es-US.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C9A8AE65B911839F2C6819F3 /* TeslaSyncService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaSyncService.swift; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 				C9A8AE65B911839F2C6819F3 /* TeslaSyncService.swift */,
 				0A45EDE202F2D6CA49A21777 /* DangerousZoneGlow.swift */,
 				04DCDD1455A110D56B355CF7 /* Constants.swift */,
+				C532819930EC5230001C1572 /* DeletedVehiclesView.swift */,
 			);
 			path = Leastimator;
 			sourceTree = "<group>";
@@ -599,6 +602,7 @@
 				DBD225831A064FB279D891C9 /* TeslaSyncService.swift in Sources */,
 				AEA151D27B5BC26F32FE0BEB /* DangerousZoneGlow.swift in Sources */,
 				B3825494301A7C6F946CB7E3 /* Constants.swift in Sources */,
+				2500614B6AD39B55D5BC112A /* DeletedVehiclesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -800,7 +804,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Leastimator/Leastimator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 99;
+				CURRENT_PROJECT_VERSION = 100;
 				DEVELOPMENT_ASSET_PATHS = "\"Leastimator/Preview Content\"";
 				DEVELOPMENT_TEAM = CFR9F99TN9;
 				ENABLE_PREVIEWS = YES;
@@ -815,7 +819,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.23;
+				MARKETING_VERSION = 4.24;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.leastimator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -836,7 +840,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Leastimator/Leastimator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 99;
+				CURRENT_PROJECT_VERSION = 100;
 				DEVELOPMENT_ASSET_PATHS = "\"Leastimator/Preview Content\"";
 				DEVELOPMENT_TEAM = CFR9F99TN9;
 				ENABLE_PREVIEWS = YES;
@@ -851,7 +855,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.23;
+				MARKETING_VERSION = 4.24;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.leastimator;
 				PRODUCT_NAME = "$(TARGET_NAME)";

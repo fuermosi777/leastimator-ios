@@ -98,6 +98,16 @@ struct SettingsView: View {
       }
       
       Section {
+        NavigationLink(destination: DeletedVehiclesView()) {
+          Label("Deleted Vehicles", systemImage: "trash.slash")
+        }
+      } header: {
+        Text("Data")
+      } footer: {
+        Text("View and restore vehicles that were previously deleted.")
+      }
+
+      Section {
         NavigationLink("Leastimator Pro", destination: ProProductsView().withErrorHandler().navigationBarTitle("Leastimator Pro", displayMode: .inline))
       }
       
