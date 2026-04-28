@@ -130,7 +130,7 @@ struct VehiclePresentation: View {
             Text(vehicle.allowed == 0 ?
                  "You can drive as far as you want because you did not set the mileage allowed." :
                  "You can drive up to \(String(extendedInfo.maxDriveToday)) \(lengthUnit.longName.toString()) today and still be on track.")
-            .font(.system(size: 15, weight: .bold, design: .rounded))
+            .font(.inter(16, weight: .bold))
             .foregroundColor(.mainText)
             .fixedSize(horizontal: false, vertical: true)
           }
@@ -173,7 +173,7 @@ struct VehiclePresentation: View {
           }
           
           Text("Calculations are estimates based on your lease terms and driving history.")
-            .font(.system(size: 11))
+            .font(.inter(11))
             .foregroundColor(.subText)
             .padding(.top, 8)
             .padding(.bottom, 120) // Spacer for sticky buttons
@@ -378,7 +378,7 @@ struct VehiclePresentation: View {
         Text("Add Reading")
       }
     }
-    .font(.system(size: 16, weight: .bold, design: .rounded))
+    .font(.inter(16, weight: .bold))
     .foregroundColor(.black)
     .frame(maxWidth: .infinity)
     .frame(height: 56)

@@ -218,5 +218,12 @@
 		<key>UIImageName</key>
 		<string>LaunchScreenImage</string>
 	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Inter-VariableFont_opsz,wght.ttf</string>
+		<string>JetBrainsMono[wght].ttf</string>
+		<string>Inter-Italic-VariableFont_opsz,wght.ttf</string>
+		<string>JetBrainsMono-Italic[wght].ttf</string>
+	</array>
 </dict>
 </plist>

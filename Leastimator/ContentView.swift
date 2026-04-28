@@ -111,7 +111,7 @@ struct ContentView: View {
               }
             }
             Text("Add Vehicle")
-              .font(.system(.title3, design: .rounded))
+              .font(.inter(20, weight: .bold))
             Spacer()
           } else {
             if let vehicle = vehicleToDisplay {

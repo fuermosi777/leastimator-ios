@@ -87,6 +87,22 @@
 		A949D04C9C26A8B6788AC97C /* TeslaAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E20E3FFA3767341968BB022 /* TeslaAuthManager.swift */; };
 		AEA151D27B5BC26F32FE0BEB /* DangerousZoneGlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A45EDE202F2D6CA49A21777 /* DangerousZoneGlow.swift */; };
 		B3825494301A7C6F946CB7E3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCDD1455A110D56B355CF7 /* Constants.swift */; };
+		CB0F2F972FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F962FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf */; };
+		CB0F2F982FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F952FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf */; };
+		CB0F2F992FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F962FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf */; };
+		CB0F2F9A2FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F952FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf */; };
+		CB0F2F9B2FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F962FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf */; };
+		CB0F2F9C2FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F952FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf */; };
+		CB0F2F9D2FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F962FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf */; };
+		CB0F2F9E2FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F952FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf */; };
+		CB0F2FA12FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F9F2FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf */; };
+		CB0F2FA22FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2FA02FA08D7C007A4F68 /* JetBrainsMono[wght].ttf */; };
+		CB0F2FA32FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F9F2FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf */; };
+		CB0F2FA42FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2FA02FA08D7C007A4F68 /* JetBrainsMono[wght].ttf */; };
+		CB0F2FA52FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F9F2FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf */; };
+		CB0F2FA62FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2FA02FA08D7C007A4F68 /* JetBrainsMono[wght].ttf */; };
+		CB0F2FA72FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F9F2FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf */; };
+		CB0F2FA82FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2FA02FA08D7C007A4F68 /* JetBrainsMono[wght].ttf */; };
 		DBD225831A064FB279D891C9 /* TeslaSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A8AE65B911839F2C6819F3 /* TeslaSyncService.swift */; };
 		EAED4CF135BAB1AFC6D1D9C3 /* TeslaVehiclePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DE9DF31B6881F25AE189D0 /* TeslaVehiclePicker.swift */; };
 /* End PBXBuildFile section */
@@ -204,6 +220,10 @@
 		C5800D8376217BCDD3EE9C18 /* KeychainHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		C997155AB7CE4D28AD8EA84C /* es-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-US"; path = "es-US.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C9A8AE65B911839F2C6819F3 /* TeslaSyncService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaSyncService.swift; sourceTree = "<group>"; };
+		CB0F2F952FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Italic-VariableFont_opsz,wght.ttf"; sourceTree = "<group>"; };
+		CB0F2F962FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-VariableFont_opsz,wght.ttf"; sourceTree = "<group>"; };
+		CB0F2F9F2FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono-Italic[wght].ttf"; sourceTree = "<group>"; };
+		CB0F2FA02FA08D7C007A4F68 /* JetBrainsMono[wght].ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono[wght].ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,6 +267,7 @@
 		3F34239729DD2C7800C35E69 = {
 			isa = PBXGroup;
 			children = (
+				CB0F2EF42FA08D0E007A4F68 /* fonts */,
 				3FE38DE92F070D69008D351F /* GEMINI.md */,
 				3FF001B72ACA7DB50007C481 /* EstimateWidgetExtensionRelease.entitlements */,
 				3FE2219F2A54D1010063ED9C /* EstimateWidgetExtension.entitlements */,
@@ -383,6 +404,17 @@
 				3FC0EF412A54CE610047F756 /* Info.plist */,
 			);
 			path = EstimateWidget;
+			sourceTree = "<group>";
+		};
+		CB0F2EF42FA08D0E007A4F68 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				CB0F2F952FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf */,
+				CB0F2F962FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf */,
+				CB0F2F9F2FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf */,
+				CB0F2FA02FA08D7C007A4F68 /* JetBrainsMono[wght].ttf */,
+			);
+			path = fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -528,7 +560,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F2AFE6A2A89E363001B8837 /* SK.storekit in Resources */,
+				CB0F2F9B2FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */,
+				CB0F2F9C2FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */,
 				3F3423AB29DD2C7900C35E69 /* Preview Assets.xcassets in Resources */,
+				CB0F2FA52FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */,
+				CB0F2FA62FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */,
 				3FCC7E5E29DE762800AC7620 /* Localizable.strings in Resources */,
 				3F3423A829DD2C7900C35E69 /* Assets.xcassets in Resources */,
 			);
@@ -539,6 +575,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F2AFE6B2A89E363001B8837 /* SK.storekit in Resources */,
+				CB0F2F992FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */,
+				CB0F2FA72FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */,
+				CB0F2FA82FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */,
+				CB0F2F9A2FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -546,6 +586,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB0F2F972FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */,
+				CB0F2FA32FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */,
+				CB0F2FA42FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */,
+				CB0F2F982FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -554,7 +598,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F2AFE6C2A89E363001B8837 /* SK.storekit in Resources */,
+				CB0F2F9D2FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */,
+				CB0F2F9E2FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */,
 				3FAF419A2A8B48AB006C462D /* Assets.xcassets in Resources */,
+				CB0F2FA12FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */,
+				CB0F2FA22FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */,
 				3FC0EF402A54CE610047F756 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

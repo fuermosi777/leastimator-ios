@@ -43,12 +43,13 @@ struct DashboardGauge: View {
             // Center readout
             VStack(spacing: 2) {
                 Text("PROJECTED")
-                    .font(.system(size: 10, weight: .bold, design: .monospaced))
+                    .font(.inter(10, weight: .bold))
                     .foregroundColor(.subText)
                     .tracking(2)
                 
                 Text("\(projected)")
-                    .font(.system(size: 56, weight: .bold, design: .monospaced))
+                    .font(.jetBrainsMono(56))
+                    .fontWeight(.bold)
                     .monospacedDigit()
                     .foregroundColor(.mainText)
                     .minimumScaleFactor(0.5)
@@ -56,7 +57,7 @@ struct DashboardGauge: View {
                     .tracking(-2)
                 
                 Text("\(unit.uppercased()) · BY LEASE END")
-                    .font(.system(size: 11, weight: .semibold, design: .rounded))
+                    .font(.inter(11, weight: .semibold))
                     .foregroundColor(.subText)
                     .tracking(1)
                 
@@ -64,7 +65,8 @@ struct DashboardGauge: View {
                     Text(variance > 0 ? "+" : (variance < 0 ? "" : ""))
                     Text("\(variance) \(unit) vs limit")
                 }
-                .font(.system(size: 12, weight: .bold, design: .monospaced))
+                .font(.jetBrainsMono(12))
+                .fontWeight(.bold)
                 .monospacedDigit()
                 .padding(.horizontal, 12)
                 .padding(.vertical, 6)
