@@ -71,9 +71,19 @@ struct ContentView: View {
     return nil
   }
   
-  // Subtitle shown under the navigation title when available (iOS 26+)
   private var navigationSubtitle: String? {
     vehicleToDisplay?.leaseSubtitle
+  }
+
+  private var currentStatusColor: Color {
+    if let vehicle = vehicleToDisplay {
+      let info = Compute(vehicle)
+      let up = Double(info.normalPredicatedMileage)
+      let down = Double(vehicle.allowed + vehicle.starting)
+      let progress = down > 0 ? up / down : 1.0
+      return Color.statusColor(progress: progress)
+    }
+    return .accentColor
   }
 
   var body: some View {
@@ -109,64 +119,27 @@ struct ContentView: View {
             }
           }
         }  // VStack
-        .navigationTitle("")
-        .navigationBarTitleDisplayMode(.inline)
-        .applyNavigationSubtitle(navigationSubtitle)
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {
-            Menu {
-              ForEach(vehicles) { vehicle in
-                Button {
-                  if purchaseManager.unlockPro {
-                    for v in vehicles {
-                      v.showOnStart = (v == vehicle)
-                    }
-                    try? viewContext.save()
-                    selectionVersion += 1
-                    WidgetCenter.shared.reloadAllTimelines()
-                  } else if vehicle != vehicleToDisplay {
-                    showProProductSheet.toggle()
+            VehicleSwitcher(
+              vehicles: Array(vehicles),
+              selectedVehicle: vehicleToDisplay,
+              onSelect: { vehicle in
+                if purchaseManager.unlockPro {
+                  for v in vehicles {
+                    v.showOnStart = (v == vehicle)
                   }
-                } label: {
-                  HStack {
-                    Text(vehicle.name ?? kUnknownVehicleName)
-                    if vehicle == vehicleToDisplay {
-                      Image(systemName: "checkmark")
-                    } else if !purchaseManager.unlockPro {
-                      Image(systemName: "lock.fill")
-                    }
-                  }
+                  try? viewContext.save()
+                  selectionVersion += 1
+                  WidgetCenter.shared.reloadAllTimelines()
+                } else if vehicle != vehicleToDisplay {
+                  showProProductSheet.toggle()
                 }
-              }
-              Divider()
-              Button { redirectToSettings.toggle() } label: {
-                Label("Settings", systemImage: "gearshape.2")
-              }
-              Button { showAddVehicleSheet.toggle() } label: {
-                Label("Add Vehicle", systemImage: "plus")
-              }
-            } label: {
-              HStack(spacing: 8) {
-                Text(vehicleToDisplay?.initials ?? "V")
-                  .font(.system(size: 10, weight: .bold, design: .monospaced))
-                  .foregroundColor(.black)
-                  .frame(width: 22, height: 22)
-                  .background(Color.accentColor)
-                  .clipShape(Circle())
-                
-                Text(vehicleToDisplay?.name ?? "Vehicle")
-                  .font(.system(size: 14, weight: .medium))
-                  .foregroundColor(.mainText)
-                
-                Image(systemName: "chevron.down")
-                  .font(.system(size: 10, weight: .bold))
-                  .foregroundColor(.subText)
-              }
-              .padding(.horizontal, 10)
-              .padding(.vertical, 6)
-              .background(Color.subBg)
-              .clipShape(Capsule())
-            }
+              },
+              onSettings: { redirectToSettings.toggle() },
+              onAddVehicle: { showAddVehicleSheet.toggle() },
+              statusColor: currentStatusColor
+            )
           }
           if let vehicle = vehicleToDisplay {
             ToolbarItem(placement: .secondaryAction) {

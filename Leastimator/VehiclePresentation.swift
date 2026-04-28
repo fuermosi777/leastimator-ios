@@ -8,53 +8,6 @@
 import SwiftUI
 import SwiftRater
 
-struct InfoPanel: View {
-  var title: Text
-  var unit: Text
-  var value: Text
-  
-  var body: some View {
-    VStack(alignment: .leading, spacing: 12) {
-      title
-        .foregroundColor(.subText)
-      HStack(alignment: .lastTextBaseline) {
-        value
-          .font(.system(size: 24, weight: .bold, design: .rounded))
-        unit
-          .foregroundColor(.subText)
-      }
-    }
-    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-  }
-}
-
-struct MoreInfoView: View {
-  var question: Text
-  var answer: Text
-  var more: Text
-  
-  @State private var showMore = false
-  var body: some View {
-    VStack(alignment: .leading) {
-      HStack {
-        question
-          .foregroundColor(.subText)
-        Button(action: { showMore = true }) {
-          Image(systemName: "info.circle").foregroundColor(.subText)
-        }.sheet(isPresented: $showMore) {
-          more
-            .padding()
-            .foregroundColor(.subText)
-            .presentationDetents([.medium, .fraction(0.4)])
-        }
-      }
-      Spacer().frame(height: 10.0)
-      answer
-    }
-    .listRowBackground(Color.clear)
-  }
-}
-
 struct VehiclePresentation: View {
   @Environment(\.managedObjectContext) private var viewContext
   @EnvironmentObject private var purchaseManager: PurchaseManager
@@ -122,6 +75,10 @@ struct VehiclePresentation: View {
     return 1.0
   }
   
+  private var statusColor: Color {
+    Color.statusColor(progress: Double(progressPercentage))
+  }
+  
   let linearGradient = LinearGradient(
     gradient: Gradient (
       colors: [
@@ -134,200 +91,129 @@ struct VehiclePresentation: View {
   
   
   var body: some View {
-    List {
-      if vehicle.archived {
-        Section {
-          VStack(alignment: .leading) {
+    ZStack(alignment: .bottom) {
+      ScrollView {
+        VStack(alignment: .leading, spacing: 24) {
+          if vehicle.archived {
             Text("Archived")
               .font(.caption2).bold()
               .padding(.horizontal, 12).padding(.vertical, 6)
               .background(Color.orange)
               .foregroundColor(.white)
               .cornerRadius(12)
+              .padding(.top, 8)
           }
-          .listRowSeparator(.hidden)
-          .listRowBackground(Color.clear)
-        }
-      }
-      Section {
-        VStack(alignment: .leading, spacing: 20) {
-          // Coach Message
-          HStack(spacing: 8) {
-            Circle()
-              .fill(progressPercentage >= 1.0 ? Color.red : (progressPercentage >= 0.9 ? Color.orange : Color.accentColor))
-              .frame(width: 8, height: 8)
-              .shadow(color: (progressPercentage >= 1.0 ? Color.red : (progressPercentage >= 0.9 ? Color.orange : Color.accentColor)).opacity(0.5), radius: 4)
-            
-            Text(extendedInfo.mileageVariance ?? 0 > 0 ? "Heads up — you're over pace" : "Nice pace. You're on track.")
-              .font(.system(size: 14, weight: .medium, design: .rounded))
-              .foregroundColor(.subText)
-          }
-          .padding(.horizontal, 4)
 
-          // Gauge
+          CoachMessage(isOverPace: progressPercentage >= 1.0)
+
+          // Big gauge
           HStack {
             Spacer()
-            GaugeCluster(progress: progressPercentage,
-                         projected: extendedInfo.normalPredicatedMileage,
-                         variance: extendedInfo.mileageVariance ?? 0,
-                         unit: lengthUnit.shortFor)
+            DashboardGauge(
+              progress: Double(progressPercentage),
+              projected: extendedInfo.normalPredicatedMileage,
+              variance: extendedInfo.mileageVariance ?? 0,
+              unit: lengthUnit.shortFor,
+              statusColor: statusColor
+            )
             Spacer()
           }
           .padding(.vertical, 10)
-        }
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
-      }
-      
-      // Actions
-      // Stats Section
-      Section {
-        HStack(spacing: 12) {
-          VStack(alignment: .leading, spacing: 8) {
-            Text("DAILY AVG")
-              .font(.system(size: 10, weight: .bold, design: .rounded))
-              .foregroundColor(.subText)
-            HStack(alignment: .lastTextBaseline, spacing: 4) {
-              Text("\(Int(extendedInfo.mileagePerDay))")
-                .font(.system(size: 24, weight: .bold, design: .monospaced))
-                .foregroundColor(.mainText)
-              Text(lengthUnit.shortFor)
-                .font(.system(size: 10, weight: .medium, design: .rounded))
-                .foregroundColor(.subText)
-            }
-          }
-          .frame(maxWidth: .infinity, alignment: .leading)
-          .padding(16)
-          .background(Color.subBg)
-          .cornerRadius(16)
-          
-          VStack(alignment: .leading, spacing: 8) {
-            Text("ODOMETER")
-              .font(.system(size: 10, weight: .bold, design: .rounded))
-              .foregroundColor(.subText)
-            HStack(alignment: .lastTextBaseline, spacing: 4) {
-              Text("\(extendedInfo.currentMileage)")
-                .font(.system(size: 20, weight: .bold, design: .monospaced))
-                .foregroundColor(.mainText)
-              Text(lengthUnit.shortFor)
-                .font(.system(size: 10, weight: .medium, design: .rounded))
-                .foregroundColor(.subText)
-            }
-          }
-          .frame(maxWidth: .infinity, alignment: .leading)
-          .padding(16)
-          .background(Color.subBg)
-          .cornerRadius(16)
-          
-          VStack(alignment: .leading, spacing: 8) {
-            Text("LEASE LEFT")
-              .font(.system(size: 10, weight: .bold, design: .rounded))
-              .foregroundColor(.subText)
-            HStack(alignment: .lastTextBaseline, spacing: 4) {
-              Text("\(extendedInfo.leaseLeft)")
-                .font(.system(size: 24, weight: .bold, design: .monospaced))
-                .foregroundColor(.mainText)
-              Text("mo")
-                .font(.system(size: 10, weight: .medium, design: .rounded))
-                .foregroundColor(.subText)
-            }
-          }
-          .frame(maxWidth: .infinity, alignment: .leading)
-          .padding(16)
-          .background(Color.subBg)
-          .cornerRadius(16)
-        }
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
-      }
-      
-      // Banner ad
-      if !purchaseManager.unlockPro {
-        Section {
-          BannerAd()
-            .listRowSeparator(.hidden)
-            .listRowBackground(Color.clear)
-        }
-      }
-      
-      Section {
-        VStack(alignment: .leading, spacing: 12) {
-          Text("TRACKING")
-            .font(.system(size: 10, weight: .bold, design: .rounded))
-            .foregroundColor(.subText)
-            .tracking(1)
-          
-          Text(vehicle.allowed == 0 ?
-               "You can drive as far as you want because you did not set the mileage allowed." :
-               "You can drive up to **\(String(extendedInfo.maxDriveToday)) \(lengthUnit.longName.toString())** today and still be on track.")
-            .font(.system(size: 16, design: .rounded))
+
+          // Track info card
+          HStack(alignment: .center, spacing: 16) {
+            Image(systemName: "bolt.fill")
+                .font(.system(size: 22))
+                .foregroundColor(statusColor)
+                .shadow(color: statusColor.opacity(0.3), radius: 5)
+            
+            Text(vehicle.allowed == 0 ?
+                 "You can drive as far as you want because you did not set the mileage allowed." :
+                 "You can drive up to \(String(extendedInfo.maxDriveToday)) \(lengthUnit.longName.toString()) today and still be on track.")
+            .font(.system(size: 15, weight: .bold, design: .rounded))
             .foregroundColor(.mainText)
+            .fixedSize(horizontal: false, vertical: true)
+          }
+          .padding(20)
+          .background(Color.subBg.opacity(0.3))
+          .cornerRadius(24)
+          .overlay(
+            RoundedRectangle(cornerRadius: 24)
+                .stroke(Color.mainText.opacity(0.05), lineWidth: 1)
+          )
+
+          // Primary stats grid in a single tile
+          HStack(spacing: 0) {
+            StatCell(label: "DAILY AVG", value: String(format: "%.0f", extendedInfo.mileagePerDay), unit: lengthUnit.shortFor)
+            
+            Divider()
+              .frame(height: 32)
+              .padding(.horizontal, 2)
+            
+            StatCell(label: "ODOMETER", value: "\(extendedInfo.currentMileage)", unit: lengthUnit.shortFor)
+            
+            Divider()
+              .frame(height: 32)
+              .padding(.horizontal, 2)
+            
+            StatCell(label: "LEASE LEFT", value: "\(extendedInfo.leaseLeft)", unit: "mo")
+          }
+          .padding(.vertical, 16)
+          .padding(.trailing, 12)
+          .background(Color.subBg.opacity(0.3))
+          .cornerRadius(16)
+          .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color.mainText.opacity(0.05), lineWidth: 1)
+          )
+
+          if !purchaseManager.unlockPro {
+            BannerAd()
+              .padding(.vertical, 8)
+          }
+          
+          Text("Calculations are estimates based on your lease terms and driving history.")
+            .font(.system(size: 11))
+            .foregroundColor(.subText)
+            .padding(.top, 8)
+            .padding(.bottom, 120) // Spacer for sticky buttons
         }
-        .padding(16)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.subBg.opacity(0.5))
-        .cornerRadius(16)
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
-      } footer: {
-        Text("disclaimer")
-          .font(.system(size: 12.0))
-          .foregroundColor(.subText)
-          .listRowSeparator(.hidden)
-          .listRowBackground(Color.clear)
+        .padding(.horizontal, 24)
       }
+      .scrollIndicators(.hidden)
+
+      // Sticky Bottom Buttons
+      HStack(spacing: 12) {
+        if !vehicle.archived {
+          addReadingButton
+        }
+        
+        Button(action: {
+          showChartSheet.toggle()
+        }) {
+          Image(systemName: "chart.bar.fill")
+            .font(.system(size: 18))
+            .foregroundColor(.mainText)
+            .frame(width: 56, height: 56)
+            .background(Color.subBg)
+            .cornerRadius(28)
+            .overlay(
+                RoundedRectangle(cornerRadius: 28)
+                    .stroke(Color.mainText.opacity(0.1), lineWidth: 1)
+            )
+        }
+        .buttonStyle(.plain)
+      }
+      .padding(.horizontal, 24)
+      .padding(.bottom, 34) // Adjust for safe area
+      .background(
+        LinearGradient(colors: [.clear, Color.mainBg.opacity(0.8), Color.mainBg], startPoint: .top, endPoint: .bottom)
+            .frame(height: 140)
+            .ignoresSafeArea()
+      )
     }
     .scrollContentBackground(.hidden)
     .listStyle(.plain)
-    .safeAreaInset(edge: .bottom) {
-      if !vehicle.archived {
-        HStack(spacing: 12) {
-          Group {
-            if vehicle.teslaConnectionId != nil {
-              Menu {
-                Button {
-                  Task { await syncIfOnline() }
-                } label: {
-                  Label("Auto Sync from Tesla", systemImage: "arrow.triangle.2.circlepath")
-                }
-                Button {
-                  showAddReadingSheet.toggle()
-                } label: {
-                  Label("Add Manually", systemImage: "keyboard")
-                }
-              } label: {
-                addReadingButtonLabel
-              }
-            } else {
-              Button(action: {
-                showAddReadingSheet.toggle()
-              }) {
-                addReadingButtonLabel
-              }
-            }
-          }
-          .disabled(isLoadingTesla || isSyncSuccess)
-          
-          Button(action: {
-            showChartSheet.toggle()
-          }) {
-            Image(systemName: "chart.bar.fill")
-              .font(.system(size: 20))
-              .frame(width: 56, height: 56)
-              .foregroundColor(.mainText)
-              .background(Color.subBg)
-              .clipShape(Circle())
-              .overlay(Circle().stroke(Color.subText.opacity(0.2), lineWidth: 1))
-          }
-        }
-        .padding(.horizontal, 24)
-        .padding(.vertical, 12)
-        .background(
-          LinearGradient(colors: [.black.opacity(0), .black.opacity(0.8)], startPoint: .top, endPoint: .bottom)
-            .ignoresSafeArea()
-        )
-      }
-    }
     .if(showGlowEffect) {
         $0.dangerousZoneGlow(progress: progressPercentage)
     }
@@ -452,23 +338,52 @@ struct VehiclePresentation: View {
       }
   }
 
+  private var addReadingButton: some View {
+    Group {
+      if vehicle.teslaConnectionId != nil {
+        Menu {
+          Button {
+            Task { await syncIfOnline() }
+          } label: {
+            Label("Auto Sync from Tesla", systemImage: "arrow.triangle.2.circlepath")
+          }
+          Button {
+            showAddReadingSheet.toggle()
+          } label: {
+            Label("Add Manually", systemImage: "keyboard")
+          }
+        } label: {
+          addReadingButtonLabel
+        }
+      } else {
+        Button(action: {
+          showAddReadingSheet.toggle()
+        }) {
+          addReadingButtonLabel
+        }
+      }
+    }
+    .disabled(isLoadingTesla || isSyncSuccess)
+  }
+
   private var addReadingButtonLabel: some View {
-    HStack {
+    HStack(spacing: 8) {
       if isLoadingTesla {
-        ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .white))
+        ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .black))
       } else if isSyncSuccess {
         Image(systemName: "checkmark.circle.fill")
         Text("Done")
       } else {
-        Image(systemName: "plus.circle.fill")
+        Image(systemName: "plus")
         Text("Add Reading")
       }
     }
     .font(.system(size: 16, weight: .bold, design: .rounded))
+    .foregroundColor(.black)
     .frame(maxWidth: .infinity)
     .frame(height: 56)
-    .foregroundColor(.black)
-    .background(Color.accentColor)
+    .background(statusColor)
     .cornerRadius(28)
+    .shadow(color: statusColor.opacity(0.3), radius: 15, y: 5)
   }
 }

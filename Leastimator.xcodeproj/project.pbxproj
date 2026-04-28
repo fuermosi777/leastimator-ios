@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2380F835C7156D23921E71FA /* GaugeCluster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CD78BF4DEE81926FFB1354 /* GaugeCluster.swift */; };
 		2500614B6AD39B55D5BC112A /* DeletedVehiclesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532819930EC5230001C1572 /* DeletedVehiclesView.swift */; };
 		3F2AFE682A89DFDA001B8837 /* StoreKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2AFE672A89DFDA001B8837 /* StoreKit+Extensions.swift */; };
 		3F2AFE6A2A89E363001B8837 /* SK.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 3F2AFE692A89E363001B8837 /* SK.storekit */; };
@@ -82,6 +81,9 @@
 		3FE38DF12F0728D8008D351F /* Vehicle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE38DEF2F0728D4008D351F /* Vehicle+Extensions.swift */; };
 		47876AB21E780CD2F2C623CE /* TeslaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C23DE6C66FF6E833E2A3856 /* TeslaService.swift */; };
 		7873D36A0EBBFD0A25BB79D8 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5800D8376217BCDD3EE9C18 /* KeychainHelper.swift */; };
+		85A3CCE321217E79AD090751 /* CoachMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E873766A6D7E90F0E9694 /* CoachMessageView.swift */; };
+		89019ACC09FB7E86A7AA7276 /* DashboardGauge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E779CABD4F33146BC481AB /* DashboardGauge.swift */; };
+		A0574D49987A4859E271DC42 /* VehicleSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21890A36CD94416E221BFC5D /* VehicleSwitcher.swift */; };
 		A949D04C9C26A8B6788AC97C /* TeslaAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E20E3FFA3767341968BB022 /* TeslaAuthManager.swift */; };
 		AEA151D27B5BC26F32FE0BEB /* DangerousZoneGlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A45EDE202F2D6CA49A21777 /* DangerousZoneGlow.swift */; };
 		B3825494301A7C6F946CB7E3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCDD1455A110D56B355CF7 /* Constants.swift */; };
@@ -130,6 +132,7 @@
 /* Begin PBXFileReference section */
 		04DCDD1455A110D56B355CF7 /* Constants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0A45EDE202F2D6CA49A21777 /* DangerousZoneGlow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DangerousZoneGlow.swift; sourceTree = "<group>"; };
+		21890A36CD94416E221BFC5D /* VehicleSwitcher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VehicleSwitcher.swift; sourceTree = "<group>"; };
 		24C309049AA74B5A85D6D8BC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		3F2AFE672A89DFDA001B8837 /* StoreKit+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoreKit+Extensions.swift"; sourceTree = "<group>"; };
 		3F2AFE692A89E363001B8837 /* SK.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = SK.storekit; sourceTree = "<group>"; };
@@ -192,7 +195,8 @@
 		3FE38DED2F07221C008D351F /* ChartSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartSheetView.swift; sourceTree = "<group>"; };
 		3FE38DEF2F0728D4008D351F /* Vehicle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Vehicle+Extensions.swift"; sourceTree = "<group>"; };
 		3FF001B72ACA7DB50007C481 /* EstimateWidgetExtensionRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EstimateWidgetExtensionRelease.entitlements; sourceTree = "<group>"; };
-		74CD78BF4DEE81926FFB1354 /* GaugeCluster.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GaugeCluster.swift; path = Leastimator/GaugeCluster.swift; sourceTree = "<group>"; };
+		535E873766A6D7E90F0E9694 /* CoachMessageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CoachMessageView.swift; sourceTree = "<group>"; };
+		72E779CABD4F33146BC481AB /* DashboardGauge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DashboardGauge.swift; sourceTree = "<group>"; };
 		7C23DE6C66FF6E833E2A3856 /* TeslaService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaService.swift; sourceTree = "<group>"; };
 		7E20E3FFA3767341968BB022 /* TeslaAuthManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaAuthManager.swift; sourceTree = "<group>"; };
 		81DE9DF31B6881F25AE189D0 /* TeslaVehiclePicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaVehiclePicker.swift; sourceTree = "<group>"; };
@@ -311,7 +315,9 @@
 				0A45EDE202F2D6CA49A21777 /* DangerousZoneGlow.swift */,
 				04DCDD1455A110D56B355CF7 /* Constants.swift */,
 				C532819930EC5230001C1572 /* DeletedVehiclesView.swift */,
-				74CD78BF4DEE81926FFB1354 /* GaugeCluster.swift */,
+				72E779CABD4F33146BC481AB /* DashboardGauge.swift */,
+				535E873766A6D7E90F0E9694 /* CoachMessageView.swift */,
+				21890A36CD94416E221BFC5D /* VehicleSwitcher.swift */,
 			);
 			path = Leastimator;
 			sourceTree = "<group>";
@@ -606,7 +612,9 @@
 				AEA151D27B5BC26F32FE0BEB /* DangerousZoneGlow.swift in Sources */,
 				B3825494301A7C6F946CB7E3 /* Constants.swift in Sources */,
 				2500614B6AD39B55D5BC112A /* DeletedVehiclesView.swift in Sources */,
-				2380F835C7156D23921E71FA /* GaugeCluster.swift in Sources */,
+				89019ACC09FB7E86A7AA7276 /* DashboardGauge.swift in Sources */,
+				85A3CCE321217E79AD090751 /* CoachMessageView.swift in Sources */,
+				A0574D49987A4859E271DC42 /* VehicleSwitcher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

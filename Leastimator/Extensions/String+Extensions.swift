@@ -22,6 +22,18 @@ extension String {
     }
     return str
   }
+
+  var vehicleAbbreviation: String {
+    let components = self.components(separatedBy: .whitespacesAndNewlines).filter { !$0.isEmpty }
+    if components.count >= 2 {
+      let first = components[0].prefix(1)
+      let second = components[1].prefix(1)
+      return "\(first)\(second)".uppercased()
+    } else if let first = self.first {
+      return String(first).uppercased()
+    }
+    return ""
+  }
 }
 
 extension LocalizedStringKey {
