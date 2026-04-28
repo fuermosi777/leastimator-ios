@@ -30,5 +30,13 @@ extension Vehicle {
   
   func updateLastTeslaSyncDate() {
     UserDefaults.standard.set(Date(), forKey: lastTeslaSyncKey)
+  
+  var initials: String {
+    let name = self.name ?? "Vehicle"
+    let parts = name.components(separatedBy: .whitespacesAndNewlines).filter { !$0.isEmpty }
+    if parts.count >= 2 {
+      return (String(parts[0].prefix(1)) + String(parts[1].prefix(1))).uppercased()
+    }
+    return String(name.prefix(2)).uppercased()
   }
 }

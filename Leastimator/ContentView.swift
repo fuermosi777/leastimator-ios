@@ -109,7 +109,8 @@ struct ContentView: View {
             }
           }
         }  // VStack
-        .navigationTitle(vehicleToDisplay?.name ?? "")
+        .navigationTitle("")
+        .navigationBarTitleDisplayMode(.inline)
         .applyNavigationSubtitle(navigationSubtitle)
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {
@@ -145,7 +146,26 @@ struct ContentView: View {
                 Label("Add Vehicle", systemImage: "plus")
               }
             } label: {
-              Label("Vehicles", systemImage: "car.side")
+              HStack(spacing: 8) {
+                Text(vehicleToDisplay?.initials ?? "V")
+                  .font(.system(size: 10, weight: .bold, design: .monospaced))
+                  .foregroundColor(.black)
+                  .frame(width: 22, height: 22)
+                  .background(Color.accentColor)
+                  .clipShape(Circle())
+                
+                Text(vehicleToDisplay?.name ?? "Vehicle")
+                  .font(.system(size: 14, weight: .medium))
+                  .foregroundColor(.mainText)
+                
+                Image(systemName: "chevron.down")
+                  .font(.system(size: 10, weight: .bold))
+                  .foregroundColor(.subText)
+              }
+              .padding(.horizontal, 10)
+              .padding(.vertical, 6)
+              .background(Color.subBg)
+              .clipShape(Capsule())
             }
           }
           if let vehicle = vehicleToDisplay {
