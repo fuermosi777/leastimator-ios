@@ -12,8 +12,6 @@
 		3F2AFE6A2A89E363001B8837 /* SK.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 3F2AFE692A89E363001B8837 /* SK.storekit */; };
 		3F2AFE6B2A89E363001B8837 /* SK.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 3F2AFE692A89E363001B8837 /* SK.storekit */; };
 		3F2AFE6C2A89E363001B8837 /* SK.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 3F2AFE692A89E363001B8837 /* SK.storekit */; };
-		3F2AFE742A89F29F001B8837 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2AFE732A89F29E001B8837 /* ProgressBar.swift */; };
-		3F2AFE752A89F29F001B8837 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2AFE732A89F29E001B8837 /* ProgressBar.swift */; };
 		3F3423A429DD2C7800C35E69 /* LeastimatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423A329DD2C7800C35E69 /* LeastimatorApp.swift */; };
 		3F3423A629DD2C7800C35E69 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423A529DD2C7800C35E69 /* ContentView.swift */; };
 		3F3423A829DD2C7900C35E69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F3423A729DD2C7900C35E69 /* Assets.xcassets */; };
@@ -57,7 +55,6 @@
 		3F6F9D7B2AE4E9970094360F /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6F9D7A2AE4E9970094360F /* Double+Extensions.swift */; };
 		3FAF41992A8B4820006C462D /* VehicleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423F329DD2F9700C35E69 /* VehicleImage.swift */; };
 		3FAF419A2A8B48AB006C462D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F3423A729DD2C7900C35E69 /* Assets.xcassets */; };
-		3FB0212029E90B31005E615E /* BarGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB0211F29E90B31005E615E /* BarGraph.swift */; };
 		3FB06BCA2A94739000EB0E7C /* OdometerHistoryDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB06BC92A94739000EB0E7C /* OdometerHistoryDocument.swift */; };
 		3FC0EF372A54CE600047F756 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC0EF362A54CE600047F756 /* WidgetKit.framework */; };
 		3FC0EF392A54CE600047F756 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC0EF382A54CE600047F756 /* SwiftUI.framework */; };
@@ -71,7 +68,7 @@
 		3FE221A02A54D8F90063ED9C /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423D529DD2D1F00C35E69 /* Color+Extensions.swift */; };
 		3FE221A22A54D9200063ED9C /* ComputeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423DF29DD2DB700C35E69 /* ComputeUtils.swift */; };
 		3FE221A32A54D94A0063ED9C /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423D729DD2D2700C35E69 /* Date+Extensions.swift */; };
-		3FE221A42A54DA3B0063ED9C /* ProgressCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F34240229DD307F00C35E69 /* ProgressCircle.swift */; };
+		3FE221A42A54DA3B0063ED9C /* BuildFile in Sources */ = {isa = PBXBuildFile; };
 		3FE221A52A54DA6D0063ED9C /* UnitUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423FC29DD301F00C35E69 /* UnitUtils.swift */; };
 		3FE38DEB2F071170008D351F /* Views+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE38DEA2F07116C008D351F /* Views+Extensions.swift */; };
 		3FE38DEC2F0711A9008D351F /* Views+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE38DEA2F07116C008D351F /* Views+Extensions.swift */; };
@@ -101,6 +98,7 @@
 		CB0F2FA62FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2FA02FA08D7C007A4F68 /* JetBrainsMono[wght].ttf */; };
 		CB0F2FA72FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F9F2FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf */; };
 		CB0F2FA82FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2FA02FA08D7C007A4F68 /* JetBrainsMono[wght].ttf */; };
+		CB7AC1D02FA1C72700E180E4 /* Font+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423D329DD2D1300C35E69 /* Font+Extensions.swift */; };
 		DBD225831A064FB279D891C9 /* TeslaSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A8AE65B911839F2C6819F3 /* TeslaSyncService.swift */; };
 		DC88F9BA1DBB85404C86CD98 /* TeslaAPIStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97E90CC119BD1D99ADF4DA /* TeslaAPIStatusView.swift */; };
 		EAED4CF135BAB1AFC6D1D9C3 /* TeslaVehiclePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DE9DF31B6881F25AE189D0 /* TeslaVehiclePicker.swift */; };
@@ -150,7 +148,6 @@
 		24C309049AA74B5A85D6D8BC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		3F2AFE672A89DFDA001B8837 /* StoreKit+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoreKit+Extensions.swift"; sourceTree = "<group>"; };
 		3F2AFE692A89E363001B8837 /* SK.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = SK.storekit; sourceTree = "<group>"; };
-		3F2AFE732A89F29E001B8837 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		3F3423A029DD2C7800C35E69 /* Leastimator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Leastimator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F3423A329DD2C7800C35E69 /* LeastimatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeastimatorApp.swift; sourceTree = "<group>"; };
 		3F3423A529DD2C7800C35E69 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -191,7 +188,6 @@
 		3F34241D29DD345600C35E69 /* Leastimator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Leastimator.entitlements; sourceTree = "<group>"; };
 		3F6F9D772AE495FB0094360F /* GraphPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphPoint.swift; sourceTree = "<group>"; };
 		3F6F9D7A2AE4E9970094360F /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
-		3FB0211F29E90B31005E615E /* BarGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarGraph.swift; sourceTree = "<group>"; };
 		3FB06BC92A94739000EB0E7C /* OdometerHistoryDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OdometerHistoryDocument.swift; sourceTree = "<group>"; };
 		3FC0EF342A54CE600047F756 /* EstimateWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = EstimateWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FC0EF362A54CE600047F756 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -307,13 +303,11 @@
 				3F34240629DD30A400C35E69 /* GADBannerView.swift */,
 				3F34241329DD313000C35E69 /* ImagePicker.swift */,
 				3F3423A329DD2C7800C35E69 /* LeastimatorApp.swift */,
-				3FB0211F29E90B31005E615E /* BarGraph.swift */,
 				3F3423EC29DD2F4400C35E69 /* Logger.swift */,
 				3F34241129DD311B00C35E69 /* MileagePicker.swift */,
 				3F3423AC29DD2C7900C35E69 /* Persistence.swift */,
 				3F3423A929DD2C7900C35E69 /* Preview Content */,
 				3F3423FE29DD303900C35E69 /* ProBadge.swift */,
-				3F2AFE732A89F29E001B8837 /* ProgressBar.swift */,
 				3F34240029DD305000C35E69 /* ProProductsView.swift */,
 				3F3423E529DD2ED200C35E69 /* PurchaseManager.swift */,
 				3F34240B29DD30DA00C35E69 /* ReadingList.swift */,
@@ -614,7 +608,6 @@
 				3F34240E29DD30ED00C35E69 /* EditReadingView.swift in Sources */,
 				3F6F9D782AE495FB0094360F /* GraphPoint.swift in Sources */,
 				3FE38DEB2F071170008D351F /* Views+Extensions.swift in Sources */,
-				3F2AFE742A89F29F001B8837 /* ProgressBar.swift in Sources */,
 				3FB06BCA2A94739000EB0E7C /* OdometerHistoryDocument.swift in Sources */,
 				3F34241029DD30FF00C35E69 /* EditVehicleView.swift in Sources */,
 				3F3423DE29DD2D4200C35E69 /* String+Extensions.swift in Sources */,
@@ -628,7 +621,6 @@
 				3F6F9D7B2AE4E9970094360F /* Double+Extensions.swift in Sources */,
 				3F3423E429DD2EB400C35E69 /* ErrorHandler.swift in Sources */,
 				3F3423D429DD2D1300C35E69 /* Font+Extensions.swift in Sources */,
-				3FB0212029E90B31005E615E /* BarGraph.swift in Sources */,
 				3F34240529DD309200C35E69 /* SettingsView.swift in Sources */,
 				3F3423ED29DD2F4400C35E69 /* Logger.swift in Sources */,
 				3F3423DC29DD2D3A00C35E69 /* URL+Extensions.swift in Sources */,
@@ -685,14 +677,13 @@
 			files = (
 				3FE221A02A54D8F90063ED9C /* Color+Extensions.swift in Sources */,
 				3F6F9D792AE4966B0094360F /* GraphPoint.swift in Sources */,
-				3F2AFE752A89F29F001B8837 /* ProgressBar.swift in Sources */,
+				CB7AC1D02FA1C72700E180E4 /* Font+Extensions.swift in Sources */,
 				3FE221A52A54DA6D0063ED9C /* UnitUtils.swift in Sources */,
 				3FE221A32A54D94A0063ED9C /* Date+Extensions.swift in Sources */,
 				3FC0EF492A54CFCC0047F756 /* Persistence.swift in Sources */,
 				3FAF41992A8B4820006C462D /* VehicleImage.swift in Sources */,
 				3FC0EF4A2A54CFF50047F756 /* Leastimator.xcdatamodeld in Sources */,
 				3FE38DF12F0728D8008D351F /* Vehicle+Extensions.swift in Sources */,
-				3FE221A42A54DA3B0063ED9C /* ProgressCircle.swift in Sources */,
 				3FC0EF3C2A54CE600047F756 /* EstimateWidgetBundle.swift in Sources */,
 				3FE38DEC2F0711A9008D351F /* Views+Extensions.swift in Sources */,
 				3F532FF02A916EBF0056EADE /* UIImage+Extensions.swift in Sources */,

@@ -13,8 +13,7 @@ extension Font {
   }
   
   static func inter(_ size: CGFloat, weight: Font.Weight = .regular) -> Font {
-    // Inter is often registered as "Inter" or "Inter-Regular"
-    .custom("Inter-Regular", size: size)
+    .custom("Inter", size: size).weight(weight)
   }
 
   static func roundedFont(_ style: Font.TextStyle) -> Font {

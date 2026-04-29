@@ -374,10 +374,14 @@ struct VehiclePresentation: View {
         ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .black))
       } else if isSyncSuccess {
         Image(systemName: "checkmark.circle.fill")
+          .fontWeight(.bold)
         Text("Done")
+          .fontWeight(.bold)
       } else {
         Image(systemName: "plus")
+          .fontWeight(.bold)
         Text("Add Reading")
+          .fontWeight(.bold)
       }
     }
     .font(.inter(16, weight: .bold))
