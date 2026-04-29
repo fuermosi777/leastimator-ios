@@ -1,0 +1,697 @@
+diff --git a/Leastimator/CoachMessageView.swift b/Leastimator/CoachMessageView.swift
+new file mode 100644
+index 0000000..a512ecf
+--- /dev/null
++++ b/Leastimator/CoachMessageView.swift
+@@ -0,0 +1,50 @@
++//
++//  CoachMessageView.swift
++//  Leastimator
++//
++//  Created by Antigravity on 4/28/26.
++//
++
++import SwiftUI
++
++struct CoachMessage: View {
++  let isOverPace: Bool
++  var body: some View {
++    HStack(spacing: 8) {
++      Circle()
++        .fill(isOverPace ? Color.red : Color.accentColor)
++        .frame(width: 8, height: 8)
++        .shadow(color: isOverPace ? Color.red : Color.accentColor, radius: 4)
++      Text(isOverPace ? "Heads up — you're over pace" : "Nice pace. You're on track.")
++        .font(.inter(13, weight: .bold))
++        .foregroundColor(.subText)
++    }
++    .padding(.top, 8)
++  }
++}
++
++struct StatCell: View {
++  let label: String
++  let value: String
++  let unit: String
++  var body: some View {
++    VStack(alignment: .leading, spacing: 4) {
++      Text(label)
++        .font(.inter(9, weight: .medium))
++        .foregroundColor(.subText)
++        .tracking(1.0)
++      HStack(alignment: .lastTextBaseline, spacing: 2) {
++        Text(value)
++          .font(.jetBrainsMono(22))
++          .fontWeight(.bold)
++          .monospacedDigit()
++          .foregroundColor(.mainText)
++        Text(unit)
++          .font(.inter(10, weight: .semibold))
++          .foregroundColor(.subText)
++      }
++    }
++    .frame(maxWidth: .infinity, alignment: .leading)
++    .padding(.leading, 16)
++  }
++}
+diff --git a/Leastimator/DashboardGauge.swift b/Leastimator/DashboardGauge.swift
+new file mode 100644
+index 0000000..05b756d
+--- /dev/null
++++ b/Leastimator/DashboardGauge.swift
+@@ -0,0 +1,134 @@
++//
++//  DashboardGauge.swift
++//  Leastimator
++//
++//  Created by Antigravity on 4/28/26.
++//
++
++import SwiftUI
++
++struct DashboardGauge: View {
++    let progress: Double // 0.0 to 1.15 (scaled for the gauge arc)
++    let projected: Int
++    let variance: Int
++    let unit: String
++    let statusColor: Color
++    
++    private let size: CGFloat = 288
++    private let stroke: CGFloat = 14
++    private let arc: Double = 0.75 // Use 3/4 of the circle
++    private let startAngle: Double = 135 // Starting from bottom-left
++    
++    var body: some View {
++        ZStack {
++            // Tick marks on the outer rim
++            GaugeTicks(progress: progress, arc: arc, startAngle: startAngle, color: statusColor)
++                .frame(width: size, height: size)
++            
++            // Background arc (the "track")
++            Circle()
++                .trim(from: 0, to: CGFloat(arc))
++                .stroke(Color.mainText.opacity(0.05), style: StrokeStyle(lineWidth: stroke, lineCap: .round))
++                .rotationEffect(.degrees(startAngle))
++                .frame(width: size - 60, height: size - 60)
++            
++            // Progress arc
++            Circle()
++                .trim(from: 0, to: CGFloat(min(progress, 1.0) * arc))
++                .stroke(statusColor, style: StrokeStyle(lineWidth: stroke, lineCap: .round))
++                .rotationEffect(.degrees(startAngle))
++                .frame(width: size - 60, height: size - 60)
++                .shadow(color: statusColor.opacity(0.3), radius: 8)
++            
++            // Center readout
++            VStack(spacing: 2) {
++                Text("PROJECTED")
++                    .font(.inter(10, weight: .bold))
++                    .foregroundColor(.subText)
++                    .tracking(2)
++                
++                Text("\(projected)")
++                    .font(.jetBrainsMono(56))
++                    .fontWeight(.bold)
++                    .monospacedDigit()
++                    .foregroundColor(.mainText)
++                    .minimumScaleFactor(0.5)
++                    .lineLimit(1)
++                    .tracking(-2)
++                
++                Text("\(unit.uppercased()) · BY LEASE END")
++                    .font(.inter(11, weight: .semibold))
++                    .foregroundColor(.subText)
++                    .tracking(1)
++                
++                HStack(spacing: 4) {
++                    Text(variance > 0 ? "+" : (variance < 0 ? "" : ""))
++                    Text("\(variance) \(unit) vs limit")
++                }
++                .font(.jetBrainsMono(12))
++                .fontWeight(.bold)
++                .monospacedDigit()
++                .padding(.horizontal, 12)
++                .padding(.vertical, 6)
++                .background(statusColor.opacity(0.12))
++                .foregroundColor(statusColor)
++                .cornerRadius(20)
++                .padding(.top, 14)
++            }
++        }
++        .frame(width: size, height: size)
++    }
++}
++
++struct GaugeTicks: View {
++    let progress: Double
++    let arc: Double
++    let startAngle: Double
++    let color: Color
++    
++    let tickCount = 40
++    
++    var body: some View {
++        GeometryReader { geo in
++            let center = CGPoint(x: geo.size.width / 2, y: geo.size.height / 2)
++            let radius = geo.size.width / 2 - 5
++            
++            ForEach(0...tickCount, id: \.self) { i in
++                let t = Double(i) / Double(tickCount)
++                // In SwiftUI rotation, 0 is at 3 o'clock. 
++                // We want to start at startAngle.
++                let angle = startAngle + t * arc * 360
++                let isMajor = i % 5 == 0
++                let tickLength: CGFloat = isMajor ? 12 : 6
++                
++                let start = pointOnCircle(center: center, radius: radius, angle: angle)
++                let end = pointOnCircle(center: center, radius: radius - tickLength, angle: angle)
++                
++                let filled = t <= min(progress, 1.0)
++                
++                Path { path in
++                    path.move(to: start)
++                    path.addLine(to: end)
++                }
++                .stroke(filled ? color : Color.mainText.opacity(0.2), lineWidth: isMajor ? 2 : 1)
++            }
++        }
++    }
++    
++    func pointOnCircle(center: CGPoint, radius: CGFloat, angle: Double) -> CGPoint {
++        let radians = angle * .pi / 180
++        return CGPoint(
++            x: center.x + radius * cos(CGFloat(radians)),
++            y: center.y + radius * sin(CGFloat(radians))
++        )
++    }
++}
++
++struct DashboardGauge_Previews: PreviewProvider {
++    static var previews: some View {
++        ZStack {
++            Color.black.ignoresSafeArea()
++            DashboardGauge(progress: 0.65, projected: 12450, variance: -450, unit: "mi", statusColor: .statusLime)
++        }
++    }
++}
+diff --git a/Leastimator/VehiclePresentation.swift b/Leastimator/VehiclePresentation.swift
+index fb94ca0..f35c1b4 100644
+--- a/Leastimator/VehiclePresentation.swift
++++ b/Leastimator/VehiclePresentation.swift
+@@ -8,53 +8,6 @@
+ import SwiftUI
+ import SwiftRater
+ 
+-struct InfoPanel: View {
+-  var title: Text
+-  var unit: Text
+-  var value: Text
+-  
+-  var body: some View {
+-    VStack(alignment: .leading, spacing: 12) {
+-      title
+-        .foregroundColor(.subText)
+-      HStack(alignment: .lastTextBaseline) {
+-        value
+-          .font(.system(size: 24, weight: .bold, design: .rounded))
+-        unit
+-          .foregroundColor(.subText)
+-      }
+-    }
+-    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+-  }
+-}
+-
+-struct MoreInfoView: View {
+-  var question: Text
+-  var answer: Text
+-  var more: Text
+-  
+-  @State private var showMore = false
+-  var body: some View {
+-    VStack(alignment: .leading) {
+-      HStack {
+-        question
+-          .foregroundColor(.subText)
+-        Button(action: { showMore = true }) {
+-          Image(systemName: "info.circle").foregroundColor(.subText)
+-        }.sheet(isPresented: $showMore) {
+-          more
+-            .padding()
+-            .foregroundColor(.subText)
+-            .presentationDetents([.medium, .fraction(0.4)])
+-        }
+-      }
+-      Spacer().frame(height: 10.0)
+-      answer
+-    }
+-    .listRowBackground(Color.clear)
+-  }
+-}
+-
+ struct VehiclePresentation: View {
+   @Environment(\.managedObjectContext) private var viewContext
+   @EnvironmentObject private var purchaseManager: PurchaseManager
+@@ -122,6 +75,10 @@ struct VehiclePresentation: View {
+     return 1.0
+   }
+   
++  private var statusColor: Color {
++    Color.statusColor(progress: Double(progressPercentage))
++  }
++  
+   let linearGradient = LinearGradient(
+     gradient: Gradient (
+       colors: [
+@@ -134,200 +91,129 @@ struct VehiclePresentation: View {
+   
+   
+   var body: some View {
+-    List {
+-      if vehicle.archived {
+-        Section {
+-          VStack(alignment: .leading) {
++    ZStack(alignment: .bottom) {
++      ScrollView {
++        VStack(alignment: .leading, spacing: 24) {
++          if vehicle.archived {
+             Text("Archived")
+               .font(.caption2).bold()
+               .padding(.horizontal, 12).padding(.vertical, 6)
+               .background(Color.orange)
+               .foregroundColor(.white)
+               .cornerRadius(12)
++              .padding(.top, 8)
+           }
+-          .listRowSeparator(.hidden)
+-          .listRowBackground(Color.clear)
+-        }
+-      }
+-      Section {
+-        VStack(alignment: .leading, spacing: 20) {
+-          // Coach Message
+-          HStack(spacing: 8) {
+-            Circle()
+-              .fill(progressPercentage >= 1.0 ? Color.red : (progressPercentage >= 0.9 ? Color.orange : Color.accentColor))
+-              .frame(width: 8, height: 8)
+-              .shadow(color: (progressPercentage >= 1.0 ? Color.red : (progressPercentage >= 0.9 ? Color.orange : Color.accentColor)).opacity(0.5), radius: 4)
+-            
+-            Text(extendedInfo.mileageVariance ?? 0 > 0 ? "Heads up — you're over pace" : "Nice pace. You're on track.")
+-              .font(.system(size: 14, weight: .medium, design: .rounded))
+-              .foregroundColor(.subText)
+-          }
+-          .padding(.horizontal, 4)
+ 
+-          // Gauge
++          CoachMessage(isOverPace: progressPercentage >= 1.0)
++
++          // Big gauge
+           HStack {
+             Spacer()
+-            GaugeCluster(progress: progressPercentage,
+-                         projected: extendedInfo.normalPredicatedMileage,
+-                         variance: extendedInfo.mileageVariance ?? 0,
+-                         unit: lengthUnit.shortFor)
++            DashboardGauge(
++              progress: Double(progressPercentage),
++              projected: extendedInfo.normalPredicatedMileage,
++              variance: extendedInfo.mileageVariance ?? 0,
++              unit: lengthUnit.shortFor,
++              statusColor: statusColor
++            )
+             Spacer()
+           }
+           .padding(.vertical, 10)
+-        }
+-        .listRowSeparator(.hidden)
+-        .listRowBackground(Color.clear)
+-      }
+-      
+-      // Actions
+-      // Stats Section
+-      Section {
+-        HStack(spacing: 12) {
+-          VStack(alignment: .leading, spacing: 8) {
+-            Text("DAILY AVG")
+-              .font(.system(size: 10, weight: .bold, design: .rounded))
+-              .foregroundColor(.subText)
+-            HStack(alignment: .lastTextBaseline, spacing: 4) {
+-              Text("\(Int(extendedInfo.mileagePerDay))")
+-                .font(.system(size: 24, weight: .bold, design: .monospaced))
+-                .foregroundColor(.mainText)
+-              Text(lengthUnit.shortFor)
+-                .font(.system(size: 10, weight: .medium, design: .rounded))
+-                .foregroundColor(.subText)
+-            }
++
++          // Track info card
++          HStack(alignment: .center, spacing: 16) {
++            Image(systemName: "bolt.fill")
++                .font(.system(size: 22))
++                .foregroundColor(statusColor)
++                .shadow(color: statusColor.opacity(0.3), radius: 5)
++            
++            Text(vehicle.allowed == 0 ?
++                 "You can drive as far as you want because you did not set the mileage allowed." :
++                 "You can drive up to \(String(extendedInfo.maxDriveToday)) \(lengthUnit.longName.toString()) today and still be on track.")
++            .font(.inter(16, weight: .bold))
++            .foregroundColor(.mainText)
++            .fixedSize(horizontal: false, vertical: true)
+           }
+-          .frame(maxWidth: .infinity, alignment: .leading)
+-          .padding(16)
+-          .background(Color.subBg)
+-          .cornerRadius(16)
+-          
+-          VStack(alignment: .leading, spacing: 8) {
+-            Text("ODOMETER")
+-              .font(.system(size: 10, weight: .bold, design: .rounded))
+-              .foregroundColor(.subText)
+-            HStack(alignment: .lastTextBaseline, spacing: 4) {
+-              Text("\(extendedInfo.currentMileage)")
+-                .font(.system(size: 20, weight: .bold, design: .monospaced))
+-                .foregroundColor(.mainText)
+-              Text(lengthUnit.shortFor)
+-                .font(.system(size: 10, weight: .medium, design: .rounded))
+-                .foregroundColor(.subText)
+-            }
++          .padding(20)
++          .background(Color.subBg.opacity(0.3))
++          .cornerRadius(24)
++          .overlay(
++            RoundedRectangle(cornerRadius: 24)
++                .stroke(Color.mainText.opacity(0.05), lineWidth: 1)
++          )
++
++          // Primary stats grid in a single tile
++          HStack(spacing: 0) {
++            StatCell(label: "DAILY AVG", value: String(format: "%.0f", extendedInfo.mileagePerDay), unit: lengthUnit.shortFor)
++            
++            Divider()
++              .frame(height: 32)
++              .padding(.horizontal, 2)
++            
++            StatCell(label: "ODOMETER", value: "\(extendedInfo.currentMileage)", unit: lengthUnit.shortFor)
++            
++            Divider()
++              .frame(height: 32)
++              .padding(.horizontal, 2)
++            
++            StatCell(label: "LEASE LEFT", value: "\(extendedInfo.leaseLeft)", unit: "mo")
+           }
+-          .frame(maxWidth: .infinity, alignment: .leading)
+-          .padding(16)
+-          .background(Color.subBg)
++          .padding(.vertical, 16)
++          .padding(.trailing, 12)
++          .background(Color.subBg.opacity(0.3))
+           .cornerRadius(16)
+-          
+-          VStack(alignment: .leading, spacing: 8) {
+-            Text("LEASE LEFT")
+-              .font(.system(size: 10, weight: .bold, design: .rounded))
+-              .foregroundColor(.subText)
+-            HStack(alignment: .lastTextBaseline, spacing: 4) {
+-              Text("\(extendedInfo.leaseLeft)")
+-                .font(.system(size: 24, weight: .bold, design: .monospaced))
+-                .foregroundColor(.mainText)
+-              Text("mo")
+-                .font(.system(size: 10, weight: .medium, design: .rounded))
+-                .foregroundColor(.subText)
+-            }
++          .overlay(
++            RoundedRectangle(cornerRadius: 16)
++                .stroke(Color.mainText.opacity(0.05), lineWidth: 1)
++          )
++
++          if !purchaseManager.unlockPro {
++            BannerAd()
++              .padding(.vertical, 8)
+           }
+-          .frame(maxWidth: .infinity, alignment: .leading)
+-          .padding(16)
+-          .background(Color.subBg)
+-          .cornerRadius(16)
++          
++          Text("Calculations are estimates based on your lease terms and driving history.")
++            .font(.inter(11))
++            .foregroundColor(.subText)
++            .padding(.top, 8)
++            .padding(.bottom, 120) // Spacer for sticky buttons
+         }
+-        .listRowSeparator(.hidden)
+-        .listRowBackground(Color.clear)
++        .padding(.horizontal, 24)
+       }
+-      
+-      // Banner ad
+-      if !purchaseManager.unlockPro {
+-        Section {
+-          BannerAd()
+-            .listRowSeparator(.hidden)
+-            .listRowBackground(Color.clear)
++      .scrollIndicators(.hidden)
++
++      // Sticky Bottom Buttons
++      HStack(spacing: 12) {
++        if !vehicle.archived {
++          addReadingButton
+         }
+-      }
+-      
+-      Section {
+-        VStack(alignment: .leading, spacing: 12) {
+-          Text("TRACKING")
+-            .font(.system(size: 10, weight: .bold, design: .rounded))
+-            .foregroundColor(.subText)
+-            .tracking(1)
+-          
+-          Text(vehicle.allowed == 0 ?
+-               "You can drive as far as you want because you did not set the mileage allowed." :
+-               "You can drive up to **\(String(extendedInfo.maxDriveToday)) \(lengthUnit.longName.toString())** today and still be on track.")
+-            .font(.system(size: 16, design: .rounded))
++        
++        Button(action: {
++          showChartSheet.toggle()
++        }) {
++          Image(systemName: "chart.bar.fill")
++            .font(.system(size: 18))
+             .foregroundColor(.mainText)
++            .frame(width: 56, height: 56)
++            .background(Color.subBg)
++            .cornerRadius(28)
++            .overlay(
++                RoundedRectangle(cornerRadius: 28)
++                    .stroke(Color.mainText.opacity(0.1), lineWidth: 1)
++            )
+         }
+-        .padding(16)
+-        .frame(maxWidth: .infinity, alignment: .leading)
+-        .background(Color.subBg.opacity(0.5))
+-        .cornerRadius(16)
+-        .listRowSeparator(.hidden)
+-        .listRowBackground(Color.clear)
+-      } footer: {
+-        Text("disclaimer")
+-          .font(.system(size: 12.0))
+-          .foregroundColor(.subText)
+-          .listRowSeparator(.hidden)
+-          .listRowBackground(Color.clear)
++        .buttonStyle(.plain)
+       }
++      .padding(.horizontal, 24)
++      .padding(.bottom, 34) // Adjust for safe area
++      .background(
++        LinearGradient(colors: [.clear, Color.mainBg.opacity(0.8), Color.mainBg], startPoint: .top, endPoint: .bottom)
++            .frame(height: 140)
++            .ignoresSafeArea()
++      )
+     }
+     .scrollContentBackground(.hidden)
+     .listStyle(.plain)
+-    .safeAreaInset(edge: .bottom) {
+-      if !vehicle.archived {
+-        HStack(spacing: 12) {
+-          Group {
+-            if vehicle.teslaConnectionId != nil {
+-              Menu {
+-                Button {
+-                  Task { await syncIfOnline() }
+-                } label: {
+-                  Label("Auto Sync from Tesla", systemImage: "arrow.triangle.2.circlepath")
+-                }
+-                Button {
+-                  showAddReadingSheet.toggle()
+-                } label: {
+-                  Label("Add Manually", systemImage: "keyboard")
+-                }
+-              } label: {
+-                addReadingButtonLabel
+-              }
+-            } else {
+-              Button(action: {
+-                showAddReadingSheet.toggle()
+-              }) {
+-                addReadingButtonLabel
+-              }
+-            }
+-          }
+-          .disabled(isLoadingTesla || isSyncSuccess)
+-          
+-          Button(action: {
+-            showChartSheet.toggle()
+-          }) {
+-            Image(systemName: "chart.bar.fill")
+-              .font(.system(size: 20))
+-              .frame(width: 56, height: 56)
+-              .foregroundColor(.mainText)
+-              .background(Color.subBg)
+-              .clipShape(Circle())
+-              .overlay(Circle().stroke(Color.subText.opacity(0.2), lineWidth: 1))
+-          }
+-        }
+-        .padding(.horizontal, 24)
+-        .padding(.vertical, 12)
+-        .background(
+-          LinearGradient(colors: [.black.opacity(0), .black.opacity(0.8)], startPoint: .top, endPoint: .bottom)
+-            .ignoresSafeArea()
+-        )
+-      }
+-    }
+     .if(showGlowEffect) {
+         $0.dangerousZoneGlow(progress: progressPercentage)
+     }
+@@ -452,23 +338,52 @@ struct VehiclePresentation: View {
+       }
+   }
+ 
++  private var addReadingButton: some View {
++    Group {
++      if vehicle.teslaConnectionId != nil {
++        Menu {
++          Button {
++            Task { await syncIfOnline() }
++          } label: {
++            Label("Auto Sync from Tesla", systemImage: "arrow.triangle.2.circlepath")
++          }
++          Button {
++            showAddReadingSheet.toggle()
++          } label: {
++            Label("Add Manually", systemImage: "keyboard")
++          }
++        } label: {
++          addReadingButtonLabel
++        }
++      } else {
++        Button(action: {
++          showAddReadingSheet.toggle()
++        }) {
++          addReadingButtonLabel
++        }
++      }
++    }
++    .disabled(isLoadingTesla || isSyncSuccess)
++  }
++
+   private var addReadingButtonLabel: some View {
+-    HStack {
++    HStack(spacing: 8) {
+       if isLoadingTesla {
+-        ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .white))
++        ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .black))
+       } else if isSyncSuccess {
+         Image(systemName: "checkmark.circle.fill")
+         Text("Done")
+       } else {
+-        Image(systemName: "plus.circle.fill")
++        Image(systemName: "plus")
+         Text("Add Reading")
+       }
+     }
+-    .font(.system(size: 16, weight: .bold, design: .rounded))
++    .font(.inter(16, weight: .bold))
++    .foregroundColor(.black)
+     .frame(maxWidth: .infinity)
+     .frame(height: 56)
+-    .foregroundColor(.black)
+-    .background(Color.accentColor)
++    .background(statusColor)
+     .cornerRadius(28)
++    .shadow(color: statusColor.opacity(0.3), radius: 15, y: 5)
+   }
+ }
+diff --git a/Leastimator/VehicleSwitcher.swift b/Leastimator/VehicleSwitcher.swift
+new file mode 100644
+index 0000000..e5769bf
+--- /dev/null
++++ b/Leastimator/VehicleSwitcher.swift
+@@ -0,0 +1,69 @@
++//
++//  VehicleSwitcher.swift
++//  Leastimator
++//
++//  Created by Antigravity on 4/28/26.
++//
++
++import SwiftUI
++
++struct VehicleSwitcher: View {
++    let vehicles: [Vehicle]
++    let selectedVehicle: Vehicle?
++    let onSelect: (Vehicle) -> Void
++    let onSettings: () -> Void
++    let onAddVehicle: () -> Void
++    let statusColor: Color
++    
++    var body: some View {
++        Menu {
++            Section {
++                ForEach(vehicles) { vehicle in
++                    Button {
++                        onSelect(vehicle)
++                    } label: {
++                        HStack {
++                            Text(vehicle.name ?? "Unknown")
++                            if vehicle == selectedVehicle {
++                                Image(systemName: "checkmark")
++                            }
++                        }
++                    }
++                }
++            }
++            
++            Section {
++                Button(action: onSettings) {
++                    Label("Settings", systemImage: "gearshape.2")
++                }
++                Button(action: onAddVehicle) {
++                    Label("Add Vehicle", systemImage: "plus")
++                }
++            }
++        } label: {
++            HStack(spacing: 8) {
++                // Abbreviation Icon
++                Text(selectedVehicle?.name?.vehicleAbbreviation ?? "??")
++                    .font(.jetBrainsMono(10))
++                    .fontWeight(.bold)
++                    .foregroundColor(.black)
++                    .frame(width: 22, height: 22)
++                    .background(statusColor)
++                    .clipShape(Circle())
++                
++                Text(selectedVehicle?.name ?? "Select Vehicle")
++                    .font(.inter(14, weight: .bold))
++                    .foregroundColor(.mainText)
++                
++                Image(systemName: "chevron.down")
++                    .font(.system(size: 10, weight: .bold))
++                    .foregroundColor(.subText)
++            }
++            .padding(.leading, 4)
++            .padding(.trailing, 10)
++            .padding(.vertical, 4)
++            .background(Capsule().fill(Color.subBg.opacity(0.6)))
++            .transition(.opacity)
++        }
++    }
++}

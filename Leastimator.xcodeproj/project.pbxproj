@@ -104,6 +104,7 @@
 		CB0F2FA72FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F9F2FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf */; };
 		CB0F2FA82FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2FA02FA08D7C007A4F68 /* JetBrainsMono[wght].ttf */; };
 		DBD225831A064FB279D891C9 /* TeslaSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A8AE65B911839F2C6819F3 /* TeslaSyncService.swift */; };
+		DC88F9BA1DBB85404C86CD98 /* TeslaAPIStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97E90CC119BD1D99ADF4DA /* TeslaAPIStatusView.swift */; };
 		EAED4CF135BAB1AFC6D1D9C3 /* TeslaVehiclePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DE9DF31B6881F25AE189D0 /* TeslaVehiclePicker.swift */; };
 /* End PBXBuildFile section */
 
@@ -211,6 +212,7 @@
 		3FE38DED2F07221C008D351F /* ChartSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartSheetView.swift; sourceTree = "<group>"; };
 		3FE38DEF2F0728D4008D351F /* Vehicle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Vehicle+Extensions.swift"; sourceTree = "<group>"; };
 		3FF001B72ACA7DB50007C481 /* EstimateWidgetExtensionRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EstimateWidgetExtensionRelease.entitlements; sourceTree = "<group>"; };
+		4A97E90CC119BD1D99ADF4DA /* TeslaAPIStatusView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaAPIStatusView.swift; sourceTree = "<group>"; };
 		535E873766A6D7E90F0E9694 /* CoachMessageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CoachMessageView.swift; sourceTree = "<group>"; };
 		72E779CABD4F33146BC481AB /* DashboardGauge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DashboardGauge.swift; sourceTree = "<group>"; };
 		7C23DE6C66FF6E833E2A3856 /* TeslaService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaService.swift; sourceTree = "<group>"; };
@@ -339,6 +341,7 @@
 				72E779CABD4F33146BC481AB /* DashboardGauge.swift */,
 				535E873766A6D7E90F0E9694 /* CoachMessageView.swift */,
 				21890A36CD94416E221BFC5D /* VehicleSwitcher.swift */,
+				4A97E90CC119BD1D99ADF4DA /* TeslaAPIStatusView.swift */,
 			);
 			path = Leastimator;
 			sourceTree = "<group>";
@@ -663,6 +666,7 @@
 				89019ACC09FB7E86A7AA7276 /* DashboardGauge.swift in Sources */,
 				85A3CCE321217E79AD090751 /* CoachMessageView.swift in Sources */,
 				A0574D49987A4859E271DC42 /* VehicleSwitcher.swift in Sources */,
+				DC88F9BA1DBB85404C86CD98 /* TeslaAPIStatusView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

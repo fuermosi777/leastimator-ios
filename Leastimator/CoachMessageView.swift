@@ -16,10 +16,9 @@ struct CoachMessage: View {
         .frame(width: 8, height: 8)
         .shadow(color: isOverPace ? Color.red : Color.accentColor, radius: 4)
       Text(isOverPace ? "Heads up — you're over pace" : "Nice pace. You're on track.")
-        .font(.inter(13, weight: .medium))
+        .font(.inter(13, weight: .bold))
         .foregroundColor(.subText)
     }
-    .padding(.top, 8)
   }
 }
 
