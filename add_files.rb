@@ -7,7 +7,12 @@ project = Xcodeproj::Project.open(project_path)
 group = project.main_group['Leastimator']
 
 # Files to add
-files_to_add = ['TeslaAPIStatusView.swift']
+files_to_add = [
+  'HistoryRangePicker.swift',
+  'ReadingRowView.swift',
+  'HistoryLineChart.swift',
+  'VehicleHistoryView.swift'
+]
 
 # Target
 target = project.targets.find { |t| t.name == 'Leastimator' }

@@ -25,7 +25,7 @@ struct VehiclePresentation: View {
   @State var graphType: GraphType = .monthly
   
   @State private var showAddReadingSheet = false
-  @State private var showChartSheet = false
+  @State private var showVehicleHistorySheet = false
   @State private var showSleepAlert = false
   @State private var showCooldownAlert = false
   @State private var isLoadingTesla = false
@@ -194,7 +194,7 @@ struct VehiclePresentation: View {
         }
         
         Button(action: {
-          showChartSheet.toggle()
+          showVehicleHistorySheet.toggle()
         }) {
           Image(systemName: "chart.bar.fill")
             .font(.system(size: 18))
@@ -223,8 +223,9 @@ struct VehiclePresentation: View {
       EditReadingView(vehicle: vehicle)
         .withErrorHandler()
     }
-    .sheet(isPresented: $showChartSheet) {
-      ChartSheetView(extendedInfo: extendedInfo, vehicle: vehicle)
+    .sheet(isPresented: $showVehicleHistorySheet) {
+      VehicleHistoryView(vehicle: vehicle)
+        .environment(\.managedObjectContext, viewContext)
     }
     .alert("Notice", isPresented: $showSleepAlert) {
       Button("Add Manually") { showAddReadingSheet.toggle() }

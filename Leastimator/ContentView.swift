@@ -30,7 +30,7 @@ struct ContentView: View {
   @State private var redirectToSettings = false
   @State private var showAddVehicleSheet = false
   @State private var showEditVehicleSheet: Vehicle?
-  @State private var showReadingListSheet: Vehicle?
+  @State private var showVehicleHistorySheet: Vehicle?
   @State private var showVehicleReadingHistorySheet = false
   @State private var showProProductSheet = false
   
@@ -159,7 +159,7 @@ struct ContentView: View {
             }
             ToolbarItem(placement: .secondaryAction) {
               Button {
-                showReadingListSheet = vehicle
+                showVehicleHistorySheet = vehicle
               } label: {
                 Label("Odometer History", systemImage: "calendar.badge.clock")
               }
@@ -183,8 +183,9 @@ struct ContentView: View {
           EditVehicleView(vehicle: $0)
             .withErrorHandler()
         }
-        .sheet(item: $showReadingListSheet) {
-          ReadingList(vehicle: $0)
+        .sheet(item: $showVehicleHistorySheet) {
+          VehicleHistoryView(vehicle: $0)
+            .environment(\.managedObjectContext, viewContext)
         }
       }
     }

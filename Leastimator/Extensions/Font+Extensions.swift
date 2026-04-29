@@ -8,8 +8,8 @@
 import SwiftUI
 
 extension Font {
-  static func jetBrainsMono(_ size: CGFloat) -> Font {
-    .custom("JetBrainsMono-Regular", size: size)
+  static func jetBrainsMono(_ size: CGFloat, weight: Font.Weight = .regular) -> Font {
+    .custom("JetBrainsMono-Regular", size: size).weight(weight)
   }
   
   static func inter(_ size: CGFloat, weight: Font.Weight = .regular) -> Font {
