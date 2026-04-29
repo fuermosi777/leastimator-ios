@@ -14,8 +14,6 @@ struct VehiclePresentation: View {
   @EnvironmentObject var errorHandler: ErrorHandler
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
   @AppStorage("showMileageVariance") private var showMileageVariance = true
-  @AppStorage("useCircularProgress") private var useCircularProgress = false
-  @AppStorage("showGlowEffect") private var showGlowEffect = false
   
   // Add ObservedObject make sure it gets updated data.
   @ObservedObject var vehicle: Vehicle
@@ -221,9 +219,6 @@ struct VehiclePresentation: View {
     }
     .scrollContentBackground(.hidden)
     .listStyle(.plain)
-    .if(showGlowEffect) {
-        $0.dangerousZoneGlow(progress: progressPercentage)
-    }
     .sheet(isPresented: $showAddReadingSheet) {
       EditReadingView(vehicle: vehicle)
         .withErrorHandler()

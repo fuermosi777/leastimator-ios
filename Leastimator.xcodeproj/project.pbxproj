@@ -41,7 +41,6 @@
 		3F3423FD29DD301F00C35E69 /* UnitUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423FC29DD301F00C35E69 /* UnitUtils.swift */; };
 		3F3423FF29DD303900C35E69 /* ProBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423FE29DD303900C35E69 /* ProBadge.swift */; };
 		3F34240129DD305000C35E69 /* ProProductsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F34240029DD305000C35E69 /* ProProductsView.swift */; };
-		3F34240329DD307F00C35E69 /* ProgressCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F34240229DD307F00C35E69 /* ProgressCircle.swift */; };
 		3F34240529DD309200C35E69 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F34240429DD309200C35E69 /* SettingsView.swift */; };
 		3F34240729DD30A400C35E69 /* GADBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F34240629DD30A400C35E69 /* GADBannerView.swift */; };
 		3F34240C29DD30DA00C35E69 /* ReadingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F34240B29DD30DA00C35E69 /* ReadingList.swift */; };
@@ -85,7 +84,6 @@
 		89019ACC09FB7E86A7AA7276 /* DashboardGauge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E779CABD4F33146BC481AB /* DashboardGauge.swift */; };
 		A0574D49987A4859E271DC42 /* VehicleSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21890A36CD94416E221BFC5D /* VehicleSwitcher.swift */; };
 		A949D04C9C26A8B6788AC97C /* TeslaAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E20E3FFA3767341968BB022 /* TeslaAuthManager.swift */; };
-		AEA151D27B5BC26F32FE0BEB /* DangerousZoneGlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A45EDE202F2D6CA49A21777 /* DangerousZoneGlow.swift */; };
 		B3825494301A7C6F946CB7E3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCDD1455A110D56B355CF7 /* Constants.swift */; };
 		CB0F2F972FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F962FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf */; };
 		CB0F2F982FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F952FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf */; };
@@ -148,7 +146,6 @@
 
 /* Begin PBXFileReference section */
 		04DCDD1455A110D56B355CF7 /* Constants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		0A45EDE202F2D6CA49A21777 /* DangerousZoneGlow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DangerousZoneGlow.swift; sourceTree = "<group>"; };
 		21890A36CD94416E221BFC5D /* VehicleSwitcher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VehicleSwitcher.swift; sourceTree = "<group>"; };
 		24C309049AA74B5A85D6D8BC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		3F2AFE672A89DFDA001B8837 /* StoreKit+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoreKit+Extensions.swift"; sourceTree = "<group>"; };
@@ -181,7 +178,6 @@
 		3F3423FC29DD301F00C35E69 /* UnitUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitUtils.swift; sourceTree = "<group>"; };
 		3F3423FE29DD303900C35E69 /* ProBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProBadge.swift; sourceTree = "<group>"; };
 		3F34240029DD305000C35E69 /* ProProductsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProProductsView.swift; sourceTree = "<group>"; };
-		3F34240229DD307F00C35E69 /* ProgressCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCircle.swift; sourceTree = "<group>"; };
 		3F34240429DD309200C35E69 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		3F34240629DD30A400C35E69 /* GADBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GADBannerView.swift; sourceTree = "<group>"; };
 		3F34240B29DD30DA00C35E69 /* ReadingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingList.swift; sourceTree = "<group>"; };
@@ -317,7 +313,6 @@
 				3F3423AC29DD2C7900C35E69 /* Persistence.swift */,
 				3F3423A929DD2C7900C35E69 /* Preview Content */,
 				3F3423FE29DD303900C35E69 /* ProBadge.swift */,
-				3F34240229DD307F00C35E69 /* ProgressCircle.swift */,
 				3F2AFE732A89F29E001B8837 /* ProgressBar.swift */,
 				3F34240029DD305000C35E69 /* ProProductsView.swift */,
 				3F3423E529DD2ED200C35E69 /* PurchaseManager.swift */,
@@ -335,7 +330,6 @@
 				C5800D8376217BCDD3EE9C18 /* KeychainHelper.swift */,
 				81DE9DF31B6881F25AE189D0 /* TeslaVehiclePicker.swift */,
 				C9A8AE65B911839F2C6819F3 /* TeslaSyncService.swift */,
-				0A45EDE202F2D6CA49A21777 /* DangerousZoneGlow.swift */,
 				04DCDD1455A110D56B355CF7 /* Constants.swift */,
 				C532819930EC5230001C1572 /* DeletedVehiclesView.swift */,
 				72E779CABD4F33146BC481AB /* DashboardGauge.swift */,
@@ -630,7 +624,6 @@
 				3FE38DEE2F072221008D351F /* ChartSheetView.swift in Sources */,
 				3F34241229DD311B00C35E69 /* MileagePicker.swift in Sources */,
 				3F3423B029DD2C7900C35E69 /* Leastimator.xcdatamodeld in Sources */,
-				3F34240329DD307F00C35E69 /* ProgressCircle.swift in Sources */,
 				3F3423D829DD2D2700C35E69 /* Date+Extensions.swift in Sources */,
 				3F6F9D7B2AE4E9970094360F /* Double+Extensions.swift in Sources */,
 				3F3423E429DD2EB400C35E69 /* ErrorHandler.swift in Sources */,
@@ -660,7 +653,6 @@
 				7873D36A0EBBFD0A25BB79D8 /* KeychainHelper.swift in Sources */,
 				EAED4CF135BAB1AFC6D1D9C3 /* TeslaVehiclePicker.swift in Sources */,
 				DBD225831A064FB279D891C9 /* TeslaSyncService.swift in Sources */,
-				AEA151D27B5BC26F32FE0BEB /* DangerousZoneGlow.swift in Sources */,
 				B3825494301A7C6F946CB7E3 /* Constants.swift in Sources */,
 				2500614B6AD39B55D5BC112A /* DeletedVehiclesView.swift in Sources */,
 				89019ACC09FB7E86A7AA7276 /* DashboardGauge.swift in Sources */,

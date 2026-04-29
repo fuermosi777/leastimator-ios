@@ -61,13 +61,12 @@ struct DashboardGauge: View {
                     .foregroundColor(.subText)
                     .tracking(1)
                 
-                HStack(spacing: 4) {
-                    Text(variance > 0 ? "+" : (variance < 0 ? "" : ""))
-                    Text("\(variance) \(unit) vs limit")
-                }
+                Text("\(variance > 0 ? "+" : "")\(variance) \(unit) vs limit")
                 .font(.jetBrainsMono(12))
                 .fontWeight(.bold)
                 .monospacedDigit()
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
                 .padding(.horizontal, 12)
                 .padding(.vertical, 6)
                 .background(statusColor.opacity(0.12))
