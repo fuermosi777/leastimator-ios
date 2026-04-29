@@ -12,7 +12,8 @@ struct HistoryLineChart: View {
             ForEach(data.targetPoints) { point in
                 LineMark(
                     x: .value("Date", point.date),
-                    y: .value("Value", point.value)
+                    y: .value("Value", point.value),
+                    series: .value("Series", "Target")
                 )
                 .foregroundStyle(Color.statusAmber.opacity(0.5))
                 .lineStyle(StrokeStyle(lineWidth: 1.5, dash: [4, 4]))
@@ -22,7 +23,8 @@ struct HistoryLineChart: View {
             ForEach(data.actualPoints) { point in
                 LineMark(
                     x: .value("Date", point.date),
-                    y: .value("Value", point.value)
+                    y: .value("Value", point.value),
+                    series: .value("Series", "Actual")
                 )
                 .interpolationMethod(.monotone)
                 .foregroundStyle(Color.statusAmber)
@@ -37,7 +39,8 @@ struct HistoryLineChart: View {
                 
                 AreaMark(
                     x: .value("Date", point.date),
-                    y: .value("Value", point.value)
+                    y: .value("Value", point.value),
+                    series: .value("Series", "ActualArea")
                 )
                 .interpolationMethod(.monotone)
                 .foregroundStyle(
