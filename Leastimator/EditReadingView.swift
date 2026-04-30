@@ -215,6 +215,9 @@ struct EditReadingView: View {
   
   private func handleDelete() {
     if let reading = self.reading {
+      // Notify the vehicle so @ObservedObject listeners (e.g. VehiclePresentation)
+      // recompute derived state after the child reading is removed.
+      vehicle.objectWillChange.send()
       viewContext.delete(reading)
       do {
         try viewContext.save()

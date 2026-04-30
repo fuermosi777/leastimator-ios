@@ -5,19 +5,19 @@
   Auto-generated sync file
 */
 
-"%@" = "TODO: %@";
-"%@) · BY LEASE END" = "TODO: %@) · BY LEASE END";
-"%@)k" = "TODO: %@)k";
-"%lld" = "TODO: %lld";
-"%lld %@" = "TODO: %lld %@";
-"%lld)" = "TODO: %lld)";
-"+%@" = "TODO: +%@";
+"%@" = "%@";
+"%@) · BY LEASE END" = "%@) · BY LEASE END";
+"%@)k" = "%@)k";
+"%lld" = "%lld";
+"%lld %@" = "%lld %@";
+"%lld)" = "%lld)";
+"+%@" = "+%@";
 "Add Manually" = "Add Manually";
 "Add Reading" = "Add Reading";
 "Add Vehicle" = "Add Vehicle";
 "Add a vehicle" = "Add a vehicle";
 "Add your vehicle and a few odometer readings. We'll project your end-of-lease mileage and coach you to stay on track." = "Add your vehicle and a few odometer readings. We'll project your end-of-lease mileage and coach you to stay on track.";
-"All" = "TODO: All";
+"All" = "All";
 "Archived" = "Archived";
 "Auto Sync from Tesla" = "Auto Sync from Tesla";
 "Binding Mismatch" = "Binding Mismatch";
@@ -27,8 +27,8 @@
 "Connect to Tesla" = "Connect to Tesla";
 "Connected to Tesla" = "Connected to Tesla";
 "Currency" = "Currency";
-"DATE" = "TODO: DATE";
-"DRIVEN · %@" = "TODO: DRIVEN · %@";
+"DATE" = "DATE";
+"DRIVEN · %@" = "DRIVEN · %@";
 "Daily" = "Daily";
 "Delete" = "Delete";
 "Delete Reading" = "Delete Reading";
@@ -38,13 +38,13 @@
 "Done" = "Done";
 "Driving Reminders" = "Driving Reminders";
 "Edit Vehicle" = "Edit Vehicle";
-"Error" = "TODO: Error";
+"Error" = "Error";
 "Every %lld connections" = "Every %lld connections";
 "Feedback" = "Feedback";
 "Frequency" = "Frequency";
 "Get reminded after connecting to your car (Bluetooth/CarPlay) several times." = "Get reminded after connecting to your car (Bluetooth/CarPlay) several times.";
 "Get reminded to update your mileage on a schedule." = "Get reminded to update your mileage on a schedule.";
-"History" = "TODO: History";
+"History" = "History";
 "Leastimator Pro" = "Leastimator Pro";
 "Leastimator Pro is an optional subscription to control ads, track multiple vehicles, handle customization, and support future development" = "Leastimator Pro is an optional subscription to control ads, track multiple vehicles, handle customization, and support future development";
 "Leastimator Pro subscription can be shared by everyone in a family group." = "Leastimator Pro subscription can be shared by everyone in a family group.";
@@ -54,7 +54,7 @@
 "No Deleted Vehicles" = "No Deleted Vehicles";
 "No readings recorded yet." = "No readings recorded yet.";
 "Notice" = "Notice";
-"ODOMETER" = "TODO: ODOMETER";
+"ODOMETER" = "ODOMETER";
 "OK" = "OK";
 "Odometer History" = "Odometer History";
 "Ok" = "Ok";
@@ -83,10 +83,10 @@
 "Version" = "Version";
 "View and restore vehicles that were previously deleted." = "View and restore vehicles that were previously deleted.";
 "Weekly" = "Weekly";
-"You haven't added any readings yet." = "TODO: You haven't added any readings yet.";
+"You haven't added any readings yet." = "You haven't added any readings yet.";
 "You must sign in again to sync." = "You must sign in again to sync.";
 "disclaimer" = "The information provided is for predication purposes only and should not be construed as actual numbers. While Leastimator makes every effort to ensure the accuracy of the information presented, we cannot guarantee that it is free from errors or omissions. Leastimator is not liable for any damages or losses that may arise from the use of this information.";
-"pro" = "TODO: pro";
+"pro" = "Pro";
 "vehicle delete warning message" = "Please confirm that you want to delete this vehicle. Note that this cannot be undone.";
 "🥳 Leastimator is a free app now. Thank you for purchasing and supporting Leastimator app before. You can enjoy Leastimator Pro for free." = "🥳 Leastimator is a free app now. Thank you for purchasing and supporting Leastimator app before. You can enjoy Leastimator Pro for free.";
 "🥳 Thank you for supporting Leastimator by subscribing pro!" = "🥳 Thank you for supporting Leastimator by subscribing pro!";

@@ -5,19 +5,19 @@
   Auto-generated sync file
 */
 
-"%@" = "TODO: %@";
-"%@) · BY LEASE END" = "TODO: %@) · BY LEASE END";
-"%@)k" = "TODO: %@)k";
-"%lld" = "TODO: %lld";
-"%lld %@" = "TODO: %lld %@";
-"%lld)" = "TODO: %lld)";
-"+%@" = "TODO: +%@";
+"%@" = "%@";
+"%@) · BY LEASE END" = "%@) · AL FINAL DEL CONTRATO";
+"%@)k" = "%@)k";
+"%lld" = "%lld";
+"%lld %@" = "%lld %@";
+"%lld)" = "%lld)";
+"+%@" = "+%@";
 "Add Manually" = "Añadir manualmente";
 "Add Reading" = "Añadir lectura";
 "Add Vehicle" = "Añadir vehículo";
 "Add a vehicle" = "Añadir un vehículo";
 "Add your vehicle and a few odometer readings. We'll project your end-of-lease mileage and coach you to stay on track." = "Añada su vehículo y algunas lecturas del cuentakilómetros. Proyectaremos su kilometraje al final del contrato y le guiaremos para que se mantenga en el camino correcto.";
-"All" = "TODO: All";
+"All" = "Todos";
 "Archived" = "Archivado";
 "Auto Sync from Tesla" = "Sincronización automática de Tesla";
 "Binding Mismatch" = "Conflicto de vinculación";
@@ -27,8 +27,8 @@
 "Connect to Tesla" = "Conectar a Tesla";
 "Connected to Tesla" = "Conectado a Tesla";
 "Currency" = "Moneda";
-"DATE" = "TODO: DATE";
-"DRIVEN · %@" = "TODO: DRIVEN · %@";
+"DATE" = "FECHA";
+"DRIVEN · %@" = "RECORRIDO · %@";
 "Daily" = "Diario";
 "Delete" = "Eliminar";
 "Delete Reading" = "Eliminar lectura";
@@ -38,13 +38,13 @@
 "Done" = "Hecho";
 "Driving Reminders" = "Recordatorios de conducción";
 "Edit Vehicle" = "Editar vehículo";
-"Error" = "TODO: Error";
+"Error" = "Error";
 "Every %lld connections" = "Cada %lld conexiones";
 "Feedback" = "Comentarios";
 "Frequency" = "Frecuencia";
 "Get reminded after connecting to your car (Bluetooth/CarPlay) several times." = "Reciba recordatorios después de conectarse a su auto (Bluetooth/CarPlay) varias veces.";
 "Get reminded to update your mileage on a schedule." = "Reciba recordatorios para actualizar su kilometraje de forma programada.";
-"History" = "TODO: History";
+"History" = "Historial";
 "Leastimator Pro" = "Leastimator Pro";
 "Leastimator Pro is an optional subscription to control ads, track multiple vehicles, handle customization, and support future development" = "Leastimator Pro es una suscripción opcional para controlar anuncios, rastrear múltiples vehículos, personalizar la aplicación y apoyar el desarrollo futuro.";
 "Leastimator Pro subscription can be shared by everyone in a family group." = "La suscripción a Leastimator Pro se puede compartir con todos los miembros de un grupo familiar.";
@@ -54,7 +54,7 @@
 "No Deleted Vehicles" = "No hay vehículos eliminados";
 "No readings recorded yet." = "No hay lecturas registradas aún.";
 "Notice" = "Aviso";
-"ODOMETER" = "TODO: ODOMETER";
+"ODOMETER" = "ODÓMETRO";
 "OK" = "Aceptar";
 "Odometer History" = "Historial del odómetro";
 "Ok" = "Aceptar";
@@ -83,10 +83,10 @@
 "Version" = "Versión";
 "View and restore vehicles that were previously deleted." = "Vea y restaure vehículos que fueron eliminados anteriormente.";
 "Weekly" = "Semanal";
-"You haven't added any readings yet." = "TODO: You haven't added any readings yet.";
+"You haven't added any readings yet." = "Aún no has añadido ninguna lectura.";
 "You must sign in again to sync." = "Debe volver a iniciar sesión para sincronizar.";
 "disclaimer" = "La información proporcionada es solo para fines de predicción y no debe interpretarse como cifras reales. Si bien Leastimator hace todo lo posible para garantizar la precisión de la información presentada, no podemos garantizar que esté libre de errores u omisiones. Leastimator no es responsable de ningún daño o pérdida que pueda surgir del uso de esta información.";
-"pro" = "TODO: pro";
+"pro" = "Pro";
 "vehicle delete warning message" = "Por favor, confirme que desea eliminar este vehículo. Tenga en cuenta que esta acción no se puede deshacer.";
 "🥳 Leastimator is a free app now. Thank you for purchasing and supporting Leastimator app before. You can enjoy Leastimator Pro for free." = "🥳 Leastimator ahora es una aplicación gratuita. Gracias por comprar y apoyar Leastimator anteriormente. Puede disfrutar de Leastimator Pro gratis.";
 "🥳 Thank you for supporting Leastimator by subscribing pro!" = "🥳 ¡Gracias por apoyar a Leastimator suscribiéndose a Pro!";
