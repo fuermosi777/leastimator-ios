@@ -46,88 +46,140 @@ struct SettingsView: View {
     List {
       if vehicles.count > 0 {
         Section {
-          Picker("Vehicle in widget", selection: $selectedVehicleOnWidgetIndex) {
+          Picker(selection: $selectedVehicleOnWidgetIndex) {
             ForEach(0 ..< self.vehicles.count, id: \.self) { index in
-              Text(String(self.vehicles[index].name ?? "--")).tag(index)
+              Text(String(self.vehicles[index].name ?? "--"))
+                .font(.inter(15))
+                .tag(index)
             }
-          }.onChange(of: selectedVehicleOnWidgetIndex, perform: handleSelectVehicleOnWidgetChange)
-          //        NavigationLink(destination: NotificationView().navigationTitle("Notifications")) {
-          //          Text("Notifications").foregroundColor(.mainText)
-          //        }
+          } label: {
+            Label("Vehicle in widget", systemImage: "app.badge")
+              .font(.inter(15))
+          }
+          .onChange(of: selectedVehicleOnWidgetIndex, perform: handleSelectVehicleOnWidgetChange)
+        } header: {
+          settingsHeader("Widget")
         } footer: {
           Text("Choose which vehicle to present in the main screen widget.")
+            .font(.inter(12))
         }
       }
       
       Section {
-        Toggle(isOn: $showMileageVariance) {
-          Text("Display Mileage Variance")
+        Toggle(isOn: $periodicRemindersEnabled) {
+          Label("Periodic Reminders", systemImage: "bell.fill")
+            .font(.inter(15))
         }
-      } footer: {
-        Text("Emphasize the variance between actual and estimated mileage on vehicle display.")
-      }
-      
-      Section {
-        Toggle("Periodic Reminders", isOn: $periodicRemindersEnabled)
         if periodicRemindersEnabled {
-          Picker("Frequency", selection: $reminderFrequency) {
-            Text("Daily").tag("daily")
-            Text("Weekly").tag("weekly")
-            Text("Monthly").tag("monthly")
+          Picker(selection: $reminderFrequency) {
+            Text("Daily").font(.inter(15)).tag("daily")
+            Text("Weekly").font(.inter(15)).tag("weekly")
+            Text("Monthly").font(.inter(15)).tag("monthly")
+          } label: {
+            Label("Frequency", systemImage: "calendar")
+              .font(.inter(15))
           }
-          DatePicker("Reminder Time", selection: reminderTimeDate, displayedComponents: .hourAndMinute)
+          DatePicker(selection: reminderTimeDate, displayedComponents: .hourAndMinute) {
+            Label("Reminder Time", systemImage: "clock")
+              .font(.inter(15))
+          }
         }
       } header: {
-        Text("Periodic Reminders")
+        settingsHeader("Periodic Reminders")
       } footer: {
         Text("Get reminded to update your mileage on a schedule.")
+          .font(.inter(12))
       }
       .onChange(of: periodicRemindersEnabled) { _ in updatePeriodicNotification() }
       .onChange(of: reminderFrequency) { _ in updatePeriodicNotification() }
       .onChange(of: reminderTime) { _ in updatePeriodicNotification() }
       
       Section {
-        Toggle("Driving Reminders", isOn: $connectionRemindersEnabled)
+        Toggle(isOn: $connectionRemindersEnabled) {
+          Label("Driving Reminders", systemImage: "car.fill")
+            .font(.inter(15))
+        }
         if connectionRemindersEnabled {
-          Stepper("Every \(connectionThreshold) connections", value: $connectionThreshold, in: 1...20)
+          Stepper(value: $connectionThreshold, in: 1...20) {
+            Label("Every \(connectionThreshold) connections", systemImage: "arrow.triangle.2.circlepath")
+              .font(.inter(15))
+          }
         }
       } header: {
-        Text("Driving Reminders")
+        settingsHeader("Driving Reminders")
       } footer: {
         Text("Get reminded after connecting to your car (Bluetooth/CarPlay) several times.")
+          .font(.inter(12))
       }
       
       Section {
         NavigationLink(destination: DeletedVehiclesView()) {
-          Label("Deleted Vehicles", systemImage: "trash.slash")
+          Label("Deleted Vehicles", systemImage: "trash")
+            .font(.inter(15))
         }
       } header: {
-        Text("Data")
+        settingsHeader("Data")
       } footer: {
         Text("View and restore vehicles that were previously deleted.")
+          .font(.inter(12))
       }
 
       Section {
-        NavigationLink("Leastimator Pro", destination: ProProductsView().withErrorHandler().navigationBarTitle("Leastimator Pro", displayMode: .inline))
+        NavigationLink(destination: ProProductsView().withErrorHandler().navigationBarTitle("Leastimator Pro", displayMode: .inline)) {
+          Label("Leastimator Pro", systemImage: "bolt.fill")
+            .font(.inter(15))
+            .foregroundColor(.statusAmber)
+        }
+      } header: {
+        settingsHeader("Subscription")
       }
       
       Section {
         Button(action: handleRate) {
-          Text("Please rate Leastimator").foregroundColor(.mainText)
+          Label("Please rate Leastimator", systemImage: "star.fill")
+            .font(.inter(15))
+            .foregroundColor(.mainText)
         }
         
-        Link("Feedback", destination: URL(string: "https://github.com/fuermosi777/leastimator-feedback/issues")!)
+        Link(destination: URL(string: "https://github.com/fuermosi777/leastimator-feedback/issues")!) {
+          Label("Feedback", systemImage: "envelope.fill")
+            .font(.inter(15))
+        }
         
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-          Text("Current version: \(version)")
+          HStack {
+            Label("Version", systemImage: "info.circle.fill")
+              .font(.inter(15))
+            Spacer()
+            Text(version)
+              .font(.jetBrainsMono(13))
+              .foregroundColor(.subText)
+          }
         }
+      } header: {
+        settingsHeader("Support")
       }
       
       Section {
-        Link("Privacy Policy", destination: URL(string: "https://liuhao.im/leastimator/pp")!)
-        Link("Terms of Use", destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!)
+        Link(destination: URL(string: "https://liuhao.im/leastimator/pp")!) {
+          Label("Privacy Policy", systemImage: "lock.shield.fill")
+            .font(.inter(15))
+        }
+        Link(destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!) {
+          Label("Terms of Use", systemImage: "doc.text.fill")
+            .font(.inter(15))
+        }
+      } header: {
+        settingsHeader("Legal")
       }
     }
+  }
+
+  private func settingsHeader(_ title: String) -> some View {
+    Text(title.uppercased())
+      .font(.inter(10, weight: .bold))
+      .foregroundColor(.subText)
+      .tracking(1.5)
   }
   
   private func handleRate() {

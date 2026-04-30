@@ -93,24 +93,66 @@ struct ContentView: View {
         
         VStack {
           if vehicles.isEmpty {
-            Spacer()
-            Button {
-              showAddVehicleSheet.toggle()
-            } label: {
+            VStack(spacing: 28) {
+              Spacer()
+              
+              // Top Car Image with glow
               ZStack {
-                HStack(alignment: .center) {
-                  Image("CarCover")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 320.0)
-                }
-                PlusGrayCircle()
-                  .opacity(0.8)
+                Circle()
+                  .fill(
+                    RadialGradient(
+                      gradient: Gradient(colors: [Color.accentColor.opacity(0.15), .clear]),
+                      center: .center,
+                      startRadius: 0,
+                      endRadius: 160
+                    )
+                  )
+                  .frame(width: 320, height: 320)
+                
+                Image("CarCover")
+                  .resizable()
+                  .scaledToFit()
+                  .frame(width: 280)
               }
+              
+              // Text Content
+              VStack(spacing: 12) {
+                Text("Track your first lease")
+                  .font(.inter(28, weight: .bold))
+                  .foregroundColor(.mainText)
+                  .tracking(-0.5)
+                
+                Text("Add your vehicle and a few odometer readings. We'll project your end-of-lease mileage and coach you to stay on track.")
+                  .font(.inter(15))
+                  .foregroundColor(.subText)
+                  .multilineTextAlignment(.center)
+                  .lineSpacing(4)
+                  .padding(.horizontal, 40)
+              }
+              
+              Spacer()
+              
+              // Add Vehicle Button
+              Button {
+                showAddVehicleSheet.toggle()
+              } label: {
+                HStack(spacing: 8) {
+                  Image(systemName: "plus")
+                    .fontWeight(.bold)
+                  Text("Add a vehicle")
+                    .fontWeight(.bold)
+                }
+                .font(.inter(16, weight: .bold))
+                .foregroundColor(.black)
+                .frame(maxWidth: .infinity)
+                .frame(height: 56)
+                .background(Color.accentColor)
+                .cornerRadius(28)
+                .shadow(color: Color.accentColor.opacity(0.3), radius: 15, y: 5)
+              }
+              .padding(.horizontal, 24)
+              .padding(.bottom, 34)
             }
-            Text("Add Vehicle")
-              .font(.inter(20, weight: .bold))
-            Spacer()
           } else {
             if let vehicle = vehicleToDisplay {
               VehiclePresentation(vehicle: vehicle)

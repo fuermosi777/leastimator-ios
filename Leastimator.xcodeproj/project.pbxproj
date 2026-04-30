@@ -51,7 +51,7 @@
 		3F34241A29DD324A00C35E69 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F34241929DD324A00C35E69 /* NotificationManager.swift */; };
 		3F4ED1082F07090D00A79DE9 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 3F4ED1072F07090D00A79DE9 /* GoogleMobileAds */; };
 		3F532FF02A916EBF0056EADE /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423D929DD2D3100C35E69 /* UIImage+Extensions.swift */; };
-		3F6F9D792AE4966B0094360F /* GraphPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6F9D772AE495FB0094360F /* GraphPoint.swift */; };
+		3F6F9D792AE4966B0094360F /* BuildFile in Sources */ = {isa = PBXBuildFile; };
 		3F6F9D7B2AE4E9970094360F /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6F9D7A2AE4E9970094360F /* Double+Extensions.swift */; };
 		3FAF41992A8B4820006C462D /* VehicleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423F329DD2F9700C35E69 /* VehicleImage.swift */; };
 		3FAF419A2A8B48AB006C462D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F3423A729DD2C7900C35E69 /* Assets.xcassets */; };
@@ -683,7 +683,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FE221A02A54D8F90063ED9C /* Color+Extensions.swift in Sources */,
-				3F6F9D792AE4966B0094360F /* GraphPoint.swift in Sources */,
+				3F6F9D792AE4966B0094360F /* BuildFile in Sources */,
 				CB7AC1D02FA1C72700E180E4 /* Font+Extensions.swift in Sources */,
 				3FE221A52A54DA6D0063ED9C /* UnitUtils.swift in Sources */,
 				3FE221A32A54D94A0063ED9C /* Date+Extensions.swift in Sources */,

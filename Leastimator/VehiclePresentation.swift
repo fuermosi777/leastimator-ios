@@ -135,7 +135,7 @@ struct VehiclePresentation: View {
             Text(vehicle.allowed == 0 ?
                  "You can drive as far as you want because you did not set the mileage allowed." :
                  "You can drive up to \(String(extendedInfo.maxDriveToday)) \(lengthUnit.longName.toString()) today and still be on track.")
-            .font(.inter(16, weight: .bold))
+            .font(.inter(16, weight: .regular))
             .foregroundColor(.mainText)
             .fixedSize(horizontal: false, vertical: true)
           }
@@ -196,7 +196,7 @@ struct VehiclePresentation: View {
         Button(action: {
           showVehicleHistorySheet.toggle()
         }) {
-          Image(systemName: "chart.bar.fill")
+          Image(systemName: "chart.line.uptrend.xyaxis")
             .font(.system(size: 18))
             .foregroundColor(.mainText)
             .frame(width: 56, height: 56)
