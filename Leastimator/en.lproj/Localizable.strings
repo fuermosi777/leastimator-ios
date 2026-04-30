@@ -2,42 +2,91 @@
   Localizable.strings
   Leastimator
 
-  Created by Hao Liu on 4/5/23.
-  
+  Auto-generated sync file
 */
 
-
-"disclaimer" = "The information provided is for predication purposes only and should not be construed as actual numbers. While Leastimator makes every effort to ensure the accuracy of the information presented, we cannot guarantee that it is free from errors or omissions. Leastimator is not liable for any damages or losses that may arise from the use of this information.";
-"vehicle delete warning message" = "Please confirm that you want to delete this vehicle. Note that this cannot be undone.";
-
-// Notifications
-"Periodic Reminders" = "Periodic Reminders";
-"Frequency" = "Frequency";
-"Reminder Time" = "Reminder Time";
-"Daily" = "Daily";
-"Weekly" = "Weekly";
-"Monthly" = "Monthly";
-"Get reminded to update your mileage on a schedule." = "Get reminded to update your mileage on a schedule.";
-"Driving Reminders" = "Driving Reminders";
-"Every %lld connections" = "Every %lld connections";
-"Get reminded after connecting to your car (Bluetooth/CarPlay) several times." = "Get reminded after connecting to your car (Bluetooth/CarPlay) several times.";
-"Time to record mileage!" = "Time to record mileage!";
-"A quick update keeps your lease tracking accurate." = "A quick update keeps your lease tracking accurate.";
-"Driving detected!" = "Driving detected!";
-"Add a mileage reading to stay on track?" = "Add a mileage reading to stay on track?";
-
-// Tesla Integration
-"Tesla Integration (Pro)" = "Tesla Integration (Pro)";
+"%@" = "%@";
+"%@) · BY LEASE END" = "%@) · BY LEASE END";
+"%@)k" = "%@)k";
+"%lld" = "%lld";
+"%lld %@" = "%lld %@";
+"%lld)" = "%lld)";
+"+%@" = "+%@";
+"Add Manually" = "Add Manually";
+"Add Reading" = "Add Reading";
+"Add Vehicle" = "Add Vehicle";
+"Add a vehicle" = "Add a vehicle";
+"Add your vehicle and a few odometer readings. We'll project your end-of-lease mileage and coach you to stay on track." = "Add your vehicle and a few odometer readings. We'll project your end-of-lease mileage and coach you to stay on track.";
+"All" = "All";
+"Archived" = "Archived";
+"Auto Sync from Tesla" = "Auto Sync from Tesla";
+"Binding Mismatch" = "Binding Mismatch";
+"Calculations are estimates based on your lease terms and driving history." = "Calculations are estimates based on your lease terms and driving history.";
+"Cancel" = "Cancel";
+"Choose which vehicle to present in the main screen widget." = "Choose which vehicle to present in the main screen widget.";
 "Connect to Tesla" = "Connect to Tesla";
 "Connected to Tesla" = "Connected to Tesla";
+"Currency" = "Currency";
+"DATE" = "DATE";
+"DRIVEN · %@" = "DRIVEN · %@";
+"Daily" = "Daily";
+"Delete" = "Delete";
+"Delete Reading" = "Delete Reading";
+"Delete Vehicle" = "Delete Vehicle";
+"Deleted Vehicles" = "Deleted Vehicles";
 "Disconnect" = "Disconnect";
-"Wake & Sync Now" = "Wake & Sync Now";
-"You must sign in again on this device to sync Tesla data." = "You must sign in again on this device to sync Tesla data.";
+"Done" = "Done";
+"Driving Reminders" = "Driving Reminders";
+"Edit Vehicle" = "Edit Vehicle";
+"Error" = "Error";
+"Every %lld connections" = "Every %lld connections";
+"Feedback" = "Feedback";
+"Frequency" = "Frequency";
+"Get reminded after connecting to your car (Bluetooth/CarPlay) several times." = "Get reminded after connecting to your car (Bluetooth/CarPlay) several times.";
+"Get reminded to update your mileage on a schedule." = "Get reminded to update your mileage on a schedule.";
+"History" = "History";
+"Leastimator Pro" = "Leastimator Pro";
+"Leastimator Pro is an optional subscription to control ads, track multiple vehicles, handle customization, and support future development" = "Leastimator Pro is an optional subscription to control ads, track multiple vehicles, handle customization, and support future development";
+"Leastimator Pro subscription can be shared by everyone in a family group." = "Leastimator Pro subscription can be shared by everyone in a family group.";
+"Length unit" = "Length unit";
 "Log in to Tesla" = "Log in to Tesla";
+"Monthly" = "Monthly";
+"No Deleted Vehicles" = "No Deleted Vehicles";
+"No readings recorded yet." = "No readings recorded yet.";
+"Notice" = "Notice";
+"ODOMETER" = "ODOMETER";
+"OK" = "OK";
+"Odometer History" = "Odometer History";
+"Ok" = "Ok";
+"PROJECTED" = "PROJECTED";
+"Periodic Reminders" = "Periodic Reminders";
+"Please rate Leastimator" = "Please rate Leastimator";
+"Privacy Policy" = "Privacy Policy";
+"RECENT READINGS" = "RECENT READINGS";
+"Reading date" = "Reading date";
+"Reminder Time" = "Reminder Time";
+"Restore" = "Restore";
+"Restore Previous Purchases" = "Restore Previous Purchases";
+"Save Reading" = "Save Reading";
 "Select Tesla" = "Select Tesla";
-
-// Sync Actions
-"Select Action" = "Select Action";
-"Auto Sync from Tesla" = "Auto Sync from Tesla";
-"Add Manually" = "Add Manually";
+"Settings" = "Settings";
+"Sync Cooldown" = "Sync Cooldown";
+"TESLA INTEGRATION (PRO)" = "TESLA INTEGRATION (PRO)";
+"Terms of Use" = "Terms of Use";
+"This local profile was previously bound to a different vehicle. Selecting '%@' would cause a mismatch. Please select the correct vehicle." = "This local profile was previously bound to a different vehicle. Selecting '%@' would cause a mismatch. Please select the correct vehicle.";
+"To minimize API costs, Tesla sync is limited to once every %@ hours. Please try again later." = "To minimize API costs, Tesla sync is limited to once every %@ hours. Please try again later.";
+"Track your first lease" = "Track your first lease";
+"Vehicle History Preview" = "Vehicle History Preview";
+"Vehicle in widget" = "Vehicle in widget";
 "Vehicle is asleep. Leastimator avoids waking it to save battery and API costs. It will automatically sync next time the vehicle is active, or you can add a reading manually right now." = "Vehicle is asleep. Leastimator avoids waking it to save battery and API costs. It will automatically sync next time the vehicle is active, or you can add a reading manually right now.";
+"Vehicles you delete will appear here and can be restored to your garage." = "Vehicles you delete will appear here and can be restored to your garage.";
+"Version" = "Version";
+"View and restore vehicles that were previously deleted." = "View and restore vehicles that were previously deleted.";
+"Weekly" = "Weekly";
+"You haven't added any readings yet." = "You haven't added any readings yet.";
+"You must sign in again to sync." = "You must sign in again to sync.";
+"disclaimer" = "The information provided is for predication purposes only and should not be construed as actual numbers. While Leastimator makes every effort to ensure the accuracy of the information presented, we cannot guarantee that it is free from errors or omissions. Leastimator is not liable for any damages or losses that may arise from the use of this information.";
+"pro" = "Pro";
+"vehicle delete warning message" = "Please confirm that you want to delete this vehicle. Note that this cannot be undone.";
+"🥳 Leastimator is a free app now. Thank you for purchasing and supporting Leastimator app before. You can enjoy Leastimator Pro for free." = "🥳 Leastimator is a free app now. Thank you for purchasing and supporting Leastimator app before. You can enjoy Leastimator Pro for free.";
+"🥳 Thank you for supporting Leastimator by subscribing pro!" = "🥳 Thank you for supporting Leastimator by subscribing pro!";

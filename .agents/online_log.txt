@@ -1,0 +1,615 @@
+b3904b4 add design
+diff --git a/Leastimator/VehiclePresentation.swift b/Leastimator/VehiclePresentation.swift
+index 4153a42..fb94ca0 100644
+--- a/Leastimator/VehiclePresentation.swift
++++ b/Leastimator/VehiclePresentation.swift
+@@ -150,163 +150,92 @@ struct VehiclePresentation: View {
+         }
+       }
+       Section {
+-        ZStack {
+-          VStack(alignment: .leading) {
+-            if vehicle.teslaConnectionId != nil {
+-              HStack(spacing: 6) {
+-                Image(systemName: vehicleState?.lowercased() == "online" ? "bolt.car.fill" : "moon.zzz.fill")
+-                Text("State: \(vehicleState?.capitalized ?? "Checking...")")
+-              }
+-              .font(.caption).bold()
+-              .foregroundColor(vehicleState?.lowercased() == "online" ? .green : .gray)
+-              .padding(.bottom, 2)
+-            }
+-            if useCircularProgress {
+-              HStack {
+-                Spacer()
+-                ProgressCircle(progress: progressPercentage,
+-                               colorOverride: vehicle.allowed > 0 ? nil : Color.accentColor) {
+-                  VStack {
+-                    Text("Estimated mileage")
+-                      .font(.system(size: 14, design: .rounded))
+-                      .foregroundColor(.subText)
+-                    HStack(alignment: .lastTextBaseline) {
+-                      Text("\(extendedInfo.normalPredicatedMileage)")
+-                        .lineLimit(1)
+-                        .font(.system(size: 26, weight: .bold, design: .rounded))
+-                        .foregroundColor(.mainText)
+-                      Text(lengthUnit.shortFor)
+-                        .font(.system(size: 12, weight: .bold, design: .rounded))
+-                        .foregroundColor(.mainText)
+-                    }
+-                    if let mileageVariance = extendedInfo.mileageVariance,
+-                       showMileageVariance,
+-                       vehicle.allowed > 0 {
+-                      Text("\(mileageVariance < 0 ? "-" : "+")\(abs(mileageVariance))")
+-                        .lineLimit(1)
+-                        .font(.system(size: 16, weight: .bold, design: .rounded))
+-                        .foregroundColor(mileageVariance < 0 ? Color.green : Color.red)
+-                    }
+-                  }
+-                }
+-                .frame(width: 180, height: 180)
+-                .padding(.vertical, 10)
+-                Spacer()
+-              }
+-            } else {
+-              HStack(alignment: .lastTextBaseline) {
+-                Text("\(extendedInfo.normalPredicatedMileage)")
+-                  .lineLimit(1)
+-                  .font(.system(size: 20, weight: .bold, design: .rounded))
+-                  .foregroundColor(.mainText)
+-                if let mileageVariance = extendedInfo.mileageVariance,
+-                   showMileageVariance,
+-                   vehicle.allowed > 0 {
+-                  Text("\(mileageVariance < 0 ? "-" : "+")\(abs(mileageVariance))")
+-                    .lineLimit(1)
+-                    .font(.system(size: 14, weight: .bold, design: .rounded))
+-                    .foregroundColor(mileageVariance < 0 ? Color.green : Color.red)
+-                }
+-                Text(lengthUnit.longName)
+-                  .font(.system(size: 14, weight: .bold, design: .rounded))
+-                  .foregroundColor(.mainText)
+-              }
+-              Text("Estimated mileage")
+-                .font(.system(size: 14, design: .rounded))
+-                .foregroundColor(.subText)
+-              ProgressBar(progress: progressPercentage,
+-                          colorOverride: vehicle.allowed > 0 ? nil : Color.accentColor,
+-                          length: 200.0)
+-            }
++        VStack(alignment: .leading, spacing: 20) {
++          // Coach Message
++          HStack(spacing: 8) {
++            Circle()
++              .fill(progressPercentage >= 1.0 ? Color.red : (progressPercentage >= 0.9 ? Color.orange : Color.accentColor))
++              .frame(width: 8, height: 8)
++              .shadow(color: (progressPercentage >= 1.0 ? Color.red : (progressPercentage >= 0.9 ? Color.orange : Color.accentColor)).opacity(0.5), radius: 4)
++            
++            Text(extendedInfo.mileageVariance ?? 0 > 0 ? "Heads up — you're over pace" : "Nice pace. You're on track.")
++              .font(.system(size: 14, weight: .medium, design: .rounded))
++              .foregroundColor(.subText)
+           }
+-          if !useCircularProgress {
+-            HStack {
+-              Spacer()
+-              VehicleImage(data: vehicle.image, size: 100.0)
+-            }
++          .padding(.horizontal, 4)
++
++          // Gauge
++          HStack {
++            Spacer()
++            GaugeCluster(progress: progressPercentage,
++                         projected: extendedInfo.normalPredicatedMileage,
++                         variance: extendedInfo.mileageVariance ?? 0,
++                         unit: lengthUnit.shortFor)
++            Spacer()
+           }
++          .padding(.vertical, 10)
+         }
+         .listRowSeparator(.hidden)
+         .listRowBackground(Color.clear)
+       }
+       
+       // Actions
+-      HStack(spacing: 12) {
+-        if !vehicle.archived {
+-          Group {
+-            if vehicle.teslaConnectionId != nil {
+-              Menu {
+-                Button {
+-                  Task { await syncIfOnline() }
+-                } label: {
+-                  Label("Auto Sync from Tesla", systemImage: "arrow.triangle.2.circlepath")
+-                }
+-                Button {
+-                  showAddReadingSheet.toggle()
+-                } label: {
+-                  Label("Add Manually", systemImage: "keyboard")
+-                }
+-              } label: {
+-                addReadingButtonLabel
+-              }
+-            } else {
+-              Button(action: {
+-                showAddReadingSheet.toggle()
+-              }) {
+-                addReadingButtonLabel
+-              }
+-            }
+-          }
+-          .disabled(isLoadingTesla || isSyncSuccess)
+-          .buttonStyle(.borderless)
+-        }
+-        
+-        Button(action: {
+-          showChartSheet.toggle()
+-        }) {
+-          HStack {
+-            Image(systemName: "chart.bar.fill")
+-            Text("See Chart")
+-          }
+-          .frame(maxWidth: .infinity, maxHeight: .infinity)
+-          .foregroundColor(.white)
+-          .background(Color.gray)
+-          .cornerRadius(25)
+-        }
+-        .buttonStyle(.borderless) // This is required to prevent multiple button tap issue inside List.
+-      }
+-      .frame(height: 50)
+-      .listRowSeparator(.hidden)
+-      .listRowBackground(Color.clear)
+-      
+-      // Basic info
++      // Stats Section
+       Section {
+-        Grid {
+-          GridRow {
+-            InfoPanel(title: Text("Current mileage"), unit: Text(lengthUnit.shortFor), value: Text(String(extendedInfo.currentMileage)))
+-              .cardLike()
+-            InfoPanel(title: Text("Unused mileage"), unit: Text(lengthUnit.shortFor), value: Text(String(extendedInfo.leftMileage)))
+-              .cardLike()
++        HStack(spacing: 12) {
++          VStack(alignment: .leading, spacing: 8) {
++            Text("DAILY AVG")
++              .font(.system(size: 10, weight: .bold, design: .rounded))
++              .foregroundColor(.subText)
++            HStack(alignment: .lastTextBaseline, spacing: 4) {
++              Text("\(Int(extendedInfo.mileagePerDay))")
++                .font(.system(size: 24, weight: .bold, design: .monospaced))
++                .foregroundColor(.mainText)
++              Text(lengthUnit.shortFor)
++                .font(.system(size: 10, weight: .medium, design: .rounded))
++                .foregroundColor(.subText)
++            }
+           }
++          .frame(maxWidth: .infinity, alignment: .leading)
++          .padding(16)
++          .background(Color.subBg)
++          .cornerRadius(16)
+           
+-          GridRow {
+-            InfoPanel(title: Text("Daily average"), unit: Text(lengthUnit.shortFor), value: Text(String(extendedInfo.mileagePerDay)))
+-              .cardLike()
+-            InfoPanel(title: Text("Monthly average"), unit: Text(lengthUnit.shortFor), value: Text(String(extendedInfo.mileagePerMonth)))
+-              .cardLike()
++          VStack(alignment: .leading, spacing: 8) {
++            Text("ODOMETER")
++              .font(.system(size: 10, weight: .bold, design: .rounded))
++              .foregroundColor(.subText)
++            HStack(alignment: .lastTextBaseline, spacing: 4) {
++              Text("\(extendedInfo.currentMileage)")
++                .font(.system(size: 20, weight: .bold, design: .monospaced))
++                .foregroundColor(.mainText)
++              Text(lengthUnit.shortFor)
++                .font(.system(size: 10, weight: .medium, design: .rounded))
++                .foregroundColor(.subText)
++            }
+           }
++          .frame(maxWidth: .infinity, alignment: .leading)
++          .padding(16)
++          .background(Color.subBg)
++          .cornerRadius(16)
+           
+-          
+-          if let excessMileage = extendedInfo.excessMileage, let excessCharge = extendedInfo.excessCharge {
+-            if vehicle.allowed > 0 {
+-              GridRow {
+-                InfoPanel(title: Text("Excess mileage"), unit: Text(lengthUnit.shortFor), value: Text(String(excessMileage)))
+-                  .cardLike()
+-                InfoPanel(title: Text("Excess charge"), unit: Text(currency.rawValue), value: Text(String(excessCharge)))
+-                  .cardLike()
+-              }
++          VStack(alignment: .leading, spacing: 8) {
++            Text("LEASE LEFT")
++              .font(.system(size: 10, weight: .bold, design: .rounded))
++              .foregroundColor(.subText)
++            HStack(alignment: .lastTextBaseline, spacing: 4) {
++              Text("\(extendedInfo.leaseLeft)")
++                .font(.system(size: 24, weight: .bold, design: .monospaced))
++                .foregroundColor(.mainText)
++              Text("mo")
++                .font(.system(size: 10, weight: .medium, design: .rounded))
++                .foregroundColor(.subText)
+             }
+           }
++          .frame(maxWidth: .infinity, alignment: .leading)
++          .padding(16)
++          .background(Color.subBg)
++          .cornerRadius(16)
+         }
+         .listRowSeparator(.hidden)
+         .listRowBackground(Color.clear)
+@@ -321,25 +250,25 @@ struct VehiclePresentation: View {
+         }
+       }
+       
+-      // More/other info
+       Section {
+-        if vehicle.allowed > 0 {
+-          MoreInfoView(question: Text("What should my odometer read?"),
+-                       answer: Text("Your odometer should read less than \(String(extendedInfo.mileageShouldLessThan))."),
+-                       more: Text("To calculate the result, we take the number of miles you're allowed to drive each day according to your lease agreement and multiply it by the number of days that have passed since the lease started. Then we add the starting mileage to that total."))
++        VStack(alignment: .leading, spacing: 12) {
++          Text("TRACKING")
++            .font(.system(size: 10, weight: .bold, design: .rounded))
++            .foregroundColor(.subText)
++            .tracking(1)
++          
++          Text(vehicle.allowed == 0 ?
++               "You can drive as far as you want because you did not set the mileage allowed." :
++               "You can drive up to **\(String(extendedInfo.maxDriveToday)) \(lengthUnit.longName.toString())** today and still be on track.")
++            .font(.system(size: 16, design: .rounded))
++            .foregroundColor(.mainText)
+         }
+-        
+-        MoreInfoView(question: Text("How far can I drive today?"),
+-                     answer: vehicle.allowed == 0 ?
+-                     Text("You can drive as far as you want because you did not set the mileage allowed.") :
+-                      Text("You can drive up to \(String(extendedInfo.maxDriveToday)) \(lengthUnit.longName.toString()) today and still be on track."),
+-                     more: Text("To determine if the car has exceeded the maximum mileage allowed, we subtract the current mileage from the maximum allowable mileage."))
+-        
+-        MoreInfoView(question: Text("When does my lease expire?"),
+-                     answer: extendedInfo.isExpired ?
+-                     Text("Congratulations, your lease is expired.") :
+-                      Text("You have \(String(extendedInfo.leaseLeft)) months left. Keep up the work!"),
+-                     more: Text("To calculate the remaining lease duration, we subtract the number of months that have passed since the lease started from the total length of the lease."))
++        .padding(16)
++        .frame(maxWidth: .infinity, alignment: .leading)
++        .background(Color.subBg.opacity(0.5))
++        .cornerRadius(16)
++        .listRowSeparator(.hidden)
++        .listRowBackground(Color.clear)
+       } footer: {
+         Text("disclaimer")
+           .font(.system(size: 12.0))
+@@ -350,6 +279,55 @@ struct VehiclePresentation: View {
+     }
+     .scrollContentBackground(.hidden)
+     .listStyle(.plain)
++    .safeAreaInset(edge: .bottom) {
++      if !vehicle.archived {
++        HStack(spacing: 12) {
++          Group {
++            if vehicle.teslaConnectionId != nil {
++              Menu {
++                Button {
++                  Task { await syncIfOnline() }
++                } label: {
++                  Label("Auto Sync from Tesla", systemImage: "arrow.triangle.2.circlepath")
++                }
++                Button {
++                  showAddReadingSheet.toggle()
++                } label: {
++                  Label("Add Manually", systemImage: "keyboard")
++                }
++              } label: {
++                addReadingButtonLabel
++              }
++            } else {
++              Button(action: {
++                showAddReadingSheet.toggle()
++              }) {
++                addReadingButtonLabel
++              }
++            }
++          }
++          .disabled(isLoadingTesla || isSyncSuccess)
++          
++          Button(action: {
++            showChartSheet.toggle()
++          }) {
++            Image(systemName: "chart.bar.fill")
++              .font(.system(size: 20))
++              .frame(width: 56, height: 56)
++              .foregroundColor(.mainText)
++              .background(Color.subBg)
++              .clipShape(Circle())
++              .overlay(Circle().stroke(Color.subText.opacity(0.2), lineWidth: 1))
++          }
++        }
++        .padding(.horizontal, 24)
++        .padding(.vertical, 12)
++        .background(
++          LinearGradient(colors: [.black.opacity(0), .black.opacity(0.8)], startPoint: .top, endPoint: .bottom)
++            .ignoresSafeArea()
++        )
++      }
++    }
+     .if(showGlowEffect) {
+         $0.dangerousZoneGlow(progress: progressPercentage)
+     }
+@@ -486,15 +464,11 @@ struct VehiclePresentation: View {
+         Text("Add Reading")
+       }
+     }
+-    .frame(maxWidth: .infinity, maxHeight: .infinity)
+-    .foregroundColor(.white)
+-    .background(
+-      LinearGradient(
+-        gradient: Gradient(colors: [Color.accentColor, .blue]),
+-        startPoint: .leading,
+-        endPoint: .trailing
+-      )
+-    )
+-    .cornerRadius(25)
++    .font(.system(size: 16, weight: .bold, design: .rounded))
++    .frame(maxWidth: .infinity)
++    .frame(height: 56)
++    .foregroundColor(.black)
++    .background(Color.accentColor)
++    .cornerRadius(28)
+   }
+ }
+57b4a77 support Tesla API
+diff --git a/Leastimator/TeslaSyncService.swift b/Leastimator/TeslaSyncService.swift
+new file mode 100644
+index 0000000..e936d01
+--- /dev/null
++++ b/Leastimator/TeslaSyncService.swift
+@@ -0,0 +1,71 @@
++//
++//  TeslaSyncService.swift
++//  Leastimator
++//
++
++import Foundation
++import CoreData
++
++class TeslaSyncService {
++    static let shared = TeslaSyncService()
++    
++    private init() {}
++    
++    @MainActor
++    func performSync(context: NSManagedObjectContext) async {
++        let fetchRequest = NSFetchRequest<Vehicle>(entityName: "Vehicle")
++        fetchRequest.predicate = NSPredicate(format: "teslaConnectionId != nil AND teslaVehicleId != nil AND (removed == nil OR removed == false)")
++        
++        guard let vehicles = try? context.fetch(fetchRequest), !vehicles.isEmpty else {
++            return
++        }
++        
++        for vehicle in vehicles {
++            guard let connId = vehicle.teslaConnectionId, let vid = vehicle.teslaVehicleId else { continue }
++            
++            // Skip if no token on this device
++            if KeychainHelper.shared.load(for: connId) == nil {
++                continue
++            }
++            
++            let service = TeslaService(connectionId: connId)
++            
++            do {
++                let teslaVehicles = try await service.getVehicles()
++                if let targetTesla = teslaVehicles.first(where: { $0.id == vid }) {
++                    // Only fetch odometer if vehicle is already awake/online to prevent phantom battery drain
++                    if targetTesla.state.lowercased() == "online" {
++                        let data = try await service.getVehicleData(vehicleId: vid)
++                        let odo = data.vehicle_state.odometer
++                        
++                        var finalValue = odo
++                        if vehicle.lengthUnit == LengthUnit.Metric.rawValue {
++                            finalValue = odo * 1.60934
++                        }
++                        
++                        // Check last reading value to avoid redundant saving
++                        var lastOdo: Double = Double(vehicle.starting)
++                        if let readingsSet = vehicle.readings as? Set<OdoReading> {
++                            let maxReading = readingsSet.max(by: { ($0.date ?? Date.distantPast) < ($1.date ?? Date.distantPast) })
++                            if let maxVal = maxReading?.value {
++                                lastOdo = Double(maxVal)
++                            }
++                        }
++                        
++                        // Save reading if value increased by at least 1 unit
++                        if finalValue - lastOdo >= 1.0 {
++                            let reading = OdoReading(context: context)
++                            reading.value = Int64(finalValue)
++                            reading.date = Date()
++                            reading.vehicle = vehicle
++                            
++                            try? context.save()
++                        }
++                    }
++                }
++            } catch {
++                print("Failed to sync Tesla vehicle \(vid) in background: \(error)")
++            }
++        }
++    }
++}
+diff --git a/Leastimator/VehiclePresentation.swift b/Leastimator/VehiclePresentation.swift
+index 96c434c..000bbbb 100644
+--- a/Leastimator/VehiclePresentation.swift
++++ b/Leastimator/VehiclePresentation.swift
+@@ -58,6 +58,7 @@ struct MoreInfoView: View {
+ struct VehiclePresentation: View {
+   @Environment(\.managedObjectContext) private var viewContext
+   @EnvironmentObject private var purchaseManager: PurchaseManager
++  @EnvironmentObject var errorHandler: ErrorHandler
+   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+   @AppStorage("showMileageVariance") private var showMileageVariance = true
+   
+@@ -72,6 +73,10 @@ struct VehiclePresentation: View {
+   
+   @State private var showAddReadingSheet = false
+   @State private var showChartSheet = false
++  @State private var showSyncActionSheet = false
++  @State private var showSleepAlert = false
++  @State private var isLoadingTesla = false
++  @State private var vehicleState: String?
+   
+   enum GraphType {
+     case monthly, daily
+@@ -144,6 +149,15 @@ struct VehiclePresentation: View {
+       Section {
+         ZStack {
+           VStack(alignment: .leading) {
++            if vehicle.teslaConnectionId != nil {
++              HStack(spacing: 6) {
++                Image(systemName: vehicleState?.lowercased() == "online" ? "bolt.car.fill" : "moon.zzz.fill")
++                Text("State: \(vehicleState?.capitalized ?? "Checking...")")
++              }
++              .font(.caption).bold()
++              .foregroundColor(vehicleState?.lowercased() == "online" ? .green : .gray)
++              .padding(.bottom, 2)
++            }
+             HStack(alignment: .lastTextBaseline) {
+               Text("\(extendedInfo.normalPredicatedMileage)")
+                 .lineLimit(1)
+@@ -181,11 +195,19 @@ struct VehiclePresentation: View {
+       HStack(spacing: 12) {
+         if !vehicle.archived {
+           Button(action: {
+-            showAddReadingSheet.toggle()
++            if vehicle.teslaConnectionId != nil {
++                showSyncActionSheet = true
++            } else {
++                showAddReadingSheet.toggle()
++            }
+           }) {
+             HStack {
+-              Image(systemName: "plus.circle.fill")
+-              Text("Add Reading")
++              if isLoadingTesla {
++                  ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .white))
++              } else {
++                  Image(systemName: "plus.circle.fill")
++                  Text("Add Reading")
++              }
+             }
+             .frame(maxWidth: .infinity, maxHeight: .infinity)
+             .foregroundColor(.white)
+@@ -198,7 +220,8 @@ struct VehiclePresentation: View {
+             )
+             .cornerRadius(25)
+           }
+-          .buttonStyle(.borderless) // This is required to prevent multiple button tap issue inside List.
++          .buttonStyle(.borderless)
++          .disabled(isLoadingTesla)
+         }
+         
+         Button(action: {
+@@ -297,9 +320,103 @@ struct VehiclePresentation: View {
+     .sheet(isPresented: $showChartSheet) {
+       ChartSheetView(extendedInfo: extendedInfo, vehicle: vehicle)
+     }
++    .confirmationDialog(Text("Select Action"), isPresented: $showSyncActionSheet, titleVisibility: .visible) {
++      Button("Auto Sync from Tesla") {
++          Task { await syncIfOnline() }
++      }
++      Button("Add Manually") {
++          showAddReadingSheet.toggle()
++      }
++      Button("Cancel", role: .cancel) {}
++    }
++    .alert("Notice", isPresented: $showSleepAlert) {
++      Button("Add Manually") { showAddReadingSheet.toggle() }
++      Button("OK", role: .cancel) {}
++    } message: {
++      Text("Vehicle is asleep. Leastimator avoids waking it to save battery and API costs. It will automatically sync next time the vehicle is active, or you can add a reading manually right now.")
++    }
+     .onAppear {
+       Logger.shared.vehiclePageView()
+       SwiftRater.check()
++      if vehicle.teslaConnectionId != nil {
++          Task { await pollTeslaState() }
++      }
++    }
++    .onReceive(Timer.publish(every: 180, on: .main, in: .common).autoconnect()) { _ in
++        if vehicle.teslaConnectionId != nil {
++            Task { await pollTeslaState() }
++        }
+     }
+   }
++  
++  private func syncIfOnline() async {
++      guard let vid = vehicle.teslaVehicleId, let cid = vehicle.teslaConnectionId else { return }
++      let service = TeslaService(connectionId: cid)
++      do {
++          await MainActor.run { isLoadingTesla = true }
++          let list = try await service.getVehicles()
++          if let myVehicle = list.first(where: { $0.id == vid }) {
++              let state = myVehicle.state.lowercased()
++              await MainActor.run { self.vehicleState = state }
++              if state == "online" {
++                  let data = try await service.getVehicleData(vehicleId: vid)
++                  let odo = data.vehicle_state.odometer
++                  var value = odo
++                  if vehicle.lengthUnit == LengthUnit.Metric.rawValue {
++                      value = odo * 1.60934
++                  }
++                  await MainActor.run {
++                      let reading = OdoReading(context: viewContext)
++                      reading.value = Int64(value)
++                      reading.date = Date()
++                      reading.vehicle = vehicle
++                      try? viewContext.save()
++                      isLoadingTesla = false
++                  }
++              } else {
++                  await MainActor.run {
++                      isLoadingTesla = false
++                      showSleepAlert = true
++                  }
++              }
++          } else {
++              await MainActor.run { isLoadingTesla = false }
++          }
++      } catch {
++          await MainActor.run {
++              isLoadingTesla = false
++              self.errorHandler.handle(error)
++          }
++      }
++  }
++  
++  private func pollTeslaState() async {
++      guard let vid = vehicle.teslaVehicleId, let cid = vehicle.teslaConnectionId else { return }
++      let service = TeslaService(connectionId: cid)
++      do {
++          let list = try await service.getVehicles()
++          if let myVehicle = list.first(where: { $0.id == vid }) {
++              let state = myVehicle.state.lowercased()
++              await MainActor.run { self.vehicleState = state }
++              
++              if state == "online" {
++                  let data = try await service.getVehicleData(vehicleId: vid)
++                  let odo = data.vehicle_state.odometer
++                  var value = odo
++                  if vehicle.lengthUnit == LengthUnit.Metric.rawValue {
++                      value = odo * 1.60934
++                  }
++                  await MainActor.run {
++                      let reading = OdoReading(context: viewContext)
++                      reading.value = Int64(value)
++                      reading.date = Date()
++                      reading.vehicle = vehicle
++                      try? viewContext.save()
++                  }
++              }
++          }
++      } catch {
++          // Silent fail for background polling
++      }
++  }
+ }

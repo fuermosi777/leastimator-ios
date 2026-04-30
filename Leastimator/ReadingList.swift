@@ -48,26 +48,54 @@ struct ReadingList: View {
     _ = self.selectedReading
     
     return NavigationStack {
-      List {
-        if readings.count == 0 {
-          Text("You haven't added any readings yet.").foregroundColor(.subText)
-        } else {
-          ForEach(self.readings) { rd in
-            if let date = rd.date {
-              Button(action: {
-                selectedReading = rd
-                showEditReadingSheet = true
-              }) {
-                HStack {
-                  Text("\(rd.value) \(lengthUnit.shortFor)").foregroundColor(.mainText)
-                  Spacer()
-                  Text("\(date.format())").foregroundColor(.subText)
+      ZStack {
+        Color.mainBg.ignoresSafeArea()
+        
+        ScrollView {
+          VStack(alignment: .leading, spacing: 0) {
+            if readings.count == 0 {
+              Text("You haven't added any readings yet.")
+                .font(.inter(14))
+                .foregroundColor(.subText)
+                .padding(.top, 40)
+                .frame(maxWidth: .infinity, alignment: .center)
+            } else {
+              VStack(spacing: 0) {
+                ForEach(Array(readings.enumerated()), id: \.element.id) { index, rd in
+                  let nextIdx = index + 1
+                  let prev = nextIdx < readings.count ? readings[nextIdx] : nil
+                  
+                  Button(action: {
+                    selectedReading = rd
+                    showEditReadingSheet = true
+                  }) {
+                    ReadingRowView(reading: rd, previousReading: prev, unit: lengthUnit.shortFor)
+                      .contentShape(Rectangle())
+                  }
+                  .buttonStyle(.plain)
+                  
+                  if index < readings.count - 1 {
+                    Divider()
+                      .background(Color.mainText.opacity(0.05))
+                  }
                 }
               }
+              .padding(.horizontal, 24)
+              .background(Color.subBg.opacity(0.3))
+              .cornerRadius(24)
+              .overlay(
+                RoundedRectangle(cornerRadius: 24)
+                  .stroke(Color.mainText.opacity(0.05), lineWidth: 1)
+              )
+              .padding(.horizontal, 20)
+              .padding(.top, 16)
             }
           }
+          .padding(.bottom, 40)
         }
       }
+      .navigationTitle("Odometer History")
+      .navigationBarTitleDisplayMode(.inline)
       .sheet(isPresented: $showEditReadingSheet) {
         EditReadingView(vehicle: vehicle,
                         reading: selectedReading)
@@ -78,6 +106,7 @@ struct ReadingList: View {
         ToolbarItem(placement: .navigationBarLeading) {
           Button { dismiss() } label: {
             Image(systemName: "xmark")
+              .foregroundColor(.mainText)
           }
         }
         ToolbarItem(placement: .primaryAction) {
@@ -85,19 +114,21 @@ struct ReadingList: View {
             selectedReading = nil
             showEditReadingSheet = true
           }) {
-            Label("Add Reading", systemImage: "plus.circle.fill")
+            Image(systemName: "plus.circle.fill")
+              .symbolRenderingMode(.hierarchical)
+              .foregroundColor(.accentColor)
+              .font(.title3)
           }
         }
         ToolbarItem(placement: .confirmationAction) {
           Button {
             handleExport()
           } label: {
-            Label("Export", systemImage: "square.and.arrow.up")
+            Image(systemName: "square.and.arrow.up")
+              .foregroundColor(.mainText)
           }
         }
       }
-      .navigationTitle("Odometer History")
-      .navigationBarTitleDisplayMode(.inline)
       .fileExporter(isPresented: $showExportSheet,
                     document: historyDocument,
                     contentType: .plainText,

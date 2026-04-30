@@ -2,132 +2,91 @@
   Localizable.strings
   Leastimator
 
-  Created by Hao Liu on 4/12/26.
-  
+  Auto-generated sync file
 */
 
-"My Garage" = "我的车库";
-"Estimated mileage" = "预计里程";
+"%@" = "%@";
+"%@) · BY LEASE END" = "%@) · 至租约到期";
+"%@)k" = "%@)k";
+"%lld" = "%lld";
+"%lld %@" = "%lld %@";
+"%lld)" = "%lld)";
+"+%@" = "+%@";
+"Add Manually" = "手工添加读数";
 "Add Reading" = "添加读数";
-"Current mileage" = "当前里程";
-"Unused mileage" = "剩余里程";
-"Daily average" = "日均里程";
-"Monthly average" = "月均里程";
-"Est. Mileage overrun" = "预计超额里程";
-"Est. Overcharge" = "预计超支费用";
-"Vehicle Setting" = "车辆设置";
-"Odometer History" = "里程记录";
-"Save" = "保存";
-"Select Vehicle Photo" = "选择车辆照片";
-"Nickname" = "昵称";
-"My car" = "我的车";
-"Starting mileage" = "初始里程";
-"Total mileage allowed" = "允许的总里程";
-"Length of lease" = "租赁时长";
-"Lease start date" = "租赁开始日期";
-"Overage fee" = "超支单价";
-"Length unit" = "距离单位";
-"Currency" = "货币";
 "Add Vehicle" = "添加车辆";
-"Add vehicle" = "添加车辆";
-"Error" = "错误";
-"Display Mileage Variance" = "显示里程偏差";
-"Emphasize the variance between actual and estimated mileage on vehicle display." = "在车辆详情中突出显示实际里程与预计里程之间的偏差。";
-"Something is wrong with the information entered: %@" = "输入的信息有误：%@";
-"Failed to save changes. Please close the app and try again" = "保存更改失败。请关闭应用并重试。";
-"You haven't added any readings yet." = "你还没有添加任何读数。";
-"Add Reading" = "添加读数";
-"Edit Reading" = "编辑读数";
-"Reading date" = "读数日期";
-"Current odometer reading on dashboard." = "仪表盘上的当前里程读数。";
-"Settings" = "设置";
-"Vehicle in widget" = "小组件显示的车辆";
-"Choose which vehicle to present in the main screen widget." = "选择在主屏幕小组件中显示的车辆。";
-"Enter vehicle on start" = "启动时进入车辆";
-"Start up vehicle" = "启动车辆";
-"When app starts, skip the list and present the vehicle information." = "当应用启动时，跳过列表直接显示车辆信息。";
-"Please rate Leastimator" = "请为 Leastimator 评分";
-"Support" = "支持";
-"Current version: %@" = "当前版本：%@";
-"Privacy Policy" = "隐私政策";
-"Terms of Use" = "使用条款";
-"Cancel" = "取消";
-"Delete" = "删除";
-"Ok" = "确认";
+"Add a vehicle" = "添加车辆";
+"Add your vehicle and a few odometer readings. We'll project your end-of-lease mileage and coach you to stay on track." = "添加您的车辆和一些里程读数。我们将预测您的租约到期里程，并指导您保持在正轨上。";
+"All" = "全部";
 "Archived" = "已归档";
-"Archive" = "归档";
-"Unarchive" = "取消归档";
-"Vehicles" = "车辆";
-"Edit Vehicle" = "编辑车辆";
-"See Chart" = "查看图表";
-"Export" = "导出";
-
-// Pro
-"Leastimator Pro is an optional subscription to control ads, track multiple vehicles, handle customization, and support future development" = "Leastimator Pro 是一个可选订阅，用于移除广告、追踪多辆车、进行自定义设置并支持后续开发。";
-"🥳 Leastimator is a free app now. Thank you for purchasing and supporting Leastimator app before. You can enjoy Leastimator Pro for free." = "🥳 Leastimator 现在是一款免费应用了。感谢你之前的购买和支持。你可以免费使用 Leastimator Pro。";
-"🥳 Thank you for supporting Leastimator by subscribing pro!" = "🥳 感谢你订阅 Pro 并以此支持 Leastimator！";
-"Restore Previous Purchases" = "恢复购买";
-"Leastimator Pro subscription can be shared by everyone in a family group." = "Leastimator Pro 订阅可以与家庭组中的每位成员共享。";
-"Upload from Photos" = "从相册上传";
-"Remove" = "移除";
-
-// Unit
-"Mile" = "英里";
-"Kilometer" = "公里";
-
-// QA
-"What should my odometer read?" = "我的里程表应该显示多少？";
-"Your odometer should read less than %@." = "你的里程表读数应该小于 %@。";
-"To calculate the result, we take the number of miles you're allowed to drive each day according to your lease agreement and multiply it by the number of days that have passed since the lease started. Then we add the starting mileage to that total." = "为了计算结果，我们会根据你的租赁协议计算出每天允许驾驶的里程，并将其乘以租赁开始以来经过的天数。最后将初始里程加到该总额中。";
-
-"How far can I drive today?" = "我今天还能开多远？";
-"You can drive as far as you want because you did not set the mileage allowed." = "因为你没有设置允许的里程上限，所以你今天想开多远都可以。";
-"You can drive up to %@ %@ today and still be on track." = "你今天最多还可以驾驶 %@ %@ 以保持在目标范围内。";
-"To determine if the car has exceeded the maximum mileage allowed, we subtract the current mileage from the maximum allowable mileage." = "为了确定车辆是否超过了允许的最大里程，我们从最大允许里程中减去当前里程。";
-
-"When does my lease expire?" = "我的租赁什么时候到期？";
-"Congratulations, your lease is expired." = "恭喜，你的租赁已到期。";
-"You have %@ months left. Keep up the work!" = "你还剩下 %@ 个月。继续保持！";
-"To calculate the remaining lease duration, we subtract the number of months that have passed since the lease started from the total length of the lease." = "为了计算剩余的租赁时长，我们从租赁总长度中减去自租赁开始以来已经经过的月数。";
-
-"disclaimer" = "提供的信息仅供预测参考，不应视为准确数值。尽管 Leastimator 尽力确保所呈现信息的准确性，但我们无法保证其完全没有错误或遗漏。Leastimator 对因使用此信息而可能产生的任何损害或损失不承担责任。";
-
-"Mileage Chart" = "里程图表";
-
-// Widget
-"Edit widget" = "编辑小组件";
-"Edit what to display in the widget" = "编辑在小组件中显示的内容";
-
-"vehicle delete warning message" = "请确认你要删除这辆车。注意：此操作无法撤销。";
-
-// Notifications
-"Periodic Reminders" = "定时提醒";
-"Frequency" = "提醒频率";
-"Reminder Time" = "提醒时间";
-"Daily" = "每天";
-"Weekly" = "每周";
-"Monthly" = "每月";
-"Get reminded to update your mileage on a schedule." = "按照设定的时间定期提醒你添加里程。";
-"Driving Reminders" = "连接车辆提醒";
-"Every %lld connections" = "每连接 %lld 次";
-"Get reminded after connecting to your car (Bluetooth/CarPlay) several times." = "在多次连接到你的车辆（蓝牙/CarPlay）后提醒你。";
-"Time to record mileage!" = "该记录里程啦！";
-"A quick update keeps your lease tracking accurate." = "及时更新读数，让你的租赁追踪更准确。";
-"Driving detected!" = "检测到正在驾驶！";
-"Add a mileage reading to stay on track?" = "要添加一个里程读数以保持在计划内吗？";
-
-// Tesla Integration
-"Tesla Integration (Pro)" = "Tesla API 同步 (高级版)";
+"Auto Sync from Tesla" = "自动从 Tesla 同步";
+"Binding Mismatch" = "绑定不匹配";
+"Calculations are estimates based on your lease terms and driving history." = "计算结果是基于您的租赁条款和驾驶历史的预测值。";
+"Cancel" = "取消";
+"Choose which vehicle to present in the main screen widget." = "选择在主屏幕小组件中显示的车辆。";
 "Connect to Tesla" = "连接 Tesla";
 "Connected to Tesla" = "已连接到 Tesla";
+"Currency" = "货币";
+"DATE" = "日期";
+"DRIVEN · %@" = "已行驶 · %@";
+"Daily" = "每天";
+"Delete" = "删除";
+"Delete Reading" = "删除读数";
+"Delete Vehicle" = "删除车辆";
+"Deleted Vehicles" = "已删除的车辆";
 "Disconnect" = "断开连接";
-"Wake & Sync Now" = "唤醒并同步";
-"You must sign in again on this device to sync Tesla data." = "由于安全限制，您必须在此设备上重新登录 Tesla 以同步数据。";
+"Done" = "完成";
+"Driving Reminders" = "连接车辆提醒";
+"Edit Vehicle" = "编辑车辆";
+"Error" = "错误";
+"Every %lld connections" = "每连接 %lld 次";
+"Feedback" = "反馈";
+"Frequency" = "提醒频率";
+"Get reminded after connecting to your car (Bluetooth/CarPlay) several times." = "在多次连接到你的车辆（蓝牙/CarPlay）后提醒你。";
+"Get reminded to update your mileage on a schedule." = "按照设定的时间定期提醒你添加里程。";
+"History" = "历史";
+"Leastimator Pro" = "Leastimator Pro";
+"Leastimator Pro is an optional subscription to control ads, track multiple vehicles, handle customization, and support future development" = "Leastimator Pro 是一个可选订阅，用于移除广告、追踪多辆车、进行自定义设置并支持后续开发。";
+"Leastimator Pro subscription can be shared by everyone in a family group." = "Leastimator Pro 订阅可以与家庭组中的每位成员共享。";
+"Length unit" = "距离单位";
 "Log in to Tesla" = "重新登录 Tesla";
+"Monthly" = "每月";
+"No Deleted Vehicles" = "没有已删除的车辆";
+"No readings recorded yet." = "尚未记录读数。";
+"Notice" = "注意";
+"ODOMETER" = "里程表";
+"OK" = "确认";
+"Odometer History" = "里程记录";
+"Ok" = "确认";
+"PROJECTED" = "预计";
+"Periodic Reminders" = "定时提醒";
+"Please rate Leastimator" = "请为 Leastimator 评分";
+"Privacy Policy" = "隐私政策";
+"RECENT READINGS" = "最近读数";
+"Reading date" = "读数日期";
+"Reminder Time" = "提醒时间";
+"Restore" = "恢复";
+"Restore Previous Purchases" = "恢复购买";
+"Save Reading" = "保存读数";
 "Select Tesla" = "选择 Tesla 车辆";
-
-// Sync Actions
-"Select Action" = "选择操作";
-"Auto Sync from Tesla" = "自动从 Tesla 同步";
-"Add Manually" = "手工添加读数";
+"Settings" = "设置";
+"Sync Cooldown" = "同步冷却";
+"TESLA INTEGRATION (PRO)" = "TESLA API 同步 (高级版)";
+"Terms of Use" = "使用条款";
+"This local profile was previously bound to a different vehicle. Selecting '%@' would cause a mismatch. Please select the correct vehicle." = "此本地配置文件之前已绑定到其他车辆。选择“%@”会导致不匹配。请选择正确的车辆。";
+"To minimize API costs, Tesla sync is limited to once every %@ hours. Please try again later." = "为了降低 API 费用，Tesla 同步限制为每 %@ 小时一次。请稍后再试。";
+"Track your first lease" = "开始追踪您的第一个租约";
+"Vehicle History Preview" = "车辆历史预览";
+"Vehicle in widget" = "小组件显示的车辆";
 "Vehicle is asleep. Leastimator avoids waking it to save battery and API costs. It will automatically sync next time the vehicle is active, or you can add a reading manually right now." = "车辆正在休眠。为了避免耗电和高昂接口账单，程序已取消唤醒。由于后台在您的爱车活跃时会自动获取读数，您可以等待下次同步，或选择现在就手工录入。";
+"Vehicles you delete will appear here and can be restored to your garage." = "您删除的车辆将出现在这里，并可以恢复到您的车库中。";
+"Version" = "版本";
+"View and restore vehicles that were previously deleted." = "查看并恢复之前删除的车辆。";
+"Weekly" = "每周";
+"You haven't added any readings yet." = "尚未添加任何读数。";
+"You must sign in again to sync." = "由于安全限制，您必须重新登录以同步数据。";
+"disclaimer" = "提供的信息仅供预测参考，不应视为准确数值。尽管 Leastimator 尽力确保所呈现信息的准确性，但我们无法保证其完全没有错误或遗漏。Leastimator 对因使用此信息而可能产生的任何损害或损失不承担责任。";
+"pro" = "高级版";
+"vehicle delete warning message" = "请确认你要删除这辆车。注意：此操作无法撤销。";
+"🥳 Leastimator is a free app now. Thank you for purchasing and supporting Leastimator app before. You can enjoy Leastimator Pro for free." = "🥳 Leastimator 现在是一款免费应用了。感谢你之前的购买和支持。你可以免费使用 Leastimator Pro。";
+"🥳 Thank you for supporting Leastimator by subscribing pro!" = "🥳 感谢你订阅 Pro 并以此支持 Leastimator！";

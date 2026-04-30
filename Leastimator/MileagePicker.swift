@@ -44,7 +44,7 @@ private struct DigitPicker: View {
     Picker("", selection: $selection) {
       ForEach(0..<(rangeMultiplier * 10), id: \.self) { i in
         Text("\(i % 10)")
-          .font(.system(size: 26, weight: .bold, design: .monospaced))
+          .font(.jetBrainsMono(32, weight: .bold))
           .tag(i)
       }
     }

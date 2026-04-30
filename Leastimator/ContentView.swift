@@ -30,12 +30,10 @@ struct ContentView: View {
   @State private var redirectToSettings = false
   @State private var showAddVehicleSheet = false
   @State private var showEditVehicleSheet: Vehicle?
-  @State private var showReadingListSheet: Vehicle?
+  @State private var showVehicleHistorySheet: Vehicle?
   @State private var showVehicleReadingHistorySheet = false
   @State private var showProProductSheet = false
   
-  @AppStorage("useCircularProgress") private var useCircularProgress = false
-  @AppStorage("showGlowEffect") private var showGlowEffect = false
   
   @State private var selectionVersion = 0
 
@@ -71,9 +69,19 @@ struct ContentView: View {
     return nil
   }
   
-  // Subtitle shown under the navigation title when available (iOS 26+)
   private var navigationSubtitle: String? {
     vehicleToDisplay?.leaseSubtitle
+  }
+
+  private var currentStatusColor: Color {
+    if let vehicle = vehicleToDisplay {
+      let info = Compute(vehicle)
+      let up = Double(info.normalPredicatedMileage)
+      let down = Double(vehicle.allowed + vehicle.starting)
+      let progress = down > 0 ? up / down : 1.0
+      return Color.statusColor(progress: progress)
+    }
+    return .accentColor
   }
 
   var body: some View {
@@ -85,68 +93,93 @@ struct ContentView: View {
         
         VStack {
           if vehicles.isEmpty {
-            Spacer()
-            Button {
-              showAddVehicleSheet.toggle()
-            } label: {
+            VStack(spacing: 28) {
+              Spacer()
+              
+              // Top Car Image with glow
               ZStack {
-                HStack(alignment: .center) {
-                  Image("CarCover")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 320.0)
-                }
-                PlusGrayCircle()
-                  .opacity(0.8)
+                Circle()
+                  .fill(
+                    RadialGradient(
+                      gradient: Gradient(colors: [Color.accentColor.opacity(0.15), .clear]),
+                      center: .center,
+                      startRadius: 0,
+                      endRadius: 160
+                    )
+                  )
+                  .frame(width: 320, height: 320)
+                
+                Image("CarCover")
+                  .resizable()
+                  .scaledToFit()
+                  .frame(width: 280)
               }
+              
+              // Text Content
+              VStack(spacing: 12) {
+                Text("Track your first lease")
+                  .font(.inter(28, weight: .bold))
+                  .foregroundColor(.mainText)
+                  .tracking(-0.5)
+                
+                Text("Add your vehicle and a few odometer readings. We'll project your end-of-lease mileage and coach you to stay on track.")
+                  .font(.inter(15))
+                  .foregroundColor(.subText)
+                  .multilineTextAlignment(.center)
+                  .lineSpacing(4)
+                  .padding(.horizontal, 40)
+              }
+              
+              Spacer()
+              
+              // Add Vehicle Button
+              Button {
+                showAddVehicleSheet.toggle()
+              } label: {
+                HStack(spacing: 8) {
+                  Image(systemName: "plus")
+                    .fontWeight(.bold)
+                  Text("Add a vehicle")
+                    .fontWeight(.bold)
+                }
+                .font(.inter(16, weight: .bold))
+                .foregroundColor(.black)
+                .frame(maxWidth: .infinity)
+                .frame(height: 56)
+                .background(Color.accentColor)
+                .cornerRadius(28)
+                .shadow(color: Color.accentColor.opacity(0.3), radius: 15, y: 5)
+              }
+              .padding(.horizontal, 24)
+              .padding(.bottom, 34)
             }
-            Text("Add Vehicle")
-              .font(.system(.title3, design: .rounded))
-            Spacer()
           } else {
             if let vehicle = vehicleToDisplay {
               VehiclePresentation(vehicle: vehicle)
             }
           }
         }  // VStack
-        .navigationTitle(vehicleToDisplay?.name ?? "")
-        .applyNavigationSubtitle(navigationSubtitle)
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {
-            Menu {
-              ForEach(vehicles) { vehicle in
-                Button {
-                  if purchaseManager.unlockPro {
-                    for v in vehicles {
-                      v.showOnStart = (v == vehicle)
-                    }
-                    try? viewContext.save()
-                    selectionVersion += 1
-                    WidgetCenter.shared.reloadAllTimelines()
-                  } else if vehicle != vehicleToDisplay {
-                    showProProductSheet.toggle()
+            VehicleSwitcher(
+              vehicles: Array(vehicles),
+              selectedVehicle: vehicleToDisplay,
+              onSelect: { vehicle in
+                if purchaseManager.unlockPro {
+                  for v in vehicles {
+                    v.showOnStart = (v == vehicle)
                   }
-                } label: {
-                  HStack {
-                    Text(vehicle.name ?? kUnknownVehicleName)
-                    if vehicle == vehicleToDisplay {
-                      Image(systemName: "checkmark")
-                    } else if !purchaseManager.unlockPro {
-                      Image(systemName: "lock.fill")
-                    }
-                  }
+                  try? viewContext.save()
+                  selectionVersion += 1
+                  WidgetCenter.shared.reloadAllTimelines()
+                } else if vehicle != vehicleToDisplay {
+                  showProProductSheet.toggle()
                 }
-              }
-              Divider()
-              Button { redirectToSettings.toggle() } label: {
-                Label("Settings", systemImage: "gearshape.2")
-              }
-              Button { showAddVehicleSheet.toggle() } label: {
-                Label("Add Vehicle", systemImage: "plus")
-              }
-            } label: {
-              Label("Vehicles", systemImage: "car.side")
-            }
+              },
+              onSettings: { redirectToSettings.toggle() },
+              onAddVehicle: { showAddVehicleSheet.toggle() },
+              statusColor: currentStatusColor
+            )
           }
           if let vehicle = vehicleToDisplay {
             ToolbarItem(placement: .secondaryAction) {
@@ -168,25 +201,9 @@ struct ContentView: View {
             }
             ToolbarItem(placement: .secondaryAction) {
               Button {
-                showReadingListSheet = vehicle
+                showVehicleHistorySheet = vehicle
               } label: {
                 Label("Odometer History", systemImage: "calendar.badge.clock")
-              }
-            }
-            ToolbarItem(placement: .secondaryAction) {
-              Button {
-                useCircularProgress.toggle()
-              } label: {
-                Label(useCircularProgress ? "Use Bar Progress" : "Use Circular Progress",
-                      systemImage: useCircularProgress ? "chart.bar" : "chart.pie")
-              }
-            }
-            ToolbarItem(placement: .secondaryAction) {
-              Button {
-                showGlowEffect.toggle()
-              } label: {
-                Label(showGlowEffect ? "Disable Glow Effect" : "Enable Glow Effect",
-                      systemImage: showGlowEffect ? "sparkles.tv.fill" : "sparkles.tv")
               }
             }
           }
@@ -208,8 +225,9 @@ struct ContentView: View {
           EditVehicleView(vehicle: $0)
             .withErrorHandler()
         }
-        .sheet(item: $showReadingListSheet) {
-          ReadingList(vehicle: $0)
+        .sheet(item: $showVehicleHistorySheet) {
+          VehicleHistoryView(vehicle: $0)
+            .environment(\.managedObjectContext, viewContext)
         }
       }
     }

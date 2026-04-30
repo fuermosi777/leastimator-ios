@@ -50,4 +50,14 @@ extension Color {
     Color(UIColor { $0.userInterfaceStyle == .dark ?
       UIColor.gray : UIColor.lightGray })
   }
+
+  static var statusRed: Color { Color(red: 255/255, green: 59/255, blue: 48/255) } // Rose Red
+  static var statusAmber: Color { Color(red: 255/255, green: 159/255, blue: 10/255) } // Amber Orange
+  static var statusLime: Color { Color(red: 50/255, green: 215/255, blue: 75/255) } // Lime Green
+
+  static func statusColor(progress: Double) -> Color {
+      if progress >= 1.0 { return .statusRed }
+      if progress >= 0.9 { return .statusAmber }
+      return .statusLime
+  }
 }

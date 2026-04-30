@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Leastimator — Interactive Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; background: #14141a; }
+  body { font-family: 'Inter', system-ui, sans-serif; overflow: hidden; }
+  * { box-sizing: border-box; }
+  button:focus { outline: none; }
+  input { -webkit-appearance: none; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script>
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "theme": "dark",
+  "accent": "cyan",
+  "danger": false,
+  "gaugeStyle": "circular",
+  "copy": "coach"
+}/*EDITMODE-END*/;
+</script>
+
+<script type="text/babel" src="proto/theme.jsx"></script>
+<script type="text/babel" src="proto/chrome.jsx"></script>
+<script type="text/babel" src="proto/gauge.jsx"></script>
+<script type="text/babel" src="proto/dashboard.jsx"></script>
+<script type="text/babel" src="proto/screens.jsx"></script>
+<script type="text/babel" src="proto/history.jsx"></script>
+<script type="text/babel" src="proto/tweaks.jsx"></script>
+
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+function App() {
+  const [tweaks, setTweaks] = useState(() => {
+    try { return { ...TWEAK_DEFAULTS, ...JSON.parse(localStorage.getItem('leastimator_tweaks') || '{}') }; }
+    catch { return TWEAK_DEFAULTS; }
+  });
+  const [showTweaks, setShowTweaks] = useState(false);
+  const [screen, setScreen] = useState(() => localStorage.getItem('leastimator_screen') || 'dashboard');
+  const [vehicleId, setVehicleId] = useState('v1');
+
+  useEffect(() => { localStorage.setItem('leastimator_screen', screen); }, [screen]);
+  useEffect(() => { localStorage.setItem('leastimator_tweaks', JSON.stringify(tweaks)); }, [tweaks]);
+
+  const updateTweaks = (patch) => {
+    setTweaks(t => {
+      const next = { ...t, ...patch };
+      window.parent.postMessage({type: '__edit_mode_set_keys', edits: patch}, '*');
+      return next;
+    });
+  };
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.data?.type === '__activate_edit_mode') setShowTweaks(true);
+      if (e.data?.type === '__deactivate_edit_mode') setShowTweaks(false);
+    };
+    window.addEventListener('message', handler);
+    window.parent.postMessage({type: '__edit_mode_available'}, '*');
+    return () => window.removeEventListener('message', handler);
+  }, []);
+
+  const theme = THEMES[tweaks.theme];
+  const accent = ACCENTS[tweaks.accent];
+  const copy = COPY[tweaks.copy];
+  const vehicle = vehiclesData.find(v => v.id === vehicleId) || vehiclesData[0];
+
+  const screens = {
+    dashboard: <Dashboard theme={theme} accent={accent} copy={copy} gaugeStyle={tweaks.gaugeStyle} danger={tweaks.danger} vehicle={vehicle}
+      onOpenScreen={setScreen} onCycleVehicle={() => setScreen('garage')} />,
+    addReading: <AddReading theme={theme} accent={accent} vehicle={vehicle} onBack={() => setScreen('dashboard')} />,
+    garage: <VehicleSwitcher theme={theme} accent={accent} vehicles={vehiclesData} currentId={vehicleId}
+      onPick={(id) => { setVehicleId(id); setScreen('dashboard'); }}
+      onBack={() => setScreen('dashboard')} onAdd={() => setScreen('addVehicle')} />,
+    addVehicle: <AddVehicle theme={theme} accent={accent} onBack={() => setScreen('garage')} />,
+    settings: <Settings theme={theme} accent={accent} onBack={() => setScreen('dashboard')} />,
+    empty: <EmptyState theme={theme} accent={accent} onAdd={() => setScreen('addVehicle')} />,
+    history: <History theme={theme} accent={accent} vehicle={vehicle} danger={tweaks.danger} onBack={() => setScreen('dashboard')} />,
+    pro: <ProScreen theme={theme} accent={accent} onBack={() => setScreen('dashboard')} />,
+  };
+
+  // Tabs to navigate screens (side "storyboard" strip)
+  const tabs = [
+    { id: 'dashboard', label: 'Dashboard' },
+    { id: 'history', label: 'History' },
+    { id: 'addReading', label: 'Add Reading' },
+    { id: 'garage', label: 'Garage' },
+    { id: 'addVehicle', label: 'Add Vehicle' },
+    { id: 'settings', label: 'Settings' },
+    { id: 'empty', label: 'Empty State' },
+    { id: 'pro', label: 'Pro Upgrade' },
+  ];
+
+  return (
+    <div style={{
+      width: '100vw', height: '100vh',
+      background: '#0e0e12',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      fontFamily: SANS,
+      position: 'relative', overflow: 'hidden',
+    }}>
+      {/* Nav strip */}
+      <div style={{
+        position: 'absolute', top: 20, left: '50%',
+        transform: 'translateX(-50%)',
+        display: 'flex', gap: 6, flexWrap: 'wrap',
+        padding: 6, background: '#15151a',
+        border: '1px solid #2a2a30', borderRadius: 100,
+        zIndex: 100, maxWidth: '90vw', justifyContent: 'center',
+      }}>
+        {tabs.map(t => (
+          <button key={t.id} onClick={() => setScreen(t.id)} style={{
+            padding: '6px 12px',
+            background: t.id === screen ? ACCENTS[tweaks.accent].main : 'transparent',
+            color: t.id === screen ? ACCENTS[tweaks.accent].text : '#bbb',
+            border: 'none', borderRadius: 100,
+            fontSize: 11, fontWeight: 500, letterSpacing: 0.3, cursor: 'pointer',
+            fontFamily: SANS,
+          }}>{t.label}</button>
+        ))}
+      </div>
+
+      {/* Phone + widget */}
+      <div style={{ display: 'flex', gap: 40, alignItems: 'center' }}>
+        <div style={{
+          width: SCREEN_W, height: SCREEN_H,
+          borderRadius: 48,
+          boxShadow: '0 30px 80px rgba(0,0,0,0.5), 0 0 0 10px #1c1c22, 0 0 0 11px #333',
+          overflow: 'hidden',
+          position: 'relative',
+        }}>
+          {screens[screen]}
+        </div>
+
+        {screen === 'dashboard' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14, alignItems: 'center' }}>
+            <div style={{ fontSize: 11, color: '#888', letterSpacing: 1.5, fontFamily: MONO }}>WIDGET</div>
+            <Widget theme={THEMES[tweaks.theme]} accent={ACCENTS[tweaks.accent]} danger={tweaks.danger} />
+            <div style={{ fontSize: 11, color: '#666', textAlign: 'center', maxWidth: 170, lineHeight: 1.4 }}>
+              Home screen widget<br/>syncs to main vehicle
+            </div>
+          </div>
+        )}
+      </div>
+
+      <TweaksPanel visible={showTweaks} tweaks={tweaks} onChange={updateTweaks} />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

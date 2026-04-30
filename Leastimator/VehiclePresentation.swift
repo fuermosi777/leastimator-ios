@@ -8,61 +8,12 @@
 import SwiftUI
 import SwiftRater
 
-struct InfoPanel: View {
-  var title: Text
-  var unit: Text
-  var value: Text
-  
-  var body: some View {
-    VStack(alignment: .leading, spacing: 12) {
-      title
-        .foregroundColor(.subText)
-      HStack(alignment: .lastTextBaseline) {
-        value
-          .font(.system(size: 24, weight: .bold, design: .rounded))
-        unit
-          .foregroundColor(.subText)
-      }
-    }
-    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-  }
-}
-
-struct MoreInfoView: View {
-  var question: Text
-  var answer: Text
-  var more: Text
-  
-  @State private var showMore = false
-  var body: some View {
-    VStack(alignment: .leading) {
-      HStack {
-        question
-          .foregroundColor(.subText)
-        Button(action: { showMore = true }) {
-          Image(systemName: "info.circle").foregroundColor(.subText)
-        }.sheet(isPresented: $showMore) {
-          more
-            .padding()
-            .foregroundColor(.subText)
-            .presentationDetents([.medium, .fraction(0.4)])
-        }
-      }
-      Spacer().frame(height: 10.0)
-      answer
-    }
-    .listRowBackground(Color.clear)
-  }
-}
-
 struct VehiclePresentation: View {
   @Environment(\.managedObjectContext) private var viewContext
   @EnvironmentObject private var purchaseManager: PurchaseManager
   @EnvironmentObject var errorHandler: ErrorHandler
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
   @AppStorage("showMileageVariance") private var showMileageVariance = true
-  @AppStorage("useCircularProgress") private var useCircularProgress = false
-  @AppStorage("showGlowEffect") private var showGlowEffect = false
   
   // Add ObservedObject make sure it gets updated data.
   @ObservedObject var vehicle: Vehicle
@@ -74,7 +25,7 @@ struct VehiclePresentation: View {
   @State var graphType: GraphType = .monthly
   
   @State private var showAddReadingSheet = false
-  @State private var showChartSheet = false
+  @State private var showVehicleHistorySheet = false
   @State private var showSleepAlert = false
   @State private var showCooldownAlert = false
   @State private var isLoadingTesla = false
@@ -122,6 +73,10 @@ struct VehiclePresentation: View {
     return 1.0
   }
   
+  private var statusColor: Color {
+    Color.statusColor(progress: Double(progressPercentage))
+  }
+  
   let linearGradient = LinearGradient(
     gradient: Gradient (
       colors: [
@@ -134,231 +89,143 @@ struct VehiclePresentation: View {
   
   
   var body: some View {
-    List {
-      if vehicle.archived {
-        Section {
-          VStack(alignment: .leading) {
+    ZStack(alignment: .bottom) {
+      ScrollView {
+        VStack(alignment: .leading, spacing: 24) {
+          if vehicle.archived {
             Text("Archived")
-              .font(.caption2).bold()
+              .font(.inter(11, weight: .bold))
               .padding(.horizontal, 12).padding(.vertical, 6)
               .background(Color.orange)
               .foregroundColor(.white)
               .cornerRadius(12)
+              .padding(.top, 8)
           }
-          .listRowSeparator(.hidden)
-          .listRowBackground(Color.clear)
-        }
-      }
-      Section {
-        ZStack {
-          VStack(alignment: .leading) {
+
+          HStack(alignment: .center) {
+            CoachMessage(isOverPace: progressPercentage >= 1.0)
+            Spacer()
             if vehicle.teslaConnectionId != nil {
-              HStack(spacing: 6) {
-                Image(systemName: vehicleState?.lowercased() == "online" ? "bolt.car.fill" : "moon.zzz.fill")
-                Text("State: \(vehicleState?.capitalized ?? "Checking...")")
-              }
-              .font(.caption).bold()
-              .foregroundColor(vehicleState?.lowercased() == "online" ? .green : .gray)
-              .padding(.bottom, 2)
-            }
-            if useCircularProgress {
-              HStack {
-                Spacer()
-                ProgressCircle(progress: progressPercentage,
-                               colorOverride: vehicle.allowed > 0 ? nil : Color.accentColor) {
-                  VStack {
-                    Text("Estimated mileage")
-                      .font(.system(size: 14, design: .rounded))
-                      .foregroundColor(.subText)
-                    HStack(alignment: .lastTextBaseline) {
-                      Text("\(extendedInfo.normalPredicatedMileage)")
-                        .lineLimit(1)
-                        .font(.system(size: 26, weight: .bold, design: .rounded))
-                        .foregroundColor(.mainText)
-                      Text(lengthUnit.shortFor)
-                        .font(.system(size: 12, weight: .bold, design: .rounded))
-                        .foregroundColor(.mainText)
-                    }
-                    if let mileageVariance = extendedInfo.mileageVariance,
-                       showMileageVariance,
-                       vehicle.allowed > 0 {
-                      Text("\(mileageVariance < 0 ? "-" : "+")\(abs(mileageVariance))")
-                        .lineLimit(1)
-                        .font(.system(size: 16, weight: .bold, design: .rounded))
-                        .foregroundColor(mileageVariance < 0 ? Color.green : Color.red)
-                    }
-                  }
-                }
-                .frame(width: 180, height: 180)
-                .padding(.vertical, 10)
-                Spacer()
-              }
-            } else {
-              HStack(alignment: .lastTextBaseline) {
-                Text("\(extendedInfo.normalPredicatedMileage)")
-                  .lineLimit(1)
-                  .font(.system(size: 20, weight: .bold, design: .rounded))
-                  .foregroundColor(.mainText)
-                if let mileageVariance = extendedInfo.mileageVariance,
-                   showMileageVariance,
-                   vehicle.allowed > 0 {
-                  Text("\(mileageVariance < 0 ? "-" : "+")\(abs(mileageVariance))")
-                    .lineLimit(1)
-                    .font(.system(size: 14, weight: .bold, design: .rounded))
-                    .foregroundColor(mileageVariance < 0 ? Color.green : Color.red)
-                }
-                Text(lengthUnit.longName)
-                  .font(.system(size: 14, weight: .bold, design: .rounded))
-                  .foregroundColor(.mainText)
-              }
-              Text("Estimated mileage")
-                .font(.system(size: 14, design: .rounded))
-                .foregroundColor(.subText)
-              ProgressBar(progress: progressPercentage,
-                          colorOverride: vehicle.allowed > 0 ? nil : Color.accentColor,
-                          length: 200.0)
+              TeslaAPIStatusView(state: vehicleState)
             }
           }
-          if !useCircularProgress {
-            HStack {
-              Spacer()
-              VehicleImage(data: vehicle.image, size: 100.0)
-            }
+          .padding(.top, vehicle.archived ? 0 : 8)
+
+          // Big gauge
+          HStack {
+            Spacer()
+            DashboardGauge(
+              progress: Double(progressPercentage),
+              projected: extendedInfo.normalPredicatedMileage,
+              variance: extendedInfo.mileageVariance ?? 0,
+              unit: lengthUnit.shortFor,
+              statusColor: statusColor
+            )
+            Spacer()
           }
+          .padding(.vertical, 10)
+
+          // Track info card
+          HStack(alignment: .center, spacing: 16) {
+            Image(systemName: "bolt.fill")
+                .font(.system(size: 22))
+                .foregroundColor(statusColor)
+                .shadow(color: statusColor.opacity(0.3), radius: 5)
+            
+            Text(vehicle.allowed == 0 ?
+                 "You can drive as far as you want because you did not set the mileage allowed." :
+                 "You can drive up to \(String(extendedInfo.maxDriveToday)) \(lengthUnit.longName.toString()) today and still be on track.")
+            .font(.inter(16, weight: .regular))
+            .foregroundColor(.mainText)
+            .fixedSize(horizontal: false, vertical: true)
+          }
+          .padding(20)
+          .background(Color.subBg.opacity(0.3))
+          .cornerRadius(24)
+          .overlay(
+            RoundedRectangle(cornerRadius: 24)
+                .stroke(Color.mainText.opacity(0.05), lineWidth: 1)
+          )
+
+          // Primary stats grid in a single tile
+          HStack(spacing: 0) {
+            StatCell(label: "DAILY AVG", value: String(format: "%.0f", extendedInfo.mileagePerDay), unit: lengthUnit.shortFor)
+            
+            Divider()
+              .frame(height: 32)
+              .padding(.horizontal, 2)
+            
+            StatCell(label: "ODOMETER", value: "\(extendedInfo.currentMileage)", unit: lengthUnit.shortFor)
+            
+            Divider()
+              .frame(height: 32)
+              .padding(.horizontal, 2)
+            
+            StatCell(label: "LEASE LEFT", value: "\(extendedInfo.leaseLeft)", unit: "mo")
+          }
+          .padding(.vertical, 16)
+          .padding(.trailing, 12)
+          .background(Color.subBg.opacity(0.3))
+          .cornerRadius(16)
+          .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color.mainText.opacity(0.05), lineWidth: 1)
+          )
+
+          if !purchaseManager.unlockPro {
+            BannerAd()
+              .padding(.vertical, 8)
+          }
+          
+          Text("Calculations are estimates based on your lease terms and driving history.")
+            .font(.inter(11))
+            .foregroundColor(.subText)
+            .padding(.top, 8)
+            .padding(.bottom, 120) // Spacer for sticky buttons
         }
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
+        .padding(.horizontal, 24)
       }
-      
-      // Actions
+      .scrollIndicators(.hidden)
+
+      // Sticky Bottom Buttons
       HStack(spacing: 12) {
         if !vehicle.archived {
-          Group {
-            if vehicle.teslaConnectionId != nil {
-              Menu {
-                Button {
-                  Task { await syncIfOnline() }
-                } label: {
-                  Label("Auto Sync from Tesla", systemImage: "arrow.triangle.2.circlepath")
-                }
-                Button {
-                  showAddReadingSheet.toggle()
-                } label: {
-                  Label("Add Manually", systemImage: "keyboard")
-                }
-              } label: {
-                addReadingButtonLabel
-              }
-            } else {
-              Button(action: {
-                showAddReadingSheet.toggle()
-              }) {
-                addReadingButtonLabel
-              }
-            }
-          }
-          .disabled(isLoadingTesla || isSyncSuccess)
-          .buttonStyle(.borderless)
+          addReadingButton
         }
         
         Button(action: {
-          showChartSheet.toggle()
+          showVehicleHistorySheet.toggle()
         }) {
-          HStack {
-            Image(systemName: "chart.bar.fill")
-            Text("See Chart")
-          }
-          .frame(maxWidth: .infinity, maxHeight: .infinity)
-          .foregroundColor(.white)
-          .background(Color.gray)
-          .cornerRadius(25)
+          Image(systemName: "chart.line.uptrend.xyaxis")
+            .font(.system(size: 18))
+            .foregroundColor(.mainText)
+            .frame(width: 56, height: 56)
+            .background(Color.subBg)
+            .cornerRadius(28)
+            .overlay(
+                RoundedRectangle(cornerRadius: 28)
+                    .stroke(Color.mainText.opacity(0.1), lineWidth: 1)
+            )
         }
-        .buttonStyle(.borderless) // This is required to prevent multiple button tap issue inside List.
+        .buttonStyle(.plain)
       }
-      .frame(height: 50)
-      .listRowSeparator(.hidden)
-      .listRowBackground(Color.clear)
-      
-      // Basic info
-      Section {
-        Grid {
-          GridRow {
-            InfoPanel(title: Text("Current mileage"), unit: Text(lengthUnit.shortFor), value: Text(String(extendedInfo.currentMileage)))
-              .cardLike()
-            InfoPanel(title: Text("Unused mileage"), unit: Text(lengthUnit.shortFor), value: Text(String(extendedInfo.leftMileage)))
-              .cardLike()
-          }
-          
-          GridRow {
-            InfoPanel(title: Text("Daily average"), unit: Text(lengthUnit.shortFor), value: Text(String(extendedInfo.mileagePerDay)))
-              .cardLike()
-            InfoPanel(title: Text("Monthly average"), unit: Text(lengthUnit.shortFor), value: Text(String(extendedInfo.mileagePerMonth)))
-              .cardLike()
-          }
-          
-          
-          if let excessMileage = extendedInfo.excessMileage, let excessCharge = extendedInfo.excessCharge {
-            if vehicle.allowed > 0 {
-              GridRow {
-                InfoPanel(title: Text("Excess mileage"), unit: Text(lengthUnit.shortFor), value: Text(String(excessMileage)))
-                  .cardLike()
-                InfoPanel(title: Text("Excess charge"), unit: Text(currency.rawValue), value: Text(String(excessCharge)))
-                  .cardLike()
-              }
-            }
-          }
-        }
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
-      }
-      
-      // Banner ad
-      if !purchaseManager.unlockPro {
-        Section {
-          BannerAd()
-            .listRowSeparator(.hidden)
-            .listRowBackground(Color.clear)
-        }
-      }
-      
-      // More/other info
-      Section {
-        if vehicle.allowed > 0 {
-          MoreInfoView(question: Text("What should my odometer read?"),
-                       answer: Text("Your odometer should read less than \(String(extendedInfo.mileageShouldLessThan))."),
-                       more: Text("To calculate the result, we take the number of miles you're allowed to drive each day according to your lease agreement and multiply it by the number of days that have passed since the lease started. Then we add the starting mileage to that total."))
-        }
-        
-        MoreInfoView(question: Text("How far can I drive today?"),
-                     answer: vehicle.allowed == 0 ?
-                     Text("You can drive as far as you want because you did not set the mileage allowed.") :
-                      Text("You can drive up to \(String(extendedInfo.maxDriveToday)) \(lengthUnit.longName.toString()) today and still be on track."),
-                     more: Text("To determine if the car has exceeded the maximum mileage allowed, we subtract the current mileage from the maximum allowable mileage."))
-        
-        MoreInfoView(question: Text("When does my lease expire?"),
-                     answer: extendedInfo.isExpired ?
-                     Text("Congratulations, your lease is expired.") :
-                      Text("You have \(String(extendedInfo.leaseLeft)) months left. Keep up the work!"),
-                     more: Text("To calculate the remaining lease duration, we subtract the number of months that have passed since the lease started from the total length of the lease."))
-      } footer: {
-        Text("disclaimer")
-          .font(.system(size: 12.0))
-          .foregroundColor(.subText)
-          .listRowSeparator(.hidden)
-          .listRowBackground(Color.clear)
-      }
+      .padding(.horizontal, 24)
+      .padding(.bottom, 34) // Adjust for safe area
+      .background(
+        LinearGradient(colors: [.clear, Color.mainBg.opacity(0.8), Color.mainBg], startPoint: .top, endPoint: .bottom)
+            .frame(height: 140)
+            .ignoresSafeArea()
+      )
     }
     .scrollContentBackground(.hidden)
     .listStyle(.plain)
-    .if(showGlowEffect) {
-        $0.dangerousZoneGlow(progress: progressPercentage)
-    }
     .sheet(isPresented: $showAddReadingSheet) {
       EditReadingView(vehicle: vehicle)
         .withErrorHandler()
     }
-    .sheet(isPresented: $showChartSheet) {
-      ChartSheetView(extendedInfo: extendedInfo, vehicle: vehicle)
+    .sheet(isPresented: $showVehicleHistorySheet) {
+      VehicleHistoryView(vehicle: vehicle)
+        .environment(\.managedObjectContext, viewContext)
     }
     .alert("Notice", isPresented: $showSleepAlert) {
       Button("Add Manually") { showAddReadingSheet.toggle() }
@@ -474,27 +341,56 @@ struct VehiclePresentation: View {
       }
   }
 
-  private var addReadingButtonLabel: some View {
-    HStack {
-      if isLoadingTesla {
-        ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .white))
-      } else if isSyncSuccess {
-        Image(systemName: "checkmark.circle.fill")
-        Text("Done")
+  private var addReadingButton: some View {
+    Group {
+      if vehicle.teslaConnectionId != nil {
+        Menu {
+          Button {
+            Task { await syncIfOnline() }
+          } label: {
+            Label("Auto Sync from Tesla", systemImage: "arrow.triangle.2.circlepath")
+          }
+          Button {
+            showAddReadingSheet.toggle()
+          } label: {
+            Label("Add Manually", systemImage: "keyboard")
+          }
+        } label: {
+          addReadingButtonLabel
+        }
       } else {
-        Image(systemName: "plus.circle.fill")
-        Text("Add Reading")
+        Button(action: {
+          showAddReadingSheet.toggle()
+        }) {
+          addReadingButtonLabel
+        }
       }
     }
-    .frame(maxWidth: .infinity, maxHeight: .infinity)
-    .foregroundColor(.white)
-    .background(
-      LinearGradient(
-        gradient: Gradient(colors: [Color.accentColor, .blue]),
-        startPoint: .leading,
-        endPoint: .trailing
-      )
-    )
-    .cornerRadius(25)
+    .disabled(isLoadingTesla || isSyncSuccess)
+  }
+
+  private var addReadingButtonLabel: some View {
+    HStack(spacing: 8) {
+      if isLoadingTesla {
+        ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .black))
+      } else if isSyncSuccess {
+        Image(systemName: "checkmark.circle.fill")
+          .fontWeight(.bold)
+        Text("Done")
+          .fontWeight(.bold)
+      } else {
+        Image(systemName: "plus")
+          .fontWeight(.bold)
+        Text("Add Reading")
+          .fontWeight(.bold)
+      }
+    }
+    .font(.inter(16, weight: .bold))
+    .foregroundColor(.black)
+    .frame(maxWidth: .infinity)
+    .frame(height: 56)
+    .background(statusColor)
+    .cornerRadius(28)
+    .shadow(color: statusColor.opacity(0.3), radius: 15, y: 5)
   }
 }

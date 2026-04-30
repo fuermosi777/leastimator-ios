@@ -31,103 +31,142 @@ struct ExtendedVehicleInfo {
 
   let isExpired: Bool
 
-  let monthlyMileageDataForLineChart: [GraphPoint]
 }
 
 
 // Difference vs. monthly: it fills empty day with data from last day that has value.
 // Not in use.
-func prepareDailyDataForLineGraph(veh: Vehicle, readings: [OdoReading], usedDays: Int) -> [GraphPoint] {
-  var data = [GraphPoint]()
-  
-  guard let startDate = veh.startDate else { return data }
-  
-  // Generate a date key to OdoReading map, in a certain day, the reading should be the largest one.
-  let keyFormatter = DateFormatter()
-  keyFormatter.dateFormat = "yyyy-MM-dd"
-  let labelFormatter = DateFormatter()
-  labelFormatter.dateFormat = "d"
-  var readingMap: [String: Int64] = [:]
-  
-  // Add starting mileage.
-  let startKey = keyFormatter.string(from: startDate)
-  readingMap[startKey] = veh.starting
-  
-  for reading in readings {
-    if let date = reading.date {
-      let key = keyFormatter.string(from: date)
-      readingMap[key] = reading.value
+
+enum HistoryTimeRange: String, CaseIterable, Identifiable {
+    case oneMonth = "1M"
+    case threeMonths = "3M"
+    case sixMonths = "6M"
+    case oneYear = "1Y"
+    case all = "ALL"
+    
+    var id: String { self.rawValue }
+    
+    var calendarComponent: Calendar.Component? {
+        switch self {
+        case .oneMonth: return .month
+        case .threeMonths: return .month
+        case .sixMonths: return .month
+        case .oneYear: return .year
+        case .all: return nil
+        }
     }
-  }
-  
-  // Iterate from starting date to current day.
-  var maxReading = veh.starting
-  for dayIndex in 0..<usedDays {
-    var dayDiff = DateComponents()
-    dayDiff.day = dayIndex
-    let iterDate = Calendar.current.date(byAdding: dayDiff, to: startDate)
-    if let iterDate = iterDate {
-      let iterDateKey = keyFormatter.string(from: iterDate)
-      var point = GraphPoint(value: Double(maxReading), label: labelFormatter.string(from: iterDate), significant: false)
-      if let reading = readingMap[iterDateKey] {
-        point.value = Double(reading)
-        maxReading = max(maxReading, reading)
-        point.significant = true
-      }
-      data.append(point)
+    
+    var value: Int? {
+        switch self {
+        case .oneMonth: return 1
+        case .threeMonths: return 3
+        case .sixMonths: return 6
+        case .oneYear: return 1
+        case .all: return nil
+        }
     }
-  }
-  
-  // It's possible that there is no reading entered in the current month but we want to add the max to it so that the graph can be drawn properly.
-  data[data.count - 1].value = Double(maxReading)
-  
-  return data
 }
 
-// Convert vehicle info and reading history into a vector of LineGraph points for drawing.
-func prepareMonthlyDataForLineGraph(veh: Vehicle, readings: [OdoReading], usedMonths: Int) -> [GraphPoint] {
-  var data = [GraphPoint]()
-  
-  guard let startDate = veh.startDate else { return data }
-  
-  // Generate a date key to OdoReading map, in a certain month, the reading should be the largest one.
-  let keyFormatter = DateFormatter()
-  keyFormatter.dateFormat = "MMM yyyy"
-  var readingMap: [String: Int64] = [:]
-  
-  // Add starting mileage.
-  let startKey = keyFormatter.string(from: startDate)
-  readingMap[startKey] = veh.starting
-  
-  for reading in readings {
-    if let date = reading.date {
-      let key = keyFormatter.string(from: date)
-      readingMap[key] = reading.value
+struct HistoryPoint: Identifiable, Hashable {
+    let id = UUID()
+    let date: Date
+    let value: Double
+}
+
+struct HistoryChartData {
+    let actualPoints: [HistoryPoint]
+    let targetPoints: [HistoryPoint]
+    let totalDriven: Int
+    let variancePercent: Int
+    let isOverPace: Bool
+    let rangeLabel: String
+}
+
+func prepareHistoryChartData(veh: Vehicle, readings: [OdoReading], range: HistoryTimeRange) -> HistoryChartData {
+    let currentDate = Date()
+    let calendar = Calendar.current
+    
+    var startDateForRange: Date
+    if let component = range.calendarComponent, let value = range.value {
+        startDateForRange = calendar.date(byAdding: component, value: -value, to: currentDate) ?? veh.startDate ?? currentDate
+    } else {
+        startDateForRange = veh.startDate ?? currentDate
     }
-  }
-  
-  // Iterate from starting date to current month.
-  var maxReading = veh.starting
-  for monthIndex in 0..<usedMonths {
-    var monthDiff = DateComponents()
-    monthDiff.month = monthIndex
-    let iterDate = Calendar.current.date(byAdding: monthDiff, to: startDate)
-    if let iterDate = iterDate {
-      let iterDateKey = keyFormatter.string(from: iterDate)
-      var point = GraphPoint(value: -1.0, label: keyFormatter.string(from: iterDate), significant: false)
-      if let reading = readingMap[iterDateKey] {
-        maxReading = max(maxReading, reading)
-        point.significant = true
-      }
-      point.value = Double(maxReading)
-      data.append(point)
+    
+    // Ensure we don't go before the vehicle's start date
+    if let vehStart = veh.startDate, startDateForRange < vehStart {
+        startDateForRange = vehStart
     }
-  }
-  
-  // It's possible that there is no reading entered in the current month but we want to add the max to it so that the graph can be drawn properly.
-  data[data.count - 1].value = Double(maxReading)
-  
-  return data
+    
+    // Filter readings for the range
+    let filteredReadings = readings.filter { ($0.date ?? Date()) >= startDateForRange }
+    
+    // 1. Actual Points
+    var actualPoints: [HistoryPoint] = []
+    
+    // Add a point for the start of the range if there's a reading before it
+    if let firstInRange = filteredReadings.first, let firstDate = firstInRange.date, firstDate > startDateForRange {
+        // Find the last reading BEFORE the range start
+        let beforeRange = readings.filter { ($0.date ?? Date()) < startDateForRange }.last
+        let startValue = Double(beforeRange?.value ?? veh.starting)
+        actualPoints.append(HistoryPoint(date: startDateForRange, value: startValue))
+    } else if filteredReadings.isEmpty {
+        // No readings in range, use current mileage or starting
+        let lastReading = readings.last
+        let val = Double(lastReading?.value ?? veh.starting)
+        actualPoints.append(HistoryPoint(date: startDateForRange, value: val))
+    }
+    
+    for rd in filteredReadings {
+        actualPoints.append(HistoryPoint(date: rd.date ?? Date(), value: Double(rd.value)))
+    }
+    
+    // Add current date point to extend the line
+    if let last = actualPoints.last, last.date < currentDate {
+        actualPoints.append(HistoryPoint(date: currentDate, value: last.value))
+    }
+    
+    // 2. Target Points
+    var targetPoints: [HistoryPoint] = []
+    let totalLeaseDays = max(1.0, Double(veh.lengthOfLease) / 12.0 * 365.25)
+    let allowedPerDay = Double(veh.allowed) / totalLeaseDays
+    
+    func targetValue(at date: Date) -> Double {
+        guard let vehStart = veh.startDate else { return Double(veh.starting) }
+        let daysSinceStart = Double(calendar.dateComponents([.day], from: vehStart, to: date).day ?? 0)
+        return Double(veh.starting) + (allowedPerDay * daysSinceStart)
+    }
+    
+    targetPoints.append(HistoryPoint(date: startDateForRange, value: targetValue(at: startDateForRange)))
+    targetPoints.append(HistoryPoint(date: currentDate, value: targetValue(at: currentDate)))
+    
+    // 3. Stats
+    let startMileage = actualPoints.first?.value ?? Double(veh.starting)
+    let endMileage = actualPoints.last?.value ?? startMileage
+    let totalDriven = Int(endMileage - startMileage)
+    
+    let targetEnd = targetPoints.last?.value ?? endMileage
+    let isOverPace = endMileage > targetEnd
+    let variance = abs(endMileage - targetEnd)
+    let variancePercent = targetEnd > 0 ? Int((variance / targetEnd) * 100) : 0
+    
+    // Range Label
+    let rangeLabel: String
+    if range == .all {
+        let months = calendar.dateComponents([.month], from: veh.startDate ?? currentDate, to: currentDate).month ?? 0
+        rangeLabel = "\(months + 1) MO"
+    } else {
+        rangeLabel = range.rawValue
+    }
+    
+    return HistoryChartData(
+        actualPoints: actualPoints,
+        targetPoints: targetPoints,
+        totalDriven: totalDriven,
+        variancePercent: variancePercent,
+        isOverPace: isOverPace,
+        rangeLabel: rangeLabel
+    )
 }
 
 func Compute(_ veh: Vehicle) -> ExtendedVehicleInfo {
@@ -195,7 +234,6 @@ func Compute(_ veh: Vehicle) -> ExtendedVehicleInfo {
   let maxDriveToday = max(0, mileageShouldLessThan - currentMileage)
   let leaseLeft = max(0, Int(veh.lengthOfLease) - (usedMonths - 1))
   
-  let monthlyData = prepareMonthlyDataForLineGraph(veh: veh, readings: readings, usedMonths: usedMonths)
   
   return ExtendedVehicleInfo(currentMileage: currentMileage,
                              leftMileage: leftMileage,
@@ -210,7 +248,6 @@ func Compute(_ veh: Vehicle) -> ExtendedVehicleInfo {
                              mileageShouldLessThan: mileageShouldLessThan,
                              maxDriveToday: maxDriveToday,
                              leaseLeft: leaseLeft,
-                             isExpired: isExpired,
-                             monthlyMileageDataForLineChart: monthlyData
+                             isExpired: isExpired
   )
 }

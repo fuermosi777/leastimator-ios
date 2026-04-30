@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Leastimator Refresh — 4 Directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Source+Serif+4:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; }
+  body { font-family: 'Inter', system-ui, sans-serif; }
+  em { font-family: 'Source Serif 4', Georgia, serif; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="shared.jsx"></script>
+<script type="text/babel" src="direction1.jsx"></script>
+<script type="text/babel" src="direction2.jsx"></script>
+<script type="text/babel" src="direction3.jsx"></script>
+<script type="text/babel" src="direction4.jsx"></script>
+<script type="text/babel" src="history-views.jsx"></script>
+
+<script type="text/babel">
+const SW = SCREEN_W;
+const SH = SCREEN_H;
+
+function App() {
+  return (
+    <DesignCanvas>
+      {/* Intro */}
+      <div style={{ padding: '0 60px 40px', maxWidth: 820 }}>
+        <div style={{
+          fontSize: 11, letterSpacing: 2,
+          textTransform: 'uppercase', color: 'rgba(60,50,40,0.6)',
+          fontFamily: '"JetBrains Mono", monospace',
+          marginBottom: 10,
+        }}>Leastimator · 2026 Refresh</div>
+        <div style={{
+          fontSize: 40, fontWeight: 600,
+          letterSpacing: -1, lineHeight: 1.05,
+          color: 'rgba(30,24,20,0.92)',
+          marginBottom: 16,
+          fontFamily: '"Source Serif 4", Georgia, serif',
+        }}>
+          Four directions, one goal: make the <em style={{ fontStyle: 'italic' }}>projected mileage</em> impossible to ignore.
+        </div>
+        <div style={{
+          fontSize: 15, lineHeight: 1.55, color: 'rgba(60,50,40,0.75)',
+          maxWidth: 680,
+        }}>
+          All four share the same data model and hero metric (projected end-of-lease odometer vs allowance),
+          but each takes a different aesthetic bet. Each direction includes a healthy "on track" state and a
+          "danger" state where the whole screen shifts. Data-heavy screens (history/chart) are paired to the
+          two directions most likely to win so you can judge them with real content.
+        </div>
+      </div>
+
+      <DCSection title="Direction 1 · Instrument Cluster" subtitle="Near-black OLED. Full tick-mark gauge. Electric lime. The most literal 'dashboard' read.">
+        <DCArtboard label="Dashboard · on pace" width={SW} height={SH}>
+          <D1Dashboard />
+        </DCArtboard>
+        <DCArtboard label="Dashboard · over pace (danger)" width={SW} height={SH}>
+          <D1Dashboard danger />
+        </DCArtboard>
+        <DCArtboard label="History · 1 year" width={SW} height={SH}>
+          <D1History />
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection title="Direction 2 · Glass Cockpit" subtitle="Midnight blue with frosted glass. Half-circle needle gauge. Softer, premium sedan feel.">
+        <DCArtboard label="Dashboard · on pace" width={SW} height={SH}>
+          <D2Dashboard />
+        </DCArtboard>
+        <DCArtboard label="Dashboard · over pace (danger)" width={SW} height={SH}>
+          <D2Dashboard danger />
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection title="Direction 3 · Editorial" subtitle="Warm off-white. Serif headlines, monospace data. A daily newspaper for your lease — info-dense but calm.">
+        <DCArtboard label="Dashboard · on pace" width={SW} height={SH}>
+          <D3Dashboard />
+        </DCArtboard>
+        <DCArtboard label="Dashboard · over pace" width={SW} height={SH}>
+          <D3Dashboard danger />
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection title="Direction 4 · Track Day" subtitle="Racing orange, segmented bar, sharp clip-path geometry. For users who already think of their car as a machine.">
+        <DCArtboard label="Dashboard · on pace" width={SW} height={SH}>
+          <D4Dashboard />
+        </DCArtboard>
+        <DCArtboard label="Dashboard · over pace (danger)" width={SW} height={SH}>
+          <D4Dashboard danger />
+        </DCArtboard>
+        <DCArtboard label="Telemetry log" width={SW} height={SH}>
+          <D4History />
+        </DCArtboard>
+      </DCSection>
+
+      <div style={{ padding: '0 60px 40px', maxWidth: 760, color: 'rgba(60,50,40,0.7)', fontSize: 13, lineHeight: 1.6 }}>
+        <div style={{ fontSize: 11, letterSpacing: 2, textTransform: 'uppercase', color: 'rgba(60,50,40,0.5)', fontFamily: '"JetBrains Mono", monospace', marginBottom: 8 }}>Notes</div>
+        · Numbers are locked to a single sample vehicle (Model 3, 36k mi / 36 mo lease) across all directions so you compare styling, not data.<br/>
+        · Copy leans encouraging-coach across the board; tone shifts with each direction's voice (D3 is more writerly, D4 more terse).<br/>
+        · Once you pick a direction I'll build out the flows you skipped — add reading, vehicle switcher, settings — plus widget, empty state, and a tunable interactive version.
+      </div>
+    </DesignCanvas>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

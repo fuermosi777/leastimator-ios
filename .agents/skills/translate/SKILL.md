@@ -1,4 +1,9 @@
-# SwiftUI Localization Audit & Sync Skill (Project Local)
+---
+name: translate-audit
+description: Update translations
+---
+
+# Skill: Localization Audit
 
 This workflow is specific to the Leastimator project and ensures all strings are localized correctly.
 

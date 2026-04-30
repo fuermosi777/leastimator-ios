@@ -1,0 +1,1295 @@
+diff --git a/CLAUDE.md b/CLAUDE.md
+deleted file mode 100644
+index b657434..0000000
+--- a/CLAUDE.md
++++ /dev/null
+@@ -1,38 +0,0 @@
+-# Leastimator Project Overview
+-
+-An iOS app built with SwiftUI that helps users manage vehicle leases — tracking mileage, estimating overages, and displaying key stats via a home screen widget.
+-
+-## Key Features
+-- Vehicle management (add, edit, display)
+-- Odometer history tracking
+-- Estimated mileage and overage charge calculation
+-- In-app purchases to unlock Pro features
+-- Google Mobile Ads integration
+-- Mixpanel analytics
+-- SwiftRater for app rating prompts
+-- CoreData + CloudKit for persistence and sync across devices
+-- Miles/km and USD/CNY/EUR/GBP support
+-- Localization: English and German
+-- WidgetKit home screen widget
+-
+-## Tech Stack
+-- **Language:** Swift
+-- **UI:** SwiftUI
+-- **Data:** CoreData with CloudKit
+-- **Dependencies:** Swift Package Manager
+-  - `TPInAppReceipt` — in-app purchase receipt validation
+-  - `mixpanel-swift` — analytics
+-  - `SwiftRater` — app rating prompts
+-  - `swift-package-manager-google-mobile-ads` — ads
+-
+-## Build & Run
+-Open `Leastimator.xcodeproj` in Xcode, select the `Leastimator` target (or `EstimateWidgetExtension` for the widget), choose a simulator or device, and press `Cmd+R`.
+-
+-## Development Conventions
+-- **Code style:** Standard Swift — camelCase for variables/functions, PascalCase for types
+-- **Extensions:** Modular extensions in `Extensions/` (e.g. `Color+Extensions.swift`, `Date+Extensions.swift`)
+-- **Localization:** All user-facing strings go in `Localizable.strings` under `en.lproj` and `de.lproj`
+-- **Deployment targets:** Main app → iOS 17.0 · Widget extension → iOS 16.4
+-- **Don't add** error handling, fallbacks, or abstractions for hypothetical future use — keep it direct
+-- **Don't add** docstrings or comments to unchanged code
+-- **New Files:** When adding files to the filesystem, manually register them in `Leastimator.xcodeproj` (e.g., using a Ruby script with the `xcodeproj` gem).
+diff --git a/GEMINI.md b/GEMINI.md
+index 5043fef..f33b10d 100644
+--- a/GEMINI.md
++++ b/GEMINI.md
+@@ -2,29 +2,7 @@
+ 
+ The "Leastimator" project is an iOS application built with SwiftUI, designed to help users manage vehicle-related data, specifically focusing on mileage and other estimates. It features comprehensive vehicle management, odometer history tracking, and displays key information through a user-friendly interface. The application also includes a WidgetKit extension for quick access to vehicle data on the home screen.
+ 
+-## Key Features:
+-*   **Vehicle Management:** Add, edit, and display detailed vehicle information.
+-*   **Odometer History:** Track and view historical odometer readings.
+-*   **In-App Purchases:** Unlock "Pro" features through in-app purchases.
+-*   **Advertising:** Integrates Google Mobile Ads.
+-*   **Analytics:** Uses Mixpanel for application analytics.
+-*   **App Rating:** Prompts users for app ratings using SwiftRater.
+-*   **Cloud Synchronization:** Data persistence is handled via CoreData with CloudKit integration for seamless synchronization across devices.
+-*   **Unit and Currency Support:** Supports multiple units (miles/kilometers) and currencies (USD, CNY, EUR, GBP).
+-*   **Localization:** Available in English and German.
+-*   **WidgetKit Extension:** Provides a home screen widget for quick glances at vehicle information.
++## 重要开发警告
+ 
+-## Technologies Used:
+-*   **Language:** Swift
+-*   **UI Framework:** SwiftUI
+-*   **Data Persistence:** CoreData with CloudKit
+-*   **Dependency Management:** Swift Package Manager
+-
+-## External Dependencies (Swift Packages):
+-*   `TPInAppReceipt`: For in-app purchase receipt validation.
+-*   `mixpanel-swift`: For analytics integration.
+-*   `SwiftRater`: For prompting users to rate the app.
+-*   `swift-package-manager-google-mobile-ads`: For integrating Google Mobile Ads.
+-
+-## Development Conventions:
+-*   **New Files:** When adding files to the filesystem, manually register them in `Leastimator.xcodeproj` (e.g., using a Ruby script with the `xcodeproj` gem) to ensure Xcode recognizes them.
++- 在修改project 文件结构后，必须运行ruby脚本（需要自行创建比如add_files.rb），不然xcode识别不了造成build错误，同时自己build一下确保无误
++- 注意不要犯最基本的格式错误
+\ No newline at end of file
+diff --git a/Leastimator.xcodeproj/project.pbxproj b/Leastimator.xcodeproj/project.pbxproj
+index a6603d8..31f3488 100644
+--- a/Leastimator.xcodeproj/project.pbxproj
++++ b/Leastimator.xcodeproj/project.pbxproj
+@@ -7,7 +7,6 @@
+ 	objects = {
+ 
+ /* Begin PBXBuildFile section */
+-		2380F835C7156D23921E71FA /* GaugeCluster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CD78BF4DEE81926FFB1354 /* GaugeCluster.swift */; };
+ 		2500614B6AD39B55D5BC112A /* DeletedVehiclesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532819930EC5230001C1572 /* DeletedVehiclesView.swift */; };
+ 		3F2AFE682A89DFDA001B8837 /* StoreKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2AFE672A89DFDA001B8837 /* StoreKit+Extensions.swift */; };
+ 		3F2AFE6A2A89E363001B8837 /* SK.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 3F2AFE692A89E363001B8837 /* SK.storekit */; };
+@@ -82,9 +81,28 @@
+ 		3FE38DF12F0728D8008D351F /* Vehicle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE38DEF2F0728D4008D351F /* Vehicle+Extensions.swift */; };
+ 		47876AB21E780CD2F2C623CE /* TeslaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C23DE6C66FF6E833E2A3856 /* TeslaService.swift */; };
+ 		7873D36A0EBBFD0A25BB79D8 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5800D8376217BCDD3EE9C18 /* KeychainHelper.swift */; };
++		85A3CCE321217E79AD090751 /* CoachMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E873766A6D7E90F0E9694 /* CoachMessageView.swift */; };
++		89019ACC09FB7E86A7AA7276 /* DashboardGauge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E779CABD4F33146BC481AB /* DashboardGauge.swift */; };
++		A0574D49987A4859E271DC42 /* VehicleSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21890A36CD94416E221BFC5D /* VehicleSwitcher.swift */; };
+ 		A949D04C9C26A8B6788AC97C /* TeslaAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E20E3FFA3767341968BB022 /* TeslaAuthManager.swift */; };
+ 		AEA151D27B5BC26F32FE0BEB /* DangerousZoneGlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A45EDE202F2D6CA49A21777 /* DangerousZoneGlow.swift */; };
+ 		B3825494301A7C6F946CB7E3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCDD1455A110D56B355CF7 /* Constants.swift */; };
++		CB0F2F972FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F962FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf */; };
++		CB0F2F982FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F952FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf */; };
++		CB0F2F992FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F962FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf */; };
++		CB0F2F9A2FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F952FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf */; };
++		CB0F2F9B2FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F962FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf */; };
++		CB0F2F9C2FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F952FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf */; };
++		CB0F2F9D2FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F962FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf */; };
++		CB0F2F9E2FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F952FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf */; };
++		CB0F2FA12FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F9F2FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf */; };
++		CB0F2FA22FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2FA02FA08D7C007A4F68 /* JetBrainsMono[wght].ttf */; };
++		CB0F2FA32FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F9F2FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf */; };
++		CB0F2FA42FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2FA02FA08D7C007A4F68 /* JetBrainsMono[wght].ttf */; };
++		CB0F2FA52FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F9F2FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf */; };
++		CB0F2FA62FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2FA02FA08D7C007A4F68 /* JetBrainsMono[wght].ttf */; };
++		CB0F2FA72FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F9F2FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf */; };
++		CB0F2FA82FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2FA02FA08D7C007A4F68 /* JetBrainsMono[wght].ttf */; };
+ 		DBD225831A064FB279D891C9 /* TeslaSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A8AE65B911839F2C6819F3 /* TeslaSyncService.swift */; };
+ 		EAED4CF135BAB1AFC6D1D9C3 /* TeslaVehiclePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DE9DF31B6881F25AE189D0 /* TeslaVehiclePicker.swift */; };
+ /* End PBXBuildFile section */
+@@ -130,6 +148,7 @@
+ /* Begin PBXFileReference section */
+ 		04DCDD1455A110D56B355CF7 /* Constants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+ 		0A45EDE202F2D6CA49A21777 /* DangerousZoneGlow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DangerousZoneGlow.swift; sourceTree = "<group>"; };
++		21890A36CD94416E221BFC5D /* VehicleSwitcher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VehicleSwitcher.swift; sourceTree = "<group>"; };
+ 		24C309049AA74B5A85D6D8BC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+ 		3F2AFE672A89DFDA001B8837 /* StoreKit+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoreKit+Extensions.swift"; sourceTree = "<group>"; };
+ 		3F2AFE692A89E363001B8837 /* SK.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = SK.storekit; sourceTree = "<group>"; };
+@@ -192,7 +211,8 @@
+ 		3FE38DED2F07221C008D351F /* ChartSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartSheetView.swift; sourceTree = "<group>"; };
+ 		3FE38DEF2F0728D4008D351F /* Vehicle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Vehicle+Extensions.swift"; sourceTree = "<group>"; };
+ 		3FF001B72ACA7DB50007C481 /* EstimateWidgetExtensionRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EstimateWidgetExtensionRelease.entitlements; sourceTree = "<group>"; };
+-		74CD78BF4DEE81926FFB1354 /* GaugeCluster.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GaugeCluster.swift; path = Leastimator/GaugeCluster.swift; sourceTree = "<group>"; };
++		535E873766A6D7E90F0E9694 /* CoachMessageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CoachMessageView.swift; sourceTree = "<group>"; };
++		72E779CABD4F33146BC481AB /* DashboardGauge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DashboardGauge.swift; sourceTree = "<group>"; };
+ 		7C23DE6C66FF6E833E2A3856 /* TeslaService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaService.swift; sourceTree = "<group>"; };
+ 		7E20E3FFA3767341968BB022 /* TeslaAuthManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaAuthManager.swift; sourceTree = "<group>"; };
+ 		81DE9DF31B6881F25AE189D0 /* TeslaVehiclePicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaVehiclePicker.swift; sourceTree = "<group>"; };
+@@ -200,6 +220,10 @@
+ 		C5800D8376217BCDD3EE9C18 /* KeychainHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
+ 		C997155AB7CE4D28AD8EA84C /* es-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-US"; path = "es-US.lproj/Localizable.strings"; sourceTree = "<group>"; };
+ 		C9A8AE65B911839F2C6819F3 /* TeslaSyncService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaSyncService.swift; sourceTree = "<group>"; };
++		CB0F2F952FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Italic-VariableFont_opsz,wght.ttf"; sourceTree = "<group>"; };
++		CB0F2F962FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-VariableFont_opsz,wght.ttf"; sourceTree = "<group>"; };
++		CB0F2F9F2FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono-Italic[wght].ttf"; sourceTree = "<group>"; };
++		CB0F2FA02FA08D7C007A4F68 /* JetBrainsMono[wght].ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono[wght].ttf"; sourceTree = "<group>"; };
+ /* End PBXFileReference section */
+ 
+ /* Begin PBXFrameworksBuildPhase section */
+@@ -243,6 +267,7 @@
+ 		3F34239729DD2C7800C35E69 = {
+ 			isa = PBXGroup;
+ 			children = (
++				CB0F2EF42FA08D0E007A4F68 /* fonts */,
+ 				3FE38DE92F070D69008D351F /* GEMINI.md */,
+ 				3FF001B72ACA7DB50007C481 /* EstimateWidgetExtensionRelease.entitlements */,
+ 				3FE2219F2A54D1010063ED9C /* EstimateWidgetExtension.entitlements */,
+@@ -311,7 +336,9 @@
+ 				0A45EDE202F2D6CA49A21777 /* DangerousZoneGlow.swift */,
+ 				04DCDD1455A110D56B355CF7 /* Constants.swift */,
+ 				C532819930EC5230001C1572 /* DeletedVehiclesView.swift */,
+-				74CD78BF4DEE81926FFB1354 /* GaugeCluster.swift */,
++				72E779CABD4F33146BC481AB /* DashboardGauge.swift */,
++				535E873766A6D7E90F0E9694 /* CoachMessageView.swift */,
++				21890A36CD94416E221BFC5D /* VehicleSwitcher.swift */,
+ 			);
+ 			path = Leastimator;
+ 			sourceTree = "<group>";
+@@ -379,6 +406,17 @@
+ 			path = EstimateWidget;
+ 			sourceTree = "<group>";
+ 		};
++		CB0F2EF42FA08D0E007A4F68 /* fonts */ = {
++			isa = PBXGroup;
++			children = (
++				CB0F2F952FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf */,
++				CB0F2F962FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf */,
++				CB0F2F9F2FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf */,
++				CB0F2FA02FA08D7C007A4F68 /* JetBrainsMono[wght].ttf */,
++			);
++			path = fonts;
++			sourceTree = "<group>";
++		};
+ /* End PBXGroup section */
+ 
+ /* Begin PBXNativeTarget section */
+@@ -522,7 +560,11 @@
+ 			buildActionMask = 2147483647;
+ 			files = (
+ 				3F2AFE6A2A89E363001B8837 /* SK.storekit in Resources */,
++				CB0F2F9B2FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */,
++				CB0F2F9C2FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */,
+ 				3F3423AB29DD2C7900C35E69 /* Preview Assets.xcassets in Resources */,
++				CB0F2FA52FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */,
++				CB0F2FA62FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */,
+ 				3FCC7E5E29DE762800AC7620 /* Localizable.strings in Resources */,
+ 				3F3423A829DD2C7900C35E69 /* Assets.xcassets in Resources */,
+ 			);
+@@ -533,6 +575,10 @@
+ 			buildActionMask = 2147483647;
+ 			files = (
+ 				3F2AFE6B2A89E363001B8837 /* SK.storekit in Resources */,
++				CB0F2F992FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */,
++				CB0F2FA72FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */,
++				CB0F2FA82FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */,
++				CB0F2F9A2FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */,
+ 			);
+ 			runOnlyForDeploymentPostprocessing = 0;
+ 		};
+@@ -540,6 +586,10 @@
+ 			isa = PBXResourcesBuildPhase;
+ 			buildActionMask = 2147483647;
+ 			files = (
++				CB0F2F972FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */,
++				CB0F2FA32FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */,
++				CB0F2FA42FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */,
++				CB0F2F982FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */,
+ 			);
+ 			runOnlyForDeploymentPostprocessing = 0;
+ 		};
+@@ -548,7 +598,11 @@
+ 			buildActionMask = 2147483647;
+ 			files = (
+ 				3F2AFE6C2A89E363001B8837 /* SK.storekit in Resources */,
++				CB0F2F9D2FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */,
++				CB0F2F9E2FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */,
+ 				3FAF419A2A8B48AB006C462D /* Assets.xcassets in Resources */,
++				CB0F2FA12FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */,
++				CB0F2FA22FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */,
+ 				3FC0EF402A54CE610047F756 /* Assets.xcassets in Resources */,
+ 			);
+ 			runOnlyForDeploymentPostprocessing = 0;
+@@ -606,7 +660,9 @@
+ 				AEA151D27B5BC26F32FE0BEB /* DangerousZoneGlow.swift in Sources */,
+ 				B3825494301A7C6F946CB7E3 /* Constants.swift in Sources */,
+ 				2500614B6AD39B55D5BC112A /* DeletedVehiclesView.swift in Sources */,
+-				2380F835C7156D23921E71FA /* GaugeCluster.swift in Sources */,
++				89019ACC09FB7E86A7AA7276 /* DashboardGauge.swift in Sources */,
++				85A3CCE321217E79AD090751 /* CoachMessageView.swift in Sources */,
++				A0574D49987A4859E271DC42 /* VehicleSwitcher.swift in Sources */,
+ 			);
+ 			runOnlyForDeploymentPostprocessing = 0;
+ 		};
+diff --git a/Leastimator.xcodeproj/project.xcworkspace/xcuserdata/god.xcuserdatad/UserInterfaceState.xcuserstate b/Leastimator.xcodeproj/project.xcworkspace/xcuserdata/god.xcuserdatad/UserInterfaceState.xcuserstate
+index c432298..0248a69 100644
+Binary files a/Leastimator.xcodeproj/project.xcworkspace/xcuserdata/god.xcuserdatad/UserInterfaceState.xcuserstate and b/Leastimator.xcodeproj/project.xcworkspace/xcuserdata/god.xcuserdatad/UserInterfaceState.xcuserstate differ
+diff --git a/Leastimator/CoachMessageView.swift b/Leastimator/CoachMessageView.swift
+new file mode 100644
+index 0000000..a512ecf
+--- /dev/null
++++ b/Leastimator/CoachMessageView.swift
+@@ -0,0 +1,50 @@
++//
++//  CoachMessageView.swift
++//  Leastimator
++//
++//  Created by Antigravity on 4/28/26.
++//
++
++import SwiftUI
++
++struct CoachMessage: View {
++  let isOverPace: Bool
++  var body: some View {
++    HStack(spacing: 8) {
++      Circle()
++        .fill(isOverPace ? Color.red : Color.accentColor)
++        .frame(width: 8, height: 8)
++        .shadow(color: isOverPace ? Color.red : Color.accentColor, radius: 4)
++      Text(isOverPace ? "Heads up — you're over pace" : "Nice pace. You're on track.")
++        .font(.inter(13, weight: .bold))
++        .foregroundColor(.subText)
++    }
++    .padding(.top, 8)
++  }
++}
++
++struct StatCell: View {
++  let label: String
++  let value: String
++  let unit: String
++  var body: some View {
++    VStack(alignment: .leading, spacing: 4) {
++      Text(label)
++        .font(.inter(9, weight: .medium))
++        .foregroundColor(.subText)
++        .tracking(1.0)
++      HStack(alignment: .lastTextBaseline, spacing: 2) {
++        Text(value)
++          .font(.jetBrainsMono(22))
++          .fontWeight(.bold)
++          .monospacedDigit()
++          .foregroundColor(.mainText)
++        Text(unit)
++          .font(.inter(10, weight: .semibold))
++          .foregroundColor(.subText)
++      }
++    }
++    .frame(maxWidth: .infinity, alignment: .leading)
++    .padding(.leading, 16)
++  }
++}
+diff --git a/Leastimator/ContentView.swift b/Leastimator/ContentView.swift
+index 90dc92e..97288de 100644
+--- a/Leastimator/ContentView.swift
++++ b/Leastimator/ContentView.swift
+@@ -71,11 +71,21 @@ struct ContentView: View {
+     return nil
+   }
+   
+-  // Subtitle shown under the navigation title when available (iOS 26+)
+   private var navigationSubtitle: String? {
+     vehicleToDisplay?.leaseSubtitle
+   }
+ 
++  private var currentStatusColor: Color {
++    if let vehicle = vehicleToDisplay {
++      let info = Compute(vehicle)
++      let up = Double(info.normalPredicatedMileage)
++      let down = Double(vehicle.allowed + vehicle.starting)
++      let progress = down > 0 ? up / down : 1.0
++      return Color.statusColor(progress: progress)
++    }
++    return .accentColor
++  }
++
+   var body: some View {
+     NavigationStack {
+       ZStack {
+@@ -101,7 +111,7 @@ struct ContentView: View {
+               }
+             }
+             Text("Add Vehicle")
+-              .font(.system(.title3, design: .rounded))
++              .font(.inter(20, weight: .bold))
+             Spacer()
+           } else {
+             if let vehicle = vehicleToDisplay {
+@@ -109,64 +119,27 @@ struct ContentView: View {
+             }
+           }
+         }  // VStack
+-        .navigationTitle("")
+-        .navigationBarTitleDisplayMode(.inline)
+-        .applyNavigationSubtitle(navigationSubtitle)
+         .toolbar {
+           ToolbarItem(placement: .navigationBarLeading) {
+-            Menu {
+-              ForEach(vehicles) { vehicle in
+-                Button {
+-                  if purchaseManager.unlockPro {
+-                    for v in vehicles {
+-                      v.showOnStart = (v == vehicle)
+-                    }
+-                    try? viewContext.save()
+-                    selectionVersion += 1
+-                    WidgetCenter.shared.reloadAllTimelines()
+-                  } else if vehicle != vehicleToDisplay {
+-                    showProProductSheet.toggle()
+-                  }
+-                } label: {
+-                  HStack {
+-                    Text(vehicle.name ?? kUnknownVehicleName)
+-                    if vehicle == vehicleToDisplay {
+-                      Image(systemName: "checkmark")
+-                    } else if !purchaseManager.unlockPro {
+-                      Image(systemName: "lock.fill")
+-                    }
++            VehicleSwitcher(
++              vehicles: Array(vehicles),
++              selectedVehicle: vehicleToDisplay,
++              onSelect: { vehicle in
++                if purchaseManager.unlockPro {
++                  for v in vehicles {
++                    v.showOnStart = (v == vehicle)
+                   }
++                  try? viewContext.save()
++                  selectionVersion += 1
++                  WidgetCenter.shared.reloadAllTimelines()
++                } else if vehicle != vehicleToDisplay {
++                  showProProductSheet.toggle()
+                 }
+-              }
+-              Divider()
+-              Button { redirectToSettings.toggle() } label: {
+-                Label("Settings", systemImage: "gearshape.2")
+-              }
+-              Button { showAddVehicleSheet.toggle() } label: {
+-                Label("Add Vehicle", systemImage: "plus")
+-              }
+-            } label: {
+-              HStack(spacing: 8) {
+-                Text(vehicleToDisplay?.initials ?? "V")
+-                  .font(.system(size: 10, weight: .bold, design: .monospaced))
+-                  .foregroundColor(.black)
+-                  .frame(width: 22, height: 22)
+-                  .background(Color.accentColor)
+-                  .clipShape(Circle())
+-                
+-                Text(vehicleToDisplay?.name ?? "Vehicle")
+-                  .font(.system(size: 14, weight: .medium))
+-                  .foregroundColor(.mainText)
+-                
+-                Image(systemName: "chevron.down")
+-                  .font(.system(size: 10, weight: .bold))
+-                  .foregroundColor(.subText)
+-              }
+-              .padding(.horizontal, 10)
+-              .padding(.vertical, 6)
+-              .background(Color.subBg)
+-              .clipShape(Capsule())
+-            }
++              },
++              onSettings: { redirectToSettings.toggle() },
++              onAddVehicle: { showAddVehicleSheet.toggle() },
++              statusColor: currentStatusColor
++            )
+           }
+           if let vehicle = vehicleToDisplay {
+             ToolbarItem(placement: .secondaryAction) {
+diff --git a/Leastimator/DashboardGauge.swift b/Leastimator/DashboardGauge.swift
+new file mode 100644
+index 0000000..05b756d
+--- /dev/null
++++ b/Leastimator/DashboardGauge.swift
+@@ -0,0 +1,134 @@
++//
++//  DashboardGauge.swift
++//  Leastimator
++//
++//  Created by Antigravity on 4/28/26.
++//
++
++import SwiftUI
++
++struct DashboardGauge: View {
++    let progress: Double // 0.0 to 1.15 (scaled for the gauge arc)
++    let projected: Int
++    let variance: Int
++    let unit: String
++    let statusColor: Color
++    
++    private let size: CGFloat = 288
++    private let stroke: CGFloat = 14
++    private let arc: Double = 0.75 // Use 3/4 of the circle
++    private let startAngle: Double = 135 // Starting from bottom-left
++    
++    var body: some View {
++        ZStack {
++            // Tick marks on the outer rim
++            GaugeTicks(progress: progress, arc: arc, startAngle: startAngle, color: statusColor)
++                .frame(width: size, height: size)
++            
++            // Background arc (the "track")
++            Circle()
++                .trim(from: 0, to: CGFloat(arc))
++                .stroke(Color.mainText.opacity(0.05), style: StrokeStyle(lineWidth: stroke, lineCap: .round))
++                .rotationEffect(.degrees(startAngle))
++                .frame(width: size - 60, height: size - 60)
++            
++            // Progress arc
++            Circle()
++                .trim(from: 0, to: CGFloat(min(progress, 1.0) * arc))
++                .stroke(statusColor, style: StrokeStyle(lineWidth: stroke, lineCap: .round))
++                .rotationEffect(.degrees(startAngle))
++                .frame(width: size - 60, height: size - 60)
++                .shadow(color: statusColor.opacity(0.3), radius: 8)
++            
++            // Center readout
++            VStack(spacing: 2) {
++                Text("PROJECTED")
++                    .font(.inter(10, weight: .bold))
++                    .foregroundColor(.subText)
++                    .tracking(2)
++                
++                Text("\(projected)")
++                    .font(.jetBrainsMono(56))
++                    .fontWeight(.bold)
++                    .monospacedDigit()
++                    .foregroundColor(.mainText)
++                    .minimumScaleFactor(0.5)
++                    .lineLimit(1)
++                    .tracking(-2)
++                
++                Text("\(unit.uppercased()) · BY LEASE END")
++                    .font(.inter(11, weight: .semibold))
++                    .foregroundColor(.subText)
++                    .tracking(1)
++                
++                HStack(spacing: 4) {
++                    Text(variance > 0 ? "+" : (variance < 0 ? "" : ""))
++                    Text("\(variance) \(unit) vs limit")
++                }
++                .font(.jetBrainsMono(12))
++                .fontWeight(.bold)
++                .monospacedDigit()
++                .padding(.horizontal, 12)
++                .padding(.vertical, 6)
++                .background(statusColor.opacity(0.12))
++                .foregroundColor(statusColor)
++                .cornerRadius(20)
++                .padding(.top, 14)
++            }
++        }
++        .frame(width: size, height: size)
++    }
++}
++
++struct GaugeTicks: View {
++    let progress: Double
++    let arc: Double
++    let startAngle: Double
++    let color: Color
++    
++    let tickCount = 40
++    
++    var body: some View {
++        GeometryReader { geo in
++            let center = CGPoint(x: geo.size.width / 2, y: geo.size.height / 2)
++            let radius = geo.size.width / 2 - 5
++            
++            ForEach(0...tickCount, id: \.self) { i in
++                let t = Double(i) / Double(tickCount)
++                // In SwiftUI rotation, 0 is at 3 o'clock. 
++                // We want to start at startAngle.
++                let angle = startAngle + t * arc * 360
++                let isMajor = i % 5 == 0
++                let tickLength: CGFloat = isMajor ? 12 : 6
++                
++                let start = pointOnCircle(center: center, radius: radius, angle: angle)
++                let end = pointOnCircle(center: center, radius: radius - tickLength, angle: angle)
++                
++                let filled = t <= min(progress, 1.0)
++                
++                Path { path in
++                    path.move(to: start)
++                    path.addLine(to: end)
++                }
++                .stroke(filled ? color : Color.mainText.opacity(0.2), lineWidth: isMajor ? 2 : 1)
++            }
++        }
++    }
++    
++    func pointOnCircle(center: CGPoint, radius: CGFloat, angle: Double) -> CGPoint {
++        let radians = angle * .pi / 180
++        return CGPoint(
++            x: center.x + radius * cos(CGFloat(radians)),
++            y: center.y + radius * sin(CGFloat(radians))
++        )
++    }
++}
++
++struct DashboardGauge_Previews: PreviewProvider {
++    static var previews: some View {
++        ZStack {
++            Color.black.ignoresSafeArea()
++            DashboardGauge(progress: 0.65, projected: 12450, variance: -450, unit: "mi", statusColor: .statusLime)
++        }
++    }
++}
+diff --git a/Leastimator/Extensions/Color+Extensions.swift b/Leastimator/Extensions/Color+Extensions.swift
+index 5a6e7a0..62ede99 100644
+--- a/Leastimator/Extensions/Color+Extensions.swift
++++ b/Leastimator/Extensions/Color+Extensions.swift
+@@ -50,4 +50,14 @@ extension Color {
+     Color(UIColor { $0.userInterfaceStyle == .dark ?
+       UIColor.gray : UIColor.lightGray })
+   }
++
++  static var statusRed: Color { Color(red: 255/255, green: 59/255, blue: 48/255) } // Rose Red
++  static var statusAmber: Color { Color(red: 255/255, green: 159/255, blue: 10/255) } // Amber Orange
++  static var statusLime: Color { Color(red: 50/255, green: 215/255, blue: 75/255) } // Lime Green
++
++  static func statusColor(progress: Double) -> Color {
++      if progress >= 1.0 { return .statusRed }
++      if progress >= 0.9 { return .statusAmber }
++      return .statusLime
++  }
+ }
+diff --git a/Leastimator/Extensions/Font+Extensions.swift b/Leastimator/Extensions/Font+Extensions.swift
+index 08e5dc9..4cfc4de 100644
+--- a/Leastimator/Extensions/Font+Extensions.swift
++++ b/Leastimator/Extensions/Font+Extensions.swift
+@@ -8,6 +8,15 @@
+ import SwiftUI
+ 
+ extension Font {
++  static func jetBrainsMono(_ size: CGFloat) -> Font {
++    .custom("JetBrainsMono-Regular", size: size)
++  }
++  
++  static func inter(_ size: CGFloat, weight: Font.Weight = .regular) -> Font {
++    // Inter is often registered as "Inter" or "Inter-Regular"
++    .custom("Inter-Regular", size: size)
++  }
++
+   static func roundedFont(_ style: Font.TextStyle) -> Font {
+     Font.system(style, design: .rounded)
+   }
+diff --git a/Leastimator/Extensions/String+Extensions.swift b/Leastimator/Extensions/String+Extensions.swift
+index c1b519e..cf3836d 100644
+--- a/Leastimator/Extensions/String+Extensions.swift
++++ b/Leastimator/Extensions/String+Extensions.swift
+@@ -22,6 +22,18 @@ extension String {
+     }
+     return str
+   }
++
++  var vehicleAbbreviation: String {
++    let components = self.components(separatedBy: .whitespacesAndNewlines).filter { !$0.isEmpty }
++    if components.count >= 2 {
++      let first = components[0].prefix(1)
++      let second = components[1].prefix(1)
++      return "\(first)\(second)".uppercased()
++    } else if let first = self.first {
++      return String(first).uppercased()
++    }
++    return ""
++  }
+ }
+ 
+ extension LocalizedStringKey {
+diff --git a/Leastimator/Extensions/Vehicle+Extensions.swift b/Leastimator/Extensions/Vehicle+Extensions.swift
+index 79e01f4..aee11cf 100644
+--- a/Leastimator/Extensions/Vehicle+Extensions.swift
++++ b/Leastimator/Extensions/Vehicle+Extensions.swift
+@@ -30,13 +30,5 @@ extension Vehicle {
+   
+   func updateLastTeslaSyncDate() {
+     UserDefaults.standard.set(Date(), forKey: lastTeslaSyncKey)
+-  
+-  var initials: String {
+-    let name = self.name ?? "Vehicle"
+-    let parts = name.components(separatedBy: .whitespacesAndNewlines).filter { !$0.isEmpty }
+-    if parts.count >= 2 {
+-      return (String(parts[0].prefix(1)) + String(parts[1].prefix(1))).uppercased()
+-    }
+-    return String(name.prefix(2)).uppercased()
+   }
+ }
+diff --git a/Leastimator/GaugeCluster.swift b/Leastimator/GaugeCluster.swift
+deleted file mode 100644
+index 94df3b6..0000000
+--- a/Leastimator/GaugeCluster.swift
++++ /dev/null
+@@ -1,112 +0,0 @@
+-import SwiftUI
+-
+-struct GaugeCluster: View {
+-    var progress: Float
+-    var projected: Int
+-    var variance: Int
+-    var unit: String
+-    
+-    private let size: CGFloat = 280
+-    private let stroke: CGFloat = 12
+-    private let arc: Double = 0.75 // sweep angle (270 degrees)
+-    private let startAngle: Double = 135 // starting from bottom left
+-    
+-    private var color: Color {
+-        if progress >= 1.0 {
+-            return .red
+-        } else if progress >= 0.9 {
+-            return .orange
+-        } else {
+-            return .accentColor
+-        }
+-    }
+-    
+-    var body: some View {
+-        ZStack {
+-            // Background ticks
+-            Ticks(count: 40, progress: progress, color: color)
+-                .frame(width: size, height: size)
+-            
+-            // Progress Arc
+-            Circle()
+-                .trim(from: 0, to: CGFloat(arc))
+-                .stroke(Color.subBg, style: StrokeStyle(lineWidth: stroke, lineCap: .round))
+-                .frame(width: size - 40, height: size - 40)
+-                .rotationEffect(.degrees(startAngle))
+-            
+-            Circle()
+-                .trim(from: 0, to: CGFloat(arc * Double(min(progress, 1.0))))
+-                .stroke(color, style: StrokeStyle(lineWidth: stroke, lineCap: .round))
+-                .frame(width: size - 40, height: size - 40)
+-                .rotationEffect(.degrees(startAngle))
+-                .shadow(color: color.opacity(0.3), radius: 5)
+-            
+-            // Center Readout
+-            VStack(spacing: 4) {
+-                Text("PROJECTED")
+-                    .font(.system(size: 10, weight: .bold, design: .rounded))
+-                    .foregroundColor(.subText)
+-                    .tracking(2)
+-                
+-                Text("\(projected)")
+-                    .font(.system(size: 48, weight: .bold, design: .monospaced))
+-                    .foregroundColor(.mainText)
+-                
+-                Text("\(unit.uppercased()) · BY LEASE END")
+-                    .font(.system(size: 10, weight: .medium, design: .rounded))
+-                    .foregroundColor(.subText)
+-                    .tracking(1)
+-                
+-                HStack(spacing: 4) {
+-                    Text(variance < 0 ? "-" : "+")
+-                    Text("\(abs(variance))")
+-                    Text(unit)
+-                }
+-                .font(.system(size: 12, weight: .bold, design: .monospaced))
+-                .padding(.horizontal, 12)
+-                .padding(.vertical, 6)
+-                .background(variance <= 0 ? Color.green.opacity(0.15) : Color.red.opacity(0.15))
+-                .foregroundColor(variance <= 0 ? .green : .red)
+-                .cornerRadius(20)
+-                .padding(.top, 10)
+-            }
+-        }
+-        .frame(width: size, height: size)
+-    }
+-}
+-
+-struct Ticks: View {
+-    let count: Int
+-    let progress: Float
+-    let color: Color
+-    
+-    var body: some View {
+-        GeometryReader { geometry in
+-            let w = geometry.size.width
+-            let h = geometry.size.height
+-            let r = w / 2
+-            let arc: Double = 0.75
+-            let startAngle: Double = 135
+-            
+-            ForEach(0...count, id: \.self) { i in
+-                let t = Double(i) / Double(count)
+-                let angle = startAngle + t * arc * 360
+-                let rad = angle * .pi / 180
+-                
+-                let isMajor = i % 5 == 0
+-                let length: CGFloat = isMajor ? 12 : 6
+-                let x1 = r + cos(rad) * (r - 5)
+-                let y1 = r + sin(rad) * (r - 5)
+-                let x2 = r + cos(rad) * (r - 5 - length)
+-                let y2 = r + sin(rad) * (r - 5 - length)
+-                
+-                Path { path in
+-                    path.move(to: CGPoint(x: x1, y: y1))
+-                    path.addLine(to: CGPoint(x: x2, y: y2))
+-                }
+-                .stroke(Double(progress) >= t ? color : Color.subText.opacity(0.3),
+-                        lineWidth: isMajor ? 2 : 1)
+-            }
+-        }
+-    }
+-}
+diff --git a/Leastimator/Info.plist b/Leastimator/Info.plist
+index 7177647..b25b606 100644
+--- a/Leastimator/Info.plist
++++ b/Leastimator/Info.plist
+@@ -218,5 +218,12 @@
+ 		<key>UIImageName</key>
+ 		<string>LaunchScreenImage</string>
+ 	</dict>
++	<key>UIAppFonts</key>
++	<array>
++		<string>Inter-VariableFont_opsz,wght.ttf</string>
++		<string>JetBrainsMono[wght].ttf</string>
++		<string>Inter-Italic-VariableFont_opsz,wght.ttf</string>
++		<string>JetBrainsMono-Italic[wght].ttf</string>
++	</array>
+ </dict>
+ </plist>
+diff --git a/Leastimator/VehiclePresentation.swift b/Leastimator/VehiclePresentation.swift
+index fb94ca0..f35c1b4 100644
+--- a/Leastimator/VehiclePresentation.swift
++++ b/Leastimator/VehiclePresentation.swift
+@@ -8,53 +8,6 @@
+ import SwiftUI
+ import SwiftRater
+ 
+-struct InfoPanel: View {
+-  var title: Text
+-  var unit: Text
+-  var value: Text
+-  
+-  var body: some View {
+-    VStack(alignment: .leading, spacing: 12) {
+-      title
+-        .foregroundColor(.subText)
+-      HStack(alignment: .lastTextBaseline) {
+-        value
+-          .font(.system(size: 24, weight: .bold, design: .rounded))
+-        unit
+-          .foregroundColor(.subText)
+-      }
+-    }
+-    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+-  }
+-}
+-
+-struct MoreInfoView: View {
+-  var question: Text
+-  var answer: Text
+-  var more: Text
+-  
+-  @State private var showMore = false
+-  var body: some View {
+-    VStack(alignment: .leading) {
+-      HStack {
+-        question
+-          .foregroundColor(.subText)
+-        Button(action: { showMore = true }) {
+-          Image(systemName: "info.circle").foregroundColor(.subText)
+-        }.sheet(isPresented: $showMore) {
+-          more
+-            .padding()
+-            .foregroundColor(.subText)
+-            .presentationDetents([.medium, .fraction(0.4)])
+-        }
+-      }
+-      Spacer().frame(height: 10.0)
+-      answer
+-    }
+-    .listRowBackground(Color.clear)
+-  }
+-}
+-
+ struct VehiclePresentation: View {
+   @Environment(\.managedObjectContext) private var viewContext
+   @EnvironmentObject private var purchaseManager: PurchaseManager
+@@ -122,6 +75,10 @@ struct VehiclePresentation: View {
+     return 1.0
+   }
+   
++  private var statusColor: Color {
++    Color.statusColor(progress: Double(progressPercentage))
++  }
++  
+   let linearGradient = LinearGradient(
+     gradient: Gradient (
+       colors: [
+@@ -134,200 +91,129 @@ struct VehiclePresentation: View {
+   
+   
+   var body: some View {
+-    List {
+-      if vehicle.archived {
+-        Section {
+-          VStack(alignment: .leading) {
++    ZStack(alignment: .bottom) {
++      ScrollView {
++        VStack(alignment: .leading, spacing: 24) {
++          if vehicle.archived {
+             Text("Archived")
+               .font(.caption2).bold()
+               .padding(.horizontal, 12).padding(.vertical, 6)
+               .background(Color.orange)
+               .foregroundColor(.white)
+               .cornerRadius(12)
++              .padding(.top, 8)
+           }
+-          .listRowSeparator(.hidden)
+-          .listRowBackground(Color.clear)
+-        }
+-      }
+-      Section {
+-        VStack(alignment: .leading, spacing: 20) {
+-          // Coach Message
+-          HStack(spacing: 8) {
+-            Circle()
+-              .fill(progressPercentage >= 1.0 ? Color.red : (progressPercentage >= 0.9 ? Color.orange : Color.accentColor))
+-              .frame(width: 8, height: 8)
+-              .shadow(color: (progressPercentage >= 1.0 ? Color.red : (progressPercentage >= 0.9 ? Color.orange : Color.accentColor)).opacity(0.5), radius: 4)
+-            
+-            Text(extendedInfo.mileageVariance ?? 0 > 0 ? "Heads up — you're over pace" : "Nice pace. You're on track.")
+-              .font(.system(size: 14, weight: .medium, design: .rounded))
+-              .foregroundColor(.subText)
+-          }
+-          .padding(.horizontal, 4)
+ 
+-          // Gauge
++          CoachMessage(isOverPace: progressPercentage >= 1.0)
++
++          // Big gauge
+           HStack {
+             Spacer()
+-            GaugeCluster(progress: progressPercentage,
+-                         projected: extendedInfo.normalPredicatedMileage,
+-                         variance: extendedInfo.mileageVariance ?? 0,
+-                         unit: lengthUnit.shortFor)
++            DashboardGauge(
++              progress: Double(progressPercentage),
++              projected: extendedInfo.normalPredicatedMileage,
++              variance: extendedInfo.mileageVariance ?? 0,
++              unit: lengthUnit.shortFor,
++              statusColor: statusColor
++            )
+             Spacer()
+           }
+           .padding(.vertical, 10)
+-        }
+-        .listRowSeparator(.hidden)
+-        .listRowBackground(Color.clear)
+-      }
+-      
+-      // Actions
+-      // Stats Section
+-      Section {
+-        HStack(spacing: 12) {
+-          VStack(alignment: .leading, spacing: 8) {
+-            Text("DAILY AVG")
+-              .font(.system(size: 10, weight: .bold, design: .rounded))
+-              .foregroundColor(.subText)
+-            HStack(alignment: .lastTextBaseline, spacing: 4) {
+-              Text("\(Int(extendedInfo.mileagePerDay))")
+-                .font(.system(size: 24, weight: .bold, design: .monospaced))
+-                .foregroundColor(.mainText)
+-              Text(lengthUnit.shortFor)
+-                .font(.system(size: 10, weight: .medium, design: .rounded))
+-                .foregroundColor(.subText)
+-            }
++
++          // Track info card
++          HStack(alignment: .center, spacing: 16) {
++            Image(systemName: "bolt.fill")
++                .font(.system(size: 22))
++                .foregroundColor(statusColor)
++                .shadow(color: statusColor.opacity(0.3), radius: 5)
++            
++            Text(vehicle.allowed == 0 ?
++                 "You can drive as far as you want because you did not set the mileage allowed." :
++                 "You can drive up to \(String(extendedInfo.maxDriveToday)) \(lengthUnit.longName.toString()) today and still be on track.")
++            .font(.inter(16, weight: .bold))
++            .foregroundColor(.mainText)
++            .fixedSize(horizontal: false, vertical: true)
+           }
+-          .frame(maxWidth: .infinity, alignment: .leading)
+-          .padding(16)
+-          .background(Color.subBg)
+-          .cornerRadius(16)
+-          
+-          VStack(alignment: .leading, spacing: 8) {
+-            Text("ODOMETER")
+-              .font(.system(size: 10, weight: .bold, design: .rounded))
+-              .foregroundColor(.subText)
+-            HStack(alignment: .lastTextBaseline, spacing: 4) {
+-              Text("\(extendedInfo.currentMileage)")
+-                .font(.system(size: 20, weight: .bold, design: .monospaced))
+-                .foregroundColor(.mainText)
+-              Text(lengthUnit.shortFor)
+-                .font(.system(size: 10, weight: .medium, design: .rounded))
+-                .foregroundColor(.subText)
+-            }
++          .padding(20)
++          .background(Color.subBg.opacity(0.3))
++          .cornerRadius(24)
++          .overlay(
++            RoundedRectangle(cornerRadius: 24)
++                .stroke(Color.mainText.opacity(0.05), lineWidth: 1)
++          )
++
++          // Primary stats grid in a single tile
++          HStack(spacing: 0) {
++            StatCell(label: "DAILY AVG", value: String(format: "%.0f", extendedInfo.mileagePerDay), unit: lengthUnit.shortFor)
++            
++            Divider()
++              .frame(height: 32)
++              .padding(.horizontal, 2)
++            
++            StatCell(label: "ODOMETER", value: "\(extendedInfo.currentMileage)", unit: lengthUnit.shortFor)
++            
++            Divider()
++              .frame(height: 32)
++              .padding(.horizontal, 2)
++            
++            StatCell(label: "LEASE LEFT", value: "\(extendedInfo.leaseLeft)", unit: "mo")
+           }
+-          .frame(maxWidth: .infinity, alignment: .leading)
+-          .padding(16)
+-          .background(Color.subBg)
++          .padding(.vertical, 16)
++          .padding(.trailing, 12)
++          .background(Color.subBg.opacity(0.3))
+           .cornerRadius(16)
+-          
+-          VStack(alignment: .leading, spacing: 8) {
+-            Text("LEASE LEFT")
+-              .font(.system(size: 10, weight: .bold, design: .rounded))
+-              .foregroundColor(.subText)
+-            HStack(alignment: .lastTextBaseline, spacing: 4) {
+-              Text("\(extendedInfo.leaseLeft)")
+-                .font(.system(size: 24, weight: .bold, design: .monospaced))
+-                .foregroundColor(.mainText)
+-              Text("mo")
+-                .font(.system(size: 10, weight: .medium, design: .rounded))
+-                .foregroundColor(.subText)
+-            }
++          .overlay(
++            RoundedRectangle(cornerRadius: 16)
++                .stroke(Color.mainText.opacity(0.05), lineWidth: 1)
++          )
++
++          if !purchaseManager.unlockPro {
++            BannerAd()
++              .padding(.vertical, 8)
+           }
+-          .frame(maxWidth: .infinity, alignment: .leading)
+-          .padding(16)
+-          .background(Color.subBg)
+-          .cornerRadius(16)
++          
++          Text("Calculations are estimates based on your lease terms and driving history.")
++            .font(.inter(11))
++            .foregroundColor(.subText)
++            .padding(.top, 8)
++            .padding(.bottom, 120) // Spacer for sticky buttons
+         }
+-        .listRowSeparator(.hidden)
+-        .listRowBackground(Color.clear)
++        .padding(.horizontal, 24)
+       }
+-      
+-      // Banner ad
+-      if !purchaseManager.unlockPro {
+-        Section {
+-          BannerAd()
+-            .listRowSeparator(.hidden)
+-            .listRowBackground(Color.clear)
++      .scrollIndicators(.hidden)
++
++      // Sticky Bottom Buttons
++      HStack(spacing: 12) {
++        if !vehicle.archived {
++          addReadingButton
+         }
+-      }
+-      
+-      Section {
+-        VStack(alignment: .leading, spacing: 12) {
+-          Text("TRACKING")
+-            .font(.system(size: 10, weight: .bold, design: .rounded))
+-            .foregroundColor(.subText)
+-            .tracking(1)
+-          
+-          Text(vehicle.allowed == 0 ?
+-               "You can drive as far as you want because you did not set the mileage allowed." :
+-               "You can drive up to **\(String(extendedInfo.maxDriveToday)) \(lengthUnit.longName.toString())** today and still be on track.")
+-            .font(.system(size: 16, design: .rounded))
++        
++        Button(action: {
++          showChartSheet.toggle()
++        }) {
++          Image(systemName: "chart.bar.fill")
++            .font(.system(size: 18))
+             .foregroundColor(.mainText)
++            .frame(width: 56, height: 56)
++            .background(Color.subBg)
++            .cornerRadius(28)
++            .overlay(
++                RoundedRectangle(cornerRadius: 28)
++                    .stroke(Color.mainText.opacity(0.1), lineWidth: 1)
++            )
+         }
+-        .padding(16)
+-        .frame(maxWidth: .infinity, alignment: .leading)
+-        .background(Color.subBg.opacity(0.5))
+-        .cornerRadius(16)
+-        .listRowSeparator(.hidden)
+-        .listRowBackground(Color.clear)
+-      } footer: {
+-        Text("disclaimer")
+-          .font(.system(size: 12.0))
+-          .foregroundColor(.subText)
+-          .listRowSeparator(.hidden)
+-          .listRowBackground(Color.clear)
++        .buttonStyle(.plain)
+       }
++      .padding(.horizontal, 24)
++      .padding(.bottom, 34) // Adjust for safe area
++      .background(
++        LinearGradient(colors: [.clear, Color.mainBg.opacity(0.8), Color.mainBg], startPoint: .top, endPoint: .bottom)
++            .frame(height: 140)
++            .ignoresSafeArea()
++      )
+     }
+     .scrollContentBackground(.hidden)
+     .listStyle(.plain)
+-    .safeAreaInset(edge: .bottom) {
+-      if !vehicle.archived {
+-        HStack(spacing: 12) {
+-          Group {
+-            if vehicle.teslaConnectionId != nil {
+-              Menu {
+-                Button {
+-                  Task { await syncIfOnline() }
+-                } label: {
+-                  Label("Auto Sync from Tesla", systemImage: "arrow.triangle.2.circlepath")
+-                }
+-                Button {
+-                  showAddReadingSheet.toggle()
+-                } label: {
+-                  Label("Add Manually", systemImage: "keyboard")
+-                }
+-              } label: {
+-                addReadingButtonLabel
+-              }
+-            } else {
+-              Button(action: {
+-                showAddReadingSheet.toggle()
+-              }) {
+-                addReadingButtonLabel
+-              }
+-            }
+-          }
+-          .disabled(isLoadingTesla || isSyncSuccess)
+-          
+-          Button(action: {
+-            showChartSheet.toggle()
+-          }) {
+-            Image(systemName: "chart.bar.fill")
+-              .font(.system(size: 20))
+-              .frame(width: 56, height: 56)
+-              .foregroundColor(.mainText)
+-              .background(Color.subBg)
+-              .clipShape(Circle())
+-              .overlay(Circle().stroke(Color.subText.opacity(0.2), lineWidth: 1))
+-          }
+-        }
+-        .padding(.horizontal, 24)
+-        .padding(.vertical, 12)
+-        .background(
+-          LinearGradient(colors: [.black.opacity(0), .black.opacity(0.8)], startPoint: .top, endPoint: .bottom)
+-            .ignoresSafeArea()
+-        )
+-      }
+-    }
+     .if(showGlowEffect) {
+         $0.dangerousZoneGlow(progress: progressPercentage)
+     }
+@@ -452,23 +338,52 @@ struct VehiclePresentation: View {
+       }
+   }
+ 
++  private var addReadingButton: some View {
++    Group {
++      if vehicle.teslaConnectionId != nil {
++        Menu {
++          Button {
++            Task { await syncIfOnline() }
++          } label: {
++            Label("Auto Sync from Tesla", systemImage: "arrow.triangle.2.circlepath")
++          }
++          Button {
++            showAddReadingSheet.toggle()
++          } label: {
++            Label("Add Manually", systemImage: "keyboard")
++          }
++        } label: {
++          addReadingButtonLabel
++        }
++      } else {
++        Button(action: {
++          showAddReadingSheet.toggle()
++        }) {
++          addReadingButtonLabel
++        }
++      }
++    }
++    .disabled(isLoadingTesla || isSyncSuccess)
++  }
++
+   private var addReadingButtonLabel: some View {
+-    HStack {
++    HStack(spacing: 8) {
+       if isLoadingTesla {
+-        ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .white))
++        ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .black))
+       } else if isSyncSuccess {
+         Image(systemName: "checkmark.circle.fill")
+         Text("Done")
+       } else {
+-        Image(systemName: "plus.circle.fill")
++        Image(systemName: "plus")
+         Text("Add Reading")
+       }
+     }
+-    .font(.system(size: 16, weight: .bold, design: .rounded))
++    .font(.inter(16, weight: .bold))
++    .foregroundColor(.black)
+     .frame(maxWidth: .infinity)
+     .frame(height: 56)
+-    .foregroundColor(.black)
+-    .background(Color.accentColor)
++    .background(statusColor)
+     .cornerRadius(28)
++    .shadow(color: statusColor.opacity(0.3), radius: 15, y: 5)
+   }
+ }
+diff --git a/Leastimator/VehicleSwitcher.swift b/Leastimator/VehicleSwitcher.swift
+new file mode 100644
+index 0000000..e5769bf
+--- /dev/null
++++ b/Leastimator/VehicleSwitcher.swift
+@@ -0,0 +1,69 @@
++//
++//  VehicleSwitcher.swift
++//  Leastimator
++//
++//  Created by Antigravity on 4/28/26.
++//
++
++import SwiftUI
++
++struct VehicleSwitcher: View {
++    let vehicles: [Vehicle]
++    let selectedVehicle: Vehicle?
++    let onSelect: (Vehicle) -> Void
++    let onSettings: () -> Void
++    let onAddVehicle: () -> Void
++    let statusColor: Color
++    
++    var body: some View {
++        Menu {
++            Section {
++                ForEach(vehicles) { vehicle in
++                    Button {
++                        onSelect(vehicle)
++                    } label: {
++                        HStack {
++                            Text(vehicle.name ?? "Unknown")
++                            if vehicle == selectedVehicle {
++                                Image(systemName: "checkmark")
++                            }
++                        }
++                    }
++                }
++            }
++            
++            Section {
++                Button(action: onSettings) {
++                    Label("Settings", systemImage: "gearshape.2")
++                }
++                Button(action: onAddVehicle) {
++                    Label("Add Vehicle", systemImage: "plus")
++                }
++            }
++        } label: {
++            HStack(spacing: 8) {
++                // Abbreviation Icon
++                Text(selectedVehicle?.name?.vehicleAbbreviation ?? "??")
++                    .font(.jetBrainsMono(10))
++                    .fontWeight(.bold)
++                    .foregroundColor(.black)
++                    .frame(width: 22, height: 22)
++                    .background(statusColor)
++                    .clipShape(Circle())
++                
++                Text(selectedVehicle?.name ?? "Select Vehicle")
++                    .font(.inter(14, weight: .bold))
++                    .foregroundColor(.mainText)
++                
++                Image(systemName: "chevron.down")
++                    .font(.system(size: 10, weight: .bold))
++                    .foregroundColor(.subText)
++            }
++            .padding(.leading, 4)
++            .padding(.trailing, 10)
++            .padding(.vertical, 4)
++            .background(Capsule().fill(Color.subBg.opacity(0.6)))
++            .transition(.opacity)
++        }
++    }
++}
+diff --git a/fonts/Inter-Italic-VariableFont_opsz,wght.ttf b/fonts/Inter-Italic-VariableFont_opsz,wght.ttf
+new file mode 100644
+index 0000000..43ed4f5
+Binary files /dev/null and b/fonts/Inter-Italic-VariableFont_opsz,wght.ttf differ
+diff --git a/fonts/Inter-VariableFont_opsz,wght.ttf b/fonts/Inter-VariableFont_opsz,wght.ttf
+new file mode 100644
+index 0000000..e31b51e
+Binary files /dev/null and b/fonts/Inter-VariableFont_opsz,wght.ttf differ
+diff --git a/fonts/JetBrainsMono-Italic[wght].ttf b/fonts/JetBrainsMono-Italic[wght].ttf
+new file mode 100644
+index 0000000..5414835
+Binary files /dev/null and b/fonts/JetBrainsMono-Italic[wght].ttf differ
+diff --git a/fonts/JetBrainsMono[wght].ttf b/fonts/JetBrainsMono[wght].ttf
+new file mode 100644
+index 0000000..b60e77f
+Binary files /dev/null and b/fonts/JetBrainsMono[wght].ttf differ
