@@ -28,6 +28,7 @@ struct ExtendedVehicleInfo {
   let mileageShouldLessThan: Int
   let maxDriveToday: Int
   let leaseLeft: Int
+  let daysRemaining: Int
 
   let isExpired: Bool
 
@@ -170,10 +171,13 @@ func prepareHistoryChartData(veh: Vehicle, readings: [OdoReading], range: Histor
 }
 
 func Compute(_ veh: Vehicle) -> ExtendedVehicleInfo {
-  var readings: [OdoReading] = veh.readings?.map{ $0 } as! [OdoReading]
+  var readings: [OdoReading] = veh.readings?.map{ $0 } as? [OdoReading] ?? []
   readings.sort(by: { ($0.date ?? Date()).compare($1.date ?? Date()) == .orderedAscending })
   
-  var currentMileage = Int(veh.starting)
+  let startingMileage = Int(veh.starting)
+  let allowedMileage = Int(veh.allowed)
+  
+  var currentMileage = startingMileage
   let currentDate = Date()
   
   if readings.count > 0 {
@@ -182,7 +186,7 @@ func Compute(_ veh: Vehicle) -> ExtendedVehicleInfo {
     }
   }
   
-  let leftMileage = Int(max(Int(veh.allowed) + Int(veh.starting) - currentMileage, 0))
+  let leftMileage = max(allowedMileage + startingMileage - currentMileage, 0)
   
   var isExpired = false
   if let startDate = veh.startDate {
@@ -198,11 +202,7 @@ func Compute(_ veh: Vehicle) -> ExtendedVehicleInfo {
   }
   
   // Compute predicted mileage.
-  var normalPredicatedMileage: Int = 0
-  var mileagePerDay: Double = 0
-  var mileagePerMonth: Int = 0
-  // Can be zero.
-  let usedMileage = Int(currentMileage - Int(veh.starting))
+  let usedMileage = currentMileage - startingMileage
   
   let usedDays: Int
   let usedMonths: Int
@@ -218,28 +218,30 @@ func Compute(_ veh: Vehicle) -> ExtendedVehicleInfo {
     usedDays = 1
     usedMonths = 1
   }
-  mileagePerDay = max((Double(usedMileage) / Double(usedDays)).rounded(), 0)
-  mileagePerMonth = max(Int(usedMileage / usedMonths), 0)
+  
+  let mileagePerDay = max(Double(usedMileage) / Double(usedDays), 0.0)
+  let mileagePerMonth = max(Double(usedMileage) / Double(usedMonths), 0.0)
+  
+  let totalDays = Double(veh.lengthOfLease) / 12.0 * 365.25
+  let daysRemaining = max(0.0, totalDays - Double(usedDays))
   
   // Starting date + predicated mileage.
-  normalPredicatedMileage = max(currentMileage, Int(Double(veh.starting) + Double(veh.lengthOfLease) / 12.0 * 365.0 * mileagePerDay))
+  let normalPredicatedMileage = max(currentMileage, currentMileage + Int((daysRemaining * mileagePerDay).rounded()))
   
-  let mileageVariance = normalPredicatedMileage - Int(veh.allowed) - Int(veh.starting)
+  let mileageVariance = normalPredicatedMileage - allowedMileage - startingMileage
   let excessMileage = max(mileageVariance, 0)
-  let excessCharge = Int(veh.fee * Float(excessMileage))
+  let excessCharge = Int((Double(veh.fee) * Double(excessMileage)).rounded())
   
-  let totalDays = max(1, Int(Double(veh.lengthOfLease) / 12.0 * 365.25))
-  let allowedMileagePerDay: Double = Double(veh.allowed) / Double(totalDays)
-  let mileageShouldLessThan = Int(veh.starting) + Int(allowedMileagePerDay * Double(usedDays))
+  let allowedMileagePerDay: Double = Double(allowedMileage) / max(1.0, totalDays)
+  let mileageShouldLessThan = startingMileage + Int((allowedMileagePerDay * Double(usedDays)).rounded())
   let maxDriveToday = max(0, mileageShouldLessThan - currentMileage)
   let leaseLeft = max(0, Int(veh.lengthOfLease) - (usedMonths - 1))
-  
   
   return ExtendedVehicleInfo(currentMileage: currentMileage,
                              leftMileage: leftMileage,
                              normalPredicatedMileage: normalPredicatedMileage,
                              mileagePerDay: mileagePerDay,
-                             mileagePerMonth: mileagePerMonth,
+                             mileagePerMonth: Int(mileagePerMonth.rounded()),
                              usedDays: usedDays,
                              mileageVariance: mileageVariance,
                              excessMileage: excessMileage,
@@ -248,6 +250,7 @@ func Compute(_ veh: Vehicle) -> ExtendedVehicleInfo {
                              mileageShouldLessThan: mileageShouldLessThan,
                              maxDriveToday: maxDriveToday,
                              leaseLeft: leaseLeft,
+                             daysRemaining: Int(daysRemaining.rounded()),
                              isExpired: isExpired
   )
 }

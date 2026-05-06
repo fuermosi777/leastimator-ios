@@ -13,7 +13,8 @@ files_to_add = [
   'HistoryLineChart.swift',
   'VehicleHistoryView.swift',
   'GuidingMessageBoard.swift',
-  'StatsSection.swift'
+  'StatsSection.swift',
+  'ProjectedMileageExplanationView.swift'
 ]
 
 # Target

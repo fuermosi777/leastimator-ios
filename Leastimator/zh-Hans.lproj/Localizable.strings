@@ -90,3 +90,22 @@
 "vehicle delete warning message" = "请确认你要删除这辆车。注意：此操作无法撤销。";
 "🥳 Leastimator is a free app now. Thank you for purchasing and supporting Leastimator app before. You can enjoy Leastimator Pro for free." = "🥳 Leastimator 现在是一款免费应用了。感谢你之前的购买和支持。你可以免费使用 Leastimator Pro。";
 "🥳 Thank you for supporting Leastimator by subscribing pro!" = "🥳 感谢你订阅 Pro 并以此支持 Leastimator！";
+
+/* Projected Mileage Explanation */
+"How it's Calculated" = "计算方式";
+"How it's calculated" = "计算方式";
+"Projected Mileage" = "预计总里程";
+"We use your actual driving history to predict where you'll end up at the end of your lease." = "我们根据您的实际驾驶历史，预测租约结束时的里程数。";
+"THE FORMULA" = "计算公式";
+"Start + (Avg. Daily × Total Days)" = "初始里程 + (日均里程 × 总租约天数)";
+"Current + (Avg. Daily × Days Left)" = "当前 + (日均里程 × 剩余天数)";
+"YOUR DATA" = "您的数据";
+"Starting Odometer" = "初始里程";
+"Current Odometer" = "当前里程";
+"Used Mileage" = "已行驶里程";
+"Days Elapsed" = "已租天数";
+"Days Remaining" = "剩余天数";
+"Daily Average" = "日均里程";
+"Lease Duration" = "租约时长";
+"More data = Better accuracy" = "数据越多 = 越准确";
+"The more odometer readings you add over time, the more accurately we can account for seasonal driving changes and long trips." = "随着时间的推移，您添加的里程读数越多，我们就越能准确地考虑到季节性驾驶变化和长途旅行的影响。";

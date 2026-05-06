@@ -99,3 +99,22 @@
 "vehicle delete warning message" = "Bitte bestätigen Sie, dass Sie dieses Fahrzeug löschen möchten. Beachten Sie, dass dieser Vorgang nicht rückgängig gemacht werden kann.";
 "🥳 Leastimator is a free app now. Thank you for purchasing and supporting Leastimator app before. You can enjoy Leastimator Pro for free." = "🥳 Leastimator ist jetzt eine kostenlose App. Vielen Dank für den Kauf und die Unterstützung der Leastimator-App zuvor. Sie können Leastimator Pro kostenlos nutzen.";
 "🥳 Thank you for supporting Leastimator by subscribing pro!" = "🥳 Vielen Dank für die Unterstützung von Leastimator durch ein Pro-Abonnement!";
+
+/* Projected Mileage Explanation */
+"How it's Calculated" = "Berechnungsweise";
+"How it's calculated" = "Berechnungsweise";
+"Projected Mileage" = "Projizierter Kilometerstand";
+"We use your actual driving history to predict where you'll end up at the end of your lease." = "Wir nutzen Ihre tatsächliche Fahrhistorie, um den Kilometerstand am Ende des Leasings vorherzusagen.";
+"THE FORMULA" = "DIE FORMEL";
+"Start + (Avg. Daily × Total Days)" = "Start + (Durchschnitt/Tag × Gesamttage)";
+"Current + (Avg. Daily × Days Left)" = "Aktuell + (Durchschnitt/Tag × Resttage)";
+"YOUR DATA" = "IHRE DATEN";
+"Starting Odometer" = "Start-Kilometerstand";
+"Current Odometer" = "Aktueller Kilometerstand";
+"Used Mileage" = "Gefahrene Kilometer";
+"Days Elapsed" = "Vergangene Tage";
+"Days Remaining" = "Verbleibende Tage";
+"Daily Average" = "Täglicher Durchschnitt";
+"Lease Duration" = "Leasingdauer";
+"More data = Better accuracy" = "Mehr Daten = Höhere Genauigkeit";
+"The more odometer readings you add over time, the more accurately we can account for seasonal driving changes and long trips." = "Je mehr Kilometerstände Sie im Laufe der Zeit hinzufügen, desto genauer können wir saisonale Änderungen und lange Fahrten berücksichtigen.";

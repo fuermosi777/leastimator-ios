@@ -13,7 +13,7 @@ struct StatsSection: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            StatCell(label: "DAILY AVG", value: String(format: "%.0f", extendedInfo.mileagePerDay), unit: lengthUnit.shortFor)
+            StatCell(label: "DAILY AVG", value: String(format: "%.1f", extendedInfo.mileagePerDay), unit: lengthUnit.shortFor)
             
             Divider()
                 .frame(height: 32)

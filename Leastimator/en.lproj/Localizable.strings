@@ -99,3 +99,22 @@
 "vehicle delete warning message" = "Please confirm that you want to delete this vehicle. Note that this cannot be undone.";
 "🥳 Leastimator is a free app now. Thank you for purchasing and supporting Leastimator app before. You can enjoy Leastimator Pro for free." = "🥳 Leastimator is a free app now. Thank you for purchasing and supporting Leastimator app before. You can enjoy Leastimator Pro for free.";
 "🥳 Thank you for supporting Leastimator by subscribing pro!" = "🥳 Thank you for supporting Leastimator by subscribing pro!";
+
+/* Projected Mileage Explanation */
+"How it's Calculated" = "How it's Calculated";
+"How it's calculated" = "How it's calculated";
+"Projected Mileage" = "Projected Mileage";
+"We use your actual driving history to predict where you'll end up at the end of your lease." = "We use your actual driving history to predict where you'll end up at the end of your lease.";
+"THE FORMULA" = "THE FORMULA";
+"Start + (Avg. Daily × Total Days)" = "Start + (Avg. Daily × Total Days)";
+"Current + (Avg. Daily × Days Left)" = "Current + (Avg. Daily × Days Left)";
+"YOUR DATA" = "YOUR DATA";
+"Starting Odometer" = "Starting Odometer";
+"Current Odometer" = "Current Odometer";
+"Used Mileage" = "Used Mileage";
+"Days Elapsed" = "Days Elapsed";
+"Days Remaining" = "Days Remaining";
+"Daily Average" = "Daily Average";
+"Lease Duration" = "Lease Duration";
+"More data = Better accuracy" = "More data = Better accuracy";
+"The more odometer readings you add over time, the more accurately we can account for seasonal driving changes and long trips." = "The more odometer readings you add over time, the more accurately we can account for seasonal driving changes and long trips.";

@@ -28,6 +28,7 @@ struct VehiclePresentation: View {
   @State private var showVehicleHistorySheet = false
   @State private var showSleepAlert = false
   @State private var showCooldownAlert = false
+  @State private var showExplanation = false
   @State private var isLoadingTesla = false
   @State private var isSyncSuccess = false
   @State private var vehicleState: String?
@@ -64,17 +65,17 @@ struct VehiclePresentation: View {
     }
   }
   
-  var progressPercentage: Float {
-    let up = Float(extendedInfo.normalPredicatedMileage)
-    let down = Float(vehicle.allowed + vehicle.starting)
+  var progressPercentage: Double {
+    let up = Double(extendedInfo.normalPredicatedMileage)
+    let down = Double(vehicle.allowed + vehicle.starting)
     if down > 0 {
-      return min(Float(up / down), 1.0)
+      return min(up / down, 1.0)
     }
     return 1.0
   }
   
   private var statusColor: Color {
-    Color.statusColor(progress: Double(progressPercentage))
+    Color.statusColor(progress: progressPercentage)
   }
   
   let linearGradient = LinearGradient(
@@ -115,7 +116,7 @@ struct VehiclePresentation: View {
           HStack {
             Spacer()
             DashboardGauge(
-              progress: Double(progressPercentage),
+              progress: progressPercentage,
               projected: extendedInfo.normalPredicatedMileage,
               variance: extendedInfo.mileageVariance ?? 0,
               unit: lengthUnit.shortFor,
@@ -136,11 +137,22 @@ struct VehiclePresentation: View {
               .padding(.vertical, 8)
           }
           
-          Text("Calculations are estimates based on your lease terms and driving history.")
-            .font(.inter(11))
-            .foregroundColor(.subText)
-            .padding(.top, 8)
-            .padding(.bottom, 120) // Spacer for sticky buttons
+          Button(action: {
+            showExplanation = true
+          }) {
+            HStack(spacing: 4) {
+              Text("Calculations are estimates based on your lease terms and driving history.")
+                .font(.inter(11))
+                .foregroundColor(.subText)
+                .multilineTextAlignment(.leading)
+              Image(systemName: "info.circle")
+                .font(.system(size: 10))
+                .foregroundColor(.subText)
+            }
+          }
+          .buttonStyle(.plain)
+          .padding(.top, 8)
+          .padding(.bottom, 120) // Spacer for sticky buttons
         }
         .padding(.horizontal, 24)
       }
@@ -186,6 +198,9 @@ struct VehiclePresentation: View {
       VehicleHistoryView(vehicle: vehicle)
         .environment(\.managedObjectContext, viewContext)
     }
+    .sheet(isPresented: $showExplanation) {
+      ProjectedMileageExplanationView(vehicle: vehicle)
+    }
     .alert("Notice", isPresented: $showSleepAlert) {
       Button("Add Manually") { showAddReadingSheet.toggle() }
       Button("OK", role: .cancel) {}
@@ -208,6 +223,15 @@ struct VehiclePresentation: View {
         if vehicle.teslaConnectionId != nil {
             Task { await pollTeslaState() }
         }
+    }
+    .toolbar {
+      ToolbarItem(placement: .secondaryAction) {
+        Button {
+          showExplanation = true
+        } label: {
+          Label("How it's calculated", systemImage: "info.circle")
+        }
+      }
     }
   }
   
