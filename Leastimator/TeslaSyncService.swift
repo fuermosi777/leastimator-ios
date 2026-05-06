@@ -43,32 +43,8 @@ class TeslaSyncService {
                             finalValue = odo * 1.60934
                         }
                         
-                        // Check last reading value to avoid redundant saving
-                        var lastOdo: Double = Double(vehicle.starting)
-                        var lastReadingDate = Date.distantPast
-                        
-                        if let readingsSet = vehicle.readings as? Set<OdoReading> {
-                            if let maxReading = readingsSet.max(by: { ($0.date ?? Date.distantPast) < ($1.date ?? Date.distantPast) }) {
-                                lastOdo = Double(maxReading.value)
-                                lastReadingDate = maxReading.date ?? Date.distantPast
-                            }
-                        }
-                        
-                        let diff = finalValue - lastOdo
-                        var threshold: Double = 1.0
-                        
-                        // If there is a reading from today, we only add if it's >= 5 miles difference
-                        if Calendar.current.isDateInToday(lastReadingDate) {
-                            let milesThreshold: Double = 5.0
-                            if vehicle.lengthUnit == LengthUnit.Metric.rawValue {
-                                threshold = milesThreshold * 1.60934
-                            } else {
-                                threshold = milesThreshold
-                            }
-                        }
-                        
-                        // Save reading if value increased by at least the threshold
-                        if diff >= threshold {
+                        // Check if we should add this reading based on the threshold
+                        if self.shouldAddReading(vehicle: vehicle, newValue: finalValue) {
                             let reading = OdoReading(context: context)
                             reading.value = Int64(finalValue)
                             reading.date = Date()
@@ -82,5 +58,32 @@ class TeslaSyncService {
                 print("Failed to sync Tesla vehicle \(vid) in background: \(error)")
             }
         }
+    }
+    
+    func shouldAddReading(vehicle: Vehicle, newValue: Double) -> Bool {
+        var lastOdo: Double = Double(vehicle.starting)
+        var lastReadingDate = Date.distantPast
+        
+        if let readingsSet = vehicle.readings as? Set<OdoReading> {
+            if let maxReading = readingsSet.max(by: { ($0.date ?? Date.distantPast) < ($1.date ?? Date.distantPast) }) {
+                lastOdo = Double(maxReading.value)
+                lastReadingDate = maxReading.date ?? Date.distantPast
+            }
+        }
+        
+        let diff = newValue - lastOdo
+        var threshold: Double = 1.0
+        
+        // If there is a reading from today, we only add if it's >= 5 miles difference
+        if Calendar.current.isDateInToday(lastReadingDate) {
+            let milesThreshold: Double = 5.0
+            if vehicle.lengthUnit == LengthUnit.Metric.rawValue {
+                threshold = milesThreshold * 1.60934
+            } else {
+                threshold = milesThreshold
+            }
+        }
+        
+        return diff >= threshold
     }
 }

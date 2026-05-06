@@ -233,14 +233,16 @@ struct VehiclePresentation: View {
                       value = odo * 1.60934
                   }
                   await MainActor.run {
-                      let reading = OdoReading(context: viewContext)
-                      reading.value = Int64(value)
-                      reading.date = Date()
-                      reading.vehicle = vehicle
-                      try? viewContext.save()
-                      vehicle.updateLastTeslaSyncDate()
+                      if TeslaSyncService.shared.shouldAddReading(vehicle: vehicle, newValue: value) {
+                          let reading = OdoReading(context: viewContext)
+                          reading.value = Int64(value)
+                          reading.date = Date()
+                          reading.vehicle = vehicle
+                          try? viewContext.save()
+                          vehicle.updateLastTeslaSyncDate()
+                          isSyncSuccess = true
+                      }
                       isLoadingTesla = false
-                      isSyncSuccess = true
                       
                       // Result indicator delay
                       Task {
@@ -286,12 +288,14 @@ struct VehiclePresentation: View {
                       value = odo * 1.60934
                   }
                   await MainActor.run {
-                      let reading = OdoReading(context: viewContext)
-                      reading.value = Int64(value)
-                      reading.date = Date()
-                      reading.vehicle = vehicle
-                      try? viewContext.save()
-                      vehicle.updateLastTeslaSyncDate()
+                      if TeslaSyncService.shared.shouldAddReading(vehicle: vehicle, newValue: value) {
+                          let reading = OdoReading(context: viewContext)
+                          reading.value = Int64(value)
+                          reading.date = Date()
+                          reading.vehicle = vehicle
+                          try? viewContext.save()
+                          vehicle.updateLastTeslaSyncDate()
+                      }
                   }
               }
           }
