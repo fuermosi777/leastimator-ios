@@ -19,7 +19,10 @@ struct ReadingList: View {
   @State private var selectedReading: OdoReading?
   @State private var showEditReadingSheet = false
   @State private var showExportSheet = false
+  @State private var showImportSheet = false
   @State private var historyDocument: OdometerReadingDocument?
+  @State private var importAlertMessage: String?
+  @State private var showImportAlert = false
   
   init(vehicle: Vehicle) {
     self.vehicle = vehicle
@@ -121,10 +124,19 @@ struct ReadingList: View {
           }
         }
         ToolbarItem(placement: .confirmationAction) {
-          Button {
-            handleExport()
+          Menu {
+            Button {
+              handleExport()
+            } label: {
+              Label("Export CSV", systemImage: "square.and.arrow.up")
+            }
+            Button {
+              showImportSheet = true
+            } label: {
+              Label("Import CSV", systemImage: "square.and.arrow.down")
+            }
           } label: {
-            Image(systemName: "square.and.arrow.up")
+            Image(systemName: "ellipsis.circle")
               .foregroundColor(.mainText)
           }
         }
@@ -140,6 +152,24 @@ struct ReadingList: View {
             print(error.localizedDescription)
         }
       }
+      .fileImporter(isPresented: $showImportSheet,
+                    allowedContentTypes: [.plainText, .commaSeparatedText],
+                    allowsMultipleSelection: false) { result in
+        switch result {
+          case .success(let urls):
+            if let url = urls.first {
+              handleImport(url: url)
+            }
+          case .failure(let error):
+            importAlertMessage = error.localizedDescription
+            showImportAlert = true
+        }
+      }
+      .alert("Import Result", isPresented: $showImportAlert) {
+        Button("OK", role: .cancel) {}
+      } message: {
+        Text(importAlertMessage ?? "")
+      }
     }
   }
 }
@@ -153,5 +183,86 @@ extension ReadingList {
     
     historyDocument = OdometerReadingDocument(initialText: csvText)
     showExportSheet.toggle()
+  }
+  
+  private func handleImport(url: URL) {
+    // Gain access to the security-scoped resource
+    let accessing = url.startAccessingSecurityScopedResource()
+    defer {
+      if accessing { url.stopAccessingSecurityScopedResource() }
+    }
+    
+    guard let csvText = try? String(contentsOf: url, encoding: .utf8) else {
+      importAlertMessage = "Could not read the selected file."
+      showImportAlert = true
+      return
+    }
+    
+    let lines = csvText.components(separatedBy: .newlines).filter { !$0.isEmpty }
+    guard lines.count > 1 else {
+      importAlertMessage = "The file appears to be empty or has no data rows."
+      showImportAlert = true
+      return
+    }
+    
+    // Parse header to find column indices
+    let header = lines[0].components(separatedBy: ",").map { $0.trimmingCharacters(in: .whitespaces).lowercased() }
+    guard let dateIndex = header.firstIndex(of: "date"),
+          let mileageIndex = header.firstIndex(of: "mileage") else {
+      importAlertMessage = "CSV must contain 'date' and 'mileage' columns."
+      showImportAlert = true
+      return
+    }
+    
+    // Build a set of existing (date-day, value) pairs for duplicate detection
+    let calendar = Calendar.current
+    var existingPairs = Set<String>()
+    for rd in readings {
+      if let d = rd.date {
+        let comps = calendar.dateComponents([.year, .month, .day], from: d)
+        let key = "\(comps.year ?? 0)-\(comps.month ?? 0)-\(comps.day ?? 0)-\(rd.value)"
+        existingPairs.insert(key)
+      }
+    }
+    
+    let isoFormatter = ISO8601DateFormatter()
+    var imported = 0
+    var skipped = 0
+    
+    for line in lines.dropFirst() {
+      let cols = line.components(separatedBy: ",")
+      guard cols.count > max(dateIndex, mileageIndex) else { skipped += 1; continue }
+      
+      let dateStr = cols[dateIndex].trimmingCharacters(in: .whitespaces)
+      let mileageStr = cols[mileageIndex].trimmingCharacters(in: .whitespaces)
+      
+      guard let date = isoFormatter.date(from: dateStr),
+            let mileage = Int64(mileageStr) else { skipped += 1; continue }
+      
+      let comps = calendar.dateComponents([.year, .month, .day], from: date)
+      let key = "\(comps.year ?? 0)-\(comps.month ?? 0)-\(comps.day ?? 0)-\(mileage)"
+      
+      if existingPairs.contains(key) { skipped += 1; continue }
+      existingPairs.insert(key)
+      
+      let newReading = OdoReading(context: viewContext)
+      newReading.date = date
+      newReading.value = mileage
+      newReading.vehicle = vehicle
+      imported += 1
+    }
+    
+    if imported > 0 {
+      do {
+        try viewContext.save()
+        importAlertMessage = "Successfully imported \(imported) reading\(imported == 1 ? "" : "s")" + (skipped > 0 ? ", skipped \(skipped) duplicate\(skipped == 1 ? "" : "s")." : ".")
+      } catch {
+        viewContext.rollback()
+        importAlertMessage = "Failed to save imported readings: \(error.localizedDescription)"
+      }
+    } else {
+      importAlertMessage = "No new readings to import" + (skipped > 0 ? " (\(skipped) duplicate\(skipped == 1 ? "" : "s") skipped)." : ".")
+    }
+    showImportAlert = true
   }
 }
