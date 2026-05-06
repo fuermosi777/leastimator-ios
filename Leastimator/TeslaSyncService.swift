@@ -45,15 +45,30 @@ class TeslaSyncService {
                         
                         // Check last reading value to avoid redundant saving
                         var lastOdo: Double = Double(vehicle.starting)
+                        var lastReadingDate = Date.distantPast
+                        
                         if let readingsSet = vehicle.readings as? Set<OdoReading> {
-                            let maxReading = readingsSet.max(by: { ($0.date ?? Date.distantPast) < ($1.date ?? Date.distantPast) })
-                            if let maxVal = maxReading?.value {
-                                lastOdo = Double(maxVal)
+                            if let maxReading = readingsSet.max(by: { ($0.date ?? Date.distantPast) < ($1.date ?? Date.distantPast) }) {
+                                lastOdo = Double(maxReading.value)
+                                lastReadingDate = maxReading.date ?? Date.distantPast
                             }
                         }
                         
-                        // Save reading if value increased by at least 1 unit
-                        if finalValue - lastOdo >= 1.0 {
+                        let diff = finalValue - lastOdo
+                        var threshold: Double = 1.0
+                        
+                        // If there is a reading from today, we only add if it's >= 5 miles difference
+                        if Calendar.current.isDateInToday(lastReadingDate) {
+                            let milesThreshold: Double = 5.0
+                            if vehicle.lengthUnit == LengthUnit.Metric.rawValue {
+                                threshold = milesThreshold * 1.60934
+                            } else {
+                                threshold = milesThreshold
+                            }
+                        }
+                        
+                        // Save reading if value increased by at least the threshold
+                        if diff >= threshold {
                             let reading = OdoReading(context: context)
                             reading.value = Int64(finalValue)
                             reading.date = Date()
