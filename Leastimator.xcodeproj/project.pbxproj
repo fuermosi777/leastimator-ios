@@ -51,7 +51,7 @@
 		3F34241A29DD324A00C35E69 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F34241929DD324A00C35E69 /* NotificationManager.swift */; };
 		3F4ED1082F07090D00A79DE9 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 3F4ED1072F07090D00A79DE9 /* GoogleMobileAds */; };
 		3F532FF02A916EBF0056EADE /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423D929DD2D3100C35E69 /* UIImage+Extensions.swift */; };
-		3F6F9D792AE4966B0094360F /* (null) in Sources */ = {isa = PBXBuildFile; };
+		3F6F9D792AE4966B0094360F /* BuildFile in Sources */ = {isa = PBXBuildFile; };
 		3F6F9D7B2AE4E9970094360F /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6F9D7A2AE4E9970094360F /* Double+Extensions.swift */; };
 		3FAF41992A8B4820006C462D /* VehicleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423F329DD2F9700C35E69 /* VehicleImage.swift */; };
 		3FAF419A2A8B48AB006C462D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F3423A729DD2C7900C35E69 /* Assets.xcassets */; };
@@ -74,12 +74,14 @@
 		3FE38DF02F0728D8008D351F /* Vehicle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE38DEF2F0728D4008D351F /* Vehicle+Extensions.swift */; };
 		3FE38DF12F0728D8008D351F /* Vehicle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE38DEF2F0728D4008D351F /* Vehicle+Extensions.swift */; };
 		47876AB21E780CD2F2C623CE /* TeslaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C23DE6C66FF6E833E2A3856 /* TeslaService.swift */; };
+		5115D616F3450898604BC03A /* StatsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B0CD6A748D29B24C638620 /* StatsSection.swift */; };
 		561F9C606DCD4BAE5E55B099 /* HistoryRangePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6814C1B2AA81725C1214F0 /* HistoryRangePicker.swift */; };
 		7679C5630529063D3B303EF3 /* ReadingRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A696792A98787C782034E6B6 /* ReadingRowView.swift */; };
 		7873D36A0EBBFD0A25BB79D8 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5800D8376217BCDD3EE9C18 /* KeychainHelper.swift */; };
 		85A3CCE321217E79AD090751 /* CoachMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E873766A6D7E90F0E9694 /* CoachMessageView.swift */; };
 		89019ACC09FB7E86A7AA7276 /* DashboardGauge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E779CABD4F33146BC481AB /* DashboardGauge.swift */; };
 		A0574D49987A4859E271DC42 /* VehicleSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21890A36CD94416E221BFC5D /* VehicleSwitcher.swift */; };
+		A89746C273700CF3DC1F24F1 /* GuidingMessageBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F6A82E142D44E1B554804E /* GuidingMessageBoard.swift */; };
 		A949D04C9C26A8B6788AC97C /* TeslaAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E20E3FFA3767341968BB022 /* TeslaAuthManager.swift */; };
 		B3825494301A7C6F946CB7E3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCDD1455A110D56B355CF7 /* Constants.swift */; };
 		CB0F2F972FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F962FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf */; };
@@ -211,11 +213,13 @@
 		7E20E3FFA3767341968BB022 /* TeslaAuthManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaAuthManager.swift; sourceTree = "<group>"; };
 		81DE9DF31B6881F25AE189D0 /* TeslaVehiclePicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaVehiclePicker.swift; sourceTree = "<group>"; };
 		8F6814C1B2AA81725C1214F0 /* HistoryRangePicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HistoryRangePicker.swift; sourceTree = "<group>"; };
+		95B0CD6A748D29B24C638620 /* StatsSection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StatsSection.swift; sourceTree = "<group>"; };
 		A696792A98787C782034E6B6 /* ReadingRowView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReadingRowView.swift; sourceTree = "<group>"; };
 		C532819930EC5230001C1572 /* DeletedVehiclesView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DeletedVehiclesView.swift; sourceTree = "<group>"; };
 		C5800D8376217BCDD3EE9C18 /* KeychainHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		C997155AB7CE4D28AD8EA84C /* es-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-US"; path = "es-US.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C9A8AE65B911839F2C6819F3 /* TeslaSyncService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaSyncService.swift; sourceTree = "<group>"; };
+		C9F6A82E142D44E1B554804E /* GuidingMessageBoard.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GuidingMessageBoard.swift; sourceTree = "<group>"; };
 		CB0F2F952FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Italic-VariableFont_opsz,wght.ttf"; sourceTree = "<group>"; };
 		CB0F2F962FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-VariableFont_opsz,wght.ttf"; sourceTree = "<group>"; };
 		CB0F2F9F2FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono-Italic[wght].ttf"; sourceTree = "<group>"; };
@@ -336,6 +340,8 @@
 				A696792A98787C782034E6B6 /* ReadingRowView.swift */,
 				0719529E428A672CC4F63690 /* HistoryLineChart.swift */,
 				F90B92381E97D536794367D4 /* VehicleHistoryView.swift */,
+				C9F6A82E142D44E1B554804E /* GuidingMessageBoard.swift */,
+				95B0CD6A748D29B24C638620 /* StatsSection.swift */,
 			);
 			path = Leastimator;
 			sourceTree = "<group>";
@@ -658,6 +664,8 @@
 				7679C5630529063D3B303EF3 /* ReadingRowView.swift in Sources */,
 				E9207E10EB46C2E4306FE466 /* HistoryLineChart.swift in Sources */,
 				0CC354411E5A173991528426 /* VehicleHistoryView.swift in Sources */,
+				A89746C273700CF3DC1F24F1 /* GuidingMessageBoard.swift in Sources */,
+				5115D616F3450898604BC03A /* StatsSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -683,7 +691,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FE221A02A54D8F90063ED9C /* Color+Extensions.swift in Sources */,
-				3F6F9D792AE4966B0094360F /* (null) in Sources */,
+				3F6F9D792AE4966B0094360F /* BuildFile in Sources */,
 				CB7AC1D02FA1C72700E180E4 /* Font+Extensions.swift in Sources */,
 				3FE221A52A54DA6D0063ED9C /* UnitUtils.swift in Sources */,
 				3FE221A32A54D94A0063ED9C /* Date+Extensions.swift in Sources */,

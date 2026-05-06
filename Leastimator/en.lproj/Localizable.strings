@@ -27,6 +27,8 @@
 "Connect to Tesla" = "Connect to Tesla";
 "Connected to Tesla" = "Connected to Tesla";
 "Currency" = "Currency";
+"DAILY AVG" = "DAILY AVG";
+"DAILY PACING" = "DAILY PACING";
 "DATE" = "DATE";
 "DRIVEN · %@" = "DRIVEN · %@";
 "Daily" = "Daily";
@@ -39,12 +41,15 @@
 "Driving Reminders" = "Driving Reminders";
 "Edit Vehicle" = "Edit Vehicle";
 "Error" = "Error";
+"Estimated excess charge: **%lld** %@ at lease end." = "Estimated excess charge: **%lld** %@ at lease end.";
 "Every %lld connections" = "Every %lld connections";
 "Feedback" = "Feedback";
 "Frequency" = "Frequency";
 "Get reminded after connecting to your car (Bluetooth/CarPlay) several times." = "Get reminded after connecting to your car (Bluetooth/CarPlay) several times.";
 "Get reminded to update your mileage on a schedule." = "Get reminded to update your mileage on a schedule.";
+"Heads up — you've already exceeded your current pacing by **%lld** %@." = "Heads up — you've already exceeded your current pacing by **%lld** %@.";
 "History" = "History";
+"LEASE LEFT" = "LEASE LEFT";
 "Leastimator Pro" = "Leastimator Pro";
 "Leastimator Pro is an optional subscription to control ads, track multiple vehicles, handle customization, and support future development" = "Leastimator Pro is an optional subscription to control ads, track multiple vehicles, handle customization, and support future development";
 "Leastimator Pro subscription can be shared by everyone in a family group." = "Leastimator Pro subscription can be shared by everyone in a family group.";
@@ -83,8 +88,12 @@
 "Version" = "Version";
 "View and restore vehicles that were previously deleted." = "View and restore vehicles that were previously deleted.";
 "Weekly" = "Weekly";
+"You are currently under your mileage limit. No excess charges estimated." = "You are currently under your mileage limit. No excess charges estimated.";
+"You can drive as far as you want because you did not set the mileage allowed." = "You can drive as far as you want because you did not set the mileage allowed.";
+"You can drive up to **%lld** %@ today and still be on track." = "You can drive up to **%lld** %@ today and still be on track.";
 "You haven't added any readings yet." = "You haven't added any readings yet.";
 "You must sign in again to sync." = "You must sign in again to sync.";
+"Your odometer should read less than **%lld** %@ right now." = "Your odometer should read less than **%lld** %@ right now.";
 "disclaimer" = "The information provided is for predication purposes only and should not be construed as actual numbers. While Leastimator makes every effort to ensure the accuracy of the information presented, we cannot guarantee that it is free from errors or omissions. Leastimator is not liable for any damages or losses that may arise from the use of this information.";
 "pro" = "Pro";
 "vehicle delete warning message" = "Please confirm that you want to delete this vehicle. Note that this cannot be undone.";

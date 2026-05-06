@@ -27,6 +27,8 @@
 "Connect to Tesla" = "Verbinden mit Tesla";
 "Connected to Tesla" = "Verbunden mit Tesla";
 "Currency" = "Währung";
+"DAILY AVG" = "TÄGL. Ø";
+"DAILY PACING" = "TÄGL. LIMIT";
 "DATE" = "DATUM";
 "DRIVEN · %@" = "GEFAHREN · %@";
 "Daily" = "Täglich";
@@ -39,12 +41,15 @@
 "Driving Reminders" = "Fahr-Erinnerungen";
 "Edit Vehicle" = "Fahrzeug bearbeiten";
 "Error" = "Fehler";
+"Estimated excess charge: **%lld** %@ at lease end." = "Geschätzte Mehrkosten: **%lld** %@ am Ende des Leasings.";
 "Every %lld connections" = "Alle %lld Verbindung(en)";
 "Feedback" = "Feedback";
 "Frequency" = "Häufigkeit";
 "Get reminded after connecting to your car (Bluetooth/CarPlay) several times." = "Lass dich nach mehrmaligem Verbinden mit deinem Auto (Bluetooth/CarPlay) erinnern.";
 "Get reminded to update your mileage on a schedule." = "Lass dich nach einem Zeitplan an die Aktualisierung deines Kilometerstands erinnern.";
+"Heads up — you've already exceeded your current pacing by **%lld** %@." = "Achtung — Sie haben Ihr aktuelles Limit bereits um **%lld** %@ überschritten.";
 "History" = "Verlauf";
+"LEASE LEFT" = "RESTLEASING";
 "Leastimator Pro" = "Leastimator Pro";
 "Leastimator Pro is an optional subscription to control ads, track multiple vehicles, handle customization, and support future development" = "Leastimator Pro ist ein optionales Abonnement zur Kontrolle von Anzeigen, zum Verfolgen mehrerer Fahrzeuge, zur Anpassung und zur Unterstützung der zukünftigen Entwicklung.";
 "Leastimator Pro subscription can be shared by everyone in a family group." = "Das Leastimator Pro-Abonnement kann von jedem in einer Familiengruppe geteilt werden.";
@@ -83,8 +88,12 @@
 "Version" = "Version";
 "View and restore vehicles that were previously deleted." = "Zuvor gelöschte Fahrzeuge ansehen und wiederherstellen.";
 "Weekly" = "Wöchentlich";
+"You are currently under your mileage limit. No excess charges estimated." = "Sie liegen derzeit unter Ihrem Kilometerlimit. Keine Mehrkosten geschätzt.";
+"You can drive as far as you want because you did not set the mileage allowed." = "Sie können so weit fahren, wie Sie möchten, da Sie kein Kilometerlimit festgelegt haben.";
+"You can drive up to **%lld** %@ today and still be on track." = "Sie können heute bis zu **%lld** %@ fahren, um im Limit zu bleiben.";
 "You haven't added any readings yet." = "Sie haben noch keine Messwerte hinzugefügt.";
 "You must sign in again to sync." = "Sie müssen sich erneut anmelden, um zu synchronisieren.";
+"Your odometer should read less than **%lld** %@ right now." = "Ihr Kilometerstand sollte jetzt weniger als **%lld** %@ betragen.";
 "disclaimer" = "Die bereitgestellten Informationen dienen nur zu Vorhersagezwecken und sollten nicht als tatsächliche Zahlen interpretiert werden. Obwohl Leastimator jede Anstrengung unternimmt, um die Genauigkeit der präsentierten Informationen sicherzustellen, können wir nicht garantieren, dass sie frei von Fehlern oder Auslassungen sind. Leastimator haftet nicht für Schäden oder Verluste, die aus der Verwendung dieser Informationen entstehen können.";
 "pro" = "Pro";
 "vehicle delete warning message" = "Bitte bestätigen Sie, dass Sie dieses Fahrzeug löschen möchten. Beachten Sie, dass dieser Vorgang nicht rückgängig gemacht werden kann.";

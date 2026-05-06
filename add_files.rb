@@ -11,7 +11,9 @@ files_to_add = [
   'HistoryRangePicker.swift',
   'ReadingRowView.swift',
   'HistoryLineChart.swift',
-  'VehicleHistoryView.swift'
+  'VehicleHistoryView.swift',
+  'GuidingMessageBoard.swift',
+  'StatsSection.swift'
 ]
 
 # Target

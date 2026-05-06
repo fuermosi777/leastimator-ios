@@ -28,7 +28,7 @@ struct StatCell: View {
   let unit: String
   var body: some View {
     VStack(alignment: .leading, spacing: 4) {
-      Text(label)
+      Text(LocalizedStringKey(label))
         .font(.inter(9, weight: .medium))
         .foregroundColor(.subText)
         .tracking(1.0)

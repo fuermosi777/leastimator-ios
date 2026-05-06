@@ -126,51 +126,10 @@ struct VehiclePresentation: View {
           .padding(.vertical, 10)
 
           // Track info card
-          HStack(alignment: .center, spacing: 16) {
-            Image(systemName: "bolt.fill")
-                .font(.system(size: 22))
-                .foregroundColor(statusColor)
-                .shadow(color: statusColor.opacity(0.3), radius: 5)
-            
-            Text(vehicle.allowed == 0 ?
-                 "You can drive as far as you want because you did not set the mileage allowed." :
-                 "You can drive up to \(String(extendedInfo.maxDriveToday)) \(lengthUnit.longName.toString()) today and still be on track.")
-            .font(.inter(16, weight: .regular))
-            .foregroundColor(.mainText)
-            .fixedSize(horizontal: false, vertical: true)
-          }
-          .padding(20)
-          .background(Color.subBg.opacity(0.3))
-          .cornerRadius(24)
-          .overlay(
-            RoundedRectangle(cornerRadius: 24)
-                .stroke(Color.mainText.opacity(0.05), lineWidth: 1)
-          )
+          GuidingMessageBoard(vehicle: vehicle, extendedInfo: extendedInfo, lengthUnit: lengthUnit)
 
-          // Primary stats grid in a single tile
-          HStack(spacing: 0) {
-            StatCell(label: "DAILY AVG", value: String(format: "%.0f", extendedInfo.mileagePerDay), unit: lengthUnit.shortFor)
-            
-            Divider()
-              .frame(height: 32)
-              .padding(.horizontal, 2)
-            
-            StatCell(label: "ODOMETER", value: "\(extendedInfo.currentMileage)", unit: lengthUnit.shortFor)
-            
-            Divider()
-              .frame(height: 32)
-              .padding(.horizontal, 2)
-            
-            StatCell(label: "LEASE LEFT", value: "\(extendedInfo.leaseLeft)", unit: "mo")
-          }
-          .padding(.vertical, 16)
-          .padding(.trailing, 12)
-          .background(Color.subBg.opacity(0.3))
-          .cornerRadius(16)
-          .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(Color.mainText.opacity(0.05), lineWidth: 1)
-          )
+          // Primary stats grid
+          StatsSection(extendedInfo: extendedInfo, lengthUnit: lengthUnit)
 
           if !purchaseManager.unlockPro {
             BannerAd()

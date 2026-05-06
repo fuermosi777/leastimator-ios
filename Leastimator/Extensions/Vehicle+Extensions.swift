@@ -31,4 +31,16 @@ extension Vehicle {
   func updateLastTeslaSyncDate() {
     UserDefaults.standard.set(Date(), forKey: lastTeslaSyncKey)
   }
+
+  var pinnedMessageKey: String {
+    "pinned_message_\(objectID.uriRepresentation().absoluteString)"
+  }
+
+  var pinnedMessageIndex: Int {
+    get {
+      let stored = UserDefaults.standard.integer(forKey: pinnedMessageKey)
+      return max(0, min(2, stored))
+    }
+    set { UserDefaults.standard.set(newValue, forKey: pinnedMessageKey) }
+  }
 }
