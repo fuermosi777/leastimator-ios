@@ -61,6 +61,16 @@ struct EditReadingView: View {
     return formatter.string(from: NSNumber(value: value)) ?? "0"
   }
 
+  // The most recent reading that isn't the one being edited
+  private var latestOtherReading: OdoReading? {
+    readings.last(where: { $0 != reading })
+  }
+
+  private var isBelowLatest: Bool {
+    guard let latest = latestOtherReading, let value = Int(readingValue) else { return false }
+    return value < Int(latest.value)
+  }
+
   var body: some View {
     ZStack(alignment: .bottom) {
       Color.mainBg.ignoresSafeArea()
@@ -129,6 +139,22 @@ struct EditReadingView: View {
               )
             }
             
+            // Warning if below latest reading
+            if isBelowLatest, let latest = latestOtherReading {
+              HStack(spacing: 10) {
+                Image(systemName: "exclamationmark.triangle.fill")
+                  .foregroundColor(.orange)
+                Text("Must be at least \(latest.value) \(vehicle.lengthUnit == LengthUnit.Metric.rawValue ? "km" : "mi"), the current latest reading.")
+                  .font(.inter(13))
+                  .foregroundColor(.orange)
+              }
+              .padding(.horizontal, 14)
+              .padding(.vertical, 12)
+              .frame(maxWidth: .infinity, alignment: .leading)
+              .background(Color.orange.opacity(0.1))
+              .cornerRadius(12)
+            }
+
             // Date Section
             VStack(alignment: .leading, spacing: 8) {
               Text("DATE")
@@ -181,10 +207,11 @@ struct EditReadingView: View {
             .foregroundColor(.black)
             .frame(maxWidth: .infinity)
             .frame(height: 56)
-            .background(statusColor)
+            .background(isBelowLatest ? Color.gray.opacity(0.4) : statusColor)
             .cornerRadius(28)
-            .shadow(color: statusColor.opacity(0.3), radius: 15, y: 5)
+            .shadow(color: isBelowLatest ? .clear : statusColor.opacity(0.3), radius: 15, y: 5)
         }
+        .disabled(isBelowLatest)
         .padding(.horizontal, 24)
         .padding(.bottom, 34)
         .background(Color.mainBg)
