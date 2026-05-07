@@ -50,11 +50,11 @@ struct VehicleSwitcher: View {
                     .frame(width: 22, height: 22)
                     .background(statusColor)
                     .clipShape(Circle())
-                
+
                 Text(selectedVehicle?.name ?? "Select Vehicle")
                     .font(.inter(14, weight: .bold))
                     .foregroundColor(.mainText)
-                
+
                 Image(systemName: "chevron.down")
                     .font(.system(size: 10, weight: .bold))
                     .foregroundColor(.subText)
@@ -62,8 +62,6 @@ struct VehicleSwitcher: View {
             .padding(.leading, 4)
             .padding(.trailing, 10)
             .padding(.vertical, 4)
-            .background(Capsule().fill(Color.subBg.opacity(0.6)))
-            .transition(.opacity)
         }
     }
 }

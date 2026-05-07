@@ -208,9 +208,16 @@ struct ContentView: View {
             }
           }
         }
-        .navigationDestination(isPresented: $redirectToSettings) {
-          SettingsView(vehicles: vehicles)
-            .navigationBarTitle("Settings", displayMode: .inline)
+        .sheet(isPresented: $redirectToSettings) {
+          NavigationStack {
+            SettingsView(vehicles: vehicles)
+              .navigationBarTitle("Settings", displayMode: .inline)
+              .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                  Button("Done") { redirectToSettings = false }
+                }
+              }
+          }
         }
         .sheet(isPresented: $showProProductSheet) {
           ProProductsView()
