@@ -124,9 +124,7 @@ struct VehiclePresentation: View {
             )
             Spacer()
           }
-          // TODO: fix these magic numbers.
-          .padding(.top, 10)
-          .padding(.bottom, -20)
+          .padding(.vertical, 10)
 
           // Track info card
           GuidingMessageBoard(vehicle: vehicle, extendedInfo: extendedInfo, lengthUnit: lengthUnit)

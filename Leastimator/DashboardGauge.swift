@@ -19,67 +19,70 @@ struct DashboardGauge: View {
     private let startAngle: Double = 135 // Starting from bottom-left
     
     var body: some View {
-        GeometryReader { geo in
-            let size = min(geo.size.width, 300)
-            
-            ZStack {
-                // Tick marks on the outer rim
-                GaugeTicks(progress: progress, arc: arc, startAngle: startAngle, color: statusColor)
-                    .frame(width: size, height: size)
+        VStack {
+            GeometryReader { geo in
+                let size = geo.size.width
                 
-                // Background arc (the "track")
-                Circle()
-                    .trim(from: 0, to: CGFloat(arc))
-                    .stroke(Color.mainText.opacity(0.05), style: StrokeStyle(lineWidth: stroke, lineCap: .round))
-                    .rotationEffect(.degrees(startAngle))
-                    .frame(width: size - 60, height: size - 60)
-                
-                // Progress arc
-                Circle()
-                    .trim(from: 0, to: CGFloat(min(progress, 1.0) * arc))
-                    .stroke(statusColor, style: StrokeStyle(lineWidth: stroke, lineCap: .round))
-                    .rotationEffect(.degrees(startAngle))
-                    .frame(width: size - 60, height: size - 60)
-                    .shadow(color: statusColor.opacity(0.3), radius: 8)
-                
-                // Center readout
-                VStack(spacing: 2) {
-                    Text("PROJECTED")
-                        .font(.inter(10, weight: .bold))
-                        .foregroundColor(.subText)
-                        .tracking(2)
+                ZStack {
+                    // Tick marks on the outer rim
+                    GaugeTicks(progress: progress, arc: arc, startAngle: startAngle, color: statusColor)
+                        .frame(width: size, height: size)
                     
-                    Text("\(projected)")
-                        .font(.jetBrainsMono(56))
-                        .fontWeight(.bold)
-                        .monospacedDigit()
-                        .foregroundColor(.mainText)
-                        .minimumScaleFactor(0.5)
-                        .lineLimit(1)
-                        .tracking(-2)
+                    // Background arc (the "track")
+                    Circle()
+                        .trim(from: 0, to: CGFloat(arc))
+                        .stroke(Color.mainText.opacity(0.05), style: StrokeStyle(lineWidth: stroke, lineCap: .round))
+                        .rotationEffect(.degrees(startAngle))
+                        .frame(width: size - 60, height: size - 60)
                     
-                    Text("\(unit.uppercased()) · BY LEASE END")
-                        .font(.inter(11, weight: .semibold))
-                        .foregroundColor(.subText)
-                        .tracking(1)
+                    // Progress arc
+                    Circle()
+                        .trim(from: 0, to: CGFloat(min(progress, 1.0) * arc))
+                        .stroke(statusColor, style: StrokeStyle(lineWidth: stroke, lineCap: .round))
+                        .rotationEffect(.degrees(startAngle))
+                        .frame(width: size - 60, height: size - 60)
+                        .shadow(color: statusColor.opacity(0.3), radius: 8)
                     
-                    Text("\(variance > 0 ? "+" : "")\(variance) \(unit) vs limit")
-                        .font(.jetBrainsMono(12))
-                        .fontWeight(.bold)
-                        .monospacedDigit()
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
-                        .background(statusColor.opacity(0.10))
-                        .foregroundColor(statusColor)
-                        .cornerRadius(20)
-                        .padding(.top, 14)
+                    // Center readout
+                    VStack(spacing: 2) {
+                        Text("PROJECTED")
+                            .font(.inter(10, weight: .bold))
+                            .foregroundColor(.subText)
+                            .tracking(2)
+                        
+                        Text("\(projected)")
+                            .font(.jetBrainsMono(56))
+                            .fontWeight(.bold)
+                            .monospacedDigit()
+                            .foregroundColor(.mainText)
+                            .minimumScaleFactor(0.5)
+                            .lineLimit(1)
+                            .tracking(-2)
+                        
+                        Text("\(unit.uppercased()) · BY LEASE END")
+                            .font(.inter(11, weight: .semibold))
+                            .foregroundColor(.subText)
+                            .tracking(1)
+                        
+                        Text("\(variance > 0 ? "+" : "")\(variance) \(unit) vs limit")
+                            .font(.jetBrainsMono(12))
+                            .fontWeight(.bold)
+                            .monospacedDigit()
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(statusColor.opacity(0.10))
+                            .foregroundColor(statusColor)
+                            .cornerRadius(20)
+                            .padding(.top, 10)
+                    }
+                    .frame(width: size - 80)
                 }
-                .frame(width: size - 80)
+                .frame(width: size, height: size)
+                .offset(y: size * 0.06) // Shift down to align the top of the gauge with the frame top
             }
-            .frame(width: size, height: size)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .aspectRatio(1.15, contentMode: .fit)
         }
-        .aspectRatio(1, contentMode: .fit)
+        .frame(maxWidth: 300)
     }
 }
 
