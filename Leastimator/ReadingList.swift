@@ -53,49 +53,42 @@ struct ReadingList: View {
     return NavigationStack {
       ZStack {
         Color.mainBg.ignoresSafeArea()
-        
-        ScrollView {
-          VStack(alignment: .leading, spacing: 0) {
-            if readings.count == 0 {
-              Text("You haven't added any readings yet.")
-                .font(.inter(14))
-                .foregroundColor(.subText)
-                .padding(.top, 40)
-                .frame(maxWidth: .infinity, alignment: .center)
-            } else {
-              VStack(spacing: 0) {
-                ForEach(Array(readings.enumerated()), id: \.element.id) { index, rd in
-                  let nextIdx = index + 1
-                  let prev = nextIdx < readings.count ? readings[nextIdx] : nil
-                  
-                  Button(action: {
-                    selectedReading = rd
-                    showEditReadingSheet = true
-                  }) {
-                    ReadingRowView(reading: rd, previousReading: prev, unit: lengthUnit.shortFor)
-                      .contentShape(Rectangle())
-                  }
-                  .buttonStyle(.plain)
-                  
-                  if index < readings.count - 1 {
-                    Divider()
-                      .background(Color.mainText.opacity(0.05))
-                  }
+
+        List {
+          if readings.count == 0 {
+            Text("You haven't added any readings yet.")
+              .font(.inter(14))
+              .foregroundColor(.subText)
+              .frame(maxWidth: .infinity, alignment: .center)
+              .listRowBackground(Color.clear)
+              .listRowSeparator(.hidden)
+          } else {
+            ForEach(Array(readings.enumerated()), id: \.element.id) { index, rd in
+              let nextIdx = index + 1
+              let prev = nextIdx < readings.count ? readings[nextIdx] : nil
+
+              Button(action: {
+                selectedReading = rd
+                showEditReadingSheet = true
+              }) {
+                ReadingRowView(reading: rd, previousReading: prev, unit: lengthUnit.shortFor)
+                  .contentShape(Rectangle())
+              }
+              .buttonStyle(.plain)
+              .listRowBackground(Color.subBg.opacity(0.3))
+              .listRowSeparatorTint(Color.mainText.opacity(0.05))
+              .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                Button(role: .destructive) {
+                  deleteReading(rd)
+                } label: {
+                  Label("Delete", systemImage: "trash")
                 }
               }
-              .padding(.horizontal, 24)
-              .background(Color.subBg.opacity(0.3))
-              .cornerRadius(24)
-              .overlay(
-                RoundedRectangle(cornerRadius: 24)
-                  .stroke(Color.mainText.opacity(0.05), lineWidth: 1)
-              )
-              .padding(.horizontal, 20)
-              .padding(.top, 16)
             }
           }
-          .padding(.bottom, 40)
         }
+        .listStyle(.insetGrouped)
+        .scrollContentBackground(.hidden)
       }
       .navigationTitle("Odometer History")
       .navigationBarTitleDisplayMode(.inline)
@@ -175,6 +168,13 @@ struct ReadingList: View {
 }
 
 extension ReadingList {
+  private func deleteReading(_ reading: OdoReading) {
+    viewContext.delete(reading)
+    try? viewContext.save()
+    viewContext.refresh(vehicle, mergeChanges: true)
+    vehicle.objectWillChange.send()
+  }
+
   private func handleExport() {
     var csvText = "name,date,mileage\n"
     for reading in readings {

@@ -157,21 +157,6 @@ struct EditReadingView: View {
               )
             }
             
-            if reading != nil {
-              Button(action: handleDelete) {
-                HStack {
-                  Image(systemName: "trash")
-                  Text("Delete Reading")
-                }
-                .font(.inter(15, weight: .semibold))
-                .foregroundColor(.statusRed)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 16)
-                .background(Color.statusRed.opacity(0.1))
-                .cornerRadius(16)
-              }
-              .padding(.top, 8)
-            }
           }
           .padding(.horizontal, 24)
           .padding(.top, 10)
@@ -210,22 +195,6 @@ struct EditReadingView: View {
       if reading == nil {
         self.readingValue = String(self.readings.last?.value ?? self.vehicle.starting)
       }
-    }
-  }
-  
-  private func handleDelete() {
-    if let reading = self.reading {
-      viewContext.delete(reading)
-      do {
-        try viewContext.save()
-        viewContext.refresh(vehicle, mergeChanges: true)
-        vehicle.objectWillChange.send()
-        WidgetCenter.shared.reloadAllTimelines()
-      } catch {
-        self.errorHandler.handle(error)
-      }
-
-      dismiss()
     }
   }
   
