@@ -13,7 +13,7 @@ struct EditReadingView: View {
   @Environment(\.managedObjectContext) private var viewContext
   @EnvironmentObject var errorHandler: ErrorHandler
   
-  let vehicle: Vehicle
+  @ObservedObject var vehicle: Vehicle
   // The reading to be edited, if nil, create a new reading.
   let reading: OdoReading?
   
@@ -215,12 +215,11 @@ struct EditReadingView: View {
   
   private func handleDelete() {
     if let reading = self.reading {
-      // Notify the vehicle so @ObservedObject listeners (e.g. VehiclePresentation)
-      // recompute derived state after the child reading is removed.
-      vehicle.objectWillChange.send()
       viewContext.delete(reading)
       do {
         try viewContext.save()
+        viewContext.refresh(vehicle, mergeChanges: true)
+        vehicle.objectWillChange.send()
         WidgetCenter.shared.reloadAllTimelines()
       } catch {
         self.errorHandler.handle(error)
@@ -248,6 +247,8 @@ struct EditReadingView: View {
     
     do {
       try viewContext.save()
+      viewContext.refresh(vehicle, mergeChanges: true)
+      vehicle.objectWillChange.send()
       WidgetCenter.shared.reloadAllTimelines()
     } catch {
       throw AppError.failedContextSave

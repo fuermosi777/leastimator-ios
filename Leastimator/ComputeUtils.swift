@@ -171,7 +171,7 @@ func prepareHistoryChartData(veh: Vehicle, readings: [OdoReading], range: Histor
 }
 
 func Compute(_ veh: Vehicle) -> ExtendedVehicleInfo {
-  var readings: [OdoReading] = veh.readings?.map{ $0 } as? [OdoReading] ?? []
+  var readings: [OdoReading] = (veh.readings?.map{ $0 } as? [OdoReading] ?? []).filter { !$0.isDeleted }
   readings.sort(by: { ($0.date ?? Date()).compare($1.date ?? Date()) == .orderedAscending })
   
   let startingMileage = Int(veh.starting)

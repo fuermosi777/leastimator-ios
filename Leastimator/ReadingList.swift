@@ -11,7 +11,7 @@ struct ReadingList: View {
   @Environment(\.dismiss) private var dismiss
   @Environment(\.managedObjectContext) private var viewContext
   
-  let vehicle: Vehicle
+  @ObservedObject var vehicle: Vehicle
   
   @FetchRequest
   private var readings: FetchedResults<OdoReading>

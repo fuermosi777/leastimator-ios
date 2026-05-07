@@ -124,7 +124,9 @@ struct VehiclePresentation: View {
             )
             Spacer()
           }
-          .padding(.vertical, 10)
+          // TODO: fix these magic numbers.
+          .padding(.top, 10)
+          .padding(.bottom, -20)
 
           // Track info card
           GuidingMessageBoard(vehicle: vehicle, extendedInfo: extendedInfo, lengthUnit: lengthUnit)
@@ -140,14 +142,14 @@ struct VehiclePresentation: View {
           Button(action: {
             showExplanation = true
           }) {
-            HStack(spacing: 4) {
+            HStack(spacing: 10) {
+              Image(systemName: "info.circle")
+                .font(.system(size: 10))
+                .foregroundColor(.subText)
               Text("Calculations are estimates based on your lease terms and driving history.")
                 .font(.inter(11))
                 .foregroundColor(.subText)
                 .multilineTextAlignment(.leading)
-              Image(systemName: "info.circle")
-                .font(.system(size: 10))
-                .foregroundColor(.subText)
             }
           }
           .buttonStyle(.plain)

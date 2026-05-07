@@ -2,7 +2,7 @@
 import SwiftUI
 
 struct ReadingRowView: View {
-    let reading: OdoReading
+    @ObservedObject var reading: OdoReading
     let previousReading: OdoReading?
     let unit: String
     
