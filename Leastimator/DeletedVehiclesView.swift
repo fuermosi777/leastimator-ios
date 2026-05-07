@@ -57,7 +57,7 @@ struct DeletedVehiclesView: View {
                   .font(.inter(15, weight: .bold))
                   .foregroundColor(.mainText)
                 
-                Text("\(vehicle.leaseSubtitle ?? "No lease info") · \(vehicle.allowed) mi")
+                Text("\(vehicle.leaseSubtitle ?? "No lease info") · \(vehicle.allowed) \(vehicle.lengthUnit == LengthUnit.Metric.rawValue ? "km" : "mi")")
                   .font(.inter(12))
                   .foregroundColor(.subText)
               }

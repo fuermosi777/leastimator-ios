@@ -6,12 +6,13 @@
 */
 
 "%@" = "%@";
-"%@) · BY LEASE END" = "%@) · BIS LEASINGENDE";
+"%@ · BY LEASE END" = "%@ · BIS LEASINGENDE";
 "%@)k" = "%@)k";
 "%lld" = "%lld";
 "%lld %@" = "%lld %@";
 "%lld)" = "%lld)";
 "+%@" = "+%@";
+"API: %@" = "API: %@";
 "Add Manually" = "Manuell hinzufügen";
 "Add Reading" = "Kilometerstand hinzufügen";
 "Add Vehicle" = "Fahrzeug hinzufügen";
@@ -23,6 +24,7 @@
 "Binding Mismatch" = "Bindungskonflikt";
 "Calculations are estimates based on your lease terms and driving history." = "Die Berechnungen sind Schätzungen, die auf Ihren Leasingbedingungen und Ihrer Fahrhistorie basieren.";
 "Cancel" = "Abbrechen";
+"Checking..." = "Prüfen...";
 "Choose which vehicle to present in the main screen widget." = "Wählen Sie das Fahrzeug aus, das im Hauptbildschirm-Widget angezeigt werden soll.";
 "Connect to Tesla" = "Verbinden mit Tesla";
 "Connected to Tesla" = "Verbunden mit Tesla";
@@ -58,6 +60,7 @@
 "Monthly" = "Monatlich";
 "No Deleted Vehicles" = "Keine gelöschten Fahrzeuge";
 "No readings recorded yet." = "Noch keine Messwerte aufgezeichnet.";
+"No lease info" = "Keine Leasinginfo";
 "Notice" = "Hinweis";
 "ODOMETER" = "KILOMETERSTAND";
 "OK" = "OK";
@@ -99,6 +102,13 @@
 "vehicle delete warning message" = "Bitte bestätigen Sie, dass Sie dieses Fahrzeug löschen möchten. Beachten Sie, dass dieser Vorgang nicht rückgängig gemacht werden kann.";
 "🥳 Leastimator is a free app now. Thank you for purchasing and supporting Leastimator app before. You can enjoy Leastimator Pro for free." = "🥳 Leastimator ist jetzt eine kostenlose App. Vielen Dank für den Kauf und die Unterstützung der Leastimator-App zuvor. Sie können Leastimator Pro kostenlos nutzen.";
 "🥳 Thank you for supporting Leastimator by subscribing pro!" = "🥳 Vielen Dank für die Unterstützung von Leastimator durch ein Pro-Abonnement!";
+
+/* Missing Gauges/Status */
+"Must be at least %lld %@, the current latest reading." = "Muss mindestens %lld %@ sein (aktueller Kilometerstand).";
+"%@ · %lld %@" = "%@ · %lld %@";
+"%@ · %lld mi" = "%@ · %lld mi";
+"%@%lld %@ vs limit" = "%@%lld %@ vs Limit";
+
 
 /* Projected Mileage Explanation */
 "How it's Calculated" = "Berechnungsweise";
