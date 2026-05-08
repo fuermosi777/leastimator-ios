@@ -17,6 +17,11 @@ struct SettingsView: View {
   @AppStorage("reminderTime") private var reminderTime = Date().timeIntervalSince1970
   @AppStorage("connectionRemindersEnabled") private var connectionRemindersEnabled = false
   @AppStorage("connectionThreshold") private var connectionThreshold = 5
+  @AppStorage("iCloudSyncEnabled") private var iCloudSyncEnabled = true
+  @AppStorage("lastSyncTime") private var lastSyncTime: Double = 0
+  
+  @State private var showingRestartAlert = false
+  @State private var showingICloudIneligibleAlert = false
   
   @EnvironmentObject private var notificationManager: NotificationManager
   
@@ -113,6 +118,40 @@ struct SettingsView: View {
       }
       
       Section {
+        Toggle(isOn: $iCloudSyncEnabled) {
+          Label("iCloud Sync", systemImage: "icloud.fill")
+            .font(.inter(15))
+        }
+        .onChange(of: iCloudSyncEnabled) { newValue in
+          if newValue {
+            Task {
+              let available = await ICloudManager.shared.checkICloudStatus()
+              if !available {
+                iCloudSyncEnabled = false
+                showingICloudIneligibleAlert = true
+              } else {
+                showingRestartAlert = true
+              }
+            }
+          } else {
+            showingRestartAlert = true
+          }
+        }
+      } header: {
+        settingsHeader("Sync")
+      } footer: {
+        VStack(alignment: .leading, spacing: 4) {
+          Text("Keep your data in sync across all your devices using iCloud.")
+          if iCloudSyncEnabled && lastSyncTime > 0 {
+            Text("Last synced: \(formatSyncDate(Date(timeIntervalSince1970: lastSyncTime)))")
+              .font(.inter(10))
+              .foregroundColor(.subText)
+          }
+        }
+        .font(.inter(12))
+      }
+      
+      Section {
         NavigationLink(destination: DeletedVehiclesView()) {
           Label("Deleted Vehicles", systemImage: "trash")
             .font(.inter(15))
@@ -173,6 +212,20 @@ struct SettingsView: View {
         settingsHeader("Legal")
       }
     }
+    .alert(isPresented: $showingRestartAlert) {
+      Alert(
+        title: Text("Restart Required"),
+        message: Text("Please close and restart Leastimator to apply the iCloud sync changes."),
+        dismissButton: .default(Text("OK"))
+      )
+    }
+    .alert(isPresented: $showingICloudIneligibleAlert) {
+      Alert(
+        title: Text("iCloud Not Available"),
+        message: Text("Please sign in to iCloud in your device settings to enable sync."),
+        dismissButton: .default(Text("OK"))
+      )
+    }
   }
 
   private func settingsHeader(_ title: String) -> some View {
@@ -207,6 +260,13 @@ struct SettingsView: View {
       get: { Date(timeIntervalSince1970: reminderTime) },
       set: { reminderTime = $0.timeIntervalSince1970 }
     )
+  }
+
+  private func formatSyncDate(_ date: Date) -> String {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .medium
+    formatter.timeStyle = .short
+    return formatter.string(from: date)
   }
 
   private func updatePeriodicNotification() {
