@@ -175,14 +175,25 @@ struct SettingsView: View {
       
       Section {
         Button(action: handleRate) {
-          Label("Please rate Leastimator", systemImage: "star.fill")
-            .font(.inter(15))
-            .foregroundColor(.mainText)
+          Label {
+            Text("Please rate Leastimator")
+              .foregroundColor(.mainText)
+          } icon: {
+            Image(systemName: "star.fill")
+              .foregroundColor(.accentColor)
+          }
+          .font(.inter(15))
         }
         
-        Link(destination: URL(string: "https://github.com/fuermosi777/leastimator-feedback/issues")!) {
-          Label("Feedback", systemImage: "envelope.fill")
-            .font(.inter(15))
+        Link(destination: URL(string: "https://x.com/leastimator")!) {
+          Label {
+            Text("Contact on X")
+              .foregroundColor(.mainText)
+          } icon: {
+            Image(systemName: "at")
+              .foregroundColor(.accentColor)
+          }
+          .font(.inter(15))
         }
         
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
@@ -201,12 +212,24 @@ struct SettingsView: View {
       
       Section {
         Link(destination: URL(string: "https://liuhao.im/leastimator/pp")!) {
-          Label("Privacy Policy", systemImage: "lock.shield.fill")
-            .font(.inter(15))
+          Label {
+            Text("Privacy Policy")
+              .foregroundColor(.mainText)
+          } icon: {
+            Image(systemName: "lock.shield.fill")
+              .foregroundColor(.accentColor)
+          }
+          .font(.inter(15))
         }
         Link(destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!) {
-          Label("Terms of Use", systemImage: "doc.text.fill")
-            .font(.inter(15))
+          Label {
+            Text("Terms of Use")
+              .foregroundColor(.mainText)
+          } icon: {
+            Image(systemName: "doc.text.fill")
+              .foregroundColor(.accentColor)
+          }
+          .font(.inter(15))
         }
       } header: {
         settingsHeader("Legal")
