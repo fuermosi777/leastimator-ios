@@ -40,7 +40,7 @@ struct GuidingMessageBoard: View {
                         .tag(index)
                 }
             }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             .frame(height: 110) // More compact height
             .background(Color.subBg.opacity(0.3))
             .cornerRadius(24)
@@ -55,18 +55,13 @@ struct GuidingMessageBoard: View {
                 vehicle.pinnedMessageIndex = newPinned
                 currentlyPinned = newPinned
             }) {
-                ZStack {
-                    Circle()
-                        .fill(currentlyPinned == selection ? Color.statusAmber : Color.subBg.opacity(0.4))
-                        .frame(width: 24, height: 24)
-                    
-                    Image(systemName: currentlyPinned == selection ? "pin.fill" : "pin")
-                        .font(.system(size: 10, weight: .bold))
-                        .foregroundColor(currentlyPinned == selection ? .white : .subText)
-                }
-                .padding(12)
-                .background(Color.mainBg.opacity(0.001))
+                Image(systemName: currentlyPinned == selection ? "pin.fill" : "pin")
+                    .font(.system(size: 14, weight: .bold))
+                    .foregroundColor(currentlyPinned == selection ? .accentColor : .subText)
+                    .padding(12)
+                    .background(Color.mainBg.opacity(0.001))
             }
+            .padding(4)
             .buttonStyle(.plain)
         }
     }
@@ -134,7 +129,6 @@ struct GuidingMessageBoard: View {
             Spacer()
         }
         .padding(.horizontal, 20)
-        .padding(.top, -10) // Offset for TabView page indicator
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
     }
 }
