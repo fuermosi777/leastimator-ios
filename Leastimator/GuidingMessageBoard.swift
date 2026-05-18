@@ -55,13 +55,18 @@ struct GuidingMessageBoard: View {
                 vehicle.pinnedMessageIndex = newPinned
                 currentlyPinned = newPinned
             }) {
-                Image(systemName: currentlyPinned == selection ? "pin.fill" : "pin")
-                    .font(.system(size: 14, weight: .bold))
-                    .foregroundColor(currentlyPinned == selection ? .accentColor : .subText)
-                    .padding(12)
-                    .background(Color.mainBg.opacity(0.001))
+                ZStack {
+                    Circle()
+                        .fill(currentlyPinned == selection ? Color.statusAmber : Color.subBg.opacity(0.4))
+                        .frame(width: 24, height: 24)
+                    
+                    Image(systemName: currentlyPinned == selection ? "pin.fill" : "pin")
+                        .font(.system(size: 10, weight: .bold))
+                        .foregroundColor(currentlyPinned == selection ? .white : .subText)
+                }
+                .padding(12)
+                .background(Color.mainBg.opacity(0.001))
             }
-            .padding(4)
             .buttonStyle(.plain)
         }
     }
@@ -72,16 +77,16 @@ struct GuidingMessageBoard: View {
         case 0:
             if vehicle.allowed == 0 {
                 let msg = NSLocalizedString("You can drive as far as you want because you did not set the mileage allowed.", comment: "")
-                messageCard(message: msg, icon: "bolt.fill")
+                messageCard(message: msg, icon: "bolt")
             } else if extendedInfo.maxDriveToday > 0 {
                 let format = NSLocalizedString("You can drive up to **%lld** %@ today and still be on track.", comment: "")
                 let msg = String(format: format, extendedInfo.maxDriveToday, lengthUnit.shortFor)
-                messageCard(message: msg, icon: "bolt.fill")
+                messageCard(message: msg, icon: "bolt")
             } else {
                 let exceeded = max(0, extendedInfo.currentMileage - extendedInfo.mileageShouldLessThan)
                 let format = NSLocalizedString("Heads up — you've already exceeded your current pacing by **%lld** %@.", comment: "")
                 let msg = String(format: format, exceeded, lengthUnit.shortFor)
-                messageCard(message: msg, icon: "bolt.fill")
+                messageCard(message: msg, icon: "bolt")
             }
         case 1:
             let format = NSLocalizedString("Your odometer should read less than **%lld** %@ right now.", comment: "")
@@ -94,7 +99,7 @@ struct GuidingMessageBoard: View {
                 String(format: NSLocalizedString("Estimated excess charge: **%lld** %@ at lease end.", comment: ""), excessCharge, currency) :
                 NSLocalizedString("You are currently under your mileage limit. No excess charges estimated.", comment: "")
             
-            messageCard(message: msg, icon: "dollarsign.circle.fill")
+            messageCard(message: msg, icon: "dollarsign.circle")
         default:
             EmptyView()
         }
@@ -102,11 +107,16 @@ struct GuidingMessageBoard: View {
     
     private func messageCard(message: String, icon: String) -> some View {
         HStack(alignment: .center, spacing: 16) {
-            Image(systemName: icon)
-                .font(.system(size: 22))
-                .foregroundColor(.accentColor)
-                .shadow(color: Color.accentColor.opacity(0.3), radius: 5)
-                .frame(width: 32)
+            ZStack {
+                Circle()
+                    .fill(Color.accentColor.opacity(0.12))
+                    .frame(width: 36, height: 36)
+                
+                Image(systemName: icon)
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundColor(.accentColor)
+            }
+            .frame(width: 36, height: 36)
             
             if let attributed = try? AttributedString(markdown: message) {
                 Text(attributed)

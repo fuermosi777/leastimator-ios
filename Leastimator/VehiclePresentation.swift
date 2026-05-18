@@ -126,11 +126,11 @@ struct VehiclePresentation: View {
           }
           .padding(.vertical, 10)
 
-          // Track info card
-          GuidingMessageBoard(vehicle: vehicle, extendedInfo: extendedInfo, lengthUnit: lengthUnit)
-
           // Primary stats grid
           StatsSection(extendedInfo: extendedInfo, lengthUnit: lengthUnit)
+
+          // Track info card
+          GuidingMessageBoard(vehicle: vehicle, extendedInfo: extendedInfo, lengthUnit: lengthUnit)
 
 #if DEBUG
           BannerAd()
