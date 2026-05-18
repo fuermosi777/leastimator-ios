@@ -115,14 +115,14 @@ struct GuidingMessageBoard: View {
             
             if let attributed = try? AttributedString(markdown: message) {
                 Text(attributed)
-                    .font(.system(size: 15, design: .rounded))
+                    .font(.system(size: 16, design: .rounded))
                     .foregroundColor(.mainText)
                     .lineLimit(3)
                     .multilineTextAlignment(.leading)
                     .fixedSize(horizontal: false, vertical: true)
             } else {
                 Text(message)
-                    .font(.system(size: 15, design: .rounded))
+                    .font(.system(size: 16, design: .rounded))
                     .foregroundColor(.mainText)
             }
             
