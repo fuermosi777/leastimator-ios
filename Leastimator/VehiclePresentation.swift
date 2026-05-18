@@ -132,10 +132,15 @@ struct VehiclePresentation: View {
           // Primary stats grid
           StatsSection(extendedInfo: extendedInfo, lengthUnit: lengthUnit)
 
+#if DEBUG
+          BannerAd()
+            .padding(.vertical, 8)
+#else
           if !purchaseManager.unlockPro {
             BannerAd()
               .padding(.vertical, 8)
           }
+#endif
           
           Button(action: {
             showExplanation = true

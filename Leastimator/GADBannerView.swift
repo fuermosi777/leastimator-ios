@@ -48,7 +48,15 @@ struct BannerAd:View{
     HStack{
       Spacer()
       AdBannerView()
+        .frame(width: 320, height: 50)
       Spacer()
     }
+    .padding(.vertical, 12)
+    .background(Color.subBg.opacity(0.3))
+    .cornerRadius(24)
+    .overlay(
+        RoundedRectangle(cornerRadius: 24)
+            .stroke(Color.mainText.opacity(0.05), lineWidth: 1)
+    )
   }
 }
