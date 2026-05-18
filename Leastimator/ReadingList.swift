@@ -57,7 +57,7 @@ struct ReadingList: View {
         List {
           if readings.count == 0 {
             Text("You haven't added any readings yet.")
-              .font(.inter(14))
+              .font(.rounded(14))
               .foregroundColor(.subText)
               .frame(maxWidth: .infinity, alignment: .center)
               .listRowBackground(Color.clear)

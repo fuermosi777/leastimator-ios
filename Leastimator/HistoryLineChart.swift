@@ -77,7 +77,7 @@ struct HistoryLineChart: View {
                 AxisValueLabel {
                     if let val = value.as(Double.self) {
                         Text("\(Int(val / 1000))k")
-                            .font(.jetBrainsMono(9))
+                            .font(.rounded(9))
                             .foregroundStyle(Color.subText)
                     }
                 }
@@ -88,7 +88,7 @@ struct HistoryLineChart: View {
                 AxisValueLabel {
                     if let date = value.as(Date.self) {
                         Text(date, format: .dateTime.month(.abbreviated))
-                            .font(.jetBrainsMono(9))
+                            .font(.rounded(9))
                             .foregroundStyle(Color.subText)
                     }
                 }
@@ -111,10 +111,10 @@ struct ChartTooltip: View {
     var body: some View {
         VStack(spacing: 2) {
             Text("\(Int(point.value))")
-                .font(.jetBrainsMono(12, weight: .bold))
+                .font(.rounded(12, weight: .bold))
                 .foregroundColor(.mainText)
             Text(point.date, format: Date.FormatStyle.dateTime.month(.abbreviated).day())
-                .font(.inter(9))
+                .font(.rounded(9))
                 .foregroundColor(.subText)
         }
         .padding(.horizontal, 10)

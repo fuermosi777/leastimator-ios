@@ -44,7 +44,7 @@ struct VehicleSwitcher: View {
             HStack(spacing: 8) {
                 // Abbreviation Icon
                 Text(selectedVehicle?.name?.vehicleAbbreviation ?? "??")
-                    .font(.jetBrainsMono(10))
+                    .font(.rounded(10))
                     .fontWeight(.bold)
                     .foregroundColor(.black)
                     .frame(width: 22, height: 22)
@@ -52,7 +52,7 @@ struct VehicleSwitcher: View {
                     .clipShape(Circle())
 
                 Text(selectedVehicle?.name ?? "Select Vehicle")
-                    .font(.inter(14, weight: .bold))
+                    .font(.rounded(14, weight: .bold))
                     .foregroundColor(.mainText)
 
                 Image(systemName: "chevron.down")

@@ -31,20 +31,20 @@ struct LSTextField: View {
   var body: some View {
     VStack(alignment: .leading, spacing: 6) {
       Text(label.uppercased())
-        .font(.inter(10, weight: .bold))
+        .font(.rounded(10, weight: .bold))
         .foregroundColor(.subText)
         .tracking(1.5)
       
       HStack(spacing: 8) {
         TextField(placeholder, text: $value)
-          .font(isNumeric ? .jetBrainsMono(15) : .inter(15))
+          .font(isNumeric ? .rounded(15) : .rounded(15))
           .foregroundColor(isDisabled ? .subText : .mainText)
           .keyboardType(keyboardType)
           .disabled(isDisabled)
         
         if let unit = unit {
           Text(unit)
-            .font(.jetBrainsMono(12))
+            .font(.rounded(12))
             .foregroundColor(.subText)
         }
       }
@@ -163,7 +163,7 @@ struct EditVehicleView: View {
           Spacer()
           
           Text(vehicle != nil ? (vehicle?.name ?? "Edit Vehicle") : "Add Vehicle")
-            .font(.inter(17, weight: .bold))
+            .font(.rounded(17, weight: .bold))
           
           Spacer()
           
@@ -216,7 +216,7 @@ struct EditVehicleView: View {
               // Tesla Integration
               VStack(alignment: .leading, spacing: 12) {
                 Text("TESLA INTEGRATION (PRO)")
-                  .font(.inter(10, weight: .bold))
+                  .font(.rounded(10, weight: .bold))
                   .foregroundColor(.subText)
                   .tracking(1.5)
                 
@@ -226,27 +226,27 @@ struct EditVehicleView: View {
                       if let connId = vehicle?.teslaConnectionId, KeychainHelper.shared.load(for: connId) != nil {
                         HStack {
                           Label("Connected to Tesla", systemImage: "checkmark.circle.fill")
-                            .font(.inter(14, weight: .semibold))
+                            .font(.rounded(14, weight: .semibold))
                             .foregroundColor(.green)
                           Spacer()
                           if isLoadingTesla {
                             ProgressView()
                           } else {
                             Button("Disconnect") { disconnectTesla() }
-                              .font(.inter(14, weight: .bold))
+                              .font(.rounded(14, weight: .bold))
                               .foregroundColor(.statusRed)
                           }
                         }
                       } else {
                         VStack(alignment: .leading, spacing: 8) {
                           Text("You must sign in again to sync.")
-                            .font(.inter(13, weight: .medium))
+                            .font(.rounded(13, weight: .medium))
                             .foregroundColor(.statusAmber)
                           if isLoadingTesla {
                             ProgressView()
                           } else {
                             Button("Log in to Tesla") { connectTesla() }
-                              .font(.inter(14, weight: .bold))
+                              .font(.rounded(14, weight: .bold))
                               .foregroundColor(statusColor)
                           }
                         }
@@ -260,7 +260,7 @@ struct EditVehicleView: View {
                             Image(systemName: "bolt.fill")
                             Text("Connect to Tesla")
                           }
-                          .font(.inter(14, weight: .bold))
+                          .font(.rounded(14, weight: .bold))
                           .foregroundColor(statusColor)
                         }
                       }
@@ -268,7 +268,7 @@ struct EditVehicleView: View {
                   } else {
                     HStack {
                       Label("Connect to Tesla", systemImage: "bolt.fill")
-                        .font(.inter(14, weight: .semibold))
+                        .font(.rounded(14, weight: .semibold))
                         .foregroundColor(.subText)
                       Spacer()
                       ProBadge()
@@ -289,7 +289,7 @@ struct EditVehicleView: View {
                   Image(systemName: "trash")
                   Text("Delete Vehicle")
                 }
-                .font(.inter(15, weight: .semibold))
+                .font(.rounded(15, weight: .semibold))
                 .foregroundColor(.statusRed)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)
@@ -318,7 +318,7 @@ struct EditVehicleView: View {
           }
         }) {
           Text(vehicle == nil ? "Add Vehicle" : "Save Changes")
-            .font(.inter(16, weight: .bold))
+            .font(.rounded(16, weight: .bold))
             .foregroundColor(.black)
             .frame(maxWidth: .infinity)
             .frame(height: 56)
@@ -359,7 +359,7 @@ struct EditVehicleView: View {
   private func PickerCard<V: Hashable, Content: View>(label: String, selection: Binding<V>, @ViewBuilder content: () -> Content) -> some View {
     VStack(alignment: .leading, spacing: 6) {
       Text(label.uppercased())
-        .font(.inter(10, weight: .bold))
+        .font(.rounded(10, weight: .bold))
         .foregroundColor(.subText)
         .tracking(1.5)
       
@@ -377,7 +377,7 @@ struct EditVehicleView: View {
   private func DateCard(label: String, selection: Binding<Date>) -> some View {
     VStack(alignment: .leading, spacing: 6) {
       Text(label.uppercased())
-        .font(.inter(10, weight: .bold))
+        .font(.rounded(10, weight: .bold))
         .foregroundColor(.subText)
         .tracking(1.5)
       

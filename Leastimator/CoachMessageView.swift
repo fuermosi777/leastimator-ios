@@ -16,7 +16,7 @@ struct CoachMessage: View {
         .frame(width: 8, height: 8)
         .shadow(color: isOverPace ? Color.red : Color.accentColor, radius: 4)
       Text(isOverPace ? "Heads up — you're over pace" : "Nice pace. You're on track.")
-        .font(.inter(13, weight: .bold))
+        .font(.rounded(13, weight: .bold))
         .foregroundColor(.subText)
     }
   }
@@ -29,17 +29,17 @@ struct StatCell: View {
   var body: some View {
     VStack(alignment: .leading, spacing: 4) {
       Text(LocalizedStringKey(label))
-        .font(.inter(9, weight: .medium))
+        .font(.rounded(9, weight: .medium))
         .foregroundColor(.subText)
         .tracking(1.0)
       HStack(alignment: .lastTextBaseline, spacing: 2) {
         Text(value)
-          .font(.jetBrainsMono(22))
+          .font(.rounded(22))
           .fontWeight(.bold)
           .monospacedDigit()
           .foregroundColor(.mainText)
         Text(unit)
-          .font(.inter(10, weight: .semibold))
+          .font(.rounded(10, weight: .semibold))
           .foregroundColor(.subText)
       }
     }

@@ -15,7 +15,7 @@ struct TeslaAPIStatusView: View {
       Image(systemName: state?.lowercased() == "online" ? "bolt.car.fill" : "moon.zzz.fill")
       Text("API: \(state?.capitalized ?? "Checking...")")
     }
-    .font(.inter(11, weight: .bold))
+    .font(.rounded(11, weight: .bold))
     .foregroundColor(state?.lowercased() == "online" ? .green : .subText)
     .padding(.horizontal, 10)
     .padding(.vertical, 6)

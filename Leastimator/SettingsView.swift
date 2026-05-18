@@ -54,46 +54,39 @@ struct SettingsView: View {
           Picker(selection: $selectedVehicleOnWidgetIndex) {
             ForEach(0 ..< self.vehicles.count, id: \.self) { index in
               Text(String(self.vehicles[index].name ?? "--"))
-                .font(.inter(15))
                 .tag(index)
             }
           } label: {
             Label("Vehicle in widget", systemImage: "app.badge")
-              .font(.inter(15))
           }
           .onChange(of: selectedVehicleOnWidgetIndex, perform: handleSelectVehicleOnWidgetChange)
         } header: {
-          settingsHeader("Widget")
+          Text("Widget")
         } footer: {
           Text("Choose which vehicle to present in the main screen widget.")
-            .font(.inter(12))
         }
       }
       
       Section {
         Toggle(isOn: $periodicRemindersEnabled) {
           Label("Periodic Reminders", systemImage: "bell.fill")
-            .font(.inter(15))
         }
         if periodicRemindersEnabled {
           Picker(selection: $reminderFrequency) {
-            Text("Daily").font(.inter(15)).tag("daily")
-            Text("Weekly").font(.inter(15)).tag("weekly")
-            Text("Monthly").font(.inter(15)).tag("monthly")
+            Text("Daily").tag("daily")
+            Text("Weekly").tag("weekly")
+            Text("Monthly").tag("monthly")
           } label: {
             Label("Frequency", systemImage: "calendar")
-              .font(.inter(15))
           }
           DatePicker(selection: reminderTimeDate, displayedComponents: .hourAndMinute) {
             Label("Reminder Time", systemImage: "clock")
-              .font(.inter(15))
           }
         }
       } header: {
-        settingsHeader("Periodic Reminders")
+        Text("Periodic Reminders")
       } footer: {
         Text("Get reminded to update your mileage on a schedule.")
-          .font(.inter(12))
       }
       .onChange(of: periodicRemindersEnabled) { _ in updatePeriodicNotification() }
       .onChange(of: reminderFrequency) { _ in updatePeriodicNotification() }
@@ -102,25 +95,21 @@ struct SettingsView: View {
       Section {
         Toggle(isOn: $connectionRemindersEnabled) {
           Label("Driving Reminders", systemImage: "car.fill")
-            .font(.inter(15))
         }
         if connectionRemindersEnabled {
           Stepper(value: $connectionThreshold, in: 1...20) {
             Label("Every \(connectionThreshold) connections", systemImage: "arrow.triangle.2.circlepath")
-              .font(.inter(15))
           }
         }
       } header: {
-        settingsHeader("Driving Reminders")
+        Text("Driving Reminders")
       } footer: {
         Text("Get reminded after connecting to your car (Bluetooth/CarPlay) several times.")
-          .font(.inter(12))
       }
       
       Section {
         Toggle(isOn: $iCloudSyncEnabled) {
           Label("iCloud Sync", systemImage: "icloud.fill")
-            .font(.inter(15))
         }
         .onChange(of: iCloudSyncEnabled) { newValue in
           if newValue {
@@ -138,39 +127,34 @@ struct SettingsView: View {
           }
         }
       } header: {
-        settingsHeader("Sync")
+        Text("Sync")
       } footer: {
         VStack(alignment: .leading, spacing: 4) {
           Text("Keep your data in sync across all your devices using iCloud.")
           if iCloudSyncEnabled && lastSyncTime > 0 {
             Text("Last synced: \(formatSyncDate(Date(timeIntervalSince1970: lastSyncTime)))")
-              .font(.inter(10))
               .foregroundColor(.subText)
           }
         }
-        .font(.inter(12))
       }
       
       Section {
         NavigationLink(destination: DeletedVehiclesView()) {
           Label("Deleted Vehicles", systemImage: "trash")
-            .font(.inter(15))
         }
       } header: {
-        settingsHeader("Data")
+        Text("Data")
       } footer: {
         Text("View and restore vehicles that were previously deleted.")
-          .font(.inter(12))
       }
 
       Section {
         NavigationLink(destination: ProProductsView().withErrorHandler().navigationBarTitle("Leastimator Pro", displayMode: .inline)) {
           Label("Leastimator Pro", systemImage: "bolt.fill")
-            .font(.inter(15))
             .foregroundColor(.statusAmber)
         }
       } header: {
-        settingsHeader("Subscription")
+        Text("Subscription")
       }
       
       Section {
@@ -180,9 +164,8 @@ struct SettingsView: View {
               .foregroundColor(.mainText)
           } icon: {
             Image(systemName: "star.fill")
-              .foregroundColor(.accentColor)
+              .foregroundColor(.subText)
           }
-          .font(.inter(15))
         }
         
         Link(destination: URL(string: "https://x.com/leastimator")!) {
@@ -191,23 +174,20 @@ struct SettingsView: View {
               .foregroundColor(.mainText)
           } icon: {
             Image(systemName: "at")
-              .foregroundColor(.accentColor)
+              .foregroundColor(.subText)
           }
-          .font(.inter(15))
         }
         
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
           HStack {
             Label("Version", systemImage: "info.circle.fill")
-              .font(.inter(15))
             Spacer()
             Text(version)
-              .font(.jetBrainsMono(13))
               .foregroundColor(.subText)
           }
         }
       } header: {
-        settingsHeader("Support")
+        Text("Support")
       }
       
       Section {
@@ -217,9 +197,8 @@ struct SettingsView: View {
               .foregroundColor(.mainText)
           } icon: {
             Image(systemName: "lock.shield.fill")
-              .foregroundColor(.accentColor)
+              .foregroundColor(.subText)
           }
-          .font(.inter(15))
         }
         Link(destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!) {
           Label {
@@ -227,12 +206,11 @@ struct SettingsView: View {
               .foregroundColor(.mainText)
           } icon: {
             Image(systemName: "doc.text.fill")
-              .foregroundColor(.accentColor)
+              .foregroundColor(.subText)
           }
-          .font(.inter(15))
         }
       } header: {
-        settingsHeader("Legal")
+        Text("Legal")
       }
     }
     .alert(isPresented: $showingRestartAlert) {
@@ -251,13 +229,6 @@ struct SettingsView: View {
     }
   }
 
-  private func settingsHeader(_ title: String) -> some View {
-    Text(title.uppercased())
-      .font(.inter(10, weight: .bold))
-      .foregroundColor(.subText)
-      .tracking(1.5)
-  }
-  
   private func handleRate() {
     if let url = URL(string: "itms-apps://apple.com/app/id1228501014") {
       UIApplication.shared.open(url)

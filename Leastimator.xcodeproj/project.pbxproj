@@ -85,22 +85,6 @@
 		A89746C273700CF3DC1F24F1 /* GuidingMessageBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F6A82E142D44E1B554804E /* GuidingMessageBoard.swift */; };
 		A949D04C9C26A8B6788AC97C /* TeslaAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E20E3FFA3767341968BB022 /* TeslaAuthManager.swift */; };
 		B3825494301A7C6F946CB7E3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCDD1455A110D56B355CF7 /* Constants.swift */; };
-		CB0F2F972FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F962FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf */; };
-		CB0F2F982FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F952FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf */; };
-		CB0F2F992FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F962FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf */; };
-		CB0F2F9A2FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F952FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf */; };
-		CB0F2F9B2FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F962FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf */; };
-		CB0F2F9C2FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F952FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf */; };
-		CB0F2F9D2FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F962FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf */; };
-		CB0F2F9E2FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F952FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf */; };
-		CB0F2FA12FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F9F2FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf */; };
-		CB0F2FA22FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2FA02FA08D7C007A4F68 /* JetBrainsMono[wght].ttf */; };
-		CB0F2FA32FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F9F2FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf */; };
-		CB0F2FA42FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2FA02FA08D7C007A4F68 /* JetBrainsMono[wght].ttf */; };
-		CB0F2FA52FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F9F2FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf */; };
-		CB0F2FA62FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2FA02FA08D7C007A4F68 /* JetBrainsMono[wght].ttf */; };
-		CB0F2FA72FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2F9F2FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf */; };
-		CB0F2FA82FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0F2FA02FA08D7C007A4F68 /* JetBrainsMono[wght].ttf */; };
 		CB7AC1D02FA1C72700E180E4 /* Font+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423D329DD2D1300C35E69 /* Font+Extensions.swift */; };
 		D0C883C45475B032FA11A429 /* ICloudManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346DB580861D937723191870 /* ICloudManager.swift */; };
 		DBD225831A064FB279D891C9 /* TeslaSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A8AE65B911839F2C6819F3 /* TeslaSyncService.swift */; };
@@ -224,10 +208,6 @@
 		C997155AB7CE4D28AD8EA84C /* es-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-US"; path = "es-US.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C9A8AE65B911839F2C6819F3 /* TeslaSyncService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaSyncService.swift; sourceTree = "<group>"; };
 		C9F6A82E142D44E1B554804E /* GuidingMessageBoard.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GuidingMessageBoard.swift; sourceTree = "<group>"; };
-		CB0F2F952FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Italic-VariableFont_opsz,wght.ttf"; sourceTree = "<group>"; };
-		CB0F2F962FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-VariableFont_opsz,wght.ttf"; sourceTree = "<group>"; };
-		CB0F2F9F2FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono-Italic[wght].ttf"; sourceTree = "<group>"; };
-		CB0F2FA02FA08D7C007A4F68 /* JetBrainsMono[wght].ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono[wght].ttf"; sourceTree = "<group>"; };
 		F90B92381E97D536794367D4 /* VehicleHistoryView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VehicleHistoryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -417,10 +397,6 @@
 		CB0F2EF42FA08D0E007A4F68 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
-				CB0F2F952FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf */,
-				CB0F2F962FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf */,
-				CB0F2F9F2FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf */,
-				CB0F2FA02FA08D7C007A4F68 /* JetBrainsMono[wght].ttf */,
 			);
 			path = fonts;
 			sourceTree = "<group>";
@@ -568,11 +544,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F2AFE6A2A89E363001B8837 /* SK.storekit in Resources */,
-				CB0F2F9B2FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */,
-				CB0F2F9C2FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */,
 				3F3423AB29DD2C7900C35E69 /* Preview Assets.xcassets in Resources */,
-				CB0F2FA52FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */,
-				CB0F2FA62FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */,
 				3FCC7E5E29DE762800AC7620 /* Localizable.strings in Resources */,
 				3F3423A829DD2C7900C35E69 /* Assets.xcassets in Resources */,
 			);
@@ -583,10 +555,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F2AFE6B2A89E363001B8837 /* SK.storekit in Resources */,
-				CB0F2F992FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */,
-				CB0F2FA72FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */,
-				CB0F2FA82FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */,
-				CB0F2F9A2FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -594,10 +562,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB0F2F972FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */,
-				CB0F2FA32FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */,
-				CB0F2FA42FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */,
-				CB0F2F982FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,11 +570,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F2AFE6C2A89E363001B8837 /* SK.storekit in Resources */,
-				CB0F2F9D2FA08D73007A4F68 /* Inter-VariableFont_opsz,wght.ttf in Resources */,
-				CB0F2F9E2FA08D73007A4F68 /* Inter-Italic-VariableFont_opsz,wght.ttf in Resources */,
 				3FAF419A2A8B48AB006C462D /* Assets.xcassets in Resources */,
-				CB0F2FA12FA08D7C007A4F68 /* JetBrainsMono-Italic[wght].ttf in Resources */,
-				CB0F2FA22FA08D7C007A4F68 /* JetBrainsMono[wght].ttf in Resources */,
 				3FC0EF402A54CE610047F756 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

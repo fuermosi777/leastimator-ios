@@ -118,12 +118,12 @@ struct ContentView: View {
               // Text Content
               VStack(spacing: 12) {
                 Text("Track your first lease")
-                  .font(.inter(28, weight: .bold))
+                  .font(.rounded(28, weight: .bold))
                   .foregroundColor(.mainText)
                   .tracking(-0.5)
                 
                 Text("Add your vehicle and a few odometer readings. We'll project your end-of-lease mileage and coach you to stay on track.")
-                  .font(.inter(15))
+                  .font(.rounded(15))
                   .foregroundColor(.subText)
                   .multilineTextAlignment(.center)
                   .lineSpacing(4)
@@ -142,7 +142,7 @@ struct ContentView: View {
                   Text("Add a vehicle")
                     .fontWeight(.bold)
                 }
-                .font(.inter(16, weight: .bold))
+                .font(.rounded(16, weight: .bold))
                 .foregroundColor(.black)
                 .frame(maxWidth: .infinity)
                 .frame(height: 56)

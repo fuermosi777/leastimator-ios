@@ -108,13 +108,13 @@ struct WidgetProgressView: View {
       // ── Top: projected mileage ──────────────────────────────────
       VStack(alignment: .leading, spacing: 1) {
         Text("PROJECTED")
-          .font(.inter(9, weight: .bold))
+          .font(.rounded(9, weight: .bold))
           .foregroundColor(.subText)
           .tracking(1.5)
 
         HStack(alignment: .lastTextBaseline, spacing: 3) {
           Text("\(extendedInfo.normalPredicatedMileage)")
-            .font(.jetBrainsMono(28))
+            .font(.rounded(28))
             .fontWeight(.bold)
             .monospacedDigit()
             .foregroundColor(.mainText)
@@ -122,12 +122,12 @@ struct WidgetProgressView: View {
             .lineLimit(1)
 
           Text(lengthUnit.shortFor.uppercased())
-            .font(.inter(10, weight: .semibold))
+            .font(.rounded(10, weight: .semibold))
             .foregroundColor(.subText)
         }
 
         Text("BY LEASE END")
-          .font(.inter(8, weight: .medium))
+          .font(.rounded(8, weight: .medium))
           .foregroundColor(.subText)
           .tracking(1)
       }
@@ -137,14 +137,14 @@ struct WidgetProgressView: View {
       // ── Bottom: vehicle name + variance ────────────────────────
       VStack(alignment: .leading, spacing: 4) {
         Text(vehicle.name ?? "Vehicle")
-          .font(.inter(12, weight: .semibold))
+          .font(.rounded(12, weight: .semibold))
           .foregroundColor(.subText)
           .lineLimit(1)
 
         // Variance pill
         let sign = variance > 0 ? "+" : ""
         Text("\(sign)\(variance) \(lengthUnit.shortFor) vs limit")
-          .font(.jetBrainsMono(10))
+          .font(.rounded(10))
           .fontWeight(.bold)
           .monospacedDigit()
           .foregroundColor(statusColor)
@@ -193,7 +193,7 @@ struct EstimateWidgetEntryView: View {
           .font(.system(size: 24))
           .foregroundColor(.subText)
         Text("Add a vehicle and enable it in Settings.")
-          .font(.inter(11))
+          .font(.rounded(11))
           .foregroundColor(.subText)
           .multilineTextAlignment(.center)
       }

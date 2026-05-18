@@ -15,12 +15,12 @@ struct ReadingRowView: View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
                 Text("\(reading.value) \(unit)")
-                    .font(.jetBrainsMono(15, weight: .medium))
+                    .font(.rounded(15, weight: .medium))
                     .foregroundColor(.mainText)
                 
                 if let date = reading.date {
                     Text(date.format())
-                        .font(.inter(11))
+                        .font(.rounded(11))
                         .foregroundColor(.subText)
                 }
             }
@@ -29,7 +29,7 @@ struct ReadingRowView: View {
             
             if let diff = diff {
                 Text("+\(diff)")
-                    .font(.jetBrainsMono(12, weight: .bold))
+                    .font(.rounded(12, weight: .bold))
                     .padding(.horizontal, 10)
                     .padding(.vertical, 4)
                     .background(Color.accentColor.opacity(0.1))

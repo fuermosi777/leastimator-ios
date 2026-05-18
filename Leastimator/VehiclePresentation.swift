@@ -95,7 +95,7 @@ struct VehiclePresentation: View {
         VStack(alignment: .leading, spacing: 24) {
           if vehicle.archived {
             Text("Archived")
-              .font(.inter(11, weight: .bold))
+              .font(.rounded(11, weight: .bold))
               .padding(.horizontal, 12).padding(.vertical, 6)
               .background(Color.orange)
               .foregroundColor(.white)
@@ -150,7 +150,7 @@ struct VehiclePresentation: View {
                 .font(.system(size: 10))
                 .foregroundColor(.subText)
               Text("Calculations are estimates based on your lease terms and driving history.")
-                .font(.inter(11))
+                .font(.rounded(11))
                 .foregroundColor(.subText)
                 .multilineTextAlignment(.leading)
             }
@@ -377,7 +377,7 @@ struct VehiclePresentation: View {
           .fontWeight(.bold)
       }
     }
-    .font(.inter(16, weight: .bold))
+    .font(.rounded(16, weight: .bold))
     .foregroundColor(.black)
     .frame(maxWidth: .infinity)
     .frame(height: 56)

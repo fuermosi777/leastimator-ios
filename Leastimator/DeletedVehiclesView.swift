@@ -25,11 +25,11 @@ struct DeletedVehiclesView: View {
             .foregroundColor(.subText.opacity(0.3))
           
           Text("No Deleted Vehicles")
-            .font(.inter(20, weight: .bold))
+            .font(.rounded(20, weight: .bold))
             .foregroundColor(.mainText)
           
           Text("Vehicles you delete will appear here and can be restored to your garage.")
-            .font(.inter(15))
+            .font(.rounded(15))
             .foregroundColor(.subText)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 40)
@@ -44,7 +44,7 @@ struct DeletedVehiclesView: View {
             HStack(spacing: 14) {
               // Abbreviation Icon
               Text(vehicle.name?.vehicleAbbreviation ?? "??")
-                .font(.jetBrainsMono(12))
+                .font(.rounded(12))
                 .fontWeight(.bold)
                 .foregroundColor(.black)
                 .frame(width: 42, height: 42)
@@ -54,11 +54,11 @@ struct DeletedVehiclesView: View {
               
               VStack(alignment: .leading, spacing: 2) {
                 Text(vehicle.name ?? kUnknownVehicleName)
-                  .font(.inter(15, weight: .bold))
+                  .font(.rounded(15, weight: .bold))
                   .foregroundColor(.mainText)
                 
                 Text("\(vehicle.leaseSubtitle ?? "No lease info") · \(vehicle.allowed) \(vehicle.lengthUnit == LengthUnit.Metric.rawValue ? "km" : "mi")")
-                  .font(.inter(12))
+                  .font(.rounded(12))
                   .foregroundColor(.subText)
               }
               
@@ -69,7 +69,7 @@ struct DeletedVehiclesView: View {
                   Image(systemName: "arrow.uturn.backward")
                   Text("Restore")
                 }
-                .font(.inter(12, weight: .bold))
+                .font(.rounded(12, weight: .bold))
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
                 .background(Color.accentColor.opacity(0.1))

@@ -47,7 +47,7 @@ struct VehicleHistoryView: View {
                 Spacer()
                 
                 Text("History")
-                    .font(.inter(17, weight: .bold))
+                    .font(.rounded(17, weight: .bold))
                     .foregroundColor(.mainText)
                 
                 Spacer()
@@ -70,17 +70,17 @@ struct VehicleHistoryView: View {
                     // Driven Stats
                     VStack(alignment: .leading, spacing: 6) {
                         Text("DRIVEN · \(historyData.rangeLabel)")
-                            .font(.inter(10, weight: .bold))
+                            .font(.rounded(10, weight: .bold))
                             .kerning(1.5)
                             .foregroundColor(.subText)
                         
                         HStack(alignment: .firstTextBaseline, spacing: 8) {
                             Text("\(historyData.totalDriven)")
-                                .font(.jetBrainsMono(42, weight: .medium))
+                                .font(.rounded(42, weight: .medium))
                                 .kerning(-1.5)
                             
                             Text(unit)
-                                .font(.inter(14))
+                                .font(.rounded(14))
                                 .foregroundColor(.subText)
                             
                             Spacer()
@@ -89,7 +89,7 @@ struct VehicleHistoryView: View {
                                 Image(systemName: historyData.isOverPace ? "arrow.up.right" : "arrow.down.right")
                                 Text(historyData.isOverPace ? "\(historyData.variancePercent)% over" : "\(historyData.variancePercent)% under")
                             }
-                            .font(.jetBrainsMono(12, weight: .bold))
+                            .font(.rounded(12, weight: .bold))
                             .padding(.horizontal, 12)
                             .padding(.vertical, 6)
                             .background(historyData.isOverPace ? Color.statusRed.opacity(0.1) : Color.statusLime.opacity(0.1))
@@ -124,7 +124,7 @@ struct VehicleHistoryView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         HStack {
                             Text("RECENT READINGS")
-                                .font(.inter(10, weight: .bold))
+                                .font(.rounded(10, weight: .bold))
                                 .kerning(1.5)
                                 .foregroundColor(.subText)
                             
@@ -135,7 +135,7 @@ struct VehicleHistoryView: View {
                                     Text("All")
                                     Image(systemName: "arrow.right")
                                 }
-                                .font(.inter(12, weight: .bold))
+                                .font(.rounded(12, weight: .bold))
                                 .foregroundColor(.accentColor)
                             }
                         }
@@ -143,7 +143,7 @@ struct VehicleHistoryView: View {
                         
                         if readings.isEmpty {
                             Text("No readings recorded yet.")
-                                .font(.inter(14))
+                                .font(.rounded(14))
                                 .foregroundColor(.subText)
                                 .padding(.vertical, 20)
                                 .frame(maxWidth: .infinity, alignment: .center)
@@ -195,7 +195,7 @@ struct LegendItem: View {
             }
             
             Text(label)
-                .font(.inter(11))
+                .font(.rounded(11))
                 .foregroundColor(.subText)
         }
     }

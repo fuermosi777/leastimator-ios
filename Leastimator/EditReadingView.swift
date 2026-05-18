@@ -90,7 +90,7 @@ struct EditReadingView: View {
           Spacer()
           
           Text(reading != nil ? "Edit Reading" : "Add Reading")
-            .font(.inter(17, weight: .bold))
+            .font(.rounded(17, weight: .bold))
           
           Spacer()
           
@@ -106,18 +106,18 @@ struct EditReadingView: View {
             // Odometer Section
             VStack(alignment: .leading, spacing: 8) {
               Text("ODOMETER")
-                .font(.inter(11, weight: .bold))
+                .font(.rounded(11, weight: .bold))
                 .foregroundColor(.subText)
                 .tracking(1.5)
               
               VStack(spacing: 0) {
                 HStack(alignment: .firstTextBaseline, spacing: 4) {
                   Text(formattedReading)
-                    .font(.jetBrainsMono(48, weight: .medium))
+                    .font(.rounded(48, weight: .medium))
                     .contentTransition(.numericText())
                   
                   Text(vehicle.lengthUnit == LengthUnit.Metric.rawValue ? "km" : "mi")
-                    .font(.inter(18))
+                    .font(.rounded(18))
                     .foregroundColor(.subText)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -145,7 +145,7 @@ struct EditReadingView: View {
                 Image(systemName: "exclamationmark.triangle.fill")
                   .foregroundColor(.orange)
                 Text("Must be at least \(latest.value) \(vehicle.lengthUnit == LengthUnit.Metric.rawValue ? "km" : "mi"), the current latest reading.")
-                  .font(.inter(13))
+                  .font(.rounded(13))
                   .foregroundColor(.orange)
               }
               .padding(.horizontal, 14)
@@ -158,7 +158,7 @@ struct EditReadingView: View {
             // Date Section
             VStack(alignment: .leading, spacing: 8) {
               Text("DATE")
-                .font(.inter(11, weight: .bold))
+                .font(.rounded(11, weight: .bold))
                 .foregroundColor(.subText)
                 .tracking(1.5)
               
@@ -203,7 +203,7 @@ struct EditReadingView: View {
           }
         }) {
           Text("Save Reading")
-            .font(.inter(16, weight: .bold))
+            .font(.rounded(16, weight: .bold))
             .foregroundColor(.black)
             .frame(maxWidth: .infinity)
             .frame(height: 56)

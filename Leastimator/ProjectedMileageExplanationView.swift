@@ -50,11 +50,11 @@ struct ProjectedMileageExplanationView: View {
     private var headerSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Projected Mileage")
-                .font(.inter(24, weight: .bold))
+                .font(.rounded(24, weight: .bold))
                 .foregroundColor(.mainText)
             
             Text("We use your actual driving history to predict where you'll end up at the end of your lease.")
-                .font(.inter(16))
+                .font(.rounded(16))
                 .foregroundColor(.subText)
                 .lineSpacing(4)
         }
@@ -63,13 +63,13 @@ struct ProjectedMileageExplanationView: View {
     private var formulaSection: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("THE FORMULA")
-                .font(.inter(12, weight: .bold))
+                .font(.rounded(12, weight: .bold))
                 .foregroundColor(.accentColor)
                 .tracking(1.2)
             
             VStack(alignment: .center, spacing: 8) {
                 Text("Current + (Avg. Daily × Days Left)")
-                    .font(.jetBrainsMono(18, weight: .bold))
+                    .font(.rounded(18, weight: .bold))
                     .foregroundColor(.mainText)
                     .padding(.vertical, 16)
                     .frame(maxWidth: .infinity)
@@ -86,7 +86,7 @@ struct ProjectedMileageExplanationView: View {
     private var calculationBreakdown: some View {
         VStack(alignment: .leading, spacing: 20) {
             Text("YOUR DATA")
-                .font(.inter(12, weight: .bold))
+                .font(.rounded(12, weight: .bold))
                 .foregroundColor(.accentColor)
                 .tracking(1.2)
             
@@ -107,11 +107,11 @@ struct ProjectedMileageExplanationView: View {
     private func dataRow(label: String, value: String, isHighlighted: Bool = false) -> some View {
         HStack {
             Text(label)
-                .font(.inter(15))
+                .font(.rounded(15))
                 .foregroundColor(.subText)
             Spacer()
             Text(value)
-                .font(.jetBrainsMono(15, weight: isHighlighted ? .bold : .medium))
+                .font(.rounded(15, weight: isHighlighted ? .bold : .medium))
                 .foregroundColor(isHighlighted ? .accentColor : .mainText)
         }
         .padding(.horizontal, 20)
@@ -126,11 +126,11 @@ struct ProjectedMileageExplanationView: View {
             
             VStack(alignment: .leading, spacing: 6) {
                 Text("More data = Better accuracy")
-                    .font(.inter(15, weight: .bold))
+                    .font(.rounded(15, weight: .bold))
                     .foregroundColor(.mainText)
                 
                 Text("The more odometer readings you add over time, the more accurately we can account for seasonal driving changes and long trips.")
-                    .font(.inter(14))
+                    .font(.rounded(14))
                     .foregroundColor(.subText)
                     .fixedSize(horizontal: false, vertical: true)
             }

@@ -13,7 +13,7 @@ struct HistoryRangePicker: View {
                     }
                 }) {
                     Text(range.rawValue)
-                        .font(.jetBrainsMono(11))
+                        .font(.rounded(11))
                         .fontWeight(.medium)
                         .kerning(1)
                         .foregroundColor(selectedRange == range ? .black : .subText)
