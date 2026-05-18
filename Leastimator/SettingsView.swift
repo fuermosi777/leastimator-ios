@@ -57,7 +57,13 @@ struct SettingsView: View {
                 .tag(index)
             }
           } label: {
-            Label("Vehicle in widget", systemImage: "app.badge")
+            Label {
+              Text("Vehicle in widget")
+                .foregroundColor(.mainText)
+            } icon: {
+              Image(systemName: "app.badge")
+                .foregroundColor(.subText)
+            }
           }
           .onChange(of: selectedVehicleOnWidgetIndex, perform: handleSelectVehicleOnWidgetChange)
         } header: {
@@ -69,7 +75,13 @@ struct SettingsView: View {
       
       Section {
         Toggle(isOn: $periodicRemindersEnabled) {
-          Label("Periodic Reminders", systemImage: "bell.fill")
+          Label {
+            Text("Periodic Reminders")
+              .foregroundColor(.mainText)
+          } icon: {
+            Image(systemName: "bell.fill")
+              .foregroundColor(.subText)
+          }
         }
         if periodicRemindersEnabled {
           Picker(selection: $reminderFrequency) {
@@ -77,10 +89,22 @@ struct SettingsView: View {
             Text("Weekly").tag("weekly")
             Text("Monthly").tag("monthly")
           } label: {
-            Label("Frequency", systemImage: "calendar")
+            Label {
+              Text("Frequency")
+                .foregroundColor(.mainText)
+            } icon: {
+              Image(systemName: "calendar")
+                .foregroundColor(.subText)
+            }
           }
           DatePicker(selection: reminderTimeDate, displayedComponents: .hourAndMinute) {
-            Label("Reminder Time", systemImage: "clock")
+            Label {
+              Text("Reminder Time")
+                .foregroundColor(.mainText)
+            } icon: {
+              Image(systemName: "clock")
+                .foregroundColor(.subText)
+            }
           }
         }
       } header: {
@@ -94,11 +118,23 @@ struct SettingsView: View {
       
       Section {
         Toggle(isOn: $connectionRemindersEnabled) {
-          Label("Driving Reminders", systemImage: "car.fill")
+          Label {
+            Text("Driving Reminders")
+              .foregroundColor(.mainText)
+          } icon: {
+            Image(systemName: "car.fill")
+              .foregroundColor(.subText)
+          }
         }
         if connectionRemindersEnabled {
           Stepper(value: $connectionThreshold, in: 1...20) {
-            Label("Every \(connectionThreshold) connections", systemImage: "arrow.triangle.2.circlepath")
+            Label {
+              Text("Every \(connectionThreshold) connections")
+                .foregroundColor(.mainText)
+            } icon: {
+              Image(systemName: "arrow.triangle.2.circlepath")
+                .foregroundColor(.subText)
+            }
           }
         }
       } header: {
@@ -109,7 +145,13 @@ struct SettingsView: View {
       
       Section {
         Toggle(isOn: $iCloudSyncEnabled) {
-          Label("iCloud Sync", systemImage: "icloud.fill")
+          Label {
+            Text("iCloud Sync")
+              .foregroundColor(.mainText)
+          } icon: {
+            Image(systemName: "icloud.fill")
+              .foregroundColor(.subText)
+          }
         }
         .onChange(of: iCloudSyncEnabled) { newValue in
           if newValue {
@@ -140,7 +182,13 @@ struct SettingsView: View {
       
       Section {
         NavigationLink(destination: DeletedVehiclesView()) {
-          Label("Deleted Vehicles", systemImage: "trash")
+          Label {
+            Text("Deleted Vehicles")
+              .foregroundColor(.mainText)
+          } icon: {
+            Image(systemName: "trash")
+              .foregroundColor(.subText)
+          }
         }
       } header: {
         Text("Data")
@@ -180,7 +228,13 @@ struct SettingsView: View {
         
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
           HStack {
-            Label("Version", systemImage: "info.circle.fill")
+            Label {
+              Text("Version")
+                .foregroundColor(.mainText)
+            } icon: {
+              Image(systemName: "info.circle.fill")
+                .foregroundColor(.subText)
+            }
             Spacer()
             Text(version)
               .foregroundColor(.subText)

@@ -51,7 +51,7 @@ struct DashboardGauge: View {
                             .tracking(2)
                         
                         Text("\(projected)")
-                            .font(.rounded(56))
+                            .font(.rounded(50))
                             .fontWeight(.bold)
                             .monospacedDigit()
                             .foregroundColor(.mainText)
