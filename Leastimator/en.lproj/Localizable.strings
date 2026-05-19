@@ -124,3 +124,18 @@
 "Light" = "Light";
 "Dark" = "Dark";
 
+"Show Mileage Variance" = "Show Mileage Variance";
+"Preferences" = "Preferences";
+"Configure widget settings and dashboard displays. Enabling variance displays your predicted mileage versus the allowed leased limit on the gauge." = "Configure widget settings and dashboard displays. Enabling variance displays your predicted mileage versus the allowed leased limit on the gauge.";
+"Reminders" = "Reminders";
+"Stay up to date. Schedule time-based reminders or get driving-based suggestions after connecting to your vehicle's Bluetooth/CarPlay." = "Stay up to date. Schedule time-based reminders or get driving-based suggestions after connecting to your vehicle's Bluetooth/CarPlay.";
+"Data & Cloud" = "Data & Cloud";
+"Secure and sync your vehicle records. Access recently deleted vehicles to restore them if needed." = "Secure and sync your vehicle records. Access recently deleted vehicles to restore them if needed.";
+"Support & Legal" = "Support & Legal";
+"Contact on X" = "Contact on X";
+"Restart Required" = "Restart Required";
+"Please close and restart Leastimator to apply the iCloud sync changes." = "Please close and restart Leastimator to apply the iCloud sync changes.";
+"iCloud Not Available" = "iCloud Not Available";
+"Please sign in to iCloud in your device settings to enable sync." = "Please sign in to iCloud in your device settings to enable sync.";
+
+

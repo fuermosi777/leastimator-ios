@@ -115,3 +115,18 @@
 "Light" = "浅色模式";
 "Dark" = "深色模式";
 
+"Show Mileage Variance" = "显示里程偏差值";
+"Preferences" = "个性化设置";
+"Configure widget settings and dashboard displays. Enabling variance displays your predicted mileage versus the allowed leased limit on the gauge." = "配置小组件设置和仪表盘显示。开启此项将在仪表盘上显示预计总里程与租约限制的偏差值。";
+"Reminders" = "数据记录提醒";
+"Stay up to date. Schedule time-based reminders or get driving-based suggestions after connecting to your vehicle's Bluetooth/CarPlay." = "保持数据最新。可以设定定时提醒，或在蓝牙/CarPlay连接到您的车辆后获取添加里程建议。";
+"Data & Cloud" = "数据与云服务";
+"Secure and sync your vehicle records. Access recently deleted vehicles to restore them if needed." = "安全保护并同步您的车辆记录。在此处可以访问并恢复最近删除的车辆。";
+"Support & Legal" = "支持与条款";
+"Contact on X" = "在 X 上联系我们";
+"Restart Required" = "需要重启";
+"Please close and restart Leastimator to apply the iCloud sync changes." = "请关闭并重启 Leastimator 应用以应用 iCloud 同步更改。";
+"iCloud Not Available" = "iCloud 不可用";
+"Please sign in to iCloud in your device settings to enable sync." = "请在设备设置中登录您的 iCloud 账户以启用同步。";
+
+

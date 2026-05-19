@@ -134,3 +134,18 @@
 "Light" = "Hell";
 "Dark" = "Dunkel";
 
+"Show Mileage Variance" = "Kilometer-Abweichung anzeigen";
+"Preferences" = "Einstellungen";
+"Configure widget settings and dashboard displays. Enabling variance displays your predicted mileage versus the allowed leased limit on the gauge." = "Konfigurieren Sie Widget-Einstellungen und Dashboard-Anzeigen. Die Aktivierung der Abweichung zeigt Ihren prognostizierten Kilometerstand im Vergleich zum zulässigen Limit an.";
+"Reminders" = "Erinnerungen";
+"Stay up to date. Schedule time-based reminders or get driving-based suggestions after connecting to your vehicle's Bluetooth/CarPlay." = "Bleiben Sie auf dem Laufenden. Planen Sie zeitbasierte Erinnerungen oder erhalten Sie fahrbasierte Vorschläge, nachdem Sie eine Verbindung mit dem Bluetooth/CarPlay Ihres Fahrzeugs hergestellt haben.";
+"Data & Cloud" = "Daten & Cloud";
+"Secure and sync your vehicle records. Access recently deleted vehicles to restore them if needed." = "Sichern und synchronisieren Sie Ihre Fahrzeugdaten. Greifen Sie auf kürzlich gelöschte Fahrzeuge zu, um sie bei Bedarf wiederherzustellen.";
+"Support & Legal" = "Support & Rechtliches";
+"Contact on X" = "Kontakt auf X";
+"Restart Required" = "Neustart erforderlich";
+"Please close and restart Leastimator to apply the iCloud sync changes." = "Bitte schließen Sie Leastimator und starten Sie es neu, um die iCloud-Synchronisierungsänderungen anzuwenden.";
+"iCloud Not Available" = "iCloud nicht verfügbar";
+"Please sign in to iCloud in your device settings to enable sync." = "Bitte melden Sie sich in Ihren Geräteeinstellungen bei iCloud an, um die Synchronisierung zu aktivieren.";
+
+

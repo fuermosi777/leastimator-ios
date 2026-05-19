@@ -119,7 +119,7 @@ struct SettingsView: View {
             }
           } label: {
             Label {
-              Text("Vehicle in Widget")
+              Text("Vehicle in widget")
                 .foregroundColor(.mainText)
             } icon: {
               Image(systemName: "app.badge")
