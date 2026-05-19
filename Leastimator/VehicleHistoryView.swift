@@ -32,35 +32,7 @@ struct VehicleHistoryView: View {
     }
     
     var body: some View {
-        VStack(spacing: 0) {
-            // Custom Navigation Bar
-            HStack {
-                Button(action: { dismiss() }) {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 18, weight: .bold))
-                        .foregroundColor(.mainText)
-                        .frame(width: 44, height: 44)
-                        .background(Color.subBg.opacity(0.5))
-                        .clipShape(Circle())
-                }
-                
-                Spacer()
-                
-                Text("History")
-                    .font(.rounded(17, weight: .bold))
-                    .foregroundColor(.mainText)
-                
-                Spacer()
-                
-                // Balance spacer
-                Rectangle()
-                    .fill(Color.clear)
-                    .frame(width: 44, height: 44)
-            }
-            .padding(.horizontal, 20)
-            .padding(.top, 10)
-            .padding(.bottom, 16)
-            
+        NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
                     // Range Picker
@@ -122,24 +94,11 @@ struct VehicleHistoryView: View {
                     
                     // Recent Readings Section
                     VStack(alignment: .leading, spacing: 12) {
-                        HStack {
-                            Text("RECENT READINGS")
-                                .font(.rounded(10, weight: .bold))
-                                .kerning(1.5)
-                                .foregroundColor(.subText)
-                            
-                            Spacer()
-                            
-                            Button(action: { showAllReadings.toggle() }) {
-                                HStack(spacing: 4) {
-                                    Text("All")
-                                    Image(systemName: "arrow.right")
-                                }
-                                .font(.rounded(12, weight: .bold))
-                                .foregroundColor(.accentColor)
-                            }
-                        }
-                        .padding(.bottom, 4)
+                        Text("RECENT READINGS")
+                            .font(.rounded(10, weight: .bold))
+                            .kerning(1.5)
+                            .foregroundColor(.subText)
+                            .padding(.bottom, 4)
                         
                         if readings.isEmpty {
                             Text("No readings recorded yet.")
@@ -167,12 +126,30 @@ struct VehicleHistoryView: View {
                 }
                 .padding(.bottom, 40)
             }
-        }
-        .background(Color.mainBg.ignoresSafeArea())
-        .navigationBarHidden(true)
-        .sheet(isPresented: $showAllReadings) {
-            ReadingList(vehicle: vehicle)
-                .environment(\.managedObjectContext, viewContext)
+            .background(Color.mainBg.ignoresSafeArea())
+            .navigationTitle("History")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: { dismiss() }) {
+                        Image(systemName: "chevron.left")
+                            .font(.system(size: 16, weight: .bold))
+                            .foregroundColor(.mainText)
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: { showAllReadings.toggle() }) {
+                        Text("All")
+                            .font(.rounded(14, weight: .bold))
+                            .foregroundColor(.mainText)
+                    }
+                }
+            }
+            .sheet(isPresented: $showAllReadings) {
+                ReadingList(vehicle: vehicle)
+                    .environment(\.managedObjectContext, viewContext)
+            }
         }
     }
 }

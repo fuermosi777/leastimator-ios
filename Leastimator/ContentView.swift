@@ -33,6 +33,7 @@ struct ContentView: View {
   @State private var showVehicleHistorySheet: Vehicle?
   @State private var showVehicleReadingHistorySheet = false
   @State private var showProProductSheet = false
+  @State private var isEditingUI = false
   
   
   @State private var selectionVersion = 0
@@ -155,7 +156,7 @@ struct ContentView: View {
             }
           } else {
             if let vehicle = vehicleToDisplay {
-              VehiclePresentation(vehicle: vehicle)
+              VehiclePresentation(vehicle: vehicle, isEditingUI: $isEditingUI)
             }
           }
         }  // VStack
@@ -181,15 +182,32 @@ struct ContentView: View {
               statusColor: currentStatusColor
             )
           }
-          if let vehicle = vehicleToDisplay {
+          if isEditingUI {
+            ToolbarItem(placement: .navigationBarTrailing) {
+              Button("Save") {
+                isEditingUI = false
+                try? viewContext.save()
+              }
+              .font(.rounded(16, weight: .bold))
+              .foregroundColor(.accentColor)
+            }
+          } else if let vehicle = vehicleToDisplay {
+            ToolbarItem(placement: .secondaryAction) {
+              Button {
+                isEditingUI = true
+              } label: {
+                Label("Edit Home UI", systemImage: "pencil.circle")
+              }
+            }
+            
             ToolbarItem(placement: .secondaryAction) {
               Button {
                 showEditVehicleSheet = vehicle
               } label: {
                 Label("Edit Vehicle", systemImage: "slider.horizontal.3")
               }
-              
             }
+            
             ToolbarItem(placement: .secondaryAction) {
               Button {
                 vehicle.archived.toggle()
@@ -199,6 +217,7 @@ struct ContentView: View {
                       systemImage: vehicle.archived ? "archivebox.fill" : "archivebox")
               }
             }
+            
             ToolbarItem(placement: .secondaryAction) {
               Button {
                 showVehicleHistorySheet = vehicle

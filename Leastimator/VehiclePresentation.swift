@@ -17,6 +17,7 @@ struct VehiclePresentation: View {
   
   // Add ObservedObject make sure it gets updated data.
   @ObservedObject var vehicle: Vehicle
+  @Binding var isEditingUI: Bool
   
   @State private var dashboardIndex = 0
   
@@ -37,8 +38,9 @@ struct VehiclePresentation: View {
     case monthly, daily
   }
   
-  init(vehicle: Vehicle) {
+  init(vehicle: Vehicle, isEditingUI: Binding<Bool>) {
     self.vehicle = vehicle
+    self._isEditingUI = isEditingUI
   }
   
   var extendedInfo: ExtendedVehicleInfo {
@@ -128,10 +130,10 @@ struct VehiclePresentation: View {
           .padding(.vertical, 10)
 
           // Primary stats grid
-          StatsSection(extendedInfo: extendedInfo, lengthUnit: lengthUnit)
+          StatsSection(vehicle: vehicle, extendedInfo: extendedInfo, lengthUnit: lengthUnit, isEditing: isEditingUI)
 
           // Track info card
-          GuidingMessageBoard(vehicle: vehicle, extendedInfo: extendedInfo, lengthUnit: lengthUnit)
+          GuidingMessageBoard(vehicle: vehicle, extendedInfo: extendedInfo, lengthUnit: lengthUnit, isEditing: isEditingUI)
 
 #if DEBUG
           BannerAd()

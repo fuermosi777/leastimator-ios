@@ -11,14 +11,16 @@ struct GuidingMessageBoard: View {
     @ObservedObject var vehicle: Vehicle
     let extendedInfo: ExtendedVehicleInfo
     let lengthUnit: LengthUnit
+    let isEditing: Bool
     
     @State private var selection: Int
     @State private var currentlyPinned: Int
     
-    init(vehicle: Vehicle, extendedInfo: ExtendedVehicleInfo, lengthUnit: LengthUnit) {
+    init(vehicle: Vehicle, extendedInfo: ExtendedVehicleInfo, lengthUnit: LengthUnit, isEditing: Bool) {
         self.vehicle = vehicle
         self.extendedInfo = extendedInfo
         self.lengthUnit = lengthUnit
+        self.isEditing = isEditing
         let pinned = vehicle.pinnedMessageIndex
         _selection = State(initialValue: pinned)
         _currentlyPinned = State(initialValue: pinned)
@@ -41,7 +43,8 @@ struct GuidingMessageBoard: View {
                     .fill(Color.subBg.opacity(0.3))
                     .overlay(
                         RoundedRectangle(cornerRadius: 24)
-                            .stroke(Color.mainText.opacity(0.05), lineWidth: 1)
+                            .stroke(isEditing ? Color.accentColor.opacity(0.5) : Color.mainText.opacity(0.05),
+                                    style: StrokeStyle(lineWidth: isEditing ? 2 : 1, dash: isEditing ? [4] : []))
                     )
                     .frame(height: 96)
                 
@@ -61,19 +64,21 @@ struct GuidingMessageBoard: View {
             }
             
             // Pin Button
-            Button(action: {
-                let newPinned = currentlyPinned == selection ? 0 : selection
-                vehicle.pinnedMessageIndex = newPinned
-                currentlyPinned = newPinned
-            }) {
-                Image(systemName: currentlyPinned == selection ? "pin.fill" : "pin")
-                    .font(.system(size: 14, weight: .bold))
-                    .foregroundColor(currentlyPinned == selection ? .accentColor : .subText)
-                    .padding(12)
-                    .background(Color.mainBg.opacity(0.001))
+            if isEditing {
+                Button(action: {
+                    let newPinned = currentlyPinned == selection ? 0 : selection
+                    vehicle.pinnedMessageIndex = newPinned
+                    currentlyPinned = newPinned
+                }) {
+                    Image(systemName: currentlyPinned == selection ? "pin.fill" : "pin")
+                        .font(.system(size: 14, weight: .bold))
+                        .foregroundColor(currentlyPinned == selection ? .accentColor : .subText)
+                        .padding(12)
+                        .background(Color.mainBg.opacity(0.001))
+                }
+                .padding(4)
+                .buttonStyle(.plain)
             }
-            .padding(4)
-            .buttonStyle(.plain)
         }
         .frame(height: 96, alignment: .top)
     }

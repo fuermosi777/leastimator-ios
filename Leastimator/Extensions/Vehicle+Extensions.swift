@@ -43,4 +43,21 @@ extension Vehicle {
     }
     set { UserDefaults.standard.set(newValue, forKey: pinnedMessageKey) }
   }
+
+  var statsOrderKey: String {
+    "stats_order_\(objectID.uriRepresentation().absoluteString)"
+  }
+
+  var statsOrder: [String] {
+    get {
+      let stored = UserDefaults.standard.stringArray(forKey: statsOrderKey)
+      if let stored = stored, stored.count == 3 {
+        return stored
+      }
+      return ["DAILY AVG", "ODOMETER", "LEASE LEFT"]
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: statsOrderKey)
+    }
+  }
 }
