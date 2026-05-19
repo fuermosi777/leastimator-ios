@@ -120,7 +120,8 @@ struct VehiclePresentation: View {
               projected: extendedInfo.normalPredicatedMileage,
               variance: extendedInfo.mileageVariance ?? 0,
               unit: lengthUnit.shortFor,
-              statusColor: statusColor
+              statusColor: statusColor,
+              showVariance: showMileageVariance
             )
             Spacer()
           }

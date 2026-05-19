@@ -13,6 +13,7 @@ struct DashboardGauge: View {
     let variance: Int
     let unit: String
     let statusColor: Color
+    var showVariance: Bool = true
     
     private let stroke: CGFloat = 14
     private let arc: Double = 0.75 // Use 3/4 of the circle
@@ -64,16 +65,18 @@ struct DashboardGauge: View {
                             .foregroundColor(.subText)
                             .tracking(1)
                         
-                        Text("\(variance > 0 ? "+" : "")\(variance) \(unit) vs limit")
-                            .font(.rounded(12))
-                            .fontWeight(.bold)
-                            .monospacedDigit()
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 6)
-                            .background(statusColor.opacity(0.10))
-                            .foregroundColor(statusColor)
-                            .cornerRadius(20)
-                            .padding(.top, 10)
+                        if showVariance {
+                            Text("\(variance > 0 ? "+" : "")\(variance) \(unit) vs limit")
+                                .font(.rounded(12))
+                                .fontWeight(.bold)
+                                .monospacedDigit()
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 6)
+                                .background(statusColor.opacity(0.10))
+                                .foregroundColor(statusColor)
+                                .cornerRadius(20)
+                                .padding(.top, 10)
+                        }
                     }
                     .frame(width: size - 80)
                 }

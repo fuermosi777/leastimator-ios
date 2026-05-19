@@ -73,6 +73,7 @@ struct EditVehicleView: View {
   @State private var showTeslaPicker = false
   @State private var availableTeslaVehicles: [TeslaVehicle] = []
   @State private var isLoadingTesla = false
+  @State private var showProUpgradeSheet = false
   
   // Optional. If not exist, then create a new vehicle.
   var vehicle: Vehicle?
@@ -266,13 +267,18 @@ struct EditVehicleView: View {
                       }
                     }
                   } else {
-                    HStack {
-                      Label("Connect to Tesla", systemImage: "bolt.fill")
-                        .font(.rounded(14, weight: .semibold))
-                        .foregroundColor(.subText)
-                      Spacer()
-                      ProBadge()
+                    Button(action: {
+                      showProUpgradeSheet = true
+                    }) {
+                      HStack {
+                        Label("Connect to Tesla", systemImage: "bolt.fill")
+                          .font(.rounded(14, weight: .semibold))
+                          .foregroundColor(.subText)
+                        Spacer()
+                        ProBadge()
+                      }
                     }
+                    .buttonStyle(.plain)
                   }
                 }
                 .padding(16)
@@ -342,6 +348,10 @@ struct EditVehicleView: View {
       } onCancel: {
         showTeslaPicker = false
       }
+    }
+    .sheet(isPresented: $showProUpgradeSheet) {
+      ProProductsView()
+        .withErrorHandler()
     }
     .alert("vehicle delete warning message",
            isPresented: $showDeletionWarning) {

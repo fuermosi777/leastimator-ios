@@ -49,8 +49,68 @@ struct SettingsView: View {
   
   var body: some View {
     List {
-      if vehicles.count > 0 {
-        Section {
+      // 1. PREMIUM / PRO SECTION
+      Section {
+        if purchaseManager.unlockPro {
+          VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 12) {
+              ZStack {
+                Circle()
+                  .fill(Color.statusAmber.opacity(0.15))
+                  .frame(width: 40, height: 40)
+                Image(systemName: "crown.fill")
+                  .foregroundColor(.statusAmber)
+                  .font(.system(size: 20))
+              }
+              VStack(alignment: .leading, spacing: 2) {
+                Text("Leastimator Pro Active")
+                  .font(.rounded(16, weight: .bold))
+                  .foregroundColor(.mainText)
+                Text("Thank you for supporting!")
+                  .font(.rounded(12, weight: .medium))
+                  .foregroundColor(.subText)
+              }
+              Spacer()
+              Text("ACTIVE")
+                .font(.rounded(11, weight: .bold))
+                .foregroundColor(.white)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
+                .background(Color.statusAmber)
+                .cornerRadius(6)
+            }
+          }
+          .padding(.vertical, 4)
+        } else {
+          NavigationLink(destination: ProProductsView().withErrorHandler().navigationBarTitle("Leastimator Pro", displayMode: .inline)) {
+            HStack(spacing: 12) {
+              ZStack {
+                Circle()
+                  .fill(Color.statusAmber.opacity(0.15))
+                  .frame(width: 40, height: 40)
+                Image(systemName: "bolt.fill")
+                  .foregroundColor(.statusAmber)
+                  .font(.system(size: 20))
+              }
+              VStack(alignment: .leading, spacing: 4) {
+                Text("Get Leastimator Pro")
+                  .font(.rounded(16, weight: .bold))
+                  .foregroundColor(.mainText)
+                Text("Unlock iCloud sync, multi-vehicle tracking, custom gauges, and remove all ads.")
+                  .font(.rounded(12))
+                  .foregroundColor(.subText)
+                  .fixedSize(horizontal: false, vertical: true)
+              }
+            }
+            .padding(.vertical, 4)
+          }
+        }
+      }
+      
+      // 2. PREFERENCES SECTION
+      Section {
+        // Vehicle in widget (only if vehicles count > 0)
+        if vehicles.count > 0 {
           Picker(selection: $selectedVehicleOnWidgetIndex) {
             ForEach(0 ..< self.vehicles.count, id: \.self) { index in
               Text(String(self.vehicles[index].name ?? "--"))
@@ -58,7 +118,7 @@ struct SettingsView: View {
             }
           } label: {
             Label {
-              Text("Vehicle in widget")
+              Text("Vehicle in Widget")
                 .foregroundColor(.mainText)
             } icon: {
               Image(systemName: "app.badge")
@@ -66,14 +126,27 @@ struct SettingsView: View {
             }
           }
           .onChange(of: selectedVehicleOnWidgetIndex, perform: handleSelectVehicleOnWidgetChange)
-        } header: {
-          Text("Widget")
-        } footer: {
-          Text("Choose which vehicle to present in the main screen widget.")
         }
+        
+        // Mileage Variance Toggle
+        Toggle(isOn: $showMileageVariance) {
+          Label {
+            Text("Show Mileage Variance")
+              .foregroundColor(.mainText)
+          } icon: {
+            Image(systemName: "percent")
+              .foregroundColor(.subText)
+          }
+        }
+      } header: {
+        Text("Preferences")
+      } footer: {
+        Text("Configure widget settings and dashboard displays. Enabling variance displays your predicted mileage versus the allowed leased limit on the gauge.")
       }
       
+      // 3. REMINDERS SECTION (Combining Periodic & Driving Reminders)
       Section {
+        // Periodic Reminders
         Toggle(isOn: $periodicRemindersEnabled) {
           Label {
             Text("Periodic Reminders")
@@ -107,16 +180,8 @@ struct SettingsView: View {
             }
           }
         }
-      } header: {
-        Text("Periodic Reminders")
-      } footer: {
-        Text("Get reminded to update your mileage on a schedule.")
-      }
-      .onChange(of: periodicRemindersEnabled) { _ in updatePeriodicNotification() }
-      .onChange(of: reminderFrequency) { _ in updatePeriodicNotification() }
-      .onChange(of: reminderTime) { _ in updatePeriodicNotification() }
-      
-      Section {
+        
+        // Driving Reminders
         Toggle(isOn: $connectionRemindersEnabled) {
           Label {
             Text("Driving Reminders")
@@ -138,12 +203,17 @@ struct SettingsView: View {
           }
         }
       } header: {
-        Text("Driving Reminders")
+        Text("Reminders")
       } footer: {
-        Text("Get reminded after connecting to your car (Bluetooth/CarPlay) several times.")
+        Text("Stay up to date. Schedule time-based reminders or get driving-based suggestions after connecting to your vehicle's Bluetooth/CarPlay.")
       }
+      .onChange(of: periodicRemindersEnabled) { _ in updatePeriodicNotification() }
+      .onChange(of: reminderFrequency) { _ in updatePeriodicNotification() }
+      .onChange(of: reminderTime) { _ in updatePeriodicNotification() }
       
+      // 4. DATA & SYNC SECTION
       Section {
+        // iCloud Sync
         Toggle(isOn: $iCloudSyncEnabled) {
           Label {
             Text("iCloud Sync")
@@ -168,19 +238,8 @@ struct SettingsView: View {
             showingRestartAlert = true
           }
         }
-      } header: {
-        Text("Sync")
-      } footer: {
-        VStack(alignment: .leading, spacing: 4) {
-          Text("Keep your data in sync across all your devices using iCloud.")
-          if iCloudSyncEnabled && lastSyncTime > 0 {
-            Text("Last synced: \(formatSyncDate(Date(timeIntervalSince1970: lastSyncTime)))")
-              .foregroundColor(.subText)
-          }
-        }
-      }
-      
-      Section {
+        
+        // Deleted Vehicles
         NavigationLink(destination: DeletedVehiclesView()) {
           Label {
             Text("Deleted Vehicles")
@@ -191,20 +250,18 @@ struct SettingsView: View {
           }
         }
       } header: {
-        Text("Data")
+        Text("Data & Cloud")
       } footer: {
-        Text("View and restore vehicles that were previously deleted.")
-      }
-
-      Section {
-        NavigationLink(destination: ProProductsView().withErrorHandler().navigationBarTitle("Leastimator Pro", displayMode: .inline)) {
-          Label("Leastimator Pro", systemImage: "bolt.fill")
-            .foregroundColor(.statusAmber)
+        VStack(alignment: .leading, spacing: 4) {
+          Text("Secure and sync your vehicle records. Access recently deleted vehicles to restore them if needed.")
+          if iCloudSyncEnabled && lastSyncTime > 0 {
+            Text("Last synced: \(formatSyncDate(Date(timeIntervalSince1970: lastSyncTime)))")
+              .foregroundColor(.subText)
+          }
         }
-      } header: {
-        Text("Subscription")
       }
       
+      // 5. SUPPORT & LEGAL SECTION
       Section {
         Button(action: handleRate) {
           Label {
@@ -226,25 +283,6 @@ struct SettingsView: View {
           }
         }
         
-        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-          HStack {
-            Label {
-              Text("Version")
-                .foregroundColor(.mainText)
-            } icon: {
-              Image(systemName: "info.circle.fill")
-                .foregroundColor(.subText)
-            }
-            Spacer()
-            Text(version)
-              .foregroundColor(.subText)
-          }
-        }
-      } header: {
-        Text("Support")
-      }
-      
-      Section {
         Link(destination: URL(string: "https://liuhao.im/leastimator/pp")!) {
           Label {
             Text("Privacy Policy")
@@ -263,8 +301,23 @@ struct SettingsView: View {
               .foregroundColor(.subText)
           }
         }
+        
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+          HStack {
+            Label {
+              Text("Version")
+                .foregroundColor(.mainText)
+            } icon: {
+              Image(systemName: "info.circle.fill")
+                .foregroundColor(.subText)
+            }
+            Spacer()
+            Text(version)
+              .foregroundColor(.subText)
+          }
+        }
       } header: {
-        Text("Legal")
+        Text("Support & Legal")
       }
     }
     .alert(isPresented: $showingRestartAlert) {
