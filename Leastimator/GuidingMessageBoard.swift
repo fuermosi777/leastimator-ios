@@ -34,20 +34,31 @@ struct GuidingMessageBoard: View {
     
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            TabView(selection: $selection) {
-                ForEach(sortedIndices, id: \.self) { index in
-                    messageView(for: index)
-                        .tag(index)
+            // Card Container
+            ZStack(alignment: .top) {
+                // Card background and border
+                RoundedRectangle(cornerRadius: 24)
+                    .fill(Color.subBg.opacity(0.3))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 24)
+                            .stroke(Color.mainText.opacity(0.05), lineWidth: 1)
+                    )
+                    .frame(height: 96)
+                
+                // TabView extending slightly lower to push dots closer to the bottom card border
+                TabView(selection: $selection) {
+                    ForEach(sortedIndices, id: \.self) { index in
+                        messageView(for: index)
+                            .tag(index)
+                    }
+                }
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
+                .frame(height: 104) // Taller frame to place dots near/on the bottom border line
+                .onAppear {
+                    UIPageControl.appearance().currentPageIndicatorTintColor = UIColor.label.withAlphaComponent(0.25)
+                    UIPageControl.appearance().pageIndicatorTintColor = UIColor.label.withAlphaComponent(0.08)
                 }
             }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-            .frame(height: 110) // More compact height
-            .background(Color.subBg.opacity(0.3))
-            .cornerRadius(24)
-            .overlay(
-                RoundedRectangle(cornerRadius: 24)
-                    .stroke(Color.mainText.opacity(0.05), lineWidth: 1)
-            )
             
             // Pin Button
             Button(action: {
@@ -64,6 +75,7 @@ struct GuidingMessageBoard: View {
             .padding(4)
             .buttonStyle(.plain)
         }
+        .frame(height: 96, alignment: .top)
     }
     
     @ViewBuilder
@@ -79,7 +91,7 @@ struct GuidingMessageBoard: View {
                 messageCard(message: msg, icon: "bolt")
             } else {
                 let exceeded = max(0, extendedInfo.currentMileage - extendedInfo.mileageShouldLessThan)
-                let format = NSLocalizedString("Heads up — you've already exceeded your current pacing by **%lld** %@.", comment: "")
+                let format = NSLocalizedString("You've already exceeded your current pacing by **%lld** %@.", comment: "")
                 let msg = String(format: format, exceeded, lengthUnit.shortFor)
                 messageCard(message: msg, icon: "bolt")
             }
@@ -129,6 +141,7 @@ struct GuidingMessageBoard: View {
             Spacer()
         }
         .padding(.horizontal, 20)
+        .padding(.bottom, 14)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
     }
 }

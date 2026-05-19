@@ -51,7 +51,7 @@ struct BannerAd:View{
         .frame(width: 320, height: 50)
       Spacer()
     }
-    .padding(.vertical, 12)
+    .padding(.vertical, 8)
     .background(Color.subBg.opacity(0.3))
     .cornerRadius(24)
     .overlay(

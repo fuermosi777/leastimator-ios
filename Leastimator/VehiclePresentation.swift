@@ -134,11 +134,9 @@ struct VehiclePresentation: View {
 
 #if DEBUG
           BannerAd()
-            .padding(.vertical, 8)
 #else
           if !purchaseManager.unlockPro {
             BannerAd()
-              .padding(.vertical, 8)
           }
 #endif
           
