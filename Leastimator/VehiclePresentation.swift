@@ -189,7 +189,7 @@ struct VehiclePresentation: View {
       .padding(.horizontal, 24)
       .padding(.bottom, 34) // Adjust for safe area
       .background(
-        LinearGradient(colors: [.clear, Color.mainBg.opacity(0.8), Color.mainBg], startPoint: .top, endPoint: .bottom)
+        LinearGradient(colors: [.clear, Color.bgGradientEnd.opacity(0.8), Color.bgGradientEnd], startPoint: .top, endPoint: .bottom)
             .frame(height: 140)
             .ignoresSafeArea()
       )

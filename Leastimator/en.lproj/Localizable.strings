@@ -118,3 +118,9 @@
 "Lease Duration" = "Lease Duration";
 "More data = Better accuracy" = "More data = Better accuracy";
 "The more odometer readings you add over time, the more accurately we can account for seasonal driving changes and long trips." = "The more odometer readings you add over time, the more accurately we can account for seasonal driving changes and long trips.";
+
+"Theme" = "Theme";
+"System" = "System";
+"Light" = "Light";
+"Dark" = "Dark";
+

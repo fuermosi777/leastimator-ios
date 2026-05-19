@@ -15,6 +15,8 @@ struct LeastimatorApp: App {
   
   @Environment(\.scenePhase) var phase
   
+  @AppStorage("themePreference") private var themePreference = "dark"
+  
   @StateObject
   private var purchaseManager = PurchaseManager()
   
@@ -45,7 +47,7 @@ struct LeastimatorApp: App {
   var body: some Scene {
     WindowGroup {
       ContentView()
-        .preferredColorScheme(.dark)
+        .preferredColorScheme(themePreference == "system" ? nil : (themePreference == "dark" ? .dark : .light))
         .withErrorHandler()
         .environment(\.managedObjectContext, persistenceController.container.viewContext)
       // For localization debug.

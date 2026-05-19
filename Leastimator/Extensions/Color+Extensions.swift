@@ -34,6 +34,17 @@ extension Color {
       UIColor(red: 1, green: 1, blue: 1, alpha: 1.0) })
   }
   
+  static var bgGradientStart: Color {
+    Color(UIColor { $0.userInterfaceStyle == .dark ?
+      UIColor(red: 25/255, green: 25/255, blue: 27/255, alpha: 1.0) :
+      UIColor(red: 245/255, green: 247/255, blue: 250/255, alpha: 1.0) })
+  }
+  
+  static var bgGradientEnd: Color {
+    Color(UIColor { $0.userInterfaceStyle == .dark ?
+      UIColor(red: 0, green: 0, blue: 0, alpha: 1.0) :
+      UIColor(red: 228/255, green: 232/255, blue: 240/255, alpha: 1.0) })
+  }
   
   static var subBg: Color {
     Color(UIColor { $0.userInterfaceStyle == .dark ?

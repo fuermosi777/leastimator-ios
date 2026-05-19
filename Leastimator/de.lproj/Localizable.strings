@@ -128,3 +128,9 @@
 "Lease Duration" = "Leasingdauer";
 "More data = Better accuracy" = "Mehr Daten = Höhere Genauigkeit";
 "The more odometer readings you add over time, the more accurately we can account for seasonal driving changes and long trips." = "Je mehr Kilometerstände Sie im Laufe der Zeit hinzufügen, desto genauer können wir saisonale Änderungen und lange Fahrten berücksichtigen.";
+
+"Theme" = "Erscheinungsbild";
+"System" = "System";
+"Light" = "Hell";
+"Dark" = "Dunkel";
+

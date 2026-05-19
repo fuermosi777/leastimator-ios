@@ -12,6 +12,7 @@ struct SettingsView: View {
   @Environment(\.managedObjectContext) private var viewContext
   @EnvironmentObject private var purchaseManager: PurchaseManager
   @AppStorage("showMileageVariance") private var showMileageVariance = true
+  @AppStorage("themePreference") private var themePreference = "dark"
   @AppStorage("periodicRemindersEnabled") private var periodicRemindersEnabled = false
   @AppStorage("reminderFrequency") private var reminderFrequency = "weekly"
   @AppStorage("reminderTime") private var reminderTime = Date().timeIntervalSince1970
@@ -135,6 +136,21 @@ struct SettingsView: View {
               .foregroundColor(.mainText)
           } icon: {
             Image(systemName: "percent")
+              .foregroundColor(.subText)
+          }
+        }
+        
+        // Theme Picker
+        Picker(selection: $themePreference) {
+          Text("System").tag("system")
+          Text("Light").tag("light")
+          Text("Dark").tag("dark")
+        } label: {
+          Label {
+            Text("Theme")
+              .foregroundColor(.mainText)
+          } icon: {
+            Image(systemName: "circle.lefthalf.filled")
               .foregroundColor(.subText)
           }
         }

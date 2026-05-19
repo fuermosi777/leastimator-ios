@@ -88,7 +88,7 @@ struct ContentView: View {
   var body: some View {
     NavigationStack {
       ZStack {
-        LinearGradient(colors: [Color("LessBlack"), Color.black],
+        LinearGradient(colors: [.bgGradientStart, .bgGradientEnd],
                        startPoint: .top, endPoint: .bottom)
         .ignoresSafeArea()
         

@@ -109,3 +109,9 @@
 "Lease Duration" = "租约时长";
 "More data = Better accuracy" = "数据越多 = 越准确";
 "The more odometer readings you add over time, the more accurately we can account for seasonal driving changes and long trips." = "随着时间的推移，您添加的里程读数越多，我们就越能准确地考虑到季节性驾驶变化和长途旅行的影响。";
+
+"Theme" = "外观设置";
+"System" = "跟随系统";
+"Light" = "浅色模式";
+"Dark" = "深色模式";
+
