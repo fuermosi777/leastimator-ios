@@ -67,6 +67,7 @@ struct EditReadingView: View {
   }
 
   private var isBelowLatest: Bool {
+    guard reading == nil else { return false }
     guard let latest = latestOtherReading, let value = Int(readingValue) else { return false }
     return value < Int(latest.value)
   }
