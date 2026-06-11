@@ -223,9 +223,15 @@ struct SettingsView: View {
       } footer: {
         Text("Stay up to date. Schedule time-based reminders or get driving-based suggestions after connecting to your vehicle's Bluetooth/CarPlay.")
       }
-      .onChange(of: periodicRemindersEnabled) { _ in updatePeriodicNotification() }
+      .onChange(of: periodicRemindersEnabled) { newValue in
+        updatePeriodicNotification()
+        if newValue { Logger.shared.reminderEnabled(type: "periodic", frequency: reminderFrequency) }
+      }
       .onChange(of: reminderFrequency) { _ in updatePeriodicNotification() }
       .onChange(of: reminderTime) { _ in updatePeriodicNotification() }
+      .onChange(of: connectionRemindersEnabled) { newValue in
+        if newValue { Logger.shared.reminderEnabled(type: "driving") }
+      }
       
       // 4. DATA & SYNC SECTION
       Section {
@@ -353,6 +359,7 @@ struct SettingsView: View {
   }
 
   private func handleRate() {
+    Logger.shared.rateAppTapped()
     if let url = URL(string: "itms-apps://apple.com/app/id1228501014") {
       UIApplication.shared.open(url)
     }

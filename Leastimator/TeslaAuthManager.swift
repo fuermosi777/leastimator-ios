@@ -13,15 +13,25 @@ enum TeslaAuthError: LocalizedError {
     case networkError(Error)
     case invalidResponse
     case apiError(String)
-    
+
+    /// User-facing, friendly message. Never leaks raw API bodies.
     var errorDescription: String? {
         switch self {
         case .invalidURL: return "Invalid URL"
         case .authCanceled: return "Authentication canceled"
         case .missingCode: return "Missing code in callback"
+        case .networkError: return "Network error. Please check your connection and try again."
+        case .invalidResponse: return "Invalid response from Tesla. Please try again."
+        case .apiError: return "Tesla connection error. Please try again."
+        }
+    }
+
+    /// Full technical detail for logging only — includes raw API bodies. Not shown to users.
+    var debugDetail: String {
+        switch self {
         case .networkError(let err): return "Network error: \(err.localizedDescription)"
-        case .invalidResponse: return "Invalid response from token exchange"
         case .apiError(let msg): return "Tesla API Error: \(msg)"
+        default: return errorDescription ?? "Unknown Tesla error"
         }
     }
 }
@@ -108,15 +118,23 @@ class TeslaAuthManager: NSObject {
     }
     
     func authenticate() async throws -> TeslaTokens {
-        let code = try await getAuthorizationCode()
-        let tokenResponse = try await exchangeCodeForTokens(code: code)
-        
-        return TeslaTokens(
-            accessToken: tokenResponse.access_token,
-            refreshToken: tokenResponse.refresh_token,
-            expiresIn: tokenResponse.expires_in,
-            createdAt: Date()
-        )
+        do {
+            let code = try await getAuthorizationCode()
+            let tokenResponse = try await exchangeCodeForTokens(code: code)
+            return TeslaTokens(
+                accessToken: tokenResponse.access_token,
+                refreshToken: tokenResponse.refresh_token,
+                expiresIn: tokenResponse.expires_in,
+                createdAt: Date()
+            )
+        } catch {
+            if case TeslaAuthError.authCanceled = error {
+                // User canceled intentionally — not an error worth tracking
+            } else {
+                Logger.shared.teslaAuthError(error)
+            }
+            throw error
+        }
     }
     
     // MARK: - Step 1: Browse to authenticate and get code

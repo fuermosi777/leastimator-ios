@@ -422,6 +422,9 @@ struct EditVehicleView: View {
               KeychainHelper.shared.save(tokens, for: connId)
               
               let service = TeslaService(connectionId: connId)
+              // Discover the account's Fleet API region up front so subsequent
+              // calls go straight to the right host (UK/EU users etc.).
+              await service.resolveRegionIfNeeded()
               let list = try await service.getVehicles()
               
               await MainActor.run {
@@ -429,6 +432,7 @@ struct EditVehicleView: View {
                   self.availableTeslaVehicles = list
                   self.isLoadingTesla = false
                   self.showTeslaPicker = true
+                  Logger.shared.teslaConnectSuccess(vehicleCount: list.count)
               }
           } catch {
               await MainActor.run {
@@ -443,6 +447,7 @@ struct EditVehicleView: View {
       guard let vehicle = self.vehicle else { return }
       if let connId = vehicle.teslaConnectionId {
           KeychainHelper.shared.delete(for: connId)
+          TeslaRegionStore.clear(for: connId)
       }
       vehicle.teslaVehicleId = nil
       vehicle.teslaConnectionId = nil
@@ -474,25 +479,30 @@ struct EditVehicleView: View {
               isLoadingTesla = false
           }
       } catch {
+          // The vehicle is already linked at this point; a failed wake/read just
+          // means the car is asleep or briefly unavailable. The next background
+          // sync will pick up the odometer once it's online. Log it, but don't
+          // alarm the user with an error — the connection itself succeeded.
+          Logger.shared.teslaAPIError("initialWakeAndSync", error)
           await MainActor.run {
               isLoadingTesla = false
-              self.errorHandler.handle(error)
           }
       }
   }
-  
 
-  
+
+
   private func handleDelete() throws {
     if let vehicle = self.vehicle {
       vehicle.removed = true
-      
+
       do {
         try viewContext.save()
       } catch {
         throw AppError.failedContextSave
       }
-      
+
+      Logger.shared.vehicleDeleted()
       dismiss()
     }
   }
@@ -549,6 +559,7 @@ struct EditVehicleView: View {
     lengthOfLeaseNumber = Int64(lengthOfLease)
 
     
+    let isNew = self.vehicle == nil
     let vehicle = self.vehicle ?? Vehicle(context: viewContext)
     vehicle.allowed = allowedNumber
     vehicle.fee = feeNumber
@@ -566,7 +577,8 @@ struct EditVehicleView: View {
     } catch {
       throw AppError.failedContextSave
     }
-    
+
+    if isNew { Logger.shared.vehicleCreated() }
     dismiss()
   }
 }

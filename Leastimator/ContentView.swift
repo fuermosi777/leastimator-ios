@@ -178,7 +178,14 @@ struct ContentView: View {
                 }
               },
               onSettings: { redirectToSettings.toggle() },
-              onAddVehicle: { showAddVehicleSheet.toggle() },
+              onAddVehicle: {
+                if vehicles.count >= 1 && !purchaseManager.unlockPro {
+                  Logger.shared.proPaywallBlocked(reason: "add_vehicle")
+                  showProProductSheet.toggle()
+                } else {
+                  showAddVehicleSheet.toggle()
+                }
+              },
               statusColor: currentStatusColor
             )
           }

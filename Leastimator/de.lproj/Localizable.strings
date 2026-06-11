@@ -12,7 +12,7 @@
 "%lld %@" = "%lld %@";
 "%lld)" = "%lld)";
 "+%@" = "+%@";
-"API: %@" = "API: %@";
+"Tesla: %@" = "Tesla: %@";
 "Add Manually" = "Manuell hinzufügen";
 "Add Reading" = "Kilometerstand hinzufügen";
 "Add Vehicle" = "Fahrzeug hinzufügen";

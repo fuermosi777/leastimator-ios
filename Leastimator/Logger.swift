@@ -80,4 +80,79 @@ final class Logger {
   func userVehicleCount(_ count: Int) {
     Mixpanel.mainInstance().people.set(properties: [ "vehicle_count": String(count) ])
   }
+
+  // MARK: - Paywall & conversion
+  func proPaywallView() {
+    Mixpanel.mainInstance().track(event: "Pro Paywall View", properties: properties)
+  }
+
+  func proPaywallBlocked(reason: String) {
+    var props = properties
+    props["reason"] = reason
+    Mixpanel.mainInstance().track(event: "Pro Paywall Blocked", properties: props)
+  }
+
+  func proPlanSelected(plan: String) {
+    var props = properties
+    props["plan"] = plan
+    Mixpanel.mainInstance().track(event: "Pro Plan Selected", properties: props)
+  }
+
+  // MARK: - Vehicle lifecycle
+  func vehicleCreated() {
+    Mixpanel.mainInstance().track(event: "Vehicle Created", properties: properties)
+  }
+
+  func vehicleDeleted() {
+    Mixpanel.mainInstance().track(event: "Vehicle Deleted", properties: properties)
+  }
+
+  // MARK: - Engagement
+  func reminderEnabled(type: String, frequency: String? = nil) {
+    var props = properties
+    props["type"] = type
+    if let frequency = frequency { props["frequency"] = frequency }
+    Mixpanel.mainInstance().track(event: "Reminder Enabled", properties: props)
+  }
+
+  func rateAppTapped() {
+    Mixpanel.mainInstance().track(event: "Rate App Tapped", properties: properties)
+  }
+
+  // MARK: - Tesla
+  func teslaConnectSuccess(vehicleCount: Int) {
+    var props = properties
+    props["vehicle_count"] = String(vehicleCount)
+    Mixpanel.mainInstance().track(event: "Tesla Connect Success", properties: props)
+  }
+
+  // Prefer the full technical detail (raw API bodies) for logging; users never
+  // see this, only the friendly errorDescription.
+  private func loggableDetail(_ error: Error) -> String {
+    if let teslaError = error as? TeslaAuthError {
+      return teslaError.debugDetail
+    }
+    return error.localizedDescription
+  }
+
+  func teslaAuthError(_ error: Error) {
+    var props = properties
+    props["error"] = loggableDetail(error)
+    props["error_type"] = String(describing: type(of: error))
+    Mixpanel.mainInstance().track(event: "Tesla Auth Error", properties: props)
+  }
+
+  func teslaAPIError(_ context: String, _ error: Error) {
+    var props = properties
+    props["context"] = context
+    props["error"] = loggableDetail(error)
+    Mixpanel.mainInstance().track(event: "Tesla API Error", properties: props)
+  }
+
+  func teslaSyncError(vehicleId: String, _ error: Error) {
+    var props = properties
+    props["vehicle_id"] = vehicleId
+    props["error"] = loggableDetail(error)
+    Mixpanel.mainInstance().track(event: "Tesla Sync Error", properties: props)
+  }
 }

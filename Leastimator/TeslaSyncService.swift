@@ -56,6 +56,7 @@ class TeslaSyncService {
                 }
             } catch {
                 print("Failed to sync Tesla vehicle \(vid) in background: \(error)")
+                Logger.shared.teslaSyncError(vehicleId: vid, error)
             }
         }
     }

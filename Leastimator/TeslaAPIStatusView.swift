@@ -13,7 +13,7 @@ struct TeslaAPIStatusView: View {
   var body: some View {
     HStack(spacing: 6) {
       Image(systemName: state?.lowercased() == "online" ? "bolt.car.fill" : "moon.zzz.fill")
-      Text("API: \(state?.capitalized ?? "Checking...")")
+      Text("Tesla: \(state?.capitalized ?? "Checking...")")
     }
     .font(.rounded(11, weight: .bold))
     .foregroundColor(state?.lowercased() == "online" ? .green : .subText)
