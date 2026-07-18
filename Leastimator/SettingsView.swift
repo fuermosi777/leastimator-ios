@@ -23,6 +23,7 @@ struct SettingsView: View {
   
   @State private var showingRestartAlert = false
   @State private var showingICloudIneligibleAlert = false
+  @State private var showProUpgradeSheet = false
   
   @EnvironmentObject private var notificationManager: NotificationManager
   
@@ -83,7 +84,9 @@ struct SettingsView: View {
           }
           .padding(.vertical, 4)
         } else {
-          NavigationLink(destination: ProProductsView().withErrorHandler().navigationBarTitle("Leastimator Pro", displayMode: .inline)) {
+          Button {
+            showProUpgradeSheet = true
+          } label: {
             HStack(spacing: 12) {
               ZStack {
                 Circle()
@@ -105,6 +108,7 @@ struct SettingsView: View {
             }
             .padding(.vertical, 4)
           }
+          .buttonStyle(.plain)
         }
       }
       
@@ -355,6 +359,10 @@ struct SettingsView: View {
         message: Text("Please sign in to iCloud in your device settings to enable sync."),
         dismissButton: .default(Text("OK"))
       )
+    }
+    .sheet(isPresented: $showProUpgradeSheet) {
+      ProProductsView()
+        .withErrorHandler()
     }
   }
 

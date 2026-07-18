@@ -52,6 +52,21 @@ private struct PlanCard: View {
     return "Best Value"
   }
 
+  private var trialBadge: String? {
+    guard let offer = product.subscription?.introductoryOffer, offer.paymentMode == .freeTrial else { return nil }
+    let unit = offer.period.unit
+    let count = offer.period.value
+    let unitLabel: String
+    switch unit {
+    case .day: unitLabel = count == 1 ? "day" : "days"
+    case .week: unitLabel = count == 1 ? "week" : "weeks"
+    case .month: unitLabel = count == 1 ? "month" : "months"
+    case .year: unitLabel = count == 1 ? "year" : "years"
+    @unknown default: unitLabel = "period"
+    }
+    return "\(count)-\(unitLabel) free trial"
+  }
+
   var body: some View {
     Button(action: onTap) {
       HStack {
@@ -67,6 +82,15 @@ private struct PlanCard: View {
                 .padding(.horizontal, 6)
                 .padding(.vertical, 2)
                 .background(Color.accentColor.opacity(0.15))
+                .clipShape(Capsule())
+            }
+            if let trial = trialBadge {
+              Text(trial)
+                .font(.rounded(10, weight: .bold))
+                .foregroundColor(.green)
+                .padding(.horizontal, 6)
+                .padding(.vertical, 2)
+                .background(Color.green.opacity(0.15))
                 .clipShape(Capsule())
             }
           }
@@ -202,7 +226,9 @@ struct ProProductsView: View {
                 }
               }
             } label: {
-              Text("Subscribe")
+              Text(selectedProduct?.subscription?.introductoryOffer?.paymentMode == .freeTrial
+                ? "Start Free Trial"
+                : "Subscribe")
                 .font(.rounded(16, weight: .bold))
                 .foregroundColor(.black)
                 .frame(maxWidth: .infinity)
@@ -226,7 +252,9 @@ struct ProProductsView: View {
             .frame(maxWidth: .infinity)
             .padding(.bottom, 32)
 
-            Text("Subscription renews automatically. Cancel anytime in App Store settings.")
+            Text(selectedProduct?.subscription?.introductoryOffer?.paymentMode == .freeTrial
+              ? "You won't be charged until your free trial ends. Cancel anytime in App Store settings."
+              : "Subscription renews automatically. Cancel anytime in App Store settings.")
               .font(.rounded(10))
               .foregroundColor(.subText.opacity(0.7))
               .multilineTextAlignment(.center)

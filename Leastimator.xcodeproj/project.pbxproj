@@ -835,7 +835,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Leastimator/Leastimator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 120;
+				CURRENT_PROJECT_VERSION = 121;
 				DEVELOPMENT_ASSET_PATHS = "\"Leastimator/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -849,7 +849,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.9;
+				MARKETING_VERSION = 5.10;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.leastimator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -869,7 +869,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Leastimator/Leastimator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 120;
+				CURRENT_PROJECT_VERSION = 121;
 				DEVELOPMENT_ASSET_PATHS = "\"Leastimator/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -883,7 +883,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.9;
+				MARKETING_VERSION = 5.10;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.leastimator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -971,7 +971,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = EstimateWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 119;
+				CURRENT_PROJECT_VERSION = 121;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EstimateWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = EstimateWidget;
@@ -982,7 +982,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 5.8;
+				MARKETING_VERSION = 5.10;
 				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.leastimator.EstimateWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -999,7 +999,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = EstimateWidgetExtensionRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 119;
+				CURRENT_PROJECT_VERSION = 121;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EstimateWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = EstimateWidget;
@@ -1010,7 +1010,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 5.8;
+				MARKETING_VERSION = 5.10;
 				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.leastimator.EstimateWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
