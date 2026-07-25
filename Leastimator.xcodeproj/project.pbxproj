@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		03965DBB58C9E7EDD6E05C54 /* ICloudManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346DB580861D937723191870 /* ICloudManager.swift */; };
 		0CC354411E5A173991528426 /* VehicleHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90B92381E97D536794367D4 /* VehicleHistoryView.swift */; };
+		18AFDF4A5D7F21A64587EB9F /* OdoReadingWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF38BEC1293DB574D6882FC1 /* OdoReadingWriterTests.swift */; };
 		2500614B6AD39B55D5BC112A /* DeletedVehiclesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532819930EC5230001C1572 /* DeletedVehiclesView.swift */; };
 		3F2AFE682A89DFDA001B8837 /* StoreKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2AFE672A89DFDA001B8837 /* StoreKit+Extensions.swift */; };
 		3F2AFE6A2A89E363001B8837 /* SK.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 3F2AFE692A89E363001B8837 /* SK.storekit */; };
@@ -77,9 +78,13 @@
 		5115D616F3450898604BC03A /* StatsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B0CD6A748D29B24C638620 /* StatsSection.swift */; };
 		561F9C606DCD4BAE5E55B099 /* HistoryRangePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6814C1B2AA81725C1214F0 /* HistoryRangePicker.swift */; };
 		6421A7995BBA47ACB79A6B7A /* TeslaRegionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FAA944B27A4E349B1860D9 /* TeslaRegionStore.swift */; };
+		64EE82D6C798D968BAAFA3C8 /* VehicleEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B0161C1288996595A406C9 /* VehicleEntityTests.swift */; };
+		66FD07729F05F4ED569BA94C /* VehicleEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2B18541916143D15C54BF6 /* VehicleEntity.swift */; };
 		6CA7ACA5B3114D2B24D56624 /* ProjectedMileageExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CD1CBD354287ECE6448D2D /* ProjectedMileageExplanationView.swift */; };
+		6CF0AF23AAB39A837E3C6516 /* VehicleEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2B18541916143D15C54BF6 /* VehicleEntity.swift */; };
 		7679C5630529063D3B303EF3 /* ReadingRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A696792A98787C782034E6B6 /* ReadingRowView.swift */; };
 		7873D36A0EBBFD0A25BB79D8 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5800D8376217BCDD3EE9C18 /* KeychainHelper.swift */; };
+		80877EDCD1CFF33C913C8275 /* OdometerIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C6466ECE6052003C306554 /* OdometerIntents.swift */; };
 		85A3CCE321217E79AD090751 /* CoachMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E873766A6D7E90F0E9694 /* CoachMessageView.swift */; };
 		89019ACC09FB7E86A7AA7276 /* DashboardGauge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E779CABD4F33146BC481AB /* DashboardGauge.swift */; };
 		A0574D49987A4859E271DC42 /* VehicleSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21890A36CD94416E221BFC5D /* VehicleSwitcher.swift */; };
@@ -88,6 +93,7 @@
 		B3825494301A7C6F946CB7E3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCDD1455A110D56B355CF7 /* Constants.swift */; };
 		CB7AC1D02FA1C72700E180E4 /* Font+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3423D329DD2D1300C35E69 /* Font+Extensions.swift */; };
 		D0C883C45475B032FA11A429 /* ICloudManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346DB580861D937723191870 /* ICloudManager.swift */; };
+		D9C194DD9FC5F8C362EF3924 /* OdoReadingWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F24AD8579DB23DE75CB5062 /* OdoReadingWriter.swift */; };
 		DBD225831A064FB279D891C9 /* TeslaSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A8AE65B911839F2C6819F3 /* TeslaSyncService.swift */; };
 		DC88F9BA1DBB85404C86CD98 /* TeslaAPIStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97E90CC119BD1D99ADF4DA /* TeslaAPIStatusView.swift */; };
 		E9207E10EB46C2E4306FE466 /* HistoryLineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719529E428A672CC4F63690 /* HistoryLineChart.swift */; };
@@ -135,6 +141,7 @@
 /* Begin PBXFileReference section */
 		04DCDD1455A110D56B355CF7 /* Constants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0719529E428A672CC4F63690 /* HistoryLineChart.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HistoryLineChart.swift; sourceTree = "<group>"; };
+		07B0161C1288996595A406C9 /* VehicleEntityTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VehicleEntityTests.swift; sourceTree = "<group>"; };
 		21890A36CD94416E221BFC5D /* VehicleSwitcher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VehicleSwitcher.swift; sourceTree = "<group>"; };
 		24C309049AA74B5A85D6D8BC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		31FAA944B27A4E349B1860D9 /* TeslaRegionStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaRegionStore.swift; sourceTree = "<group>"; };
@@ -196,20 +203,24 @@
 		3FE38DEF2F0728D4008D351F /* Vehicle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Vehicle+Extensions.swift"; sourceTree = "<group>"; };
 		3FF001B72ACA7DB50007C481 /* EstimateWidgetExtensionRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EstimateWidgetExtensionRelease.entitlements; sourceTree = "<group>"; };
 		4A97E90CC119BD1D99ADF4DA /* TeslaAPIStatusView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaAPIStatusView.swift; sourceTree = "<group>"; };
+		4F24AD8579DB23DE75CB5062 /* OdoReadingWriter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OdoReadingWriter.swift; sourceTree = "<group>"; };
 		535E873766A6D7E90F0E9694 /* CoachMessageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CoachMessageView.swift; sourceTree = "<group>"; };
 		54CD1CBD354287ECE6448D2D /* ProjectedMileageExplanationView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProjectedMileageExplanationView.swift; sourceTree = "<group>"; };
 		72E779CABD4F33146BC481AB /* DashboardGauge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DashboardGauge.swift; sourceTree = "<group>"; };
 		7C23DE6C66FF6E833E2A3856 /* TeslaService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaService.swift; sourceTree = "<group>"; };
 		7E20E3FFA3767341968BB022 /* TeslaAuthManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaAuthManager.swift; sourceTree = "<group>"; };
+		7F2B18541916143D15C54BF6 /* VehicleEntity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VehicleEntity.swift; sourceTree = "<group>"; };
 		81DE9DF31B6881F25AE189D0 /* TeslaVehiclePicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaVehiclePicker.swift; sourceTree = "<group>"; };
 		8F6814C1B2AA81725C1214F0 /* HistoryRangePicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HistoryRangePicker.swift; sourceTree = "<group>"; };
 		95B0CD6A748D29B24C638620 /* StatsSection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StatsSection.swift; sourceTree = "<group>"; };
 		A696792A98787C782034E6B6 /* ReadingRowView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReadingRowView.swift; sourceTree = "<group>"; };
+		BF38BEC1293DB574D6882FC1 /* OdoReadingWriterTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OdoReadingWriterTests.swift; sourceTree = "<group>"; };
 		C532819930EC5230001C1572 /* DeletedVehiclesView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DeletedVehiclesView.swift; sourceTree = "<group>"; };
 		C5800D8376217BCDD3EE9C18 /* KeychainHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		C997155AB7CE4D28AD8EA84C /* es-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-US"; path = "es-US.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		C9A8AE65B911839F2C6819F3 /* TeslaSyncService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaSyncService.swift; sourceTree = "<group>"; };
 		C9F6A82E142D44E1B554804E /* GuidingMessageBoard.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GuidingMessageBoard.swift; sourceTree = "<group>"; };
+		F8C6466ECE6052003C306554 /* OdometerIntents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OdometerIntents.swift; sourceTree = "<group>"; };
 		F90B92381E97D536794367D4 /* VehicleHistoryView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VehicleHistoryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -330,6 +341,9 @@
 				95B0CD6A748D29B24C638620 /* StatsSection.swift */,
 				54CD1CBD354287ECE6448D2D /* ProjectedMileageExplanationView.swift */,
 				346DB580861D937723191870 /* ICloudManager.swift */,
+				4F24AD8579DB23DE75CB5062 /* OdoReadingWriter.swift */,
+				7F2B18541916143D15C54BF6 /* VehicleEntity.swift */,
+				F8C6466ECE6052003C306554 /* OdometerIntents.swift */,
 			);
 			path = Leastimator;
 			sourceTree = "<group>";
@@ -346,6 +360,8 @@
 			isa = PBXGroup;
 			children = (
 				3F3423B929DD2C7900C35E69 /* LeastimatorTests.swift */,
+				BF38BEC1293DB574D6882FC1 /* OdoReadingWriterTests.swift */,
+				07B0161C1288996595A406C9 /* VehicleEntityTests.swift */,
 			);
 			path = LeastimatorTests;
 			sourceTree = "<group>";
@@ -630,6 +646,9 @@
 				5115D616F3450898604BC03A /* StatsSection.swift in Sources */,
 				6CA7ACA5B3114D2B24D56624 /* ProjectedMileageExplanationView.swift in Sources */,
 				D0C883C45475B032FA11A429 /* ICloudManager.swift in Sources */,
+				D9C194DD9FC5F8C362EF3924 /* OdoReadingWriter.swift in Sources */,
+				6CF0AF23AAB39A837E3C6516 /* VehicleEntity.swift in Sources */,
+				80877EDCD1CFF33C913C8275 /* OdometerIntents.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -638,6 +657,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F3423BA29DD2C7900C35E69 /* LeastimatorTests.swift in Sources */,
+				18AFDF4A5D7F21A64587EB9F /* OdoReadingWriterTests.swift in Sources */,
+				64EE82D6C798D968BAAFA3C8 /* VehicleEntityTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -668,6 +689,7 @@
 				3FE221A22A54D9200063ED9C /* ComputeUtils.swift in Sources */,
 				3FC0EF3E2A54CE600047F756 /* EstimateWidget.swift in Sources */,
 				03965DBB58C9E7EDD6E05C54 /* ICloudManager.swift in Sources */,
+				66FD07729F05F4ED569BA94C /* VehicleEntity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -835,7 +857,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Leastimator/Leastimator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 121;
+				CURRENT_PROJECT_VERSION = 123;
 				DEVELOPMENT_ASSET_PATHS = "\"Leastimator/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -869,7 +891,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Leastimator/Leastimator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 121;
+				CURRENT_PROJECT_VERSION = 123;
 				DEVELOPMENT_ASSET_PATHS = "\"Leastimator/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -903,7 +925,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.LeastimatorTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -921,7 +943,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.LeastimatorTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -971,12 +993,12 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = EstimateWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 121;
+				CURRENT_PROJECT_VERSION = 123;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EstimateWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = EstimateWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -999,12 +1021,12 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = EstimateWidgetExtensionRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 121;
+				CURRENT_PROJECT_VERSION = 123;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EstimateWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = EstimateWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

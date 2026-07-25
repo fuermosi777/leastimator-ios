@@ -44,23 +44,6 @@ struct ContentView: View {
     predicate: NSPredicate(format: "removed == nil OR removed == false"))
   private var vehicles: FetchedResults<Vehicle>
   
-  /// Get the vehicle which has showOnWidget turned on, or return the first vehicle in the list.
-  private var vehicleOnWidget: Vehicle? {
-    get {
-      var vehicle: Vehicle?
-      for veh in vehicles {
-        if veh.showOnWidget {
-          vehicle = veh
-          break
-        }
-      }
-      if vehicle == nil && vehicles.count > 0 {
-        vehicle = vehicles[0]
-      }
-      return vehicle
-    }
-  }
-  
   private var vehicleToDisplay: Vehicle? {
     let _ = selectionVersion
     if !vehicles.isEmpty {

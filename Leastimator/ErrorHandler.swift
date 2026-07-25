@@ -10,13 +10,19 @@ import SwiftUI
 enum AppError: LocalizedError {
   case invalidInput(reason: String)
   case failedContextSave
-  
+  case readingBelowLatest(latest: Int, unit: String)
+  case vehicleNotFound
+
   var errorDescription: String? {
     switch self {
       case .invalidInput(let reason):
         return String("Something is wrong with the information entered: \(reason)")
       case .failedContextSave:
         return String("Failed to save changes. Please close the app and try again")
+      case .readingBelowLatest(let latest, let unit):
+        return String("Odometer reading must be at least \(Double(latest).decimalString()) \(unit), the current latest reading")
+      case .vehicleNotFound:
+        return String("That vehicle is no longer available")
     }
   }
 }

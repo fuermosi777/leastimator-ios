@@ -23,7 +23,6 @@
 "Binding Mismatch" = "绑定不匹配";
 "Calculations are estimates based on your lease terms and driving history." = "计算结果是基于您的租赁条款和驾驶历史的预测值。";
 "Cancel" = "取消";
-"Choose which vehicle to present in the main screen widget." = "选择在主屏幕小组件中显示的车辆。";
 "Connect to Tesla" = "连接 Tesla";
 "Connected to Tesla" = "已连接到 Tesla";
 "Currency" = "货币";
@@ -77,7 +76,6 @@
 "To minimize API costs, Tesla sync is limited to once every %@ hours. Please try again later." = "为了降低 API 费用，Tesla 同步限制为每 %@ 小时一次。请稍后再试。";
 "Track your first lease" = "开始追踪您的第一个租约";
 "Vehicle History Preview" = "车辆历史预览";
-"Vehicle in widget" = "小组件显示的车辆";
 "Vehicle is asleep. Leastimator avoids waking it to save battery and API costs. It will automatically sync next time the vehicle is active, or you can add a reading manually right now." = "车辆正在休眠。为了避免耗电和高昂接口账单，程序已取消唤醒。由于后台在您的爱车活跃时会自动获取读数，您可以等待下次同步，或选择现在就手工录入。";
 "Vehicles you delete will appear here and can be restored to your garage." = "您删除的车辆将出现在这里，并可以恢复到您的车库中。";
 "Version" = "版本";
@@ -130,3 +128,19 @@
 "Please sign in to iCloud in your device settings to enable sync." = "请在设备设置中登录您的 iCloud 账户以启用同步。";
 
 
+
+/* App Intents & widget configuration */
+"Log Odometer Reading" = "记录里程读数";
+"Records a new odometer reading for a vehicle." = "为车辆记录一条新的里程读数。";
+"Get Mileage Status" = "查看里程状态";
+"Reports projected mileage and how it compares to your lease limit." = "报告预计里程以及与租约限制的对比。";
+"Log Reading" = "记录读数";
+"Mileage Status" = "里程状态";
+"Vehicle" = "车辆";
+"Reading" = "读数";
+"Select Vehicle" = "选择车辆";
+"Choose which vehicle this widget shows." = "选择此小组件显示的车辆。";
+"Display lease mileage estimation. Add one widget per vehicle." = "显示租约里程预估。可为每辆车添加一个小组件。";
+"No vehicle" = "无车辆";
+"ALLOWED" = "允许里程";
+"CURRENT" = "当前里程";
