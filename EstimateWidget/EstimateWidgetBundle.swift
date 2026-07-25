@@ -9,6 +9,7 @@ import WidgetKit
 import SwiftUI
 
 @main
+@available(iOS 17.0, *)
 struct EstimateWidgetBundle: WidgetBundle {
     var body: some Widget {
         EstimateWidget()

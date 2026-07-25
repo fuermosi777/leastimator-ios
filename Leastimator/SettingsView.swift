@@ -6,10 +6,8 @@
 //
 
 import SwiftUI
-import WidgetKit
 
 struct SettingsView: View {
-  @Environment(\.managedObjectContext) private var viewContext
   @EnvironmentObject private var purchaseManager: PurchaseManager
   @AppStorage("showMileageVariance") private var showMileageVariance = true
   @AppStorage("themePreference") private var themePreference = "dark"
@@ -28,27 +26,11 @@ struct SettingsView: View {
   @EnvironmentObject private var notificationManager: NotificationManager
   
   var vehicles: FetchedResults<Vehicle>
-  
-  @State private var selectedVehicleOnWidgetIndex: Int
-  
+
   init(vehicles: FetchedResults<Vehicle>) {
     self.vehicles = vehicles
-    
-    var initialVehicleOnWidgetIndex = -1
-    var initialVehicleOnStartIndex = -1
-    if vehicles.count > 0 {
-      initialVehicleOnWidgetIndex = 0
-      initialVehicleOnStartIndex = 0
-    }
-    for (index, vehicle) in vehicles.enumerated() {
-      if vehicle.showOnWidget {
-        initialVehicleOnWidgetIndex = index
-      }
-    }
-    
-    _selectedVehicleOnWidgetIndex = State(initialValue: initialVehicleOnWidgetIndex)
   }
-  
+
   var body: some View {
     List {
       // 1. PREMIUM / PRO SECTION
@@ -114,25 +96,10 @@ struct SettingsView: View {
       
       // 2. PREFERENCES SECTION
       Section {
-        // Vehicle in widget (only if vehicles count > 0)
-        if vehicles.count > 0 {
-          Picker(selection: $selectedVehicleOnWidgetIndex) {
-            ForEach(0 ..< self.vehicles.count, id: \.self) { index in
-              Text(String(self.vehicles[index].name ?? "--"))
-                .tag(index)
-            }
-          } label: {
-            Label {
-              Text("Vehicle in widget")
-                .foregroundColor(.mainText)
-            } icon: {
-              Image(systemName: "app.badge")
-                .foregroundColor(.subText)
-            }
-          }
-          .onChange(of: selectedVehicleOnWidgetIndex, perform: handleSelectVehicleOnWidgetChange)
-        }
-        
+        // Each widget now picks its own vehicle through the system's widget
+        // configuration (long press → Edit Widget), so there is no app-level
+        // "vehicle in widget" setting anymore.
+
         // Mileage Variance Toggle
         Toggle(isOn: $showMileageVariance) {
           Label {
@@ -373,20 +340,6 @@ struct SettingsView: View {
     }
   }
   
-  private func handleSelectVehicleOnWidgetChange(index: Int) {
-    for vehicle in vehicles {
-      vehicle.showOnWidget = false
-    }
-    vehicles[index].showOnWidget = true
-    
-    do {
-      try viewContext.save()
-      WidgetCenter.shared.reloadAllTimelines()
-    } catch {
-      print(error)
-    }
-  }
-
   private var reminderTimeDate: Binding<Date> {
     Binding(
       get: { Date(timeIntervalSince1970: reminderTime) },

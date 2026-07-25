@@ -23,7 +23,6 @@
 "Binding Mismatch" = "Binding Mismatch";
 "Calculations are estimates based on your lease terms and driving history." = "Calculations are estimates based on your lease terms and driving history.";
 "Cancel" = "Cancel";
-"Choose which vehicle to present in the main screen widget." = "Choose which vehicle to present in the main screen widget.";
 "Connect to Tesla" = "Connect to Tesla";
 "Connected to Tesla" = "Connected to Tesla";
 "Currency" = "Currency";
@@ -82,7 +81,6 @@
 "To minimize API costs, Tesla sync is limited to once every %@ hours. Please try again later." = "To minimize API costs, Tesla sync is limited to once every %@ hours. Please try again later.";
 "Track your first lease" = "Track your first lease";
 "Vehicle History Preview" = "Vehicle History Preview";
-"Vehicle in widget" = "Vehicle in widget";
 "Vehicle is asleep. Leastimator avoids waking it to save battery and API costs. It will automatically sync next time the vehicle is active, or you can add a reading manually right now." = "Vehicle is asleep. Leastimator avoids waking it to save battery and API costs. It will automatically sync next time the vehicle is active, or you can add a reading manually right now.";
 "Vehicles you delete will appear here and can be restored to your garage." = "Vehicles you delete will appear here and can be restored to your garage.";
 "Version" = "Version";
@@ -139,3 +137,19 @@
 "Please sign in to iCloud in your device settings to enable sync." = "Please sign in to iCloud in your device settings to enable sync.";
 
 
+
+/* App Intents & widget configuration */
+"Log Odometer Reading" = "Log Odometer Reading";
+"Records a new odometer reading for a vehicle." = "Records a new odometer reading for a vehicle.";
+"Get Mileage Status" = "Get Mileage Status";
+"Reports projected mileage and how it compares to your lease limit." = "Reports projected mileage and how it compares to your lease limit.";
+"Log Reading" = "Log Reading";
+"Mileage Status" = "Mileage Status";
+"Vehicle" = "Vehicle";
+"Reading" = "Reading";
+"Select Vehicle" = "Select Vehicle";
+"Choose which vehicle this widget shows." = "Choose which vehicle this widget shows.";
+"Display lease mileage estimation. Add one widget per vehicle." = "Display lease mileage estimation. Add one widget per vehicle.";
+"No vehicle" = "No vehicle";
+"ALLOWED" = "ALLOWED";
+"CURRENT" = "CURRENT";

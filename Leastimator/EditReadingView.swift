@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import WidgetKit
 
 struct EditReadingView: View {
   @Environment(\.dismiss) private var dismiss
@@ -230,27 +229,13 @@ struct EditReadingView: View {
     guard let value = Int(readingValue) else {
       throw AppError.invalidInput(reason: "Odometer reading is not a valid number")
     }
-    guard value >= vehicle.starting else {
-      throw AppError.invalidInput(reason: "Odometer reading less than the starting mileage of this vehicle")
-    }
-    
-    let reading = self.reading ?? OdoReading(context: viewContext)
-    reading.date = date
-    reading.value = Int64(value)
-    
-    if self.reading == nil {
-      reading.vehicle = vehicle
-    }
-    
-    do {
-      try viewContext.save()
-      viewContext.refresh(vehicle, mergeChanges: true)
-      vehicle.objectWillChange.send()
-      WidgetCenter.shared.reloadAllTimelines()
-    } catch {
-      throw AppError.failedContextSave
-    }
-    
+
+    try OdoReadingWriter.save(value: value,
+                              date: date,
+                              vehicle: vehicle,
+                              editing: self.reading,
+                              in: viewContext)
+
     dismiss()
   }
 }

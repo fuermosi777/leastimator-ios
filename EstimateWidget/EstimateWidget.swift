@@ -8,19 +8,72 @@
 import WidgetKit
 import SwiftUI
 import CoreData
+import AppIntents
+
+// MARK: - Snapshot
+
+/// Everything the widget draws, flattened into a value type.
+///
+/// The timeline used to carry the `Vehicle` managed object itself, which is unsafe:
+/// managed objects are bound to their context and can fault or go stale once CloudKit
+/// merges changes underneath a timeline that WidgetKit is still holding.
+struct VehicleSnapshot: Equatable {
+  let name: String
+  let projectedMileage: Int
+  let currentMileage: Int
+  let allowedMileage: Int
+  let mileagePerDay: Double
+  let variance: Int
+  /// Projected / limit, clamped to [0, 1.15] for drawing.
+  let progress: Double
+  let lengthUnit: LengthUnit
+
+  init(vehicle: Vehicle) {
+    let info = Compute(vehicle)
+    self.name = vehicle.name ?? "Vehicle"
+    self.projectedMileage = info.normalPredicatedMileage
+    self.currentMileage = info.currentMileage
+    self.allowedMileage = Int(vehicle.allowed)
+    self.mileagePerDay = info.mileagePerDay
+    self.variance = info.mileageVariance ?? 0
+    self.lengthUnit = LengthUnit(rawValue: vehicle.lengthUnit) ?? .Imperial
+
+    let limit = Double(vehicle.allowed + vehicle.starting)
+    self.progress = limit > 0 ? min(Double(info.normalPredicatedMileage) / limit, 1.15) : 1.0
+  }
+
+  /// e.g. "+320 mi vs limit" / "-150 mi vs limit"
+  var varianceLabel: String {
+    let sign = variance > 0 ? "+" : ""
+    return "\(sign)\(variance) \(lengthUnit.shortFor) vs limit"
+  }
+}
 
 // MARK: - Provider
 
-struct Provider: TimelineProvider {
+@available(iOS 17.0, *)
+struct Provider: AppIntentTimelineProvider {
   var moc: NSManagedObjectContext
 
   init(moc: NSManagedObjectContext) {
     self.moc = moc
   }
 
-  /// Returns the vehicle to display: the one with `showOnWidget == true`,
-  /// or the first active vehicle if none is flagged.
-  func getVehicle() -> Vehicle? {
+  /// Resolves the configured vehicle, falling back to the legacy `showOnWidget` flag.
+  ///
+  /// Widgets added before configuration existed have no intent selection, so without
+  /// this fallback they would all go blank on update.
+  private func vehicle(for configuration: SelectVehicleIntent) -> Vehicle? {
+    if let id = configuration.vehicle?.id,
+       let vehicle = VehicleEntity.resolveVehicle(id: id, in: moc) {
+      return vehicle
+    }
+    return legacyVehicle()
+  }
+
+  /// The pre-configuration behavior: the vehicle flagged `showOnWidget`, else the
+  /// first active one.
+  private func legacyVehicle() -> Vehicle? {
     let fetchRequest = Vehicle.fetchRequest()
     fetchRequest.predicate = NSPredicate(format: "removed == nil OR removed == false")
 
@@ -36,25 +89,32 @@ struct Provider: TimelineProvider {
     return nil
   }
 
+  private func snapshot(for configuration: SelectVehicleIntent) -> VehicleSnapshot? {
+    vehicle(for: configuration).map(VehicleSnapshot.init)
+  }
+
   func placeholder(in context: Context) -> SimpleEntry {
-    SimpleEntry(date: Date(), vehicle: getVehicle())
+    SimpleEntry(date: Date(), snapshot: snapshot(for: SelectVehicleIntent()))
   }
 
-  // BUG FIX: was getPlaceholderVehicle() which created a blank Vehicle
-  // with nil name → showing "Unknown". Now uses the real vehicle.
-  func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> Void) {
-    let entry = SimpleEntry(date: Date(), vehicle: getVehicle())
-    completion(entry)
+  func snapshot(for configuration: SelectVehicleIntent, in context: Context) async -> SimpleEntry {
+    SimpleEntry(date: Date(), snapshot: snapshot(for: configuration))
   }
 
-  func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> Void) {
-    var entries: [SimpleEntry] = []
+  func timeline(for configuration: SelectVehicleIntent, in context: Context) async -> Timeline<SimpleEntry> {
+    // Computed once and shared across entries: the projection only changes when a new
+    // reading arrives, which reloads the timeline anyway.
+    let snapshot = snapshot(for: configuration)
     let currentDate = Date()
-    for hourOffset in 0..<5 {
-      let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-      entries.append(SimpleEntry(date: entryDate, vehicle: getVehicle()))
+
+    let entries = (0..<5).compactMap { hourOffset -> SimpleEntry? in
+      guard let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate) else {
+        return nil
+      }
+      return SimpleEntry(date: entryDate, snapshot: snapshot)
     }
-    completion(Timeline(entries: entries, policy: .atEnd))
+
+    return Timeline(entries: entries, policy: .atEnd)
   }
 }
 
@@ -62,38 +122,42 @@ struct Provider: TimelineProvider {
 
 struct SimpleEntry: TimelineEntry {
   let date: Date
-  let vehicle: Vehicle?
+  let snapshot: VehicleSnapshot?
+}
+
+// MARK: - Configuration Intent
+
+@available(iOS 17.0, *)
+struct SelectVehicleIntent: WidgetConfigurationIntent {
+  static var title: LocalizedStringResource = "Select Vehicle"
+  static var description = IntentDescription("Choose which vehicle this widget shows.")
+
+  @Parameter(title: "Vehicle")
+  var vehicle: VehicleEntity?
+
+  init() {}
+
+  init(vehicle: VehicleEntity?) {
+    self.vehicle = vehicle
+  }
 }
 
 // MARK: - Widget Progress View
 
 struct WidgetProgressView: View {
-  let vehicle: Vehicle
+  let snapshot: VehicleSnapshot
 
   // MARK: Computed properties
 
-  private var extendedInfo: ExtendedVehicleInfo {
-    Compute(vehicle)
-  }
+  private var lengthUnit: LengthUnit { snapshot.lengthUnit }
 
-  private var lengthUnit: LengthUnit {
-    LengthUnit(rawValue: vehicle.lengthUnit) ?? .Imperial
-  }
-
-  /// Projected / limit  (clamped to [0, 1.15] for drawing)
-  private var progress: Double {
-    let limit = Double(vehicle.allowed + vehicle.starting)
-    guard limit > 0 else { return 1.0 }
-    return min(Double(extendedInfo.normalPredicatedMileage) / limit, 1.15)
-  }
+  private var progress: Double { snapshot.progress }
 
   private var statusColor: Color {
     Color.statusColor(progress: progress)
   }
 
-  private var variance: Int {
-    extendedInfo.mileageVariance ?? 0
-  }
+  private var variance: Int { snapshot.variance }
 
   // MARK: Layout constants
   private let ringSize: CGFloat = 60
@@ -113,7 +177,7 @@ struct WidgetProgressView: View {
           .tracking(1.5)
 
         HStack(alignment: .lastTextBaseline, spacing: 3) {
-          Text("\(extendedInfo.normalPredicatedMileage)")
+          Text("\(snapshot.projectedMileage)")
             .font(.rounded(28))
             .fontWeight(.bold)
             .monospacedDigit()
@@ -136,7 +200,7 @@ struct WidgetProgressView: View {
 
       // ── Bottom: vehicle name + variance ────────────────────────
       VStack(alignment: .leading, spacing: 4) {
-        Text(vehicle.name ?? "Vehicle")
+        Text(snapshot.name)
           .font(.rounded(12, weight: .semibold))
           .foregroundColor(.subText)
           .lineLimit(1)
@@ -179,44 +243,169 @@ struct WidgetProgressView: View {
   }
 }
 
+// MARK: - Medium
+
+/// Small layout on the left, with the extra width spent on the numbers a glance
+/// can't otherwise answer: how much room is left, and the daily pace.
+@available(iOS 17.0, *)
+struct WidgetMediumView: View {
+  let snapshot: VehicleSnapshot
+
+  private var statusColor: Color { Color.statusColor(progress: snapshot.progress) }
+
+  var body: some View {
+    HStack(spacing: 16) {
+      WidgetProgressView(snapshot: snapshot)
+
+      VStack(alignment: .leading, spacing: 10) {
+        metric(label: "ALLOWED",
+               value: "\(snapshot.allowedMileage)",
+               color: .mainText)
+        metric(label: "CURRENT",
+               value: "\(snapshot.currentMileage)",
+               color: .mainText)
+        metric(label: "DAILY AVG",
+               value: String(format: "%.1f", snapshot.mileagePerDay),
+               color: statusColor)
+      }
+      .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    .widgetBackground(Color(.systemBackground))
+  }
+
+  private func metric(label: String, value: String, color: Color) -> some View {
+    VStack(alignment: .leading, spacing: 1) {
+      Text(label)
+        .font(.rounded(8, weight: .bold))
+        .foregroundColor(.subText)
+        .tracking(1)
+      HStack(alignment: .lastTextBaseline, spacing: 3) {
+        Text(value)
+          .font(.rounded(16, weight: .bold))
+          .monospacedDigit()
+          .foregroundColor(color)
+          .lineLimit(1)
+          .minimumScaleFactor(0.6)
+        Text(snapshot.lengthUnit.shortFor)
+          .font(.rounded(9, weight: .semibold))
+          .foregroundColor(.subText)
+      }
+    }
+  }
+}
+
+// MARK: - Lock screen accessories
+
+/// Lock screen widgets are rendered as a monochrome stencil, so these deliberately
+/// avoid the status palette — colour would simply be flattened away.
+@available(iOS 17.0, *)
+struct WidgetAccessoryRectangularView: View {
+  let snapshot: VehicleSnapshot
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: 1) {
+      Text(snapshot.name)
+        .font(.headline)
+        .lineLimit(1)
+
+      HStack(alignment: .lastTextBaseline, spacing: 3) {
+        Text("\(snapshot.projectedMileage)")
+          .font(.title3)
+          .fontWeight(.semibold)
+          .monospacedDigit()
+        Text(snapshot.lengthUnit.shortFor)
+          .font(.caption2)
+      }
+
+      Text(snapshot.varianceLabel)
+        .font(.caption2)
+        .lineLimit(1)
+    }
+    .frame(maxWidth: .infinity, alignment: .leading)
+  }
+}
+
+@available(iOS 17.0, *)
+struct WidgetAccessoryCircularView: View {
+  let snapshot: VehicleSnapshot
+
+  var body: some View {
+    Gauge(value: min(snapshot.progress, 1.0)) {
+      Image(systemName: "car.fill")
+    } currentValueLabel: {
+      Text("\(Int((min(snapshot.progress, 1.0) * 100).rounded()))")
+        .monospacedDigit()
+    }
+    .gaugeStyle(.accessoryCircularCapacity)
+  }
+}
+
 // MARK: - Entry View
 
+@available(iOS 17.0, *)
 struct EstimateWidgetEntryView: View {
+  @Environment(\.widgetFamily) private var family
   var entry: Provider.Entry
 
   var body: some View {
-    if let vehicle = entry.vehicle {
-      WidgetProgressView(vehicle: vehicle)
-    } else {
-      VStack(spacing: 6) {
-        Image(systemName: "car.fill")
-          .font(.system(size: 24))
-          .foregroundColor(.subText)
-        Text("Add a vehicle and enable it in Settings.")
-          .font(.rounded(11))
-          .foregroundColor(.subText)
-          .multilineTextAlignment(.center)
+    if let snapshot = entry.snapshot {
+      switch family {
+        case .accessoryRectangular:
+          WidgetAccessoryRectangularView(snapshot: snapshot)
+        case .accessoryCircular:
+          WidgetAccessoryCircularView(snapshot: snapshot)
+        case .systemMedium:
+          WidgetMediumView(snapshot: snapshot)
+        default:
+          WidgetProgressView(snapshot: snapshot)
       }
-      .padding(14)
-      .widgetBackground(Color(.systemBackground))
+    } else {
+      placeholder
+    }
+  }
+
+  @ViewBuilder
+  private var placeholder: some View {
+    switch family {
+      case .accessoryRectangular:
+        Text("No vehicle")
+          .font(.headline)
+      case .accessoryCircular:
+        Image(systemName: "car.fill")
+      default:
+        VStack(spacing: 6) {
+          Image(systemName: "car.fill")
+            .font(.system(size: 24))
+            .foregroundColor(.subText)
+          Text("Add a vehicle and enable it in Settings.")
+            .font(.rounded(11))
+            .foregroundColor(.subText)
+            .multilineTextAlignment(.center)
+        }
+        .padding(14)
+        .widgetBackground(Color(.systemBackground))
     }
   }
 }
 
 // MARK: - Widget Configuration
 
+@available(iOS 17.0, *)
 struct EstimateWidget: Widget {
+  // Unchanged so widgets already on a home screen keep their identity across the
+  // switch from StaticConfiguration.
   let kind: String = "EstimateWidget"
 
   var body: some WidgetConfiguration {
-    StaticConfiguration(
+    AppIntentConfiguration(
       kind: kind,
+      intent: SelectVehicleIntent.self,
       provider: Provider(moc: PersistenceController.shared.container.viewContext)
     ) { entry in
       EstimateWidgetEntryView(entry: entry)
     }
     .configurationDisplayName("Estimate")
-    .supportedFamilies([.systemSmall])
-    .description("Display lease mileage estimation.")
+    .supportedFamilies([.systemSmall, .systemMedium, .accessoryRectangular, .accessoryCircular])
+    .description("Display lease mileage estimation. Add one widget per vehicle.")
   }
 }

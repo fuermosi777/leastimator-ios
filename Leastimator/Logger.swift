@@ -98,6 +98,14 @@ final class Logger {
     Mixpanel.mainInstance().track(event: "Pro Plan Selected", properties: props)
   }
 
+  // MARK: - Intents
+  func readingLoggedViaIntent() {
+    Mixpanel.mainInstance().track(event: "Reading Logged Via Intent", properties: properties)
+    // An intent can run while the app is backgrounded, where the process may be
+    // suspended before the queue drains on its own.
+    Mixpanel.mainInstance().flush()
+  }
+
   // MARK: - Vehicle lifecycle
   func vehicleCreated() {
     Mixpanel.mainInstance().track(event: "Vehicle Created", properties: properties)

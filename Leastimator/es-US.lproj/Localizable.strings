@@ -23,7 +23,6 @@
 "Binding Mismatch" = "Conflicto de vinculación";
 "Calculations are estimates based on your lease terms and driving history." = "Los cálculos son estimaciones basadas en los términos de su arrendamiento y en su historial de conducción.";
 "Cancel" = "Cancelar";
-"Choose which vehicle to present in the main screen widget." = "Elija qué vehículo mostrar en el widget de la pantalla de inicio.";
 "Connect to Tesla" = "Conectar a Tesla";
 "Connected to Tesla" = "Conectado a Tesla";
 "Currency" = "Moneda";
@@ -77,7 +76,6 @@
 "To minimize API costs, Tesla sync is limited to once every %@ hours. Please try again later." = "Para minimizar los costos de API, la sincronización con Tesla está limitada a una vez cada %@ horas. Por favor, inténtelo de nuevo más tarde.";
 "Track your first lease" = "Siga su primer arrendamiento";
 "Vehicle History Preview" = "Vista previa del historial del vehículo";
-"Vehicle in widget" = "Vehículo en el widget";
 "Vehicle is asleep. Leastimator avoids waking it to save battery and API costs. It will automatically sync next time the vehicle is active, or you can add a reading manually right now." = "El vehículo está dormido. Leastimator evita despertarlo para ahorrar batería y costos de API. Se sincronizará automáticamente la próxima vez que el vehículo esté activo, o puede añadir una lectura manualmente ahora mismo.";
 "Vehicles you delete will appear here and can be restored to your garage." = "Los vehículos que elimine aparecerán aquí y podrán ser restaurados a su garaje.";
 "Version" = "Versión";
@@ -111,3 +109,19 @@
 "Please sign in to iCloud in your device settings to enable sync." = "Inicie sesión en iCloud en la configuración de su dispositivo para habilitar la sincronización.";
 
 
+
+/* App Intents & widget configuration */
+"Log Odometer Reading" = "Registrar lectura del odómetro";
+"Records a new odometer reading for a vehicle." = "Registra una nueva lectura del odómetro para un vehículo.";
+"Get Mileage Status" = "Ver estado del millaje";
+"Reports projected mileage and how it compares to your lease limit." = "Informa el millaje proyectado y cómo se compara con el límite de su arrendamiento.";
+"Log Reading" = "Registrar lectura";
+"Mileage Status" = "Estado del millaje";
+"Vehicle" = "Vehículo";
+"Reading" = "Lectura";
+"Select Vehicle" = "Seleccionar vehículo";
+"Choose which vehicle this widget shows." = "Elija qué vehículo muestra este widget.";
+"Display lease mileage estimation. Add one widget per vehicle." = "Muestra la estimación de millaje del arrendamiento. Agregue un widget por vehículo.";
+"No vehicle" = "Sin vehículo";
+"ALLOWED" = "PERMITIDO";
+"CURRENT" = "ACTUAL";
