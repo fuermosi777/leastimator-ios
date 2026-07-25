@@ -79,6 +79,7 @@
 		561F9C606DCD4BAE5E55B099 /* HistoryRangePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6814C1B2AA81725C1214F0 /* HistoryRangePicker.swift */; };
 		6421A7995BBA47ACB79A6B7A /* TeslaRegionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FAA944B27A4E349B1860D9 /* TeslaRegionStore.swift */; };
 		64EE82D6C798D968BAAFA3C8 /* VehicleEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B0161C1288996595A406C9 /* VehicleEntityTests.swift */; };
+		66FD07729F05F4ED569BA94C /* VehicleEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2B18541916143D15C54BF6 /* VehicleEntity.swift */; };
 		6CA7ACA5B3114D2B24D56624 /* ProjectedMileageExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CD1CBD354287ECE6448D2D /* ProjectedMileageExplanationView.swift */; };
 		6CF0AF23AAB39A837E3C6516 /* VehicleEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2B18541916143D15C54BF6 /* VehicleEntity.swift */; };
 		7679C5630529063D3B303EF3 /* ReadingRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A696792A98787C782034E6B6 /* ReadingRowView.swift */; };
@@ -97,7 +98,6 @@
 		DC88F9BA1DBB85404C86CD98 /* TeslaAPIStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97E90CC119BD1D99ADF4DA /* TeslaAPIStatusView.swift */; };
 		E9207E10EB46C2E4306FE466 /* HistoryLineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0719529E428A672CC4F63690 /* HistoryLineChart.swift */; };
 		EAED4CF135BAB1AFC6D1D9C3 /* TeslaVehiclePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DE9DF31B6881F25AE189D0 /* TeslaVehiclePicker.swift */; };
-		F694583BDB07AFF1693A1524 /* VehicleEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2B18541916143D15C54BF6 /* VehicleEntity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -689,7 +689,7 @@
 				3FE221A22A54D9200063ED9C /* ComputeUtils.swift in Sources */,
 				3FC0EF3E2A54CE600047F756 /* EstimateWidget.swift in Sources */,
 				03965DBB58C9E7EDD6E05C54 /* ICloudManager.swift in Sources */,
-				F694583BDB07AFF1693A1524 /* VehicleEntity.swift in Sources */,
+				66FD07729F05F4ED569BA94C /* VehicleEntity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -857,7 +857,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Leastimator/Leastimator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 121;
+				CURRENT_PROJECT_VERSION = 122;
 				DEVELOPMENT_ASSET_PATHS = "\"Leastimator/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -891,7 +891,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Leastimator/Leastimator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 121;
+				CURRENT_PROJECT_VERSION = 122;
 				DEVELOPMENT_ASSET_PATHS = "\"Leastimator/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -993,7 +993,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = EstimateWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 121;
+				CURRENT_PROJECT_VERSION = 122;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EstimateWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = EstimateWidget;
@@ -1021,7 +1021,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = EstimateWidgetExtensionRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 121;
+				CURRENT_PROJECT_VERSION = 122;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EstimateWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = EstimateWidget;
