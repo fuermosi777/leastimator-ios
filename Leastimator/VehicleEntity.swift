@@ -62,6 +62,20 @@ extension VehicleEntity {
     // A vehicle the user moved to the trash should not keep driving a widget.
     return vehicle.removed ? nil : vehicle
   }
+
+  /// The vehicle an unconfigured widget should fall back to.
+  ///
+  /// Only for the widget: a newly dropped widget has to draw something before the
+  /// user opens its configuration. Intents must never guess like this.
+  static func widgetDefault(in context: NSManagedObjectContext) -> Vehicle? {
+    let request = Vehicle.fetchRequest()
+    request.predicate = NSPredicate(format: "removed == nil OR removed == false")
+    guard let vehicles = try? context.fetch(request), !vehicles.isEmpty else { return nil }
+
+    return vehicles.first(where: { $0.showOnWidget })
+      ?? vehicles.first(where: { $0.showOnStart })
+      ?? vehicles.first
+  }
 }
 
 // MARK: - Query
@@ -93,14 +107,22 @@ struct VehicleEntityQuery: EntityQuery {
     fetchActiveVehicles().compactMap { VehicleEntity(vehicle: $0) }
   }
 
+  /// The only active vehicle, when there is exactly one.
+  ///
+  /// Lets an intent skip asking a question with a single possible answer, without
+  /// guessing on behalf of someone who owns several cars.
   @MainActor
-  func defaultResult() async -> VehicleEntity? {
-    // Prefer the car already flagged for the widget, then the one the app opens to,
-    // so a freshly added widget shows something sensible before it is configured.
+  func soleVehicle() -> VehicleEntity? {
     let vehicles = fetchActiveVehicles()
-    let preferred = vehicles.first(where: { $0.showOnWidget })
-      ?? vehicles.first(where: { $0.showOnStart })
-      ?? vehicles.first
-    return preferred.flatMap { VehicleEntity(vehicle: $0) }
+    guard vehicles.count == 1 else { return nil }
+    return vehicles.first.flatMap { VehicleEntity(vehicle: $0) }
   }
+
+  /// Deliberately no `defaultResult()`.
+  ///
+  /// Implementing it here would satisfy the vehicle parameter on *every* intent using
+  /// this query, so Siri and Shortcuts would silently log against whichever car came
+  /// back first instead of asking which one the user meant. The widget gets its
+  /// default from `VehicleEntity.widgetDefault(in:)` instead, where guessing is
+  /// appropriate because a freshly dropped widget has to render something.
 }

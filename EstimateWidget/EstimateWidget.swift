@@ -68,25 +68,7 @@ struct Provider: AppIntentTimelineProvider {
        let vehicle = VehicleEntity.resolveVehicle(id: id, in: moc) {
       return vehicle
     }
-    return legacyVehicle()
-  }
-
-  /// The pre-configuration behavior: the vehicle flagged `showOnWidget`, else the
-  /// first active one.
-  private func legacyVehicle() -> Vehicle? {
-    let fetchRequest = Vehicle.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format: "removed == nil OR removed == false")
-
-    do {
-      let vehicles = try moc.fetch(fetchRequest)
-      guard !vehicles.isEmpty else { return nil }
-      if vehicles.count == 1 { return vehicles.first }
-      let matched = vehicles.filter { $0.showOnWidget == true }
-      return matched.first ?? vehicles.first
-    } catch {
-      print("EstimateWidget: failed to fetch vehicle – \(error)")
-    }
-    return nil
+    return VehicleEntity.widgetDefault(in: moc)
   }
 
   private func snapshot(for configuration: SelectVehicleIntent) -> VehicleSnapshot? {

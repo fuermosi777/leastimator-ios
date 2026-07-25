@@ -9,6 +9,24 @@ import AppIntents
 import CoreData
 import WidgetKit
 
+// MARK: - Vehicle resolution
+
+@available(iOS 17.0, *)
+extension IntentParameter where Value == VehicleEntity? {
+  /// The vehicle the user meant.
+  ///
+  /// Uses the supplied value when there is one; otherwise skips the question when the
+  /// account only has a single car, and asks in every other case. Deliberately never
+  /// falls back to "the first vehicle" — logging mileage against the wrong car is
+  /// invisible to the user and corrupts the projection.
+  @MainActor
+  func resolvedVehicle() async throws -> VehicleEntity {
+    if let value = wrappedValue { return value }
+    if let sole = VehicleEntityQuery().soleVehicle() { return sole }
+    return try await requestValue("Which vehicle?")
+  }
+}
+
 // MARK: - Logging a reading
 
 /// Records an odometer reading without opening the app — via Siri, a Shortcuts
@@ -24,15 +42,18 @@ struct AddOdometerReadingIntent: AppIntent {
   /// Writing happens on the view context, matching every other write in the app.
   static var openAppWhenRun: Bool = false
 
-  @Parameter(title: "Vehicle")
-  var vehicle: VehicleEntity
+  // Optional, with no query-level default: the system asks when it isn't specified
+  // rather than silently logging against whichever car happens to come back first.
+  // `resolvedVehicle` fills it in only when there is exactly one car to choose.
+  @Parameter(title: "Vehicle", requestValueDialog: "Which vehicle?")
+  var vehicle: VehicleEntity?
 
-  @Parameter(title: "Reading")
+  @Parameter(title: "Reading", requestValueDialog: "What's the odometer reading?")
   var value: Int
 
   init() {}
 
-  init(vehicle: VehicleEntity, value: Int) {
+  init(vehicle: VehicleEntity?, value: Int) {
     self.vehicle = vehicle
     self.value = value
   }
@@ -44,8 +65,9 @@ struct AddOdometerReadingIntent: AppIntent {
   @MainActor
   func perform() async throws -> some IntentResult & ProvidesDialog {
     let context = PersistenceController.shared.container.viewContext
+    let selected = try await $vehicle.resolvedVehicle()
 
-    guard let managedVehicle = VehicleEntity.resolveVehicle(id: vehicle.id, in: context) else {
+    guard let managedVehicle = VehicleEntity.resolveVehicle(id: selected.id, in: context) else {
       throw AppError.vehicleNotFound
     }
 
@@ -82,12 +104,12 @@ struct GetMileageStatusIntent: AppIntent {
 
   static var openAppWhenRun: Bool = false
 
-  @Parameter(title: "Vehicle")
-  var vehicle: VehicleEntity
+  @Parameter(title: "Vehicle", requestValueDialog: "Which vehicle?")
+  var vehicle: VehicleEntity?
 
   init() {}
 
-  init(vehicle: VehicleEntity) {
+  init(vehicle: VehicleEntity?) {
     self.vehicle = vehicle
   }
 
@@ -98,8 +120,9 @@ struct GetMileageStatusIntent: AppIntent {
   @MainActor
   func perform() async throws -> some IntentResult & ProvidesDialog & ReturnsValue<Int> {
     let context = PersistenceController.shared.container.viewContext
+    let selected = try await $vehicle.resolvedVehicle()
 
-    guard let managedVehicle = VehicleEntity.resolveVehicle(id: vehicle.id, in: context) else {
+    guard let managedVehicle = VehicleEntity.resolveVehicle(id: selected.id, in: context) else {
       throw AppError.vehicleNotFound
     }
 
