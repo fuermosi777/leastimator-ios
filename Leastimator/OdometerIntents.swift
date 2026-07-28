@@ -48,7 +48,9 @@ struct AddOdometerReadingIntent: AppIntent {
   @Parameter(title: "Vehicle", requestValueDialog: "Which vehicle?")
   var vehicle: VehicleEntity?
 
-  @Parameter(title: "Reading", requestValueDialog: "What's the odometer reading?")
+  // `inclusiveRange` with a 0 floor tells the system keyboard the value can't go
+  // negative, which drops the +/- toggle it otherwise shows above the keyboard.
+  @Parameter(title: "Reading", inclusiveRange: (0, 999_999), requestValueDialog: "What's the odometer reading?")
   var value: Int
 
   init() {}
