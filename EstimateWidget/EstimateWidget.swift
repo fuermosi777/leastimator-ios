@@ -28,6 +28,18 @@ struct VehicleSnapshot: Equatable {
   let progress: Double
   let lengthUnit: LengthUnit
 
+  init(name: String, projectedMileage: Int, currentMileage: Int, allowedMileage: Int,
+       mileagePerDay: Double, variance: Int, progress: Double, lengthUnit: LengthUnit) {
+    self.name = name
+    self.projectedMileage = projectedMileage
+    self.currentMileage = currentMileage
+    self.allowedMileage = allowedMileage
+    self.mileagePerDay = mileagePerDay
+    self.variance = variance
+    self.progress = progress
+    self.lengthUnit = lengthUnit
+  }
+
   init(vehicle: Vehicle) {
     let info = Compute(vehicle)
     self.name = vehicle.name ?? "Vehicle"
@@ -227,18 +239,80 @@ struct WidgetProgressView: View {
 
 // MARK: - Medium
 
-/// Small layout on the left, with the extra width spent on the numbers a glance
-/// can't otherwise answer: how much room is left, and the daily pace.
+/// Three columns spanning the full width: ring, then the projected/lease-end/name
+/// block, then a vertical stack of the three secondary metrics.
 @available(iOS 17.0, *)
 struct WidgetMediumView: View {
   let snapshot: VehicleSnapshot
 
   private var statusColor: Color { Color.statusColor(progress: snapshot.progress) }
 
-  var body: some View {
-    HStack(spacing: 16) {
-      WidgetProgressView(snapshot: snapshot)
+  private let ringSize: CGFloat = 64
+  private let strokeWidth: CGFloat = 8
+  private let arcFraction: Double = 0.75   // 270° sweep
+  private let arcStartDegrees: Double = 135 // bottom-left → bottom-right
 
+  var body: some View {
+    HStack(alignment: .center, spacing: 14) {
+      // ── Left: ring ───────────────────────────────────────────────
+      ZStack {
+        Circle()
+          .trim(from: 0, to: CGFloat(arcFraction))
+          .stroke(Color.mainText.opacity(0.08),
+                  style: StrokeStyle(lineWidth: strokeWidth, lineCap: .round))
+          .rotationEffect(.degrees(arcStartDegrees))
+
+        Circle()
+          .trim(from: 0, to: CGFloat(min(snapshot.progress, 1.0) * arcFraction))
+          .stroke(statusColor,
+                  style: StrokeStyle(lineWidth: strokeWidth, lineCap: .round))
+          .rotationEffect(.degrees(arcStartDegrees))
+          .shadow(color: statusColor.opacity(0.35), radius: 4)
+      }
+      .frame(width: ringSize, height: ringSize)
+
+      // ── Middle: projected mileage, lease end, name + variance ────
+      VStack(alignment: .leading, spacing: 1) {
+        Text("PROJECTED")
+          .font(.rounded(9, weight: .bold))
+          .foregroundColor(.subText)
+          .tracking(1.5)
+
+        HStack(alignment: .lastTextBaseline, spacing: 3) {
+          Text("\(snapshot.projectedMileage)")
+            .font(.rounded(26))
+            .fontWeight(.bold)
+            .monospacedDigit()
+            .foregroundColor(.mainText)
+            .lineLimit(1)
+            .minimumScaleFactor(0.6)
+
+          Text(snapshot.lengthUnit.shortFor.uppercased())
+            .font(.rounded(10, weight: .semibold))
+            .foregroundColor(.subText)
+        }
+
+        Text("BY LEASE END")
+          .font(.rounded(8, weight: .medium))
+          .foregroundColor(.subText)
+          .tracking(1)
+
+        Spacer(minLength: 8)
+
+        Text(snapshot.name)
+          .font(.rounded(12, weight: .semibold))
+          .foregroundColor(.subText)
+          .lineLimit(1)
+
+        Text(snapshot.varianceLabel)
+          .font(.rounded(10))
+          .fontWeight(.bold)
+          .monospacedDigit()
+          .foregroundColor(statusColor)
+      }
+      .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+
+      // ── Right: vertical metrics ───────────────────────────────────
       VStack(alignment: .leading, spacing: 10) {
         metric(label: "ALLOWED",
                value: "\(snapshot.allowedMileage)",
@@ -250,8 +324,10 @@ struct WidgetMediumView: View {
                value: String(format: "%.1f", snapshot.mileagePerDay),
                color: statusColor)
       }
-      .frame(maxWidth: .infinity, alignment: .leading)
     }
+    .padding(.horizontal, 4)
+    .padding(.vertical, 6)
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
     .widgetBackground(Color(.systemBackground))
   }
 
@@ -260,7 +336,9 @@ struct WidgetMediumView: View {
       Text(label)
         .font(.rounded(8, weight: .bold))
         .foregroundColor(.subText)
-        .tracking(1)
+        .tracking(0.5)
+        .lineLimit(1)
+        .fixedSize()
       HStack(alignment: .lastTextBaseline, spacing: 3) {
         Text(value)
           .font(.rounded(16, weight: .bold))
@@ -274,6 +352,21 @@ struct WidgetMediumView: View {
       }
     }
   }
+}
+
+#Preview("Medium", as: .systemMedium) {
+  EstimateWidget()
+} timeline: {
+  SimpleEntry(date: .now, snapshot: VehicleSnapshot(
+    name: "Model 4",
+    projectedMileage: 12338,
+    currentMileage: 12338,
+    allowedMileage: 33000,
+    mileagePerDay: 8.7,
+    variance: -20688,
+    progress: 0.37,
+    lengthUnit: .Imperial
+  ))
 }
 
 // MARK: - Lock screen accessories
