@@ -39,6 +39,23 @@ class PurchaseManager: ObservableObject {
   
   // Used to determine if user is a pro.
   var unlockPro: Bool {
+    actualUnlockPro && !simulateFreeTier
+  }
+
+  // Lets an actual Pro user preview the free-tier experience without losing their
+  // real entitlement. Only ever read when `actualUnlockPro` is true (see the
+  // Settings toggle), so a genuinely free user can never use this to unlock Pro.
+  var simulateFreeTier: Bool {
+    get { UserDefaults.standard.bool(forKey: "simulateFreeTier") }
+    set {
+      objectWillChange.send()
+      UserDefaults.standard.set(newValue, forKey: "simulateFreeTier")
+    }
+  }
+
+  // Real entitlement, ignoring `simulateFreeTier`. Settings uses this to keep the
+  // "Simulate Free Tier" toggle visible/usable even while it's turned on.
+  var actualUnlockPro: Bool {
     // Check old receipt store locally and if found no need to check further.
     let isNonIAPPurchased = UserDefaults.standard.bool(forKey: "isNonIAPPurchased")
     if isNonIAPPurchased {
@@ -46,13 +63,13 @@ class PurchaseManager: ObservableObject {
       Logger.shared.userPlan(.NonIAPPro)
       return true
     }
-    
+
     let proStatus = UserDefaults.standard.bool(forKey: "proStatus")
     if proStatus {
       Logger.shared.userPlan(.Pro)
       return true
     }
-    
+
     return !self.purchasedProductIDs.isEmpty || self.isNonIAPPurchased
   }
   

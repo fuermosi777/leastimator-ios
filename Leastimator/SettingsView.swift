@@ -22,6 +22,12 @@ struct SettingsView: View {
   @State private var showingRestartAlert = false
   @State private var showingICloudIneligibleAlert = false
   @State private var showProUpgradeSheet = false
+  @State private var proRowTapCount = 0
+  @State private var proRowLastTapTime = Date.distantPast
+  @State private var showDeveloperOptions = false
+
+  private let secretTapThreshold = 5
+  private let secretTapWindow: TimeInterval = 3
   
   @EnvironmentObject private var notificationManager: NotificationManager
   
@@ -35,7 +41,7 @@ struct SettingsView: View {
     List {
       // 1. PREMIUM / PRO SECTION
       Section {
-        if purchaseManager.unlockPro {
+        if purchaseManager.actualUnlockPro {
           VStack(alignment: .leading, spacing: 6) {
             HStack(spacing: 12) {
               ZStack {
@@ -65,6 +71,23 @@ struct SettingsView: View {
             }
           }
           .padding(.vertical, 4)
+          .contentShape(Rectangle())
+          .onTapGesture(perform: handleProRowTap)
+
+          if showDeveloperOptions {
+            Toggle(isOn: Binding(
+              get: { purchaseManager.simulateFreeTier },
+              set: { purchaseManager.simulateFreeTier = $0 }
+            )) {
+              Label {
+                Text("Simulate Free Tier")
+                  .foregroundColor(.mainText)
+              } icon: {
+                Image(systemName: "eyeglasses")
+                  .foregroundColor(.subText)
+              }
+            }
+          }
         } else {
           Button {
             showProUpgradeSheet = true
@@ -330,6 +353,20 @@ struct SettingsView: View {
     .sheet(isPresented: $showProUpgradeSheet) {
       ProProductsView()
         .withErrorHandler()
+    }
+  }
+
+  private func handleProRowTap() {
+    let now = Date()
+    if now.timeIntervalSince(proRowLastTapTime) > secretTapWindow {
+      proRowTapCount = 0
+    }
+    proRowLastTapTime = now
+    proRowTapCount += 1
+
+    if proRowTapCount >= secretTapThreshold {
+      proRowTapCount = 0
+      showDeveloperOptions = true
     }
   }
 
