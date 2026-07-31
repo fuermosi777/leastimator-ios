@@ -73,16 +73,21 @@ struct AdBannerView: UIViewControllerRepresentable {
 struct BannerAd: View {
   @State private var adHeight: CGFloat = 50
 
+  // GeometryReader reports 0 on its first pass inside a VStack/ScrollView,
+  // which would send AdMob a zero-width request that silently fails to
+  // load. The screen width (minus the card's own horizontal insets) is
+  // known immediately, so use that instead.
+  private var adWidth: CGFloat {
+    UIScreen.main.bounds.width - 64
+  }
+
   var body: some View {
-    GeometryReader { geometry in
-      HStack {
-        Spacer()
-        AdBannerView(adWidth: geometry.size.width, adHeight: $adHeight)
-          .frame(width: geometry.size.width, height: adHeight)
-        Spacer()
-      }
+    HStack {
+      Spacer()
+      AdBannerView(adWidth: adWidth, adHeight: $adHeight)
+        .frame(width: adWidth, height: adHeight)
+      Spacer()
     }
-    .frame(height: adHeight)
     .padding(.vertical, 8)
     .background(Color.subBg.opacity(0.3))
     .cornerRadius(24)
