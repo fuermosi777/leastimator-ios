@@ -5,6 +5,7 @@ import CoreData
 struct VehicleHistoryView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject private var purchaseManager: PurchaseManager
     @ObservedObject var vehicle: Vehicle
     
     @State private var selectedRange: HistoryTimeRange = .threeMonths
@@ -123,6 +124,18 @@ struct VehicleHistoryView: View {
                     }
                     .padding(.horizontal, 24)
                     .padding(.top, 8)
+
+#if DEBUG
+                    BannerAd()
+                        .padding(.horizontal, 20)
+                        .padding(.top, 8)
+#else
+                    if !purchaseManager.unlockPro {
+                        BannerAd()
+                            .padding(.horizontal, 20)
+                            .padding(.top, 8)
+                    }
+#endif
                 }
                 .padding(.bottom, 40)
             }

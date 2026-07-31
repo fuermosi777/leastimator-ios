@@ -10,47 +10,79 @@ import GoogleMobileAds
 
 // Delegate methods for receiving width update messages.
 
-struct AdBannerView: UIViewControllerRepresentable  {
+struct AdBannerView: UIViewControllerRepresentable {
 #if DEBUG
   private var adUnitID = "ca-app-pub-3940256099942544/2934735716"
 #else
   private var adUnitID = "ca-app-pub-2170418007417966/3304580295"
 #endif
-  
+
+  var adWidth: CGFloat
+  @Binding var adHeight: CGFloat
+
+  init(adWidth: CGFloat, adHeight: Binding<CGFloat>) {
+    self.adWidth = adWidth
+    self._adHeight = adHeight
+  }
+
+  func makeCoordinator() -> Coordinator {
+    Coordinator(self)
+  }
+
   func makeUIViewController(context: Context) -> UIViewController {
-          let viewController = UIViewController()
-          
-          // Use the SDK's BannerView class (formerly GADBannerView)
-          // AdSizeBanner is the new name for GADAdSizeBanner
-          let bannerView = BannerView(adSize: AdSizeBanner)
-          
-          bannerView.adUnitID = adUnitID
-          bannerView.rootViewController = viewController
-          
-          viewController.view.addSubview(bannerView)
-          
-          // Use Auto Layout for better sizing in 2026
-          bannerView.translatesAutoresizingMaskIntoConstraints = false
-          NSLayoutConstraint.activate([
-              bannerView.bottomAnchor.constraint(equalTo: viewController.view.bottomAnchor),
-              bannerView.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor)
-          ])
-          
-          bannerView.load(Request()) // GADRequest is now just Request
-          return viewController
-      }
-  
+    let viewController = UIViewController()
+
+    // Adaptive banner: taller than the old fixed 320x50 size and sized
+    // to the available width, matching AdMob's recommended format.
+    let adSize = currentOrientationAnchoredAdaptiveBanner(width: adWidth)
+
+    let bannerView = BannerView(adSize: adSize)
+    bannerView.adUnitID = adUnitID
+    bannerView.rootViewController = viewController
+    bannerView.delegate = context.coordinator
+
+    viewController.view.addSubview(bannerView)
+
+    bannerView.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+      bannerView.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor),
+      bannerView.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor)
+    ])
+
+    bannerView.load(Request())
+    return viewController
+  }
+
   func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
+
+  final class Coordinator: NSObject, BannerViewDelegate {
+    let parent: AdBannerView
+
+    init(_ parent: AdBannerView) {
+      self.parent = parent
+    }
+
+    func bannerViewDidReceiveAd(_ bannerView: BannerView) {
+      DispatchQueue.main.async {
+        self.parent.adHeight = bannerView.adSize.size.height
+      }
+    }
+  }
 }
 
-struct BannerAd:View{
-  var body: some View{
-    HStack{
-      Spacer()
-      AdBannerView()
-        .frame(width: 320, height: 50)
-      Spacer()
+struct BannerAd: View {
+  @State private var adHeight: CGFloat = 50
+
+  var body: some View {
+    GeometryReader { geometry in
+      HStack {
+        Spacer()
+        AdBannerView(adWidth: geometry.size.width, adHeight: $adHeight)
+          .frame(width: geometry.size.width, height: adHeight)
+        Spacer()
+      }
     }
+    .frame(height: adHeight)
     .padding(.vertical, 8)
     .background(Color.subBg.opacity(0.3))
     .cornerRadius(24)
