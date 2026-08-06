@@ -86,6 +86,7 @@ struct BannerAd: View {
       Spacer()
       AdBannerView(adWidth: adWidth, adHeight: $adHeight)
         .frame(width: adWidth, height: adHeight)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
       Spacer()
     }
     .padding(.vertical, 8)

@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01646F18BC10A739EEC05E6D /* PaceAlertEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A748A0DD0FA4B3ACB01CEF2 /* PaceAlertEngine.swift */; };
 		03965DBB58C9E7EDD6E05C54 /* ICloudManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346DB580861D937723191870 /* ICloudManager.swift */; };
 		0CC354411E5A173991528426 /* VehicleHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90B92381E97D536794367D4 /* VehicleHistoryView.swift */; };
 		18AFDF4A5D7F21A64587EB9F /* OdoReadingWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF38BEC1293DB574D6882FC1 /* OdoReadingWriterTests.swift */; };
+		24ECAE2AA600092631BDB6D4 /* AlertState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A51DBB177C4036419228AAB /* AlertState.swift */; };
 		2500614B6AD39B55D5BC112A /* DeletedVehiclesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532819930EC5230001C1572 /* DeletedVehiclesView.swift */; };
 		3F2AFE682A89DFDA001B8837 /* StoreKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2AFE672A89DFDA001B8837 /* StoreKit+Extensions.swift */; };
 		3F2AFE6A2A89E363001B8837 /* SK.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 3F2AFE692A89E363001B8837 /* SK.storekit */; };
@@ -142,6 +144,7 @@
 		04DCDD1455A110D56B355CF7 /* Constants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0719529E428A672CC4F63690 /* HistoryLineChart.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HistoryLineChart.swift; sourceTree = "<group>"; };
 		07B0161C1288996595A406C9 /* VehicleEntityTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VehicleEntityTests.swift; sourceTree = "<group>"; };
+		1A51DBB177C4036419228AAB /* AlertState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertState.swift; sourceTree = "<group>"; };
 		21890A36CD94416E221BFC5D /* VehicleSwitcher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VehicleSwitcher.swift; sourceTree = "<group>"; };
 		24C309049AA74B5A85D6D8BC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		31FAA944B27A4E349B1860D9 /* TeslaRegionStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaRegionStore.swift; sourceTree = "<group>"; };
@@ -207,6 +210,7 @@
 		535E873766A6D7E90F0E9694 /* CoachMessageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CoachMessageView.swift; sourceTree = "<group>"; };
 		54CD1CBD354287ECE6448D2D /* ProjectedMileageExplanationView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProjectedMileageExplanationView.swift; sourceTree = "<group>"; };
 		72E779CABD4F33146BC481AB /* DashboardGauge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DashboardGauge.swift; sourceTree = "<group>"; };
+		7A748A0DD0FA4B3ACB01CEF2 /* PaceAlertEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaceAlertEngine.swift; sourceTree = "<group>"; };
 		7C23DE6C66FF6E833E2A3856 /* TeslaService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaService.swift; sourceTree = "<group>"; };
 		7E20E3FFA3767341968BB022 /* TeslaAuthManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TeslaAuthManager.swift; sourceTree = "<group>"; };
 		7F2B18541916143D15C54BF6 /* VehicleEntity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VehicleEntity.swift; sourceTree = "<group>"; };
@@ -318,6 +322,8 @@
 				3F3423F329DD2F9700C35E69 /* VehicleImage.swift */,
 				3F3423F529DD2FB600C35E69 /* VehiclePresentation.swift */,
 				3F34241929DD324A00C35E69 /* NotificationManager.swift */,
+				1A51DBB177C4036419228AAB /* AlertState.swift */,
+				7A748A0DD0FA4B3ACB01CEF2 /* PaceAlertEngine.swift */,
 				3FCC7E6029DE762800AC7620 /* Localizable.strings */,
 				3F2AFE692A89E363001B8837 /* SK.storekit */,
 				3FB06BC92A94739000EB0E7C /* OdometerHistoryDocument.swift */,
@@ -611,6 +617,8 @@
 				3F3423ED29DD2F4400C35E69 /* Logger.swift in Sources */,
 				3F3423DC29DD2D3A00C35E69 /* URL+Extensions.swift in Sources */,
 				3F34241A29DD324A00C35E69 /* NotificationManager.swift in Sources */,
+				24ECAE2AA600092631BDB6D4 /* AlertState.swift in Sources */,
+				01646F18BC10A739EEC05E6D /* PaceAlertEngine.swift in Sources */,
 				3F3423E629DD2ED200C35E69 /* PurchaseManager.swift in Sources */,
 				3F3423FD29DD301F00C35E69 /* UnitUtils.swift in Sources */,
 				3F3423A629DD2C7800C35E69 /* ContentView.swift in Sources */,
@@ -857,7 +865,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Leastimator/Leastimator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 125;
+				CURRENT_PROJECT_VERSION = 129;
 				DEVELOPMENT_ASSET_PATHS = "\"Leastimator/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -871,7 +879,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.11;
+				MARKETING_VERSION = 5.12;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.leastimator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -891,7 +899,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Leastimator/Leastimator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 125;
+				CURRENT_PROJECT_VERSION = 129;
 				DEVELOPMENT_ASSET_PATHS = "\"Leastimator/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -905,7 +913,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.11;
+				MARKETING_VERSION = 5.12;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.leastimator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -993,7 +1001,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = EstimateWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 125;
+				CURRENT_PROJECT_VERSION = 129;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EstimateWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = EstimateWidget;
@@ -1004,7 +1012,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 5.11;
+				MARKETING_VERSION = 5.12;
 				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.leastimator.EstimateWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1021,7 +1029,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = EstimateWidgetExtensionRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 125;
+				CURRENT_PROJECT_VERSION = 129;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EstimateWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = EstimateWidget;
@@ -1032,7 +1040,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 5.11;
+				MARKETING_VERSION = 5.12;
 				PRODUCT_BUNDLE_IDENTIFIER = im.liuhao.leastimator.EstimateWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

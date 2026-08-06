@@ -246,9 +246,33 @@ struct ContentView: View {
             .environment(\.managedObjectContext, viewContext)
         }
       }
+      .onOpenURL(perform: handleDeepLink)
     }
     // This line is critical to prevent purchase page from popping back.
     // https://developer.apple.com/forums/thread/693137
     .navigationViewStyle(.stack)
+  }
+
+  /// leastimator://vehicle?id=<entityIdentifier> — sent by a widget tap, so the app
+  /// lands on the vehicle that widget shows.
+  ///
+  /// No Pro gate here: reaching this link requires a per-vehicle widget the user has
+  /// already configured, and free accounts can't add a second vehicle to begin with.
+  private func handleDeepLink(_ url: URL) {
+    guard url.scheme == "leastimator", url.host == "vehicle",
+          let id = URLComponents(url: url, resolvingAgainstBaseURL: false)?
+            .queryItems?.first(where: { $0.name == "id" })?.value,
+          let vehicle = VehicleEntity.resolveVehicle(id: id, in: viewContext),
+          !vehicle.showOnStart else {
+      return
+    }
+
+    for v in vehicles {
+      v.showOnStart = (v == vehicle)
+    }
+    try? viewContext.save()
+    selectionVersion += 1
+    // Unconfigured widgets follow the startup vehicle, so they need a refresh too.
+    WidgetCenter.shared.reloadAllTimelines()
   }
 }

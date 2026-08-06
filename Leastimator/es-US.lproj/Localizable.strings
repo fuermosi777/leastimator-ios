@@ -17,6 +17,7 @@
 "Add Vehicle" = "Añadir vehículo";
 "Add a vehicle" = "Añadir un vehículo";
 "Add your vehicle and a few odometer readings. We'll project your end-of-lease mileage and coach you to stay on track." = "Añada su vehículo y algunas lecturas del cuentakilómetros. Proyectaremos su kilometraje al final del contrato y le guiaremos para que se mantenga en el camino correcto.";
+"Approaching your mileage limit" = "Se acerca a su límite de kilometraje";
 "All" = "Todos";
 "Archived" = "Archivado";
 "Auto Sync from Tesla" = "Sincronización automática de Tesla";
@@ -36,6 +37,7 @@
 "Disconnect" = "Desconectar";
 "Done" = "Hecho";
 "Driving Reminders" = "Recordatorios de conducción";
+"Good News" = "Buenas noticias";
 "Edit Vehicle" = "Editar vehículo";
 "Error" = "Error";
 "Every %lld connections" = "Cada %lld conexiones";
@@ -43,6 +45,8 @@
 "Frequency" = "Frecuencia";
 "Get reminded after connecting to your car (Bluetooth/CarPlay) several times." = "Reciba recordatorios después de conectarse a su auto (Bluetooth/CarPlay) varias veces.";
 "Get reminded to update your mileage on a schedule." = "Reciba recordatorios para actualizar su kilometraje de forma programada.";
+"Haven't heard from you in a while" = "Hace tiempo que no sabemos de usted";
+"Heads up — your pace picked up" = "Atención — su ritmo ha aumentado";
 "History" = "Historial";
 "Leastimator Pro" = "Leastimator Pro";
 "Leastimator Pro is an optional subscription to control ads, track multiple vehicles, handle customization, and support future development" = "Leastimator Pro es una suscripción opcional para controlar anuncios, rastrear múltiples vehículos, personalizar la aplicación y apoyar el desarrollo futuro.";
@@ -50,7 +54,10 @@
 "Length unit" = "Unidad de medida";
 "Log in to Tesla" = "Iniciar sesión en Tesla";
 "Monthly" = "Mensual";
+"Nice — your pace over the last 30 days has slowed down. You're now projected to come in %lld %@ under your limit." = "Bien — su ritmo de los últimos 30 días se ha reducido. Ahora se proyecta que quedará %lld %@ por debajo de su límite.";
+"Nice pace — you've eased off" = "Buen ritmo — ha bajado el ritmo";
 "No Deleted Vehicles" = "No hay vehículos eliminados";
+"No new mileage reading in %lld days. Add one to keep your projection accurate." = "No hay una nueva lectura de kilometraje en %lld días. Añada una para mantener su proyección precisa.";
 "No readings recorded yet." = "No hay lecturas registradas aún.";
 "Notice" = "Aviso";
 "ODOMETER" = "ODÓMETRO";
@@ -58,6 +65,7 @@
 "Odometer History" = "Historial del odómetro";
 "Ok" = "Aceptar";
 "PROJECTED" = "PROYECTADO";
+"Pace Alerts" = "Alertas de ritmo";
 "Periodic Reminders" = "Recordatorios periódicos";
 "Please rate Leastimator" = "Calificar Leastimator";
 "Privacy Policy" = "Política de privacidad";
@@ -80,9 +88,14 @@
 "Vehicles you delete will appear here and can be restored to your garage." = "Los vehículos que elimine aparecerán aquí y podrán ser restaurados a su garaje.";
 "Version" = "Versión";
 "View and restore vehicles that were previously deleted." = "Vea y restaure vehículos que fueron eliminados anteriormente.";
+"Warnings" = "Advertencias";
 "Weekly" = "Semanal";
+"You've driven %lld %@ this month, %lld%% more than usual. At this pace, you'll exceed your limit by %lld %@." = "Ha recorrido %lld %@ este mes, %lld%% más de lo habitual. A este ritmo, superará su límite en %lld %@.";
+"You've reached your mileage limit" = "Ha alcanzado su límite de kilometraje";
 "You haven't added any readings yet." = "Aún no has añadido ninguna lectura.";
 "You must sign in again to sync." = "Debe volver a iniciar sesión para sincronizar.";
+"Your projected mileage has reached 100% of your lease allowance." = "Su kilometraje proyectado ha alcanzado el 100% de su límite de arrendamiento.";
+"Your projected mileage has reached 90% of your lease allowance." = "Su kilometraje proyectado ha alcanzado el 90% de su límite de arrendamiento.";
 "disclaimer" = "La información proporcionada es solo para fines de predicción y no debe interpretarse como cifras reales. Si bien Leastimator hace todo lo posible para garantizar la precisión de la información presentada, no podemos garantizar que esté libre de errores u omisiones. Leastimator no es responsable de ningún daño o pérdida que pueda surgir del uso de esta información.";
 "pro" = "Pro";
 "vehicle delete warning message" = "Por favor, confirme que desea eliminar este vehículo. Tenga en cuenta que esta acción no se puede deshacer.";
@@ -98,7 +111,7 @@
 "Preferences" = "Preferencias";
 "Configure widget settings and dashboard displays. Enabling variance displays your predicted mileage versus the allowed leased limit on the gauge." = "Configure los ajustes del widget y las pantallas del panel. Al habilitar la desviación, se muestra el kilometraje previsto frente al límite de arrendamiento permitido en el indicador.";
 "Reminders" = "Recordatorios";
-"Stay up to date. Schedule time-based reminders or get driving-based suggestions after connecting to your vehicle's Bluetooth/CarPlay." = "Manténgase al día. Programe recordatorios basados en el tiempo o reciba sugerencias de conducción después de conectarse al Bluetooth/CarPlay de su vehículo.";
+"Stay up to date. Schedule time-based reminders, get driving-based suggestions after connecting to your vehicle's Bluetooth/CarPlay, or get notified when your driving pace meaningfully changes." = "Manténgase al día. Programe recordatorios basados en el tiempo, reciba sugerencias de conducción después de conectarse al Bluetooth/CarPlay de su vehículo, o reciba notificaciones cuando su ritmo de conducción cambie de forma significativa.";
 "Data & Cloud" = "Datos y Nube";
 "Secure and sync your vehicle records. Access recently deleted vehicles to restore them if needed." = "Proteja y sincronice los registros de su vehículo. Acceda a los vehículos eliminados recientemente para restaurarlos si es necesario.";
 "Support & Legal" = "Soporte y Legal";

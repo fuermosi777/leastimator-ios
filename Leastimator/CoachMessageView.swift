@@ -9,15 +9,32 @@ import SwiftUI
 
 struct CoachMessage: View {
   let isOverPace: Bool
+  var activeAlert: ActiveVehicleAlert? = nil
+
+  private var dotColor: Color {
+    if let activeAlert {
+      return activeAlert.isGoodNews ? .accentColor : .red
+    }
+    return isOverPace ? .red : .accentColor
+  }
+
+  private var message: String {
+    if let activeAlert {
+      return activeAlert.message
+    }
+    return isOverPace ? "Heads up — you're over pace" : "Nice pace. You're on track."
+  }
+
   var body: some View {
     HStack(spacing: 8) {
       Circle()
-        .fill(isOverPace ? Color.red : Color.accentColor)
+        .fill(dotColor)
         .frame(width: 8, height: 8)
-        .shadow(color: isOverPace ? Color.red : Color.accentColor, radius: 4)
-      Text(isOverPace ? "Heads up — you're over pace" : "Nice pace. You're on track.")
+        .shadow(color: dotColor, radius: 4)
+      Text(LocalizedStringKey(message))
         .font(.rounded(13, weight: .bold))
         .foregroundColor(.subText)
+        .lineLimit(2)
     }
   }
 }

@@ -17,6 +17,7 @@
 "Add Vehicle" = "Add Vehicle";
 "Add a vehicle" = "Add a vehicle";
 "Add your vehicle and a few odometer readings. We'll project your end-of-lease mileage and coach you to stay on track." = "Add your vehicle and a few odometer readings. We'll project your end-of-lease mileage and coach you to stay on track.";
+"Approaching your mileage limit" = "Approaching your mileage limit";
 "All" = "All";
 "Archived" = "Archived";
 "Auto Sync from Tesla" = "Auto Sync from Tesla";
@@ -38,6 +39,7 @@
 "Disconnect" = "Disconnect";
 "Done" = "Done";
 "Driving Reminders" = "Driving Reminders";
+"Good News" = "Good News";
 "Edit Vehicle" = "Edit Vehicle";
 "Error" = "Error";
 "Estimated excess charge: **%lld** %@ at lease end." = "Estimated excess charge: **%lld** %@ at lease end.";
@@ -47,6 +49,8 @@
 "Get reminded after connecting to your car (Bluetooth/CarPlay) several times." = "Get reminded after connecting to your car (Bluetooth/CarPlay) several times.";
 "Get reminded to update your mileage on a schedule." = "Get reminded to update your mileage on a schedule.";
 "Heads up — you've already exceeded your current pacing by **%lld** %@." = "Heads up — you've already exceeded your current pacing by **%lld** %@.";
+"Haven't heard from you in a while" = "Haven't heard from you in a while";
+"Heads up — your pace picked up" = "Heads up — your pace picked up";
 "History" = "History";
 "LEASE LEFT" = "LEASE LEFT";
 "Leastimator Pro" = "Leastimator Pro";
@@ -55,7 +59,10 @@
 "Length unit" = "Length unit";
 "Log in to Tesla" = "Log in to Tesla";
 "Monthly" = "Monthly";
+"Nice — your pace over the last 30 days has slowed down. You're now projected to come in %lld %@ under your limit." = "Nice — your pace over the last 30 days has slowed down. You're now projected to come in %lld %@ under your limit.";
+"Nice pace — you've eased off" = "Nice pace — you've eased off";
 "No Deleted Vehicles" = "No Deleted Vehicles";
+"No new mileage reading in %lld days. Add one to keep your projection accurate." = "No new mileage reading in %lld days. Add one to keep your projection accurate.";
 "No readings recorded yet." = "No readings recorded yet.";
 "Notice" = "Notice";
 "ODOMETER" = "ODOMETER";
@@ -63,6 +70,7 @@
 "Odometer History" = "Odometer History";
 "Ok" = "Ok";
 "PROJECTED" = "PROJECTED";
+"Pace Alerts" = "Pace Alerts";
 "Periodic Reminders" = "Periodic Reminders";
 "Please rate Leastimator" = "Please rate Leastimator";
 "Privacy Policy" = "Privacy Policy";
@@ -85,13 +93,18 @@
 "Vehicles you delete will appear here and can be restored to your garage." = "Vehicles you delete will appear here and can be restored to your garage.";
 "Version" = "Version";
 "View and restore vehicles that were previously deleted." = "View and restore vehicles that were previously deleted.";
+"Warnings" = "Warnings";
 "Weekly" = "Weekly";
 "You are currently under your mileage limit. No excess charges estimated." = "You are currently under your mileage limit. No excess charges estimated.";
 "You can drive as far as you want because you did not set the mileage allowed." = "You can drive as far as you want because you did not set the mileage allowed.";
 "You can drive up to **%lld** %@ today and still be on track." = "You can drive up to **%lld** %@ today and still be on track.";
+"You've driven %lld %@ this month, %lld%% more than usual. At this pace, you'll exceed your limit by %lld %@." = "You've driven %lld %@ this month, %lld%% more than usual. At this pace, you'll exceed your limit by %lld %@.";
+"You've reached your mileage limit" = "You've reached your mileage limit";
 "You haven't added any readings yet." = "You haven't added any readings yet.";
 "You must sign in again to sync." = "You must sign in again to sync.";
 "Your odometer should read less than **%lld** %@ right now." = "Your odometer should read less than **%lld** %@ right now.";
+"Your projected mileage has reached 100% of your lease allowance." = "Your projected mileage has reached 100% of your lease allowance.";
+"Your projected mileage has reached 90% of your lease allowance." = "Your projected mileage has reached 90% of your lease allowance.";
 "disclaimer" = "The information provided is for predication purposes only and should not be construed as actual numbers. While Leastimator makes every effort to ensure the accuracy of the information presented, we cannot guarantee that it is free from errors or omissions. Leastimator is not liable for any damages or losses that may arise from the use of this information.";
 "pro" = "Pro";
 "vehicle delete warning message" = "Please confirm that you want to delete this vehicle. Note that this cannot be undone.";
@@ -126,7 +139,7 @@
 "Preferences" = "Preferences";
 "Configure widget settings and dashboard displays. Enabling variance displays your predicted mileage versus the allowed leased limit on the gauge." = "Configure widget settings and dashboard displays. Enabling variance displays your predicted mileage versus the allowed leased limit on the gauge.";
 "Reminders" = "Reminders";
-"Stay up to date. Schedule time-based reminders or get driving-based suggestions after connecting to your vehicle's Bluetooth/CarPlay." = "Stay up to date. Schedule time-based reminders or get driving-based suggestions after connecting to your vehicle's Bluetooth/CarPlay.";
+"Stay up to date. Schedule time-based reminders, get driving-based suggestions after connecting to your vehicle's Bluetooth/CarPlay, or get notified when your driving pace meaningfully changes." = "Stay up to date. Schedule time-based reminders, get driving-based suggestions after connecting to your vehicle's Bluetooth/CarPlay, or get notified when your driving pace meaningfully changes.";
 "Data & Cloud" = "Data & Cloud";
 "Secure and sync your vehicle records. Access recently deleted vehicles to restore them if needed." = "Secure and sync your vehicle records. Access recently deleted vehicles to restore them if needed.";
 "Support & Legal" = "Support & Legal";

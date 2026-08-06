@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftRater
 import GoogleMobileAds
+import BackgroundTasks
 
 @main
 struct LeastimatorApp: App {
@@ -72,6 +73,7 @@ struct LeastimatorApp: App {
         case .active :
           Task {
               await TeslaSyncService.shared.performSync(context: persistenceController.container.viewContext)
+              notificationManger.evaluateAndNotifyAllVehicles(context: persistenceController.container.viewContext)
           }
           if let name = shortcutItemToProcess?.type {
               // Defined in Info.plist
@@ -91,19 +93,49 @@ struct LeastimatorApp: App {
 // For quick actions.
 var shortcutItemToProcess: UIApplicationShortcutItem?
 
+let paceAlertRefreshTaskIdentifier = "im.liuhao.leastimator.paceAlertRefresh"
+
 class AppDelegate: NSObject, UIApplicationDelegate {
+  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+    BGTaskScheduler.shared.register(forTaskWithIdentifier: paceAlertRefreshTaskIdentifier, using: nil) { task in
+      Self.handlePaceAlertRefresh(task: task as! BGAppRefreshTask)
+    }
+    Self.schedulePaceAlertRefresh()
+    return true
+  }
+
   func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
     if let shortcutItem = options.shortcutItem {
       shortcutItemToProcess = shortcutItem
     }
-    
+
     let sceneConfiguration = UISceneConfiguration(name: "Custom Configuration", sessionRole: connectingSceneSession.role)
     sceneConfiguration.delegateClass = CustomSceneDelegate.self
-    
+
     // Initialize Google AdMobs.
     MobileAds.shared.start(completionHandler: nil)
-    
+
     return sceneConfiguration
+  }
+
+  static func schedulePaceAlertRefresh() {
+    let request = BGAppRefreshTaskRequest(identifier: paceAlertRefreshTaskIdentifier)
+    request.earliestBeginDate = Date(timeIntervalSinceNow: 6 * 3600) // OS decides actual timing; this is just a floor.
+    try? BGTaskScheduler.shared.submit(request)
+  }
+
+  static func handlePaceAlertRefresh(task: BGAppRefreshTask) {
+    schedulePaceAlertRefresh() // keep the chain going regardless of this run's outcome
+
+    let context = PersistenceController.shared.container.viewContext
+    task.expirationHandler = {
+      task.setTaskCompleted(success: false)
+    }
+
+    Task { @MainActor in
+      NotificationManager.shared.evaluateAndNotifyAllVehicles(context: context)
+      task.setTaskCompleted(success: true)
+    }
   }
 }
 

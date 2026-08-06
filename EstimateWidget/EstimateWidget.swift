@@ -27,9 +27,12 @@ struct VehicleSnapshot: Equatable {
   /// Projected / limit, clamped to [0, 1.15] for drawing.
   let progress: Double
   let lengthUnit: LengthUnit
+  /// Stable entity identifier used for the tap-through deep link, nil in previews.
+  let entityId: String?
 
   init(name: String, projectedMileage: Int, currentMileage: Int, allowedMileage: Int,
-       mileagePerDay: Double, variance: Int, progress: Double, lengthUnit: LengthUnit) {
+       mileagePerDay: Double, variance: Int, progress: Double, lengthUnit: LengthUnit,
+       entityId: String? = nil) {
     self.name = name
     self.projectedMileage = projectedMileage
     self.currentMileage = currentMileage
@@ -38,11 +41,13 @@ struct VehicleSnapshot: Equatable {
     self.variance = variance
     self.progress = progress
     self.lengthUnit = lengthUnit
+    self.entityId = entityId
   }
 
   init(vehicle: Vehicle) {
     let info = Compute(vehicle)
     self.name = vehicle.name ?? "Vehicle"
+    self.entityId = vehicle.entityIdentifier
     self.projectedMileage = info.normalPredicatedMileage
     self.currentMileage = info.currentMileage
     self.allowedMileage = Int(vehicle.allowed)
@@ -74,11 +79,12 @@ struct Provider: AppIntentTimelineProvider {
   /// Resolves the configured vehicle, falling back to the legacy `showOnWidget` flag.
   ///
   /// Widgets added before configuration existed have no intent selection, so without
-  /// this fallback they would all go blank on update.
+  /// this fallback they would all go blank on update. A widget that *is* configured
+  /// deliberately never falls back: rendering some other vehicle's numbers under this
+  /// widget's identity is worse than showing the placeholder.
   private func vehicle(for configuration: SelectVehicleIntent) -> Vehicle? {
-    if let id = configuration.vehicle?.id,
-       let vehicle = VehicleEntity.resolveVehicle(id: id, in: moc) {
-      return vehicle
+    if let id = configuration.vehicle?.id {
+      return VehicleEntity.resolveVehicle(id: id, in: moc)
     }
     return VehicleEntity.widgetDefault(in: moc)
   }
@@ -424,19 +430,32 @@ struct EstimateWidgetEntryView: View {
 
   var body: some View {
     if let snapshot = entry.snapshot {
-      switch family {
-        case .accessoryRectangular:
-          WidgetAccessoryRectangularView(snapshot: snapshot)
-        case .accessoryCircular:
-          WidgetAccessoryCircularView(snapshot: snapshot)
-        case .systemMedium:
-          WidgetMediumView(snapshot: snapshot)
-        default:
-          WidgetProgressView(snapshot: snapshot)
+      Group {
+        switch family {
+          case .accessoryRectangular:
+            WidgetAccessoryRectangularView(snapshot: snapshot)
+          case .accessoryCircular:
+            WidgetAccessoryCircularView(snapshot: snapshot)
+          case .systemMedium:
+            WidgetMediumView(snapshot: snapshot)
+          default:
+            WidgetProgressView(snapshot: snapshot)
+        }
       }
+      .widgetURL(deepLink(for: snapshot))
     } else {
       placeholder
     }
+  }
+
+  /// Tapping the widget opens the app on this widget's vehicle, not whichever one
+  /// happens to be the startup default.
+  private func deepLink(for snapshot: VehicleSnapshot) -> URL? {
+    guard let id = snapshot.entityId,
+          let encoded = id.addingPercentEncoding(withAllowedCharacters: .alphanumerics) else {
+      return nil
+    }
+    return URL(string: "leastimator://vehicle?id=\(encoded)")
   }
 
   @ViewBuilder

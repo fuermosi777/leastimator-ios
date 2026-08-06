@@ -42,6 +42,12 @@ extension Vehicle {
     return "\(startStr) - \(endStr) • \(months) months"
   }
   
+  /// Stable identifier shared by the widget configuration, Siri intents, and the
+  /// widget deep link.
+  var entityIdentifier: String {
+    objectID.uriRepresentation().absoluteString
+  }
+
   var lastTeslaSyncKey: String {
     "last_tesla_sync_\(objectID.uriRepresentation().absoluteString)"
   }

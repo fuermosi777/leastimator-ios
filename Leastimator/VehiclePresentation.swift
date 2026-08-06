@@ -106,7 +106,7 @@ struct VehiclePresentation: View {
           }
 
           HStack(alignment: .center) {
-            CoachMessage(isOverPace: progressPercentage >= 1.0)
+            CoachMessage(isOverPace: progressPercentage >= 1.0, activeAlert: AlertStateStore.activeAlert(for: vehicle.entityIdentifier))
             Spacer()
             if vehicle.teslaConnectionId != nil {
               TeslaAPIStatusView(state: vehicleState)

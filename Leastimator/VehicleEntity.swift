@@ -96,9 +96,17 @@ struct VehicleEntityQuery: EntityQuery {
   @MainActor
   func entities(for identifiers: [String]) async throws -> [VehicleEntity] {
     let context = PersistenceController.shared.container.viewContext
-    return identifiers.compactMap { id in
-      guard let vehicle = VehicleEntity.resolveVehicle(id: id, in: context) else { return nil }
-      return VehicleEntity(vehicle: vehicle)
+    return identifiers.map { id in
+      if let vehicle = VehicleEntity.resolveVehicle(id: id, in: context),
+         let entity = VehicleEntity(vehicle: vehicle) {
+        return entity
+      }
+      // Dropping the identifier here would blank the widget's configuration for good:
+      // WidgetKit hands the provider a nil parameter, which used to silently fall back
+      // to the default vehicle — a widget configured for car B quietly turning into
+      // car A. Keep the identifier alive instead, so a transient resolution failure
+      // heals itself on the next render.
+      return VehicleEntity(id: id, name: "Vehicle")
     }
   }
 

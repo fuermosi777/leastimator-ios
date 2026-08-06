@@ -16,6 +16,9 @@ struct SettingsView: View {
   @AppStorage("reminderTime") private var reminderTime = Date().timeIntervalSince1970
   @AppStorage("connectionRemindersEnabled") private var connectionRemindersEnabled = false
   @AppStorage("connectionThreshold") private var connectionThreshold = 5
+  @AppStorage("paceAlertsEnabled") private var paceAlertsEnabled = true
+  @AppStorage("paceAlertWarningsEnabled") private var paceAlertWarningsEnabled = true
+  @AppStorage("paceAlertGoodNewsEnabled") private var paceAlertGoodNewsEnabled = true
   @AppStorage("iCloudSyncEnabled") private var iCloudSyncEnabled = true
   @AppStorage("lastSyncTime") private var lastSyncTime: Double = 0
   
@@ -212,10 +215,41 @@ struct SettingsView: View {
             }
           }
         }
+
+        // Pace Alerts
+        Toggle(isOn: $paceAlertsEnabled) {
+          Label {
+            Text("Pace Alerts")
+              .foregroundColor(.mainText)
+          } icon: {
+            Image(systemName: "speedometer")
+              .foregroundColor(.subText)
+          }
+        }
+        if paceAlertsEnabled {
+          Toggle(isOn: $paceAlertWarningsEnabled) {
+            Label {
+              Text("Warnings")
+                .foregroundColor(.mainText)
+            } icon: {
+              Image(systemName: "exclamationmark.triangle")
+                .foregroundColor(.subText)
+            }
+          }
+          Toggle(isOn: $paceAlertGoodNewsEnabled) {
+            Label {
+              Text("Good News")
+                .foregroundColor(.mainText)
+            } icon: {
+              Image(systemName: "checkmark.circle")
+                .foregroundColor(.subText)
+            }
+          }
+        }
       } header: {
         Text("Reminders")
       } footer: {
-        Text("Stay up to date. Schedule time-based reminders or get driving-based suggestions after connecting to your vehicle's Bluetooth/CarPlay.")
+        Text("Stay up to date. Schedule time-based reminders, get driving-based suggestions after connecting to your vehicle's Bluetooth/CarPlay, or get notified when your driving pace meaningfully changes.")
       }
       .onChange(of: periodicRemindersEnabled) { newValue in
         updatePeriodicNotification()
@@ -225,6 +259,9 @@ struct SettingsView: View {
       .onChange(of: reminderTime) { _ in updatePeriodicNotification() }
       .onChange(of: connectionRemindersEnabled) { newValue in
         if newValue { Logger.shared.reminderEnabled(type: "driving") }
+      }
+      .onChange(of: paceAlertsEnabled) { newValue in
+        if newValue { Logger.shared.reminderEnabled(type: "pace") }
       }
       
       // 4. DATA & SYNC SECTION
