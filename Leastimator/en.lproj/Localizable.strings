@@ -137,7 +137,8 @@
 
 "Show Mileage Variance" = "Show Mileage Variance";
 "Preferences" = "Preferences";
-"Configure widget settings and dashboard displays. Enabling variance displays your predicted mileage versus the allowed leased limit on the gauge." = "Configure widget settings and dashboard displays. Enabling variance displays your predicted mileage versus the allowed leased limit on the gauge.";
+"Configure widget settings and dashboard displays. Enabling variance displays your predicted mileage versus the allowed leased limit on the gauge. The gauge turns amber once projected mileage reaches the warning percentage, and red at 100%." = "Configure widget settings and dashboard displays. Enabling variance displays your predicted mileage versus the allowed leased limit on the gauge. The gauge turns amber once projected mileage reaches the warning percentage, and red at 100%.";
+"Warn at %lld%% of limit" = "Warn at %lld%% of limit";
 "Reminders" = "Reminders";
 "Stay up to date. Schedule time-based reminders, get driving-based suggestions after connecting to your vehicle's Bluetooth/CarPlay, or get notified when your driving pace meaningfully changes." = "Stay up to date. Schedule time-based reminders, get driving-based suggestions after connecting to your vehicle's Bluetooth/CarPlay, or get notified when your driving pace meaningfully changes.";
 "Data & Cloud" = "Data & Cloud";

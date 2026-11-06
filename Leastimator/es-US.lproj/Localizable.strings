@@ -109,7 +109,8 @@
 
 "Show Mileage Variance" = "Mostrar desviación de kilometraje";
 "Preferences" = "Preferencias";
-"Configure widget settings and dashboard displays. Enabling variance displays your predicted mileage versus the allowed leased limit on the gauge." = "Configure los ajustes del widget y las pantallas del panel. Al habilitar la desviación, se muestra el kilometraje previsto frente al límite de arrendamiento permitido en el indicador.";
+"Configure widget settings and dashboard displays. Enabling variance displays your predicted mileage versus the allowed leased limit on the gauge. The gauge turns amber once projected mileage reaches the warning percentage, and red at 100%." = "Configure los ajustes del widget y las pantallas del panel. Al habilitar la desviación, se muestra el kilometraje previsto frente al límite de arrendamiento permitido en el indicador. El indicador se vuelve ámbar cuando el kilometraje previsto alcanza el porcentaje de advertencia, y rojo al 100 %.";
+"Warn at %lld%% of limit" = "Advertir al %lld%% del límite";
 "Reminders" = "Recordatorios";
 "Stay up to date. Schedule time-based reminders, get driving-based suggestions after connecting to your vehicle's Bluetooth/CarPlay, or get notified when your driving pace meaningfully changes." = "Manténgase al día. Programe recordatorios basados en el tiempo, reciba sugerencias de conducción después de conectarse al Bluetooth/CarPlay de su vehículo, o reciba notificaciones cuando su ritmo de conducción cambie de forma significativa.";
 "Data & Cloud" = "Datos y Nube";

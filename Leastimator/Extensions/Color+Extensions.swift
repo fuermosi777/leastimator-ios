@@ -66,9 +66,30 @@ extension Color {
   static var statusAmber: Color { Color(red: 255/255, green: 159/255, blue: 10/255) } // Amber Orange
   static var statusLime: Color { Color(red: 50/255, green: 215/255, blue: 75/255) } // Lime Green
 
-  static func statusColor(progress: Double) -> Color {
+  /// Red at/over 100% of the allowance (fixed); amber from the user-configurable
+  /// warning start; lime below that.
+  static func statusColor(progress: Double, warningStart: Double = StatusThreshold.warningStart) -> Color {
       if progress >= 1.0 { return .statusRed }
-      if progress >= 0.9 { return .statusAmber }
+      if progress >= warningStart { return .statusAmber }
       return .statusLime
+  }
+}
+
+/// User-configurable point (percent of allowance) where the status color turns amber.
+/// Stored in the App Group so the widget extension sees the same value.
+enum StatusThreshold {
+  static let warningStartKey = "statusWarningStartPercent"
+  static let defaultWarningStartPercent = 90
+  static let warningStartRange = 75...99
+  static let store = UserDefaults(suiteName: "group.im.liuhao.leastimator") ?? .standard
+
+  static func fraction(fromPercent percent: Int) -> Double {
+    let clamped = min(max(percent, warningStartRange.lowerBound), warningStartRange.upperBound)
+    return Double(clamped) / 100
+  }
+
+  static var warningStart: Double {
+    let stored = store.object(forKey: warningStartKey) as? Int ?? defaultWarningStartPercent
+    return fraction(fromPercent: stored)
   }
 }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 struct SettingsView: View {
   @EnvironmentObject private var purchaseManager: PurchaseManager
@@ -21,7 +22,9 @@ struct SettingsView: View {
   @AppStorage("paceAlertGoodNewsEnabled") private var paceAlertGoodNewsEnabled = true
   @AppStorage("iCloudSyncEnabled") private var iCloudSyncEnabled = true
   @AppStorage("lastSyncTime") private var lastSyncTime: Double = 0
-  
+  @AppStorage(StatusThreshold.warningStartKey, store: StatusThreshold.store)
+  private var warningStartPercent = StatusThreshold.defaultWarningStartPercent
+
   @State private var showingRestartAlert = false
   @State private var showingICloudIneligibleAlert = false
   @State private var showProUpgradeSheet = false
@@ -136,7 +139,21 @@ struct SettingsView: View {
               .foregroundColor(.subText)
           }
         }
-        
+
+        // Warning color threshold (amber start; red stays at 100%)
+        Stepper(value: $warningStartPercent, in: StatusThreshold.warningStartRange) {
+          Label {
+            Text("Warn at \(warningStartPercent)% of limit")
+              .foregroundColor(.mainText)
+          } icon: {
+            Image(systemName: "exclamationmark.triangle")
+              .foregroundColor(.statusAmber)
+          }
+        }
+        .onChange(of: warningStartPercent) { _ in
+          WidgetCenter.shared.reloadAllTimelines()
+        }
+
         // Theme Picker
         Picker(selection: $themePreference) {
           Text("System").tag("system")
@@ -154,7 +171,7 @@ struct SettingsView: View {
       } header: {
         Text("Preferences")
       } footer: {
-        Text("Configure widget settings and dashboard displays. Enabling variance displays your predicted mileage versus the allowed leased limit on the gauge.")
+        Text("Configure widget settings and dashboard displays. Enabling variance displays your predicted mileage versus the allowed leased limit on the gauge. The gauge turns amber once projected mileage reaches the warning percentage, and red at 100%.")
       }
       
       // 3. REMINDERS SECTION (Combining Periodic & Driving Reminders)

@@ -10,6 +10,8 @@ import SwiftUI
 struct EditReadingView: View {
   @Environment(\.dismiss) private var dismiss
   @Environment(\.managedObjectContext) private var viewContext
+  @AppStorage(StatusThreshold.warningStartKey, store: StatusThreshold.store)
+  private var warningStartPercent = StatusThreshold.defaultWarningStartPercent
   @EnvironmentObject var errorHandler: ErrorHandler
   
   @ObservedObject var vehicle: Vehicle
@@ -50,7 +52,8 @@ struct EditReadingView: View {
   }
   
   private var statusColor: Color {
-    Color.statusColor(progress: Double(progressPercentage))
+    Color.statusColor(progress: Double(progressPercentage),
+                      warningStart: StatusThreshold.fraction(fromPercent: warningStartPercent))
   }
 
   private var formattedReading: String {

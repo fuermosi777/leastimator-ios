@@ -27,6 +27,8 @@ struct PlusGrayCircle: View {
 struct ContentView: View {
   @EnvironmentObject private var purchaseManager: PurchaseManager
   @Environment(\.managedObjectContext) private var viewContext
+  @AppStorage(StatusThreshold.warningStartKey, store: StatusThreshold.store)
+  private var warningStartPercent = StatusThreshold.defaultWarningStartPercent
   @State private var redirectToSettings = false
   @State private var showAddVehicleSheet = false
   @State private var showEditVehicleSheet: Vehicle?
@@ -63,7 +65,8 @@ struct ContentView: View {
       let up = Double(info.normalPredicatedMileage)
       let down = Double(vehicle.allowed + vehicle.starting)
       let progress = down > 0 ? up / down : 1.0
-      return Color.statusColor(progress: progress)
+      return Color.statusColor(progress: progress,
+                               warningStart: StatusThreshold.fraction(fromPercent: warningStartPercent))
     }
     return .accentColor
   }

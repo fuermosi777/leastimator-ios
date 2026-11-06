@@ -67,6 +67,8 @@ let kUnknownVehicleName = "Unknown Vehicle"
 struct EditVehicleView: View {
   @Environment(\.dismiss) private var dismiss
   @Environment(\.managedObjectContext) private var viewContext
+  @AppStorage(StatusThreshold.warningStartKey, store: StatusThreshold.store)
+  private var warningStartPercent = StatusThreshold.defaultWarningStartPercent
   @EnvironmentObject var errorHandler: ErrorHandler
   @EnvironmentObject var purchaseManager: PurchaseManager
   
@@ -142,7 +144,8 @@ struct EditVehicleView: View {
   
   private var statusColor: Color {
     if vehicle == nil { return .statusLime }
-    return Color.statusColor(progress: Double(progressPercentage))
+    return Color.statusColor(progress: Double(progressPercentage),
+                             warningStart: StatusThreshold.fraction(fromPercent: warningStartPercent))
   }
 
   var body: some View {

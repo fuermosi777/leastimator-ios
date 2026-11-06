@@ -14,6 +14,8 @@ struct VehiclePresentation: View {
   @EnvironmentObject var errorHandler: ErrorHandler
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
   @AppStorage("showMileageVariance") private var showMileageVariance = true
+  @AppStorage(StatusThreshold.warningStartKey, store: StatusThreshold.store)
+  private var warningStartPercent = StatusThreshold.defaultWarningStartPercent
   
   // Add ObservedObject make sure it gets updated data.
   @ObservedObject var vehicle: Vehicle
@@ -77,7 +79,8 @@ struct VehiclePresentation: View {
   }
   
   private var statusColor: Color {
-    Color.statusColor(progress: progressPercentage)
+    Color.statusColor(progress: progressPercentage,
+                      warningStart: StatusThreshold.fraction(fromPercent: warningStartPercent))
   }
   
   let linearGradient = LinearGradient(

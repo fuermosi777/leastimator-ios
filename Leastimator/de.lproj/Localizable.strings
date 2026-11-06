@@ -147,7 +147,8 @@
 
 "Show Mileage Variance" = "Kilometer-Abweichung anzeigen";
 "Preferences" = "Einstellungen";
-"Configure widget settings and dashboard displays. Enabling variance displays your predicted mileage versus the allowed leased limit on the gauge." = "Konfigurieren Sie Widget-Einstellungen und Dashboard-Anzeigen. Die Aktivierung der Abweichung zeigt Ihren prognostizierten Kilometerstand im Vergleich zum zulässigen Limit an.";
+"Configure widget settings and dashboard displays. Enabling variance displays your predicted mileage versus the allowed leased limit on the gauge. The gauge turns amber once projected mileage reaches the warning percentage, and red at 100%." = "Konfigurieren Sie Widget-Einstellungen und Dashboard-Anzeigen. Die Aktivierung der Abweichung zeigt Ihren prognostizierten Kilometerstand im Vergleich zum zulässigen Limit an. Die Anzeige wird orange, sobald der prognostizierte Kilometerstand den Warnwert erreicht, und rot bei 100 %.";
+"Warn at %lld%% of limit" = "Warnung bei %lld%% des Limits";
 "Reminders" = "Erinnerungen";
 "Stay up to date. Schedule time-based reminders, get driving-based suggestions after connecting to your vehicle's Bluetooth/CarPlay, or get notified when your driving pace meaningfully changes." = "Bleiben Sie auf dem Laufenden. Planen Sie zeitbasierte Erinnerungen, erhalten Sie fahrbasierte Vorschläge, nachdem Sie eine Verbindung mit dem Bluetooth/CarPlay Ihres Fahrzeugs hergestellt haben, oder lassen Sie sich benachrichtigen, wenn sich Ihr Fahrtempo deutlich ändert.";
 "Data & Cloud" = "Daten & Cloud";

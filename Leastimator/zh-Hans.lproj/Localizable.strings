@@ -128,7 +128,8 @@
 
 "Show Mileage Variance" = "显示里程偏差值";
 "Preferences" = "个性化设置";
-"Configure widget settings and dashboard displays. Enabling variance displays your predicted mileage versus the allowed leased limit on the gauge." = "配置小组件设置和仪表盘显示。开启此项将在仪表盘上显示预计总里程与租约限制的偏差值。";
+"Configure widget settings and dashboard displays. Enabling variance displays your predicted mileage versus the allowed leased limit on the gauge. The gauge turns amber once projected mileage reaches the warning percentage, and red at 100%." = "配置小组件设置和仪表盘显示。开启此项将在仪表盘上显示预计总里程与租约限制的偏差值。当预计里程达到警告百分比时仪表变为橙色，达到 100% 时变为红色。";
+"Warn at %lld%% of limit" = "达到限额的 %lld%% 时警告";
 "Reminders" = "数据记录提醒";
 "Stay up to date. Schedule time-based reminders, get driving-based suggestions after connecting to your vehicle's Bluetooth/CarPlay, or get notified when your driving pace meaningfully changes." = "保持数据最新。可以设定定时提醒，在蓝牙/CarPlay连接到您的车辆后获取添加里程建议，或在行驶节奏发生明显变化时收到通知。";
 "Data & Cloud" = "数据与云服务";
